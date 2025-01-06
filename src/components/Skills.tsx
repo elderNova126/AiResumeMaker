@@ -65,7 +65,7 @@ const Skills: React.FC<{
             <div
               {...provided.droppableProps}
               ref={provided.innerRef}
-              className="flex flex-wrap gap-2"
+              className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4"
             >
               {skills.map((skill, index) => (
                 <Draggable
@@ -77,7 +77,7 @@ const Skills: React.FC<{
                     <div
                       ref={provided.innerRef}
                       {...provided.draggableProps}
-                      className={`relative group border border-transparent rounded-md hover:border-gray-300 transition-all flex-shrink-0${
+                      className={`relative group border border-transparent rounded-md hover:border-gray-300 transition-all ${
                         snapshot.isDragging ? "bg-gray-100 shadow-md" : ""
                       }`}
                     >
@@ -95,7 +95,7 @@ const Skills: React.FC<{
                             className="absolute -top-3 right-16 hidden group-hover:flex items-center justify-center w-6 h-6 bg-red-500 text-white rounded-full shadow-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
                             {...provided.dragHandleProps}
                           >
-                            ::
+                            M
                           </div>
                         </>
                       )}
@@ -110,7 +110,7 @@ const Skills: React.FC<{
 
                       <AutoResizeField
                         defaultValue={skill.skillname}
-                        className="p-2 textEdit border-b border-transparent hover:border-gray-300 bg-gray-100 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200 max-w-[400px]"
+                        className="p-2 textEdit font-semibold placeholder-green-600 text-green-600 border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200"
                         placeholder="Skill Name"
                       />
                     </div>

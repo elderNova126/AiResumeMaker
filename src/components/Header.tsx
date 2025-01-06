@@ -48,7 +48,8 @@ const Header: React.FC<HeaderProps> = ({
   const layoutOptions = [
     { value: 'split', label: 'Split Layout' },
     { value: 'classic', label: 'Classic Layout' },
-    { value: 'hybrid', label: 'Hybrid Layout' }
+    { value: 'hybrid', label: 'Hybrid Layout' },
+    { value: 'test', label: 'Test Layout' }
   ];
 
   const colorOptions = [

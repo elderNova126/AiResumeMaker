@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base styles for auto-resize fields */
+textarea {
+  min-height: 1.5em;
+  overflow: hidden;
+  resize: none;
+  transition: height 0.2s ease;
+}
+
+/* Ensure containers expand with content */
+.auto-expand {
+  min-height: min-content;
+  height: auto;
+  overflow: visible;
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1rem;
+}
+
+.font-primary {
+  font-family: var(--font-primary, 'Nunito');
+  font-size: var(--font-size, 1rem);
+}

@@ -24,7 +24,7 @@ const HybridLayout = ({ themeColor,visibleSections }: HybridLayoutProps) => {
         <div className="flex-grow">
           <input
             type="text"
-            className="text-5xl font-bold w-full mb-2 border-b border-transparent hover:border-gray-200 focus:outline-none"
+            className="p-l-2 text-5xl font-bold w-full border-b border-transparent hover:border-gray-200 focus:outline-none"
             style={{ color: themeColor }}
             defaultValue="John Doe"
             placeholder="Your Name"
@@ -44,7 +44,7 @@ const HybridLayout = ({ themeColor,visibleSections }: HybridLayoutProps) => {
               <MapPin className="h-4 w-4" style={{ color: themeColor }} />
               <input
                 type="text"
-                className="border-b border-transparent hover:border-gray-200 focus:border-emerald-500 focus:outline-none"
+                className="p-l-2 border-b border-transparent hover:border-gray-200 focus:border-emerald-500 focus:outline-none"
                 defaultValue="New York, USA"
                 placeholder="Location"
               />
@@ -55,7 +55,7 @@ const HybridLayout = ({ themeColor,visibleSections }: HybridLayoutProps) => {
               <Mail className="h-4 w-4" style={{ color: themeColor }} />
               <input
                 type="email"
-                className="border-b border-transparent hover:border-gray-200 focus:border-emerald-500 focus:outline-none"
+                className="p-l-2 border-b border-transparent hover:border-gray-200 focus:border-emerald-500 focus:outline-none"
                 defaultValue="john.doe@email.com"
                 placeholder="Email"
               />
@@ -66,7 +66,7 @@ const HybridLayout = ({ themeColor,visibleSections }: HybridLayoutProps) => {
               <Phone className="h-4 w-4" style={{ color: themeColor }} />
               <input
                 type="tel"
-                className="border-b border-transparent hover:border-gray-200 focus:border-emerald-500 focus:outline-none"
+                className="p-l-2 border-b border-transparent hover:border-gray-200 focus:border-emerald-500 focus:outline-none"
                 defaultValue="123-456-7890"
                 placeholder="Phone"
               />
@@ -77,7 +77,7 @@ const HybridLayout = ({ themeColor,visibleSections }: HybridLayoutProps) => {
               <Globe className="h-4 w-4" style={{ color: themeColor }} />
               <input
                 type="url"
-                className="border-b border-transparent hover:border-gray-200 focus:border-emerald-500 focus:outline-none"
+                className="p-l-2 border-b border-transparent hover:border-gray-200 focus:border-emerald-500 focus:outline-none"
                 defaultValue="johndoe.com"
                 placeholder="Website"
               />
@@ -88,7 +88,7 @@ const HybridLayout = ({ themeColor,visibleSections }: HybridLayoutProps) => {
               <Linkedin className="h-4 w-4" style={{ color: themeColor }} />
               <input
                 type="text"
-                className="border-b border-transparent hover:border-gray-200 focus:border-emerald-500 focus:outline-none"
+                className="p-l-2 border-b border-transparent hover:border-gray-200 focus:border-emerald-500 focus:outline-none"
                 defaultValue="in/johndoe"
                 placeholder="LinkedIn"
               />
@@ -107,7 +107,7 @@ const HybridLayout = ({ themeColor,visibleSections }: HybridLayoutProps) => {
           <h2 className="text-xl font-bold mb-4" style={{ color: themeColor }}>ABOUT ME</h2>
           <div className="mb-8">
             <textarea
-              className="w-full p-2 text-sm text-gray-600 border rounded-md focus:border-emerald-500 focus:outline-none"
+              className="p-l-2 w-full p-2 text-sm text-gray-600 border rounded-md focus:border-emerald-500 focus:outline-none"
               rows={4}
               style={{
                 borderStyle: 'dashed',
@@ -128,7 +128,7 @@ const HybridLayout = ({ themeColor,visibleSections }: HybridLayoutProps) => {
             <h2 className="text-xl font-bold mb-4" style={{ color: themeColor }}>EXPERIENCE</h2>
             <div className="space-y-6">
               <div>
-                <div className="flex justify-between mb-2">
+                <div className="flex justify-between">
                   <input
                     type="text"
                     className="font-semibold border-b border-transparent hover:border-gray-200 focus:border-emerald-500 focus:outline-none"
@@ -144,12 +144,12 @@ const HybridLayout = ({ themeColor,visibleSections }: HybridLayoutProps) => {
                 </div>
                 <input
                   type="text"
-                  className="text-gray-700 mb-2 border-b border-transparent hover:border-gray-200 focus:border-emerald-500 focus:outline-none w-full"
+                  className="p-2 text-gray-700 border-b border-transparent hover:border-gray-200 focus:border-emerald-500 focus:outline-none w-full"
                   defaultValue="Senior Software Engineer"
                   placeholder="Position"
                 />
                 <textarea
-                  className="w-full p-2 text-sm text-gray-600 border rounded-md focus:border-emerald-500 focus:outline-none"
+                  className="w-full text-sm text-gray-600 border rounded-md focus:border-emerald-500 focus:outline-none"
                   rows={4}
                   defaultValue="• Led development of cloud-native applications using microservices architecture
 • Managed team of 5 developers, improving sprint velocity by 40%
@@ -166,7 +166,7 @@ const HybridLayout = ({ themeColor,visibleSections }: HybridLayoutProps) => {
           <div>
             <h2 className="text-xl font-bold mb-4" style={{ color: themeColor }}>EDUCATION</h2>
             <div>
-              <div className="flex justify-between mb-2">
+              <div className="flex justify-between">
                 <input
                   type="text"
                   className="font-semibold border-b border-transparent hover:border-gray-200 focus:border-emerald-500 focus:outline-none"

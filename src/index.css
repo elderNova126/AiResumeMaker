@@ -18,11 +18,22 @@ textarea {
 }
 
 body {
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   font-size: 1rem;
 }
 
 .font-primary {
-  font-family: var(--font-primary, 'Nunito');
+  font-family: var(--font-primary, "Nunito");
   font-size: var(--font-size, 1rem);
+}
+.textEdit:hover {
+  background-color: rgb(218, 217, 217);
+}
+.control-button {
+  position: absolute !important;
+  right: 0.5rem;
+  top: -1.4rem;
+}
+.p-l-2 {
+  padding-left: 0.25rem;
 }

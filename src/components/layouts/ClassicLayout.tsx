@@ -7,6 +7,10 @@ interface ClassicLayoutProps {
 }
 
 const ClassicLayout = ({ themeColor,visibleSections }: ClassicLayoutProps) => {
+  const [name, setName] = useState('John Doe');
+  const handleChange = (event) => {
+    setName(event.target.value);
+  };
   return (
     <div className="bg-white shadow-lg mx-auto mt-24 p-8 w-[60vw]">
       <div className="text-center mb-8">
@@ -14,7 +18,8 @@ const ClassicLayout = ({ themeColor,visibleSections }: ClassicLayoutProps) => {
           type="text"
           className="text-5xl font-bold w-full mb-2 text-center border-b border-transparent hover:border-gray-200 focus:outline-none"
           style={{ color: themeColor }}
-          defaultValue="John Doe"
+          value={name}
+          onChange={handleChange}
           placeholder="Your Name"
         />
         <input
@@ -24,7 +29,7 @@ const ClassicLayout = ({ themeColor,visibleSections }: ClassicLayoutProps) => {
           placeholder="Your Title"
         />
         
-        <h2 className="text-xl font-bold mt-6 mb-4" style={{ color: themeColor }}>PERSONAL DETAILS</h2>
+        <h2 className="text-xl font-bold mt-6 mb-2" style={{ color: themeColor }}>PERSONAL DETAILS</h2>
         
         <div className="flex justify-center flex-wrap gap-4 mt-4 text-sm text-gray-600">
         {visibleSections.includes('location') && (
@@ -33,7 +38,7 @@ const ClassicLayout = ({ themeColor,visibleSections }: ClassicLayoutProps) => {
             <input
               type="text"
               className="border-b border-transparent hover:border-gray-200 focus:border-emerald-500 focus:outline-none"
-              defaultValue="New York, USA"
+              value="New York, USA"
               placeholder="Location"
             />
           </div>
@@ -88,7 +93,7 @@ const ClassicLayout = ({ themeColor,visibleSections }: ClassicLayoutProps) => {
       {/* About Me */}
       {visibleSections.includes('about') && (
       <div>
-      <h2 className="text-xl font-bold mb-4" style={{ color: themeColor }}>ABOUT ME</h2>
+      <h2 className="text-xl font-bold mb-2" style={{ color: themeColor }}>ABOUT ME</h2>
       <div className="mb-8">
         <textarea
           className="w-full p-2 text-sm text-gray-600 border rounded-md focus:border-emerald-500 focus:outline-none"
@@ -108,7 +113,7 @@ const ClassicLayout = ({ themeColor,visibleSections }: ClassicLayoutProps) => {
       )}
       {/* Experience */}
       {visibleSections.includes('experience') && (
-      <div className="mb-8">
+      <div className="mb-2">
         <h2 className="text-xl font-bold mb-4 border-b pb-2" style={{ color: themeColor }}>EXPERIENCE</h2>
         <div className="space-y-6">
           <div>

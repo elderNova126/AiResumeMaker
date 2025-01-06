@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Mail, MapPin, Phone, Globe, Linkedin } from 'lucide-react';
 
 interface ClassicLayoutProps {

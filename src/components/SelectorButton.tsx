@@ -9,7 +9,7 @@ interface SelectorButtonProps {
   label: string;
   value: string;
   options: { value: string; label: string }[];
-  onChange: (value: string) => void;
+  onChange: (value: { font: string; size: string }) => void;
   color?: string;
   className?: string;
   onDropdownToggle?: (isOpen: boolean) => void;
@@ -79,7 +79,7 @@ const SelectorButton = ({
           options={options}
           onChange={(newValue) => {
             setTypographyValue(newValue);
-            onChange(newValue.font);
+            onChange(newValue);
           }}
         />
       ) : isOpen && (

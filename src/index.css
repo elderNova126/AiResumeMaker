@@ -37,3 +37,44 @@ body {
 .p-l-2 {
   padding-left: 0.25rem;
 }
+.zorder-top {
+  z-index: 9999;
+}
+
+.timeline_linea {
+  position: absolute;
+  height: 100%;
+  width: 0.3rem;
+  background: #000;
+  left: 0.8rem;
+  top: 2.5rem;
+  opacity: 0.2;
+}
+
+.timeline_bola {
+  width: 2rem;
+  height: 2rem;
+  background: #000;
+  border-radius: 3rem;
+  position: absolute;
+  z-index: 1;
+  left: -2rem;
+  margin: 0 auto;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  text-align: center;
+  border: 0.55rem solid #fff;
+}
+
+.color_estrellas {
+  background: #0b7af3;
+}
+
+.timeline_bola:before {
+  content: "";
+  width: 2rem;
+  height: 2rem;
+  background: #fff;
+}

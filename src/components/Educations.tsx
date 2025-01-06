@@ -87,35 +87,34 @@ const Educations: React.FC<{
                         <>
                           <button
                             type="button"
-                            className="absolute -top-3 right-9 hidden group-hover:flex items-center justify-center w-6 h-6 bg-red-500 text-white rounded-full shadow-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
+                            className="zorder-top absolute -top-3 right-9 hidden group-hover:flex items-center justify-center w-6 h-6 bg-red-500 text-white rounded-full shadow-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
                             onClick={() => removeEducation(index)}
                             aria-label="Remove Education"
                           >
                             <Trash className="h-4 w-4" />
                           </button>
                           <div
-                            className="absolute -top-3 right-16 hidden group-hover:flex items-center justify-center w-6 h-6 bg-red-500 text-white rounded-full shadow-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
-                            {...provided.dragHandleProps}
-                          >
-                            M
-                          </div>
+                            className="zorder-top absolute -top-3 right-16 hidden group-hover:flex items-center justify-center w-6 h-6 bg-red-500 text-white rounded-full shadow-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
+                            {...provided.dragHandleProps}> M </div>
                         </>
                       )}
                       <button
                         type="button"
-                        className="absolute -top-3 right-2 hidden group-hover:flex items-center justify-center w-6 h-6 bg-emerald-500 text-white rounded-full shadow-md hover:bg-emerald-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-400 transition-all"
+                        className="zorder-top absolute -top-3 right-2 hidden group-hover:flex items-center justify-center w-6 h-6 bg-emerald-500 text-white rounded-full shadow-md hover:bg-emerald-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-400 transition-all"
                         onClick={addEducation}
                         aria-label="Add Education"
                       >
                         +
                       </button>
-
+                      <div style={{paddingLeft: "2rem"}}>
+                        <div style={{position:"relative"}}>
+                            <div className="timeline_bola color_estrellas"></div>
                       <AutoResizeField
                         defaultValue={education.school}
                         className="p-2 textEdit font-semibold placeholder-green-600 text-green-600 border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200"
                         placeholder="School Name"
                       />
-
+                      </div>
                       <div className="flex justify-between gap-4">
                         <AutoResizeField
                           defaultValue={education.degree}
@@ -129,6 +128,10 @@ const Educations: React.FC<{
                           placeholder="From ~ Until"
                         />
                       </div>
+                      {educations.length > 1 && (educations.length-1 > index) && (
+                      <div className="timeline_linea"></div>
+                      )}
+                    </div>
                     </div>
                   )}
                 </Draggable>

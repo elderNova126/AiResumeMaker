@@ -57,7 +57,7 @@ const Experiences: React.FC<{
   return (
     <div>
       <h2
-        className="text-xl sm:text-xl font-bold mb-2"
+        className="text-xl sm:text-xl font-bold my-3"
         style={{ color: themeColor }}
       >
         EXPERIENCE
@@ -80,7 +80,6 @@ const Experiences: React.FC<{
                     <div
                       ref={provided.innerRef}
                       {...provided.draggableProps}
-                      
                       className={`relative group border border-transparent rounded-md hover:border-gray-300 transition-all ${
                         snapshot.isDragging ? "bg-gray-100 shadow-md" : ""
                       }`}
@@ -89,48 +88,53 @@ const Experiences: React.FC<{
                         <>
                           <button
                             type="button"
-                            className="absolute top-2 right-9 hidden group-hover:flex items-center justify-center w-6 h-6 bg-red-500 text-white rounded-full shadow-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
+                            className="absolute -top-3 right-9 hidden group-hover:flex items-center justify-center w-6 h-6 bg-red-500 text-white rounded-full shadow-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
                             onClick={() => removeExperience(index)}
                             aria-label="Remove Experience"
                           >
                             -
                           </button>
-                          <div className="absolute top-2 right-16 hidden group-hover:flex items-center justify-center w-6 h-6 bg-red-500 text-white rounded-full shadow-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
-                          {...provided.dragHandleProps}>
+                          <div
+                            className="absolute -top-3 right-16 hidden group-hover:flex items-center justify-center w-6 h-6 bg-red-500 text-white rounded-full shadow-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
+                            {...provided.dragHandleProps}
+                          >
                             M
                           </div>
                         </>
                       )}
                       <button
                         type="button"
-                        className="absolute top-2 right-2 hidden group-hover:flex items-center justify-center w-6 h-6 bg-emerald-500 text-white rounded-full shadow-md hover:bg-emerald-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-400 transition-all"
+                        className="absolute -top-3 right-2 hidden group-hover:flex items-center justify-center w-6 h-6 bg-emerald-500 text-white rounded-full shadow-md hover:bg-emerald-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-400 transition-all"
                         onClick={addExperience}
                         aria-label="Add Experience"
                       >
                         +
                       </button>
-                      <div className="flex justify-between">
+
+                      <AutoResizeField
+                        defaultValue={experience.company}
+                        className="p-2 textEdit font-semibold placeholder-green-600 text-green-600 border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200"
+                        placeholder="Company Name"
+                      />
+
+                      <div className="flex justify-between gap-4">
                         <AutoResizeField
-                          defaultValue={experience.company}
-                          className="p-l-2 textEdit font-semibold border-b border-transparent hover:border-gray-200 focus:border-emerald-500 focus:outline-none"
-                          placeholder="Company Name"
+                          defaultValue={experience.position}
+                          className="p-2 textEdit text-gray-700 border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none w-full rounded-md transition ease-in-out duration-200"
+                          placeholder="Position"
                         />
                         <AutoResizeField
                           defaultValue={experience.dateRange}
                           style={{ width: "30%" }}
-                          className="p-l-2 textEdit text-sm text-gray-600 border-b border-transparent hover:border-gray-200 focus:border-emerald-500 focus:outline-none"
+                          className="p-2 textEdit text-sm text-gray-600 border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200"
                           placeholder="From ~ Until"
                         />
                       </div>
-                      <AutoResizeField
-                        defaultValue={experience.position}
-                        className="p-l-2 textEdit text-gray-700 border-b border-transparent hover:border-gray-200 focus:border-emerald-500 focus:outline-none w-full"
-                        placeholder="Position"
-                      />
+
                       <AutoResizeField
                         type="textarea"
                         defaultValue={experience.description}
-                        className="p-l-2 textEdit w-full p-2 text-sm text-gray-600 border rounded-md focus:border-emerald-500 focus:outline-none"
+                        className="p-3 textEdit w-full text-sm text-gray-600 border-b border-transparent rounded-lg focus:border-emerald-500 focus:outline-none shadow-sm transition ease-in-out duration-200"
                         placeholder="Job Description"
                       />
                     </div>

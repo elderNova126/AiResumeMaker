@@ -94,7 +94,7 @@ const Header: React.FC<HeaderProps> = ({
 
   return (
     <>
-      <header className="w-full bg-white shadow-sm py-4 px-6 fixed top-0 z-50">
+      <header className="w-full bg-white shadow-sm py-4 px-6 fixed top-0 z-50  print:hidden">
         <div className="max-w-7xl mx-auto grid grid-cols-3 items-center">
           <div className="flex items-center space-x-2" style={{ color: currentColor }}>
             <ScrollText className="h-6 w-6" />
@@ -162,7 +162,8 @@ const Header: React.FC<HeaderProps> = ({
               <span>Import</span>
             </button>
             <button
-              onClick={() => generatePDF('resume-template')}
+            onClick={globalThis?.print}
+              // onClick={() => generatePDF('resume-template')}
               className="flex items-center space-x-2 px-4 py-2 text-white rounded-md transition-all hover:opacity-90"
               style={{ backgroundColor: currentColor }}
             >

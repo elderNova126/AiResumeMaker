@@ -10,7 +10,7 @@ interface AutoResizeFieldProps {
   onChange?: (value: string) => void;
 }
 
-const AutoResizeField: React.FC<AutoResizeFieldProps> = ({ 
+const AutoResizeField: React.FC<AutoResizeFieldProps> = ({
   type = 'input',
   value,
   placeholder,
@@ -26,16 +26,20 @@ const AutoResizeField: React.FC<AutoResizeFieldProps> = ({
     if (type === 'textarea' && field instanceof HTMLTextAreaElement) {
       field.style.height = 'auto'; // Reset height to auto to recalculate
       field.style.height = `${field.scrollHeight}px`; // Set height to scrollHeight
+    } else if (type === 'input' && field instanceof HTMLInputElement) {
+      // Adjust input field width dynamically based on content
+      field.style.width = 'auto'; // Reset width to auto to recalculate
+      field.style.width = `${field.scrollWidth}px`; // Set width to scrollWidth
     }
   };
 
   useEffect(() => {
-    adjustHeight(); // Adjust height whenever `value` changes
+    adjustHeight(); // Adjust height/width whenever `value` changes
   }, [value]);
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     if (onChange) onChange(e.target.value);
-    adjustHeight(); // Adjust height on input change
+    adjustHeight(); // Adjust height or width on input change
   };
 
   const baseClasses =
@@ -51,7 +55,6 @@ const AutoResizeField: React.FC<AutoResizeFieldProps> = ({
         className={twMerge(baseClasses, className)}
         style={{
           minHeight: '1.5em',
-          // backgroundColor: value ? 'gray' : 'transparent', // Set background color based on value presence
           ...style,
         }}
       />
@@ -65,7 +68,7 @@ const AutoResizeField: React.FC<AutoResizeFieldProps> = ({
       value={value}
       placeholder={placeholder}
       onChange={handleChange}
-      className={twMerge(baseClasses, className)}
+      className={className}
       style={{
         ...style,
       }}

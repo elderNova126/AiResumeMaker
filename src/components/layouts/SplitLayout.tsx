@@ -62,169 +62,146 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
       />
     </div>
   );
+
   const handleUpload = () => {
-    document.getElementById("fileInput").click();
+    document.getElementById("fileInput")?.click();
   };
+
   const handleChange = async (event) => {
-    console.log(URL.createObjectURL(event.target.files[0]))
-    setAvatar(event.target.files[0].name)
+    const file = event.target.files[0];
+    if (file) {
+      // Create a URL for the selected file
+      const imageUrl = URL.createObjectURL(file);
+      // Set the avatar to the URL of the selected image
+      setAvatar(imageUrl);
+    }
   };
+
   return (
-    
-      <div style={{width:"210mm",height:"296mm"}} className="print:!scale-100 print:mx-0 mb-2 print:mb-0 bg-white flex flex-col justify-between shadow-lg mx-auto mt-8 sm:mt-12 w-full sm:w-[90%] md:w-[80%] lg:w-[70%] xl:w-[60%] p-6 sm:p-10 rounded-md min-h-[1200px]">
-        <div className="grid grid-cols-1 md:grid-cols-3">
-          {/* Header */}
-          <div className="col-span-1 md:col-span-3 p-4 flex items-start space-x-8 border-b">
-            <div className="w-32 h-32 sm:w-48 sm:h-48 rounded-full overflow-hidden flex-shrink-0 shadow-md">
-            <img onClick={handleUpload} style={{ cursor: "pointer" }}
+    <div
+      // style={{ width: "210mm", height: "296mm" }}
+      className="print:!scale-100 print:mx-0 mb-2 print:mb-0 bg-white flex flex-col justify-between shadow-lg mx-auto mt-8 sm:mt-12 w-full sm:w-[90%] md:w-[80%] lg:w-[70%] xl:w-[60%] p-6 sm:p-10 rounded-md min-h-[1200px]"
+    >
+      <div className="grid grid-cols-1 md:grid-cols-3">
+        {/* Header */}
+        <div className="col-span-1 md:col-span-3 p-4 flex items-start space-x-8 border-b">
+          <div className="w-32 h-32 sm:w-48 sm:h-48 rounded-full overflow-hidden flex-shrink-0 shadow-md hover:scale-110 transform transition duration-300 ease-in-out">
+            <img
+              onClick={handleUpload}
+              style={{ cursor: "pointer" }}
               src={avatar}
               alt="Profile"
               className="w-full h-full object-cover"
             />
-            <input id="fileInput" type="file" accept="image/*" style={{ display: "none" }} onChange={handleChange}/>
-            </div>
-            <div>
-              <AutoResizeField
-                value={name}
-                onChange={(value) => setName(value)}
-                className="textEdit text-3xl sm:text-4xl font-bold w-full"
-                style={{ color: themeColor }}
-                placeholder="Your Name"
-              />
-              <AutoResizeField
-                value={role}
-                onChange={(value) => setRole(value)}
-                className="textEdit text-lg sm:text-xl text-gray-600 w-full bg-transparent border-b border-gray-300 hover:border-gray-400 focus:border-emerald-500 focus:outline-none transition-all"
-                placeholder="Your Role"
-              />
-            </div>
+            <input
+              id="fileInput"
+              type="file"
+              accept="image/*"
+              style={{ display: "none" }}
+              onChange={handleChange}
+            />
           </div>
-
-          {/* Left Column */}
-          <div className="col-span-1 bg-gray-50 p-6 rounded-md shadow-md">
-            <h2
-              className="text-lg sm:text-xl font-bold"
+          <div>
+            <AutoResizeField
+              value={name}
+              onChange={(value) => setName(value)}
+              className="textEdit text-3xl sm:text-4xl font-bold w-full"
               style={{ color: themeColor }}
-            >
-              PERSONAL DETAILS
-            </h2>
-            <div className="space-y-4 text-sm">
-              {visibleSections.includes("location") &&
-                renderSection(
-                  <MapPin
-                    className="h-5 w-5 text-gray-500"
-                    style={{ color: themeColor }}
-                  />,
-                  location,
-                  setLocation,
-                  "Location"
-                )}
-              {visibleSections.includes("email") &&
-                renderSection(
-                  <Mail
-                    className="h-5 w-5 text-gray-500"
-                    style={{ color: themeColor }}
-                  />,
-                  email,
-                  setEmail,
-                  "Email"
-                )}
-              {visibleSections.includes("phone") &&
-                renderSection(
-                  <Phone
-                    className="h-5 w-5 text-gray-500"
-                    style={{ color: themeColor }}
-                  />,
-                  phone,
-                  setPhone,
-                  "Phone number"
-                )}
-              {visibleSections.includes("website") &&
-                renderSection(
-                  <Globe
-                    className="h-5 w-5 text-gray-500"
-                    style={{ color: themeColor }}
-                  />,
-                  website,
-                  setWebsite,
-                  "Website address"
-                )}
-              {visibleSections.includes("linkedin") &&
-                renderSection(
-                  <Linkedin
-                    className="h-5 w-5 text-gray-500"
-                    style={{ color: themeColor }}
-                  />,
-                  linkedin,
-                  setLinkedin,
-                  "LinkedIn address"
-                )}
-            </div>
-            {visibleSections.includes("skills") && (
-              <Skills
-                setSkills={setSkills}
-                skills={skills}
-                themeColor={themeColor}
-              />
-            )}
-            {visibleSections.includes("languages") && (
-              <LanguagesSection
-                setLanguages={setLanguages}
-                languages={languages}
-                themeColor={themeColor}
-              />
-            )}
-          </div>
-
-          {/* Right Column */}
-          <div className="col-span-1 md:col-span-2 p-6">
-            {visibleSections.includes("about") && (
-              <div className="mb-6">
-                <h2
-                  className="text-lg sm:text-xl font-bold"
-                  style={{ color: themeColor }}
-                >
-                  ABOUT ME
-                </h2>
-                <AutoResizeField
-                  type="textarea"
-                  onChange={(value) => setAbout(value)}
-                  value={about}
-                  className="textEdit w-full text-sm text-gray-600 bg-gray-100 p-3 rounded-md border border-gray-300 focus:border-emerald-500 focus:outline-none transition-all"
-                  placeholder="Professional Summary"
-                />
-              </div>
-            )}
-            {visibleSections.includes("experience") && (
-              <Experiences
-                setExperiences={setExperiences}
-                experiences={experiences}
-                themeColor={themeColor}
-              />
-            )}
-            {visibleSections.includes("education") && (
-              <Educations
-                setEducations={setEducations}
-                educations={educations}
-                themeColor={themeColor}
-              />
-            )}
+              placeholder="Your Name"
+            />
+            <AutoResizeField
+              value={role}
+              onChange={(value) => setRole(value)}
+              className="textEdit text-lg sm:text-xl text-gray-600 w-full bg-transparent border-b border-gray-300 hover:border-gray-400 focus:border-emerald-500 focus:outline-none transition-all"
+              placeholder="Your Role"
+            />
           </div>
         </div>
 
-        {/* Footer */}
-        <div className="mt-8 text-center text-xs text-gray-400 print:hidden"
-        >
-          Created for free by:{" "}
-          <a
-            href="https://airesumemaker.online"
-            className="hover:text-gray-600 transition-colors"
-          >
-            airesumemaker.online
-          </a>
+        {/* Left Column */}
+        <div className="col-span-1 bg-gray-50 p-6 rounded-md shadow-md">
+          <h2 className="text-lg sm:text-xl font-bold" style={{ color: themeColor }}>
+            PERSONAL DETAILS
+          </h2>
+          <div className="space-y-4 text-sm">
+            {visibleSections.includes("location") &&
+              renderSection(
+                <MapPin className="h-5 w-5 text-gray-500" style={{ color: themeColor }} />,
+                location,
+                setLocation,
+                "Location"
+              )}
+            {visibleSections.includes("email") &&
+              renderSection(
+                <Mail className="h-5 w-5 text-gray-500" style={{ color: themeColor }} />,
+                email,
+                setEmail,
+                "Email"
+              )}
+            {visibleSections.includes("phone") &&
+              renderSection(
+                <Phone className="h-5 w-5 text-gray-500" style={{ color: themeColor }} />,
+                phone,
+                setPhone,
+                "Phone number"
+              )}
+            {visibleSections.includes("website") &&
+              renderSection(
+                <Globe className="h-5 w-5 text-gray-500" style={{ color: themeColor }} />,
+                website,
+                setWebsite,
+                "Website address"
+              )}
+            {visibleSections.includes("linkedin") &&
+              renderSection(
+                <Linkedin className="h-5 w-5 text-gray-500" style={{ color: themeColor }} />,
+                linkedin,
+                setLinkedin,
+                "LinkedIn address"
+              )}
+          </div>
+          {visibleSections.includes("about") && (
+            <div className="mb-6">
+              <h2 className="text-lg sm:text-xl font-bold" style={{ color: themeColor }}>
+                ABOUT ME
+              </h2>
+              <AutoResizeField
+                type="textarea"
+                onChange={(value) => setAbout(value)}
+                value={about}
+                className="textEdit w-full text-sm text-gray-600 bg-gray-100 p-3 rounded-md border border-gray-300 focus:border-emerald-500 focus:outline-none transition-all"
+                placeholder="Professional Summary"
+              />
+            </div>
+          )}
+          {visibleSections.includes("languages") && (
+            <LanguagesSection setLanguages={setLanguages} languages={languages} themeColor={themeColor} />
+          )}
+        </div>
+
+        {/* Right Column */}
+        <div className="col-span-1 md:col-span-2 p-6">
+
+          {visibleSections.includes("experience") && (
+            <Experiences setExperiences={setExperiences} experiences={experiences} themeColor={themeColor} />
+          )}
+          {visibleSections.includes("education") && (
+            <Educations setEducations={setEducations} educations={educations} themeColor={themeColor} />
+          )}
+          {visibleSections.includes("skills") && (
+            <Skills setSkills={setSkills} skills={skills} themeColor={themeColor} />
+          )}          
         </div>
       </div>
-    
+
+      {/* Footer */}
+      <div className="mt-8 text-center text-xs text-gray-400 print:hidden">
+        Created for free by:{" "}
+        <a href="https://airesumemaker.online" className="hover:text-gray-600 transition-colors">
+          airesumemaker.online
+        </a>
+      </div>
+    </div>
   );
 };
 

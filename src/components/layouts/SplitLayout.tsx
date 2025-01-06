@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Mail, MapPin, Phone, Globe, Linkedin } from "lucide-react";
 import AutoResizeField from "../AutoResizeField";
+import AboutMe from "../AboutMe";
 import Experiences from "../Experiences";
 import Educations from "../Educations";
 import Skills from "../Skills";
@@ -120,10 +121,10 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
 
         {/* Left Column */}
         <div className="col-span-1 bg-gray-50 p-6 rounded-md shadow-md">
-          <h2 className="text-lg sm:text-xl font-bold" style={{ color: themeColor }}>
+          <h2 className="text-lg sm:text-xl font-bold py-3" style={{ color: themeColor }}>
             PERSONAL DETAILS
           </h2>
-          <div className="space-y-4 text-sm">
+          <div className="space-y-4 text-sm mb-6">
             {visibleSections.includes("location") &&
               renderSection(
                 <MapPin className="h-5 w-5 text-gray-500" style={{ color: themeColor }} />,
@@ -161,22 +162,10 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
               )}
           </div>
           {visibleSections.includes("about") && (
-            <div className="mb-6">
-              <h2 className="text-lg sm:text-xl font-bold" style={{ color: themeColor }}>
-                ABOUT ME
-              </h2>
-              <AutoResizeField
-                type="textarea"
-                onChange={(value) => setAbout(value)}
-                value={about}
-                className="textEdit w-full text-sm text-gray-600 bg-gray-100 p-3 rounded-md border border-gray-300 focus:border-emerald-500 focus:outline-none transition-all"
-                placeholder="Professional Summary"
-              />
-            </div>
+            <AboutMe 
+            setAbout={setAbout} about={about} themeColor={themeColor}/>
           )}
-          {visibleSections.includes("languages") && (
-            <LanguagesSection setLanguages={setLanguages} languages={languages} themeColor={themeColor} />
-          )}
+
         </div>
 
         {/* Right Column */}
@@ -190,7 +179,10 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
           )}
           {visibleSections.includes("skills") && (
             <Skills setSkills={setSkills} skills={skills} themeColor={themeColor} />
-          )}          
+          )}     
+          {visibleSections.includes("languages") && (
+            <LanguagesSection setLanguages={setLanguages} languages={languages} themeColor={themeColor} />
+          )}               
         </div>
       </div>
 

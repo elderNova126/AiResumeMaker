@@ -1,207 +1,192 @@
-import React, {useState} from 'react';
-import { Mail, MapPin, Phone, Globe, Linkedin } from 'lucide-react';
+import React, { useState } from "react";
+import { Mail, MapPin, Phone, Globe, Linkedin } from "lucide-react";
+import AutoResizeField from "../AutoResizeField";
+import AboutMe from "../AboutMe";
+import Experiences from "../Experiences";
+import Educations from "../Educations";
+import Skills from "../Skills";
+import LanguagesSection from "../Languages";
 
 interface ClassicLayoutProps {
   themeColor: string;
   visibleSections:string[];
 }
 
-const ClassicLayout = ({ themeColor,visibleSections }: ClassicLayoutProps) => {
-  const [name, setName] = useState('John Doe');
-  const handleChange = (event) => {
-    setName(event.target.value);
-  };
+const ClassicLayout : React.FC<SplitLayoutProps> = ({
+  themeColor,
+  visibleSections,
+}) => {
+  const [experiences, setExperiences] = useState([
+    {
+      company: "Tech Solutions Inc.",
+      dateRange: "2018 - Present",
+      position: "Senior Software Engineer",
+      description: "",
+    },
+  ]);
+
+  const [educations, setEducations] = useState([
+    {
+      school: "University of Technology",
+      dateRange: "2014 - 2018",
+      degree: "Bachelor of Science in Computer Science",
+    },
+  ]);
+  const [skills, setSkills] = useState([{ skillname: "", skilllevel: "" }]);
+    const [languages, setLanguages] = useState([{ name: "", level: "" }]);
+  
+    const [avatar, setAvatar] = useState('https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80');
+    const [name, setName] = useState("John Doe");
+    const [role, setRole] = useState("SENIOR SOFTWARE ENGINEER");
+    const [location, setLocation] = useState("New York, USA");
+    const [email, setEmail] = useState("john.doe@email.com");
+    const [phone, setPhone] = useState("123-456-7890");
+    const [website, setWebsite] = useState("johndoe.com");
+    const [linkedin, setLinkedin] = useState("in/johndoe");
+    const [about, setAbout] = useState(
+      "Highly skilled and experienced software engineer with a proven track record in developing scalable applications and leading development teams. Passionate about creating efficient solutions and mentoring junior developers."
+    );
+    const renderSection = (
+      icon: React.ReactNode,
+      value: string,
+      onChange: (value: string) => void,
+      placeholder: string
+    ) => (
+      <div className="flex items-center space-x-3">
+        {icon}
+        <AutoResizeField
+          value={value}
+          onChange={onChange}
+          className="textEdit flex-1 bg-transparent border-b border-gray-300 hover:border-gray-400 focus:border-emerald-500 focus:outline-none transition-all"
+          placeholder={placeholder}
+        />
+      </div>
+    );
+  
+    const handleUpload = () => {
+      document.getElementById("fileInput")?.click();
+    };
+  
+    const handleChange = async (event) => {
+      const file = event.target.files[0];
+      if (file) {
+        // Create a URL for the selected file
+        const imageUrl = URL.createObjectURL(file);
+        // Set the avatar to the URL of the selected image
+        setAvatar(imageUrl);
+      }
+    };
   return (
-    <div className="bg-white shadow-lg mx-auto mt-24 p-8 w-[60vw]">
-      <div className="text-center mb-8">
-        <input
-          type="text"
-          className="text-5xl font-bold w-full mb-2 text-center border-b border-transparent hover:border-gray-200 focus:outline-none"
-          style={{ color: themeColor }}
-          value={name}
-          onChange={handleChange}
-          placeholder="Your Name"
-        />
-        <input
-          type="text"
-          className="text-lg text-gray-600 w-full text-center border-b border-transparent hover:border-gray-200 focus:border-emerald-500 focus:outline-none"
-          defaultValue="SENIOR SOFTWARE ENGINEER"
-          placeholder="Your Title"
-        />
-        
-        <h2 className="text-xl font-bold mt-6 mb-2" style={{ color: themeColor }}>PERSONAL DETAILS</h2>
-        
+    <div className="print:!scale-100 print:mx-0 mb-2 print:mb-0 bg-white flex flex-col justify-between shadow-lg mx-auto mt-8 sm:mt-12 w-full sm:w-[90%] md:w-[80%] lg:w-[70%] xl:w-[60%] p-6 sm:p-10 rounded-md min-h-[1200px]">
+       <div className="col-span-1 md:col-span-3 p-4 flex items-start space-x-8 border-b">
+          
+          <div>
+            <AutoResizeField
+              value={name}
+              onChange={(value) => setName(value)}
+              className="textEdit text-3xl sm:text-4xl font-bold w-full"
+              style={{ color: themeColor }}
+              placeholder="Your Name"
+            />
+            <AutoResizeField
+              value={role}
+              onChange={(value) => setRole(value)}
+              className="textEdit text-lg sm:text-xl text-gray-600 w-full bg-transparent border-b border-gray-300 hover:border-gray-400 focus:border-emerald-500 focus:outline-none transition-all"
+              placeholder="Your Role"
+            />
+          </div>
+          <div className="w-32 h-32 sm:w-48 sm:h-48 rounded-full overflow-hidden flex-shrink-0 shadow-md hover:scale-110 transform transition duration-300 ease-in-out">
+            <img
+              onClick={handleUpload}
+              style={{ cursor: "pointer" }}
+              src={avatar}
+              alt="Profile"
+              className="w-full h-full object-cover"
+            />
+            <input
+              id="fileInput"
+              type="file"
+              accept="image/*"
+              style={{ display: "none" }}
+              onChange={handleChange}
+            />
+          </div>
+        </div>
+      <div className="mb-2">
+        <h2 className="text-lg sm:text-xl font-bold py-3" style={{ color: themeColor }}>PERSONAL DETAILS</h2>        
         <div className="flex justify-center flex-wrap gap-4 mt-4 text-sm text-gray-600">
-        {visibleSections.includes('location') && (
-          <div className="flex items-center space-x-2">
-            <MapPin className="h-4 w-4" />
-            <input
-              type="text"
-              className="border-b border-transparent hover:border-gray-200 focus:border-emerald-500 focus:outline-none"
-              value="New York, USA"
-              placeholder="Location"
-            />
-          </div>
-        )}
-        {visibleSections.includes('email') && (
-          <div className="flex items-center space-x-2">
-            <Mail className="h-4 w-4" />
-            <input
-              type="email"
-              className="border-b border-transparent hover:border-gray-200 focus:border-emerald-500 focus:outline-none"
-              defaultValue="john.doe@email.com"
-              placeholder="Email"
-            />
-          </div>
-        )}
-        {visibleSections.includes('phone') && (
-          <div className="flex items-center space-x-2">
-            <Phone className="h-4 w-4" />
-            <input
-              type="tel"
-              className="border-b border-transparent hover:border-gray-200 focus:border-emerald-500 focus:outline-none"
-              defaultValue="123-456-7890"
-              placeholder="Phone"
-            />
-          </div>
-        )}
-        {visibleSections.includes('website') && (
-          <div className="flex items-center space-x-2">
-            <Globe className="h-4 w-4" />
-            <input
-              type="url"
-              className="border-b border-transparent hover:border-gray-200 focus:border-emerald-500 focus:outline-none"
-              defaultValue="johndoe.com"
-              placeholder="Website"
-            />
-          </div>
-        )}
-        {visibleSections.includes('linkedin') && (
-          <div className="flex items-center space-x-2">
-            <Linkedin className="h-4 w-4" />
-            <input
-              type="text"
-              className="border-b border-transparent hover:border-gray-200 focus:border-emerald-500 focus:outline-none"
-              defaultValue="in/johndoe"
-              placeholder="LinkedIn"
-            />
-          </div>
-        )}
+          {visibleSections.includes("location") &&
+            renderSection(
+              <MapPin className="h-5 w-5 text-gray-500" style={{ color: themeColor }} />,
+              location,
+              setLocation,
+              "Location"
+          )}
+          {visibleSections.includes("email") &&
+            renderSection(
+              <Mail className="h-5 w-5 text-gray-500" style={{ color: themeColor }} />,
+              email,
+              setEmail,
+              "Email"
+          )}
+          {visibleSections.includes("phone") &&
+            renderSection(
+              <Phone className="h-5 w-5 text-gray-500" style={{ color: themeColor }} />,
+              phone,
+              setPhone,
+              "Phone number"
+          )}
+          {visibleSections.includes("website") &&
+            renderSection(
+              <Globe className="h-5 w-5 text-gray-500" style={{ color: themeColor }} />,
+              website,
+              setWebsite,
+              "Website address"
+          )}
+          {visibleSections.includes("linkedin") &&
+            renderSection(
+              <Linkedin className="h-5 w-5 text-gray-500" style={{ color: themeColor }} />,
+              linkedin,
+              setLinkedin,
+              "LinkedIn address"
+          )}
         </div>
       </div>
-
       {/* About Me */}
       {visibleSections.includes('about') && (
-      <div>
-      <h2 className="text-xl font-bold mb-2" style={{ color: themeColor }}>ABOUT ME</h2>
-      <div className="mb-8">
-        <textarea
-          className="w-full p-2 text-sm text-gray-600 border rounded-md focus:border-emerald-500 focus:outline-none"
-          rows={4}
-          style={{
-            borderStyle: 'dashed',
-            borderColor: 'transparent',
-            '&:hover': {
-              borderColor: themeColor
-            }
-          }}
-          defaultValue="Highly skilled and experienced software engineer with a proven track record in developing scalable applications and leading development teams. Passionate about creating efficient solutions and mentoring junior developers."
-          placeholder="Professional Summary"
-        />
-      </div>
-      </div>
+        <div className="mb-2">
+          <AboutMe setAbout={setAbout} about={about} themeColor={themeColor}/>
+        </div>
       )}
       {/* Experience */}
       {visibleSections.includes('experience') && (
-      <div className="mb-2">
-        <h2 className="text-xl font-bold mb-4 border-b pb-2" style={{ color: themeColor }}>EXPERIENCE</h2>
-        <div className="space-y-6">
-          <div>
-            <div className="flex justify-between mb-2">
-              <input
-                type="text"
-                className="font-semibold border-b border-transparent hover:border-gray-200 focus:border-emerald-500 focus:outline-none"
-                defaultValue="Tech Solutions Inc."
-                placeholder="Company Name"
-              />
-              <input
-                type="text"
-                className="text-sm text-gray-600 border-b border-transparent hover:border-gray-200 focus:border-emerald-500 focus:outline-none"
-                defaultValue="2018 - Present"
-                placeholder="Date Range"
-              />
-            </div>
-            <input
-              type="text"
-              className="text-gray-700 mb-2 border-b border-transparent hover:border-gray-200 focus:border-emerald-500 focus:outline-none w-full"
-              defaultValue="Senior Software Engineer"
-              placeholder="Position"
-            />
-            <textarea
-              className="w-full p-2 text-sm text-gray-600 border rounded-md focus:border-emerald-500 focus:outline-none"
-              rows={4}
-              defaultValue=""
-              placeholder="Job Description"
-            />
-          </div>
+        <div className="mb-2">
+          {visibleSections.includes("experience") && (
+              <Experiences setExperiences={setExperiences} experiences={experiences} themeColor={themeColor} />
+            )}
         </div>
-      </div>
       )}
       {/* Education */}
       {visibleSections.includes('education') && (
       
-      <div className="mb-8">
-        <h2 className="text-xl font-bold mb-4 border-b pb-2" style={{ color: themeColor }}>EDUCATION</h2>
-        <div>
-          <div className="flex justify-between mb-2">
-            <input
-              type="text"
-              className="font-semibold border-b border-transparent hover:border-gray-200 focus:border-emerald-500 focus:outline-none"
-              defaultValue="University of Technology"
-              placeholder="School Name"
-            />
-            <input
-              type="text"
-              className="text-sm text-gray-600 border-b border-transparent hover:border-gray-200 focus:border-emerald-500 focus:outline-none"
-              defaultValue="2014 - 2018"
-              placeholder="Date Range"
-            />
-          </div>
-          <input
-            type="text"
-            className="text-gray-700 border-b border-transparent hover:border-gray-200 focus:border-emerald-500 focus:outline-none w-full"
-            defaultValue="Bachelor of Science in Computer Science"
-            placeholder="Degree"
-          />
+        <div className="mb-2">
+          <Educations setEducations={setEducations} educations={educations} themeColor={themeColor} />
         </div>
-      </div>
       )}
       {/* Skills */}
       {visibleSections.includes('skills') && (
-      <div className="mb-8">
-        <h2 className="text-xl font-bold mb-4 border-b pb-2" style={{ color: themeColor }}>SKILLS</h2>
-        <textarea
-          className="w-full p-2 text-sm text-gray-600 border rounded-md focus:border-emerald-500 focus:outline-none"
-          rows={3}
-          defaultValue="Web Development • UI/UX Design • Project Management • Team Leadership • Problem Solving • Communication"
-          placeholder="Your Skills"
-        />
+      <div className="mb-2">
+        <Skills setSkills={setSkills} skills={skills} themeColor={themeColor} />
       </div>
       )}
       {/* Languages */}
       {visibleSections.includes('skills') && (
       <div>
-        <h2 className="text-xl font-bold mb-4 border-b pb-2" style={{ color: themeColor }}>LANGUAGES</h2>
-        <textarea
-          className="w-full p-2 text-sm text-gray-600 border rounded-md focus:border-emerald-500 focus:outline-none"
-          rows={2}
-          defaultValue="English (Native) • Spanish (Fluent) • French (Basic)"
-          placeholder="Languages"
-        />
+        <LanguagesSection setLanguages={setLanguages} languages={languages} themeColor={themeColor} />
       </div>
       )}
       {/* Footer */}
-      <div className="mt-8 text-center text-xs text-gray-400">
+      <div className="mt-8 text-center text-xs text-gray-400 print:hidden">
         Created for free by: <a href="https://airesumemaker.online" className="hover:text-gray-600 transition-colors">airesumemaker.online</a>
       </div>
     </div>

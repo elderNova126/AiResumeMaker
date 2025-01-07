@@ -79,10 +79,7 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
   };
 
   return (
-    <div
-      // style={{ width: "210mm", height: "296mm" }}
-      className="print:!scale-100 print:mx-0 mb-2 print:mb-0 bg-white flex flex-col justify-between shadow-lg mx-auto mt-8 sm:mt-12 w-full sm:w-[90%] md:w-[80%] lg:w-[70%] xl:w-[60%] p-6 sm:p-10 rounded-md min-h-[1200px]"
-    >
+    <div className="print:!scale-100 print:mx-0 mb-2 print:mb-0 bg-white flex flex-col justify-between shadow-lg mx-auto mt-8 sm:mt-12 w-full sm:w-[90%] md:w-[80%] lg:w-[70%] xl:w-[60%] p-6 sm:p-10 rounded-md min-h-[1200px]">
       <div className="grid grid-cols-1 md:grid-cols-3">
         {/* Header */}
         <div className="col-span-1 md:col-span-3 p-4 flex items-start space-x-8 border-b">

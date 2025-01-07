@@ -46,14 +46,14 @@ body {
   height: 100%;
   width: 0.3rem;
   background: #000;
-  left: 0.8rem;
+  left: 0.7rem;
   top: 2.5rem;
   opacity: 0.2;
 }
 
 .timeline_bola {
-  width: 2rem;
-  height: 2rem;
+  width: 1.7rem;
+  height: 1.7rem;
   background: #000;
   border-radius: 3rem;
   position: absolute;

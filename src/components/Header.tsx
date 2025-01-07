@@ -126,7 +126,7 @@ const Header: React.FC<HeaderProps> = ({
               value={currentTypography.font}
               options={fontOptions}
               onChange={(value) =>
-                onTypographyChange({ ...currentTypography, font: value })
+                onTypographyChange(value)
               }
               onDropdownToggle={handleDropdownToggle}
               color={currentColor}

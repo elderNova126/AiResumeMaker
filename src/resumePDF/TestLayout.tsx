@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Document,
   Page,
@@ -7,15 +6,10 @@ import {
   StyleSheet,
   PDFViewer,
   Image,
+  Svg,
+  Path,
 } from "@react-pdf/renderer";
-import {
-  PdfSvgIcon,
-  MailSvgPath,
-  PhoneSvgPath,
-  LocationSvgPath,
-  WebsiteSvgPath,
-  LinkedSvgPath,
-} from "../consts/SvgConst";
+import { PdfSvgIcon, MailSvgPath, PhoneSvgPath, LocationSvgPath, WebsiteSvgPath, LinkedSvgPath } from "../consts/SvgConst";
 
 const styles = StyleSheet.create({
   page: {
@@ -79,7 +73,7 @@ const styles = StyleSheet.create({
   timelineContainer: {
     position: "relative",
     paddingLeft: 15,
-    borderLeftWidth: 2,
+    borderLeft: 2,
     borderLeftColor: "#2563eb",
     borderLeftStyle: "solid",
   },
@@ -121,62 +115,23 @@ const styles = StyleSheet.create({
   },
 });
 
-interface TimelineDotsProps {
-  count: number;
-}
-
-const TimelineDots: React.FC<TimelineDotsProps> = ({ count }) => (
+const TimelineDots = ({ count }) => (
   <View style={styles.timelineDots}>
-    {Array.from({ length: count }, (_, index) => (
-      <View key={index} style={styles.dot} />
-    ))}
+    {Array(count)
+      .fill(null)
+      .map((_, index) => (
+        <View key={index} style={styles.dot} />
+      ))}
   </View>
 );
-
-interface ContactItemProps {
-  path: string;
-  text: string;
-  color: string;
-}
-
-const ContactItem: React.FC<ContactItemProps> = ({ path, color, text }) => (
+const ContactItem = ({ path, text }) => (
   <View style={{ flexDirection: "row", alignItems: "center", marginBottom: 5 }}>
-    <PdfSvgIcon color={color} width={10} height={10} path={path} />
-    <Text style={{ fontSize: 10, marginLeft: 5 }}>{text}</Text>
+    <PdfSvgIcon color="red" width={10} height={10} path={path}/>
+    <Text style={{ fontSize: 10 }}>{ text}</Text>
   </View>
 );
-interface Experience {
-  company: string;
-  dateRange: string;
-  position: string;
-  description: string[];
-}
-interface TestLayoutProps {
-  themeColor?: string;
-  name: string;
-  role: string;
-  email: string;
-  phone: string;
-  websiteLink: string;
-  linkedinLink: string;
-  location: string;
-  summery: string;
-  experiences: Experience[];
-}
-
-const TestLayout: React.FC<TestLayoutProps> = ({
-  themeColor = "#2563eb",
-  name,
-  role,
-  email,
-  phone,
-  websiteLink,
-  linkedinLink,
-  location,
-  summery,
-  experiences,
-}) => (
-  // <PDFViewer style={{ width: "100%", height: "100vh" }}>
+const TestLayout = () => (
+  <PDFViewer style={{ width: "100%", height: "100vh" }}>
     <Document>
       <Page size="A4" style={styles.page}>
         {/* Header Section */}
@@ -185,8 +140,7 @@ const TestLayout: React.FC<TestLayoutProps> = ({
             style={styles.profileImage}
             src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop"
           />
-          <Text style={styles.name}>{name}</Text>
-          <Text style={styles.name}>{role}</Text>
+          <Text style={styles.name}>John Doe</Text>
         </View>
 
         <View style={styles.mainContent}>
@@ -194,31 +148,20 @@ const TestLayout: React.FC<TestLayoutProps> = ({
           <View style={styles.leftColumn}>
             <View>
               <Text style={styles.sectionTitle}>Contact</Text>
-              <ContactItem path={MailSvgPath} color={themeColor} text={email} />
-              <ContactItem
-                path={PhoneSvgPath}
-                color={themeColor}
-                text={phone}
-              />
-              <ContactItem
-                path={LocationSvgPath}
-                color={themeColor}
-                text={location}
-              />
-              <ContactItem
-                path={WebsiteSvgPath}
-                color={themeColor}
-                text={websiteLink}
-              />
-              <ContactItem
-                path={LinkedSvgPath}
-                color={themeColor}
-                text={linkedinLink}
-              />
+              <ContactItem path={MailSvgPath} text="john.doe@email.com" />
+              <ContactItem path={PhoneSvgPath} text="(555) 123-4567" />
+              <ContactItem path={LocationSvgPath} text="New York, NY" />
+              <ContactItem path={WebsiteSvgPath} text="github.com/johndoe" />
+              <ContactItem path={LinkedSvgPath} text="linkedin.com/in/johndoe" />
             </View>
             <View style={{ marginBottom: 20 }}>
               <Text style={styles.sectionTitle}>Professional Summary</Text>
-              <Text style={styles.bulletPoint}>{summery}</Text>
+              <Text style={styles.bulletPoint}>
+                Senior Software Engineer with 5+ years of experience in
+                full-stack development, specializing in React and Node.js
+                ecosystems. Proven track record of delivering scalable solutions
+                and leading development teams.
+              </Text>
             </View>
           </View>
 
@@ -227,21 +170,43 @@ const TestLayout: React.FC<TestLayoutProps> = ({
             <View>
               <Text style={styles.sectionTitle}>Work Experience</Text>
               <View style={styles.timelineContainer}>
-                <TimelineDots count={experiences.length} />
-                {experiences.map((experience, index) => (
-                  <View key={index} style={styles.experienceBlock}>
-                    <Text style={styles.companyName}>
-                      {experience.company}
-                    </Text>
-                    <Text style={styles.jobTitle}>{experience.position}</Text>
-                    <Text style={styles.date}>{experience.dateRange}</Text>
-                    {experience.description.map((point, i) => (
-                      <Text key={i} style={styles.bulletPoint}>
-                        • {point}
-                      </Text>
-                    ))}
-                  </View>
-                ))}
+                <TimelineDots count={3} />
+                <View style={styles.experienceBlock}>
+                  <Text style={styles.companyName}>Tech Solutions Inc.</Text>
+                  <Text style={styles.jobTitle}>Senior Software Engineer</Text>
+                  <Text style={styles.date}>January 2020 - Present</Text>
+                  <Text style={styles.bulletPoint}>
+                    • Led development of enterprise-scale React applications
+                  </Text>
+                  <Text style={styles.bulletPoint}>
+                    • Implemented CI/CD pipelines reducing deployment time by
+                    40%
+                  </Text>
+                  <Text style={styles.bulletPoint}>
+                    • Mentored junior developers and conducted code reviews
+                  </Text>
+                  <Text style={styles.bulletPoint}>
+                    • Architected microservices infrastructure using Node.js
+                  </Text>
+                </View>
+
+                <View style={styles.experienceBlock}>
+                  <Text style={styles.companyName}>
+                    Digital Innovations LLC
+                  </Text>
+                  <Text style={styles.jobTitle}>Software Developer</Text>
+                  <Text style={styles.date}>June 2018 - December 2019</Text>
+                  <Text style={styles.bulletPoint}>
+                    • Developed responsive web applications using React
+                  </Text>
+                  <Text style={styles.bulletPoint}>
+                    • Optimized application performance improving load times by
+                    60%
+                  </Text>
+                  <Text style={styles.bulletPoint}>
+                    • Implemented RESTful APIs using Node.js and Express
+                  </Text>
+                </View>
               </View>
             </View>
 
@@ -263,7 +228,9 @@ const TestLayout: React.FC<TestLayoutProps> = ({
         </View>
       </Page>
     </Document>
-  // </PDFViewer>
+  </PDFViewer>
 );
 
 export default TestLayout;
+
+

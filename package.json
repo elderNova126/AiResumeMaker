@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@react-pdf/renderer": "^4.1.6",
     "@types/react-beautiful-dnd": "^13.1.8",
     "html2canvas": "^1.4.1",
     "jspdf": "^2.5.1",

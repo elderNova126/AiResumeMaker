@@ -2,7 +2,7 @@ import React from 'react';
 import SplitLayout from './layouts/SplitLayout';
 import ClassicLayout from './layouts/ClassicLayout';
 import HybridLayout from './layouts/HybridLayout';
-import TestLayout from './layouts/TestLayout';
+import TestLayout from '../resumePDF/TestLayout';
 import { generatePDF } from '../utils/pdfGenerator';
 import TemplateWrapper from './TemplateWrapper';
 

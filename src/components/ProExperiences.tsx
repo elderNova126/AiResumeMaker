@@ -131,7 +131,7 @@ const ProExperiences: React.FC<{
                             placeholder="Company Name A"
                           />
                         </div>
-                        <div className="flex justify-left">
+                        <div style={{ position: "relative" }}>
                          <AutoResizeField
                             defaultValue={experience.dateRange}
                             className="p-2 textEdit text-gray-600 border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200"

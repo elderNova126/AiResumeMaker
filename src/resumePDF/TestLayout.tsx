@@ -131,7 +131,7 @@ const ContactItem = ({ path, text }) => (
   </View>
 );
 const TestLayout = () => (
-  <PDFViewer style={{ width: "100%", height: "100vh" }}>
+  // <PDFViewer style={{ width: "100%", height: "100vh" }}>
     <Document>
       <Page size="A4" style={styles.page}>
         {/* Header Section */}
@@ -228,7 +228,7 @@ const TestLayout = () => (
         </View>
       </Page>
     </Document>
-  </PDFViewer>
+  // </PDFViewer>
 );
 
 export default TestLayout;

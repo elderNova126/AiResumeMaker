@@ -82,7 +82,6 @@ body {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  padding: 10px;
 }
 .ql-editor {
   padding: 1px !important; /* Set padding-left to 0px */
@@ -98,7 +97,7 @@ body {
   font-variation-settings: inherit !important;
   font-size: 100% !important;
   font-weight: inherit !important;
-  line-height: inherit !important;
+  line-height: inherit;
   letter-spacing: inherit;
   color: inherit;
   margin: 0;

@@ -25,7 +25,7 @@ const AutoResizeField: React.FC<AutoResizeFieldProps> = ({
     const field = fieldRef.current;
     if (type === 'textarea' && field instanceof HTMLTextAreaElement) {
       field.style.height = 'auto'; // Reset height to auto to recalculate
-      field.style.height = `${field.scrollHeight}px`; // Set height to scrollHeight
+      field.style.height = `${field.scrollHeight+10}px`; // Set height to scrollHeight
     } else if (type === 'input' && field instanceof HTMLInputElement) {
       // Adjust input field width dynamically based on content
       field.style.width = 'auto'; // Reset width to auto to recalculate

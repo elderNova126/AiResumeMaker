@@ -114,7 +114,7 @@ const ClassicLayout : React.FC<SplitLayoutProps> = ({
         </div>
       <div className="mb-2">
         <h2 className="text-lg sm:text-xl font-bold py-3" style={{ color: themeColor }}>PERSONAL DETAILS</h2>        
-        <div className="flex justify-center flex-wrap gap-4 mt-4 text-gray-600">
+        <div className="flex flex-wrap gap-4 mt-4 text-gray-600">
           {visibleSections.includes("location") &&
             renderSection(
               <MapPin className="h-5 w-5 text-gray-500" style={{ color: themeColor }} />,

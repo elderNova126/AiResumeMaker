@@ -7,13 +7,13 @@ import {
 } from "react-beautiful-dnd";
 import { Trash } from "lucide-react";
 import AutoResizeField from "./AutoResizeField";
-import WorkExperienceEditor from "./WorkExperienceEditor"
+import WorkExperienceEditor from "./WorkExperienceEditor";
 
 interface ExperienceType {
   company: string;
   dateRange: string;
   position: string;
-  description: string;
+  description: string[];
 }
 
 const Experiences: React.FC<{
@@ -48,16 +48,24 @@ const Experiences: React.FC<{
   const addExperience = () => {
     setExperiences([
       ...experiences,
-      { company: "", dateRange: "", position: "", description: "" },
+      { company: "", dateRange: "", position: "", description: [] },
     ]);
   };
 
   const removeExperience = (index: number) => {
-    const confirmed = window.confirm('Are you sure you want to delete item?');
-    if (confirmed) 
-      setExperiences(experiences.filter((_, i) => i !== index));
+    const confirmed = window.confirm("Are you sure you want to delete item?");
+    if (confirmed) setExperiences(experiences.filter((_, i) => i !== index));
   };
-
+  const updateExperience = (
+    index: number,
+    key: keyof ExperienceType,
+    value: string
+  ) => {
+    const updatedExperiences = experiences.map((experience, i) =>
+      i === index ? { ...experience, [key]: value } : experience
+    );
+    setExperiences(updatedExperiences);
+  };
   return (
     <div>
       <h2
@@ -99,12 +107,25 @@ const Experiences: React.FC<{
                             <Trash className="h-4 w-4" />
                           </button>
                           <div
-                            style={{cursor:"pointer"}}
+                            style={{ cursor: "pointer" }}
                             className="zorder-top absolute -top-3 right-9 hidden group-hover:flex items-center justify-center w-6 h-6 bg-red-500 text-white rounded-full shadow-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
                             {...provided.dragHandleProps}
                           >
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M7 15L12 20L17 15M7 9L12 4L17 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg> 
+                            <svg
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M7 15L12 20L17 15M7 9L12 4L17 9"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              ></path>
+                            </svg>
                           </div>
                         </>
                       )}
@@ -116,38 +137,49 @@ const Experiences: React.FC<{
                       >
                         +
                       </button>
-                      <div style={{paddingLeft: "2rem"}}>
-                      <div style={{position:"relative"}}>
+                      <div style={{ paddingLeft: "2rem" }}>
+                        <div style={{ position: "relative" }}>
                           <div className="timeline_bola color_estrellas"></div>
-                            <AutoResizeField
-                              defaultValue={experience.company}
-                              className="p-2 textEdit font-semibold placeholder-green-600 text-green-600 border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200"
-                              placeholder="Company Name"/>
-                      </div>                      
-                      <div className="flex justify-between gap-4">
-                        <AutoResizeField
-                          defaultValue={experience.position}
-                          className="p-2 textEdit text-gray-700 border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none w-full rounded-md transition ease-in-out duration-200"
-                          placeholder="Position"
-                        />
-                        <AutoResizeField
-                          defaultValue={experience.dateRange}
-                          style={{ width: "30%" }}
-                          className="p-2 textEdit text-gray-600 border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200"
-                          placeholder="From ~ Until"
-                        />
-                      </div>
-                      <WorkExperienceEditor/>
-                      {/* <AutoResizeField
+                          <AutoResizeField
+                            value={experience.company}
+                            className="p-2 textEdit font-semibold placeholder-green-600 text-green-600 border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200"
+                            placeholder="Company Name"
+                            onChange={(value) =>
+                              updateExperience(index, "company", value)
+                            }
+                          />
+                        </div>
+                        <div className="flex justify-between gap-4">
+                          <AutoResizeField
+                            value={experience.position}
+                            className="p-2 textEdit text-gray-700 border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none w-full rounded-md transition ease-in-out duration-200"
+                            placeholder="Position"
+                            onChange={(value) =>
+                              updateExperience(index, "position", value)
+                            }                            
+                          />
+                          <AutoResizeField
+                            value={experience.dateRange}
+                            style={{ width: "30%" }}
+                            className="p-2 textEdit text-gray-600 border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200"
+                            placeholder="From ~ Until"
+                            onChange={(value) =>
+                              updateExperience(index, "dateRange", value)
+                            }                              
+                          />
+                        </div>
+                        <WorkExperienceEditor />
+                        {/* <AutoResizeField
                         type="textarea"
                         defaultValue={experience.description}
                         className="p-3 textEdit w-full text-gray-600 border-b border-transparent rounded-lg focus:border-emerald-500 focus:outline-none shadow-sm transition ease-in-out duration-200"
                         placeholder="Job Description"
                       /> */}
                       </div>
-                      {experiences.length > 1 && (experiences.length-1 > index) && (
-                      <div className="timeline_linea"></div>
-                      )}
+                      {experiences.length > 1 &&
+                        experiences.length - 1 > index && (
+                          <div className="timeline_linea"></div>
+                        )}
                     </div>
                   )}
                 </Draggable>

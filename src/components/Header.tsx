@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   FileDown,
   FileUp,
@@ -6,15 +6,16 @@ import {
   Layout,
   Palette,
   Type,
-  Layers
-} from 'lucide-react';
+  Layers,
+  Phone,
+} from "lucide-react";
 // import { generatePDF } from '../utils/pdfGenerator';
-import ImportDialog from './ImportDialog';
-import SelectorButton from './SelectorButton';
-import SectionsSelector from './SectionsSelector';
-import { PDFDownloadLink } from '@react-pdf/renderer';
-import TestLayout from '../resumePDF/TestLayout';
-
+import ImportDialog from "./ImportDialog";
+import SelectorButton from "./SelectorButton";
+import SectionsSelector from "./SectionsSelector";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import TestLayout from "../resumePDF/TestLayout";
+import { useUser } from "../context/UserContext";
 
 interface HeaderProps {
   onLayoutChange: (layout: string) => void;
@@ -35,8 +36,19 @@ const Header: React.FC<HeaderProps> = ({
   onTypographyChange,
   currentTypography,
   visibleSections,
-  setVisibleSections
+  setVisibleSections,
 }) => {
+  const {
+    name,
+    role,
+    location,
+    email,
+    phone,
+    website,
+    linkedin,
+    about,
+    experiences,
+  } = useUser();
   const [showImportDialog, setShowImportDialog] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [downloadingLoading, setDownloadingLoading] = useState(false);
@@ -46,66 +58,76 @@ const Header: React.FC<HeaderProps> = ({
   };
 
   const handleImport = (data: Record<string, string>) => {
-    console.log('Imported data:', data);
+    console.log("Imported data:", data);
   };
 
   const layoutOptions = [
-    { value: 'split', label: 'Split Layout' },
-    { value: 'classic', label: 'Classic Layout' },
-    { value: 'hybrid', label: 'Hybrid Layout' },
-    { value: 'test', label: 'Test Layout' }
+    { value: "split", label: "Split Layout" },
+    { value: "classic", label: "Classic Layout" },
+    { value: "hybrid", label: "Hybrid Layout" },
+    { value: "test", label: "Test Layout" },
   ];
 
   const colorOptions = [
-    { value: '#7c3aed', label: 'Purple' },
-    { value: '#2563eb', label: 'Royal Blue' },
-    { value: '#059669', label: 'Emerald' },
-    { value: '#dc2626', label: 'Ruby' },
-    { value: '#ea580c', label: 'Sunset' },
-    { value: '#0891b2', label: 'Ocean' },
-    { value: '#1a1a1a', label: 'Charcoal' },
-    { value: '#4b5563', label: 'Slate' }
+    { value: "#7c3aed", label: "Purple" },
+    { value: "#2563eb", label: "Royal Blue" },
+    { value: "#059669", label: "Emerald" },
+    { value: "#dc2626", label: "Ruby" },
+    { value: "#ea580c", label: "Sunset" },
+    { value: "#0891b2", label: "Ocean" },
+    { value: "#1a1a1a", label: "Charcoal" },
+    { value: "#4b5563", label: "Slate" },
   ];
 
   const fontOptions = [
-    { value: 'nunito', label: 'Nunito' },
-    { value: 'archivo-narrow', label: 'Archivo Narrow' },
-    { value: 'syne', label: 'Syne' },
-    { value: 'dm-serif-display', label: 'DM Serif Display + DM Sans' },
-    { value: 'poppins', label: 'Poppins' },
-    { value: 'rubik', label: 'Rubik' },
-    { value: 'fira-sans', label: 'Fira Sans' },
-    { value: 'josefin-sans', label: 'Josefin Sans' },
-    { value: 'roboto-mono', label: 'Roboto Mono' },
-    { value: 'fjalla-one', label: 'Fjalla One + Inter' }
+    { value: "nunito", label: "Nunito" },
+    { value: "archivo-narrow", label: "Archivo Narrow" },
+    { value: "syne", label: "Syne" },
+    { value: "dm-serif-display", label: "DM Serif Display + DM Sans" },
+    { value: "poppins", label: "Poppins" },
+    { value: "rubik", label: "Rubik" },
+    { value: "fira-sans", label: "Fira Sans" },
+    { value: "josefin-sans", label: "Josefin Sans" },
+    { value: "roboto-mono", label: "Roboto Mono" },
+    { value: "fjalla-one", label: "Fjalla One + Inter" },
   ];
 
   const sectionOptions = [
-    { id: 'location', label: 'Location', group: 'Personal Details' },
-    { id: 'phone', label: 'Phone Number', group: 'Personal Details' },
-    { id: 'email', label: 'Email', group: 'Personal Details' },
-    { id: 'website', label: 'Website', group: 'Personal Details' },
-    { id: 'linkedin', label: 'LinkedIn', group: 'Personal Details' },
-    { id: 'picture', label: 'Profile Picture', group: 'Content Information' },
-    { id: 'about', label: 'About Me', group: 'Content Information' },
-    { id: 'role', label: 'Current Role', group: 'Content Information' },
-    { id: 'experience', label: 'Work Experience', group: 'Content Information' },
-    { id: 'education', label: 'Education', group: 'Content Information' },
-    { id: 'skills', label: 'Skills', group: 'Content Information' },
-    { id: 'languages', label: 'Language', group: 'Content Information' },
-    { id: 'interests', label: 'Hobbies', group: 'Content Information' }
+    { id: "location", label: "Location", group: "Personal Details" },
+    { id: "phone", label: "Phone Number", group: "Personal Details" },
+    { id: "email", label: "Email", group: "Personal Details" },
+    { id: "website", label: "Website", group: "Personal Details" },
+    { id: "linkedin", label: "LinkedIn", group: "Personal Details" },
+    { id: "picture", label: "Profile Picture", group: "Content Information" },
+    { id: "about", label: "About Me", group: "Content Information" },
+    { id: "role", label: "Current Role", group: "Content Information" },
+    {
+      id: "experience",
+      label: "Work Experience",
+      group: "Content Information",
+    },
+    { id: "education", label: "Education", group: "Content Information" },
+    { id: "skills", label: "Skills", group: "Content Information" },
+    { id: "languages", label: "Language", group: "Content Information" },
+    { id: "interests", label: "Hobbies", group: "Content Information" },
   ];
 
   return (
     <>
       <header className="w-full bg-white shadow-sm py-4 px-6 fixed top-0 z-50  print:hidden">
         <div className="max-w-7xl mx-auto grid grid-cols-3 items-center">
-          <div className="flex items-center space-x-2" style={{ color: currentColor }}>
+          <div
+            className="flex items-center space-x-2"
+            style={{ color: currentColor }}
+          >
             <ScrollText className="h-6 w-6" />
             <span className="text-xl font-semibold">ResumeMaker</span>
           </div>
 
-          <div className="flex items-center justify-center space-x-4" style={{ color: currentColor }}>
+          <div
+            className="flex items-center justify-center space-x-4"
+            style={{ color: currentColor }}
+          >
             <SelectorButton
               icon={Layout}
               label="Layout"
@@ -129,9 +151,7 @@ const Header: React.FC<HeaderProps> = ({
               label="Typography"
               value={currentTypography.font}
               options={fontOptions}
-              onChange={(value) =>
-                onTypographyChange(value)
-              }
+              onChange={(value) => onTypographyChange(value)}
               onDropdownToggle={handleDropdownToggle}
               color={currentColor}
             />
@@ -159,27 +179,42 @@ const Header: React.FC<HeaderProps> = ({
               className="flex items-center space-x-2 px-4 py-2 rounded-md transition-all"
               style={{
                 backgroundColor: `${currentColor}20`,
-                color: currentColor
+                color: currentColor,
               }}
             >
               <FileUp className="h-4 w-4" />
-              <span>Import</span>
+              <span>{name}</span>
             </button>
             {/* Use PDFDownloadLink for downloading */}
             <PDFDownloadLink
-              document={<TestLayout/>}
+              document={
+                <TestLayout
+                  themeColor={currentColor}
+                  name={name}
+                  role={role}
+                  location={location}
+                  email={email}
+                  phone={phone}
+                  websiteLink={website}
+                  linkedinLink={linkedin}
+                  summery={about}
+                  experiences={experiences}
+                />
+              }
               fileName="John_Doe_Resume.pdf"
             >
               {({ downloadingLoading }) => (
                 <button
                   className={`flex items-center space-x-2 px-4 py-2 text-white rounded-md transition-all hover:opacity-90 ${
-                    downloadingLoading ? 'opacity-50' : ''
+                    downloadingLoading ? "opacity-50" : ""
                   }`}
                   style={{ backgroundColor: currentColor }}
                   disabled={downloadingLoading}
                 >
                   <FileDown className="h-4 w-4" />
-                  <span>{downloadingLoading ? 'Preparing...' : 'Download'}</span>
+                  <span>
+                    {downloadingLoading ? "Preparing..." : "Download"}
+                  </span>
                 </button>
               )}
             </PDFDownloadLink>

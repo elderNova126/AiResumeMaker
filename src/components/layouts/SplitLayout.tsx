@@ -6,6 +6,7 @@ import Experiences from "../Experiences";
 import Educations from "../Educations";
 import Skills from "../Skills";
 import LanguagesSection from "../Languages";
+import { useUser } from "../../context/UserContext";
 
 interface SplitLayoutProps {
   themeColor: string;
@@ -16,14 +17,14 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
   themeColor,
   visibleSections,
 }) => {
-  const [experiences, setExperiences] = useState([
-    {
-      company: "Tech Solutions Inc.",
-      dateRange: "2018 - Present",
-      position: "Senior Software Engineer",
-      description: "",
-    },
-  ]);
+  // const [experiences, setExperiences] = useState([
+  //   {
+  //     company: "Tech Solutions Inc.",
+  //     dateRange: "2018 - Present",
+  //     position: "Senior Software Engineer",
+  //     description: "",
+  //   },
+  // ]);
 
   const [educations, setEducations] = useState([
     {
@@ -32,20 +33,21 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
       degree: "Bachelor of Science in Computer Science",
     },
   ]);
+  const { name, setName, role, setRole, location, setLocation, email, setEmail, phone, setPhone, website, setWebsite, linkedin, setLinkedin, about, setAbout, experiences, setExperiences } = useUser();
   const [skills, setSkills] = useState([{ skillname: "", skilllevel: "" }]);
   const [languages, setLanguages] = useState([{ name: "", level: "" }]);
 
   const [avatar, setAvatar] = useState('https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-  const [name, setName] = useState("John Doe");
-  const [role, setRole] = useState("SENIOR SOFTWARE ENGINEER");
-  const [location, setLocation] = useState("New York, USA");
-  const [email, setEmail] = useState("john.doe@email.com");
-  const [phone, setPhone] = useState("123-456-7890");
-  const [website, setWebsite] = useState("johndoe.com");
-  const [linkedin, setLinkedin] = useState("in/johndoe");
-  const [about, setAbout] = useState(
-    "Highly skilled and experienced software engineer with a proven track record in developing scalable applications and leading development teams. Passionate about creating efficient solutions and mentoring junior developers."
-  );
+  // const [name, setName] = useState("John Doe");
+  // const [role, setRole] = useState("SENIOR SOFTWARE ENGINEER");
+  // const [location, setLocation] = useState("New York, USA");
+  // const [email, setEmail] = useState("john.doe@email.com");
+  // const [phone, setPhone] = useState("123-456-7890");
+  // const [website, setWebsite] = useState("johndoe.com");
+  // const [linkedin, setLinkedin] = useState("in/johndoe");
+  // const [about, setAbout] = useState(
+  //   "Highly skilled and experienced software engineer with a proven track record in developing scalable applications and leading development teams. Passionate about creating efficient solutions and mentoring junior developers."
+  // );
 
   const renderSection = (
     icon: React.ReactNode,

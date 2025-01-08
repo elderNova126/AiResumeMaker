@@ -16,6 +16,7 @@
     "lucide-react": "^0.344.0",
     "pdfjs-dist": "3.11.174",
     "react": "^18.3.1",
+    "react-beautiful-dnd": "^13.1.1",
     "react-colorful": "^5.6.1",
     "react-dom": "^18.3.1",
     "tailwind-merge": "^2.2.1"

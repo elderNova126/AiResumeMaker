@@ -109,7 +109,7 @@ const Skills: React.FC<{
                       </button>
 
                       <AutoResizeField
-                        defaultValue={skill.skillname}
+                        value={skill.skillname}
                         className="p-2 textEdit border-b border-transparent hover:border-gray-300 bg-gray-100 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200 max-w-[400px]"
                         placeholder="Skill Name"
                       />

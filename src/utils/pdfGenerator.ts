@@ -8,12 +8,7 @@ export const generatePDF = async (elementId: string): Promise<void> => {
       throw new Error('Template element not found');
     }
 
-    const canvas = await html2canvas(element, {
-      scale: 2,
-      useCORS: true,
-      logging: false,
-      allowTaint: true,
-    });
+    const canvas = await html2canvas(element);
 
     const imgWidth = 210; // A4 width in mm
     const imgHeight = (canvas.height * imgWidth) / canvas.width;

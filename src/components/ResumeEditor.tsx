@@ -29,7 +29,7 @@ const ResumeEditor = ({ layout, themeColor,visibleSections }: ResumeEditorProps)
   };
 
   return (
-    <TemplateWrapper themeColor={themeColor} id="resume-template">
+    <TemplateWrapper themeColor={themeColor} >
       {renderContent()}
     </TemplateWrapper>
   );

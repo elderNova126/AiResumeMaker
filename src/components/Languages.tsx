@@ -141,7 +141,7 @@ const LanguagesSection: React.FC<{
                               )
                             )
                           }
-                          className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                          className="removeDropIcon block w-full rounded-md border-gray-300 hover:border-gray-400 focus:border-emerald-500 focus:outline-none"
                         >
                           <option value="">Select Language</option>
                           {lngkind.map((name) => (
@@ -161,7 +161,7 @@ const LanguagesSection: React.FC<{
                               )
                             )
                           }
-                          className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                          className="removeDropIcon block w-full rounded-md border-gray-300 hover:border-gray-400 focus:border-emerald-500 focus:outline-none"
                         >
                           <option value="">Select Level</option>
                           {proficiencyLevels.map((level) => (

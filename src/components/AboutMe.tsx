@@ -12,7 +12,7 @@ const AboutMe: React.FC<AboutMeProps> = ({ setAbout, about, themeColor }) => {
   return (
     <div className="my-3 py-2">
       <h2 className="text-lg sm:text-xl font-bold py-3" style={{ color: themeColor }}>
-        ABOUT ME
+        ProFile
       </h2>
       <AutoResizeField
         type="textarea"

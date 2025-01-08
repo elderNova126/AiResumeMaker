@@ -162,8 +162,8 @@ const Header: React.FC<HeaderProps> = ({
               <span>Import</span>
             </button>
             <button
-            onClick={globalThis?.print}
-              // onClick={() => generatePDF('resume-template')}
+            // onClick={globalThis?.print}
+              onClick={() => generatePDF('resume-template')}
               className="flex items-center space-x-2 px-4 py-2 text-white rounded-md transition-all hover:opacity-90"
               style={{ backgroundColor: currentColor }}
             >

@@ -69,7 +69,9 @@ const LanguagesSection: React.FC<{
   };
 
   const removeLanguage = (index: number) => {
-    setLanguages(languages.filter((_, i) => i !== index));
+    const confirmed = window.confirm('Are you sure you want to delete item?');
+    if (confirmed) 
+      setLanguages(languages.filter((_, i) => i !== index));
   };
 
   return (
@@ -106,24 +108,26 @@ const LanguagesSection: React.FC<{
                         <>
                           <button
                             type="button"
-                            className="absolute -top-3 right-9 hidden group-hover:flex items-center justify-center w-6 h-6 bg-red-500 text-white rounded-full shadow-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
+                            className="absolute -top-3 right-16 hidden group-hover:flex items-center justify-center w-6 h-6 bg-red-500 text-white rounded-full shadow-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
                             onClick={() => removeLanguage(index)}
                             aria-label="Remove Language"
                           >
                             <Trash className="h-4 w-4" />
                           </button>
                           <div
-                            className="absolute -top-3 right-16 hidden group-hover:flex items-center justify-center w-6 h-6 bg-gray-300 text-black rounded-full shadow-md hover:bg-gray-400 focus:outline-none transition-all cursor-move"
+                            style={{cursor:"pointer"}}
+                            className="absolute -top-3 right-9 hidden group-hover:flex items-center justify-center w-6 h-6 bg-red-500 text-white rounded-full shadow-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
                             {...provided.dragHandleProps}
                           >
-                            ::
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7 15L12 20L17 15M7 9L12 4L17 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg> 
                           </div>
                         </>
                       )}
 
                       <button
                         type="button"
-                        className="absolute -top-3 right-2 hidden group-hover:flex items-center justify-center w-6 h-6 bg-emerald-500 text-white rounded-full shadow-md hover:bg-emerald-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-400 transition-all"
+                        className="absolute -top-3 right-2 hidden group-hover:flex items-center justify-center w-6 h-6 bg-red-500 text-white rounded-full shadow-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
                         onClick={addLanguage}
                         aria-label="Add Education"
                       >
@@ -141,7 +145,8 @@ const LanguagesSection: React.FC<{
                               )
                             )
                           }
-                          className="removeDropIcon block w-full rounded-md border-gray-300 hover:border-gray-400 focus:border-emerald-500 focus:outline-none"
+                          className="removeDropIcon placeholder-gray-400 block w-full rounded-md border-gray-300 hover:border-gray-400 focus:border-emerald-500 focus:outline-none"
+                          defaultValue=""
                         >
                           <option value="">Select Language</option>
                           {lngkind.map((name) => (
@@ -161,7 +166,8 @@ const LanguagesSection: React.FC<{
                               )
                             )
                           }
-                          className="removeDropIcon block w-full rounded-md border-gray-300 hover:border-gray-400 focus:border-emerald-500 focus:outline-none"
+                          className="removeDropIcon placeholder-gray-400 block w-full rounded-md border-gray-300 hover:border-gray-400 focus:border-emerald-500 focus:outline-none"
+                          defaultValue=""
                         >
                           <option value="">Select Level</option>
                           {proficiencyLevels.map((level) => (

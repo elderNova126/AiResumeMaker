@@ -5,27 +5,25 @@ import {
   Draggable,
   DropResult,
 } from "react-beautiful-dnd";
-import { Trash } from "lucide-react";
 import AutoResizeField from "./AutoResizeField";
-import WorkExperienceEditor from "./WorkExperienceEditor"
+import { Trash } from "lucide-react";
 
-interface ExperienceType {
-  company: string;
+interface ProEducationType {
+  school: string;
   dateRange: string;
-  position: string;
-  description: string;
+  degree: string;
 }
 
-const Experiences: React.FC<{
-  setExperiences: React.Dispatch<React.SetStateAction<ExperienceType[]>>;
-  experiences: ExperienceType[];
+const ProEducations: React.FC<{
+  setProEducations: React.Dispatch<React.SetStateAction<ProEducationType[]>>;
+  educations: ProEducationType[];
   themeColor: string;
-}> = ({ setExperiences, experiences, themeColor }) => {
+}> = ({ setProEducations, proeducations, themeColor }) => {
   const reorder = (
-    list: ExperienceType[],
+    list: ProEducationType[],
     startIndex: number,
     endIndex: number
-  ): ExperienceType[] => {
+  ): ProEducationType[] => {
     const result = Array.from(list);
     const [removed] = result.splice(startIndex, 1);
     result.splice(endIndex, 0, removed);
@@ -33,51 +31,50 @@ const Experiences: React.FC<{
   };
 
   const onDragEnd = (result: DropResult) => {
-    console.log("Drag Result:", result);
     if (!result.destination) {
       return;
     }
-    const reorderedExperiences = reorder(
-      experiences,
+    const reorderedEducations = reorder(
+      proeducations,
       result.source.index,
       result.destination.index
     );
-    setExperiences(reorderedExperiences);
+    setProEducations(reorderedEducations);
   };
 
-  const addExperience = () => {
-    setExperiences([
-      ...experiences,
-      { company: "", dateRange: "", position: "", description: "" },
+  const addEducation = () => {
+    setProEducations([
+      ...proeducations,
+      { school: "", dateRange: "", degree: "" },
     ]);
   };
 
-  const removeExperience = (index: number) => {
+  const removeEducation = (index: number) => {
     const confirmed = window.confirm('Are you sure you want to delete item?');
     if (confirmed) 
-      setExperiences(experiences.filter((_, i) => i !== index));
+      setProEducations(proeducations.filter((_, i) => i !== index));
   };
 
   return (
-    <div>
+    <div className="my-3 py-2">
       <h2
-        className="text-xl sm:text-xl font-bold my-3"
+        className="text-xl sm:text-xl font-bold mb-2"
         style={{ color: themeColor }}
       >
-        EXPERIENCE
+        EDUCATION
       </h2>
       <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable droppableId="experiences">
+        <Droppable droppableId="educations">
           {(provided) => (
             <div
               {...provided.droppableProps}
               ref={provided.innerRef}
               className="space-y-4"
             >
-              {experiences.map((experience, index) => (
+              {proeducations.map((education, index) => (
                 <Draggable
-                  key={`experience-${index}`}
-                  draggableId={`experience-${index}`}
+                  key={`education-${index}`}
+                  draggableId={`education-${index}`}
                   index={index}
                 >
                   {(provided, snapshot) => (
@@ -88,66 +85,57 @@ const Experiences: React.FC<{
                         snapshot.isDragging ? "bg-gray-100 shadow-md" : ""
                       }`}
                     >
-                      {experiences.length > 1 && (
+                      {proeducations.length > 1 && (
                         <>
                           <button
                             type="button"
                             className="zorder-top absolute -top-3 right-16 hidden group-hover:flex items-center justify-center w-6 h-6 bg-red-500 text-white rounded-full shadow-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
-                            onClick={() => removeExperience(index)}
-                            aria-label="Remove Experience"
+                            onClick={() => removeEducation(index)}
+                            aria-label="Remove Education"
                           >
                             <Trash className="h-4 w-4" />
                           </button>
                           <div
                             style={{cursor:"pointer"}}
                             className="zorder-top absolute -top-3 right-9 hidden group-hover:flex items-center justify-center w-6 h-6 bg-red-500 text-white rounded-full shadow-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
-                            {...provided.dragHandleProps}
-                          >
+                            {...provided.dragHandleProps}> 
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M7 15L12 20L17 15M7 9L12 4L17 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg> 
-                          </div>
+                            </div>
                         </>
                       )}
                       <button
                         type="button"
                         className="zorder-top absolute -top-3 right-2 hidden group-hover:flex items-center justify-center w-6 h-6 bg-red-500 text-white rounded-full shadow-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
-                        onClick={addExperience}
-                        aria-label="Add Experience"
+                        onClick={addEducation}
+                        aria-label="Add Education"
                       >
                         +
                       </button>
                       <div style={{paddingLeft: "2rem"}}>
-                      <div style={{position:"relative"}}>
+                        <div style={{position:"relative"}}>
                           <div className="timeline_bola color_estrellas"></div>
-                            <AutoResizeField
-                              defaultValue={experience.company}
-                              className="p-2 textEdit font-semibold placeholder-green-600 text-green-600 border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200"
-                              placeholder="Company Name"/>
-                      </div>                      
+                          <AutoResizeField
+                          defaultValue={education.degree}
+                          className="p-2 textEdit text-gray-700 placeholder-green-600 text-green-600 border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none w-full rounded-md transition ease-in-out duration-200"
+                          placeholder="Bachelor of Science in Computer Science"
+                          />|
+                          <AutoResizeField
+                            defaultValue={education.school}
+                            className="p-2 textEdit font-semibold placeholder-black-600 text-black-600 border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200"
+                            placeholder="VanderVilt University"
+                          />
+                      </div>
                       <div className="flex justify-between gap-4">
+                        
                         <AutoResizeField
-                          defaultValue={experience.position}
-                          className="p-2 textEdit text-gray-700 border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none w-full rounded-md transition ease-in-out duration-200"
-                          placeholder="Position"
-                        />
-                        <AutoResizeField
-                          defaultValue={experience.dateRange}
+                          defaultValue={education.dateRange}
                           style={{ width: "30%" }}
                           className="p-2 textEdit text-gray-600 border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200"
-                          placeholder="From ~ Until"
+                          placeholder="May 2011"
                         />
-                      </div>
-                      <WorkExperienceEditor/>
-                      {/* <AutoResizeField
-                        type="textarea"
-                        defaultValue={experience.description}
-                        className="p-3 textEdit w-full text-gray-600 border-b border-transparent rounded-lg focus:border-emerald-500 focus:outline-none shadow-sm transition ease-in-out duration-200"
-                        placeholder="Job Description"
-                      /> */}
-                      </div>
-                      {experiences.length > 1 && (experiences.length-1 > index) && (
-                      <div className="timeline_linea"></div>
-                      )}
+                      </div>                     
+                    </div>
                     </div>
                   )}
                 </Draggable>
@@ -161,4 +149,4 @@ const Experiences: React.FC<{
   );
 };
 
-export default Experiences;
+export default ProEducations;

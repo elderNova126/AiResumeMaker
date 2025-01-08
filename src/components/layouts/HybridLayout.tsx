@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Mail, MapPin, Phone, Globe, Linkedin } from 'lucide-react';
 import AutoResizeField from "../AutoResizeField";
-import AboutMe from "../AboutMe";
-import Experiences from "../Experiences";
-import Educations from "../Educations";
+// import AboutMe from "../AboutMe";
+import ProExperiences from "../ProExperiences";
+import ProEducations from "../ProEducations";
 import Skills from "../Skills";
 import LanguagesSection from "../Languages";
 interface HybridLayoutProps {
@@ -15,20 +15,22 @@ const HybridLayout: React.FC<HybridLayoutProps> = ({
   themeColor,
   visibleSections,
 }) => {
-  const [experiences, setExperiences] = useState([
+  const [proexperiences, setProExperiences] = useState([
       {
+        position: "Senior Software Engineer",
         company: "Tech Solutions Inc.",
         dateRange: "2018 - Present",
-        position: "Senior Software Engineer",
+        district:"Nashvialle",
+        country:"united state",
         description: "",
       },
     ]);
   
-    const [educations, setEducations] = useState([
+    const [proeducations, setProEducations] = useState([
       {
-        school: "University of Technology",
-        dateRange: "2014 - 2018",
         degree: "Bachelor of Science in Computer Science",
+        school: "University of Technology",
+        dateRange: "2014 - 2018",        
       },
     ]);
     const [skills, setSkills] = useState([{ skillname: "", skilllevel: "" }]);
@@ -36,14 +38,12 @@ const HybridLayout: React.FC<HybridLayoutProps> = ({
 
     const [name, setName] = useState("Cristopher Gonan");
     const [role, setRole] = useState("Finanicial Analyst");
-    const [location, setLocation] = useState("New York, USA");
-    const [email, setEmail] = useState("Cristopher.Gonan@email.com");
-    const [phone, setPhone] = useState("123-456-7890");
-    const [website, setWebsite] = useState("johndoe.com");
-    const [linkedin, setLinkedin] = useState("in/Cristopher");
-    const [about, setAbout] = useState(
-      "Highly skilled and experienced software engineer with a proven track record in developing scalable applications and leading development teams. Passionate about creating efficient solutions and mentoring junior developers."
-    );
+    const [location, setLocation] = useState("");
+    const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
+    const [website, setWebsite] = useState("");
+    const [linkedin, setLinkedin] = useState("");
+    const [about, setAbout] = useState("");
     const renderSection = (
       icon: React.ReactNode,
       value: string,
@@ -107,15 +107,13 @@ const HybridLayout: React.FC<HybridLayoutProps> = ({
                 setLinkedin,
                 "LinkedIn address"
               )}
-
           </div>
-          
         </div>
       </div>
 
       <div className="grid grid-cols-3 gap-8">
         {/* Left Column */}
-        <div className="col-span-2">
+        <div className="col-span-3">
           {/* About Me */}
           <div className="my-3 py-2">
             <h2 className="text-lg sm:text-xl font-bold py-3" style={{ color: themeColor }}>
@@ -125,31 +123,29 @@ const HybridLayout: React.FC<HybridLayoutProps> = ({
               type="textarea"
               onChange={(value: string) => setAbout(value)} // Ensure onChange works with string type
               value={about}
-              className="textEdit w-full text-sm text-gray-600 p-3 rounded-md focus:border-emerald-500 focus:outline-none transition-all"
+              className="textEdit w-full text-gray-600 p-3 rounded-md focus:border-emerald-500 focus:outline-none transition-all"
               placeholder="Professional Summary"
             />
           </div>
           {/* Experience */}
           {visibleSections.includes('experience') && (
-            <Experiences setExperiences={setExperiences} experiences={experiences} themeColor={themeColor} />
+            <ProExperiences setProExperiences={setProExperiences} proexperiences={proexperiences} themeColor={themeColor} />
           )}
           {/* Education */}
           {visibleSections.includes('education') && (
-            <Educations setEducations={setEducations} educations={educations} themeColor={themeColor} />
+            <ProEducations setProEducations={setProEducations} proeducations={proeducations} themeColor={themeColor} />
           )}
-        </div>
-
-        {/* Right Column */}
-        <div className="col-span-1">
-          
           {/* Skills */}
           {visibleSections.includes('skills') && (
             <Skills setSkills={setSkills} skills={skills} themeColor={themeColor} />
           )}
-          {/* Languages */}
-          {visibleSections.includes('languages') && (
-            <LanguagesSection setLanguages={setLanguages} languages={languages} themeColor={themeColor} />       
-          )}
+          <div className="flex">
+            {/* Languages */}
+            {visibleSections.includes('languages') && (
+              <LanguagesSection setLanguages={setLanguages} languages={languages} themeColor={themeColor} />       
+            )}
+          </div>
+          
         </div>
       </div>
       

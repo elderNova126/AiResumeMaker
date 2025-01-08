@@ -35,7 +35,7 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
   const [skills, setSkills] = useState([{ skillname: "", skilllevel: "" }]);
   const [languages, setLanguages] = useState([{ name: "", level: "" }]);
 
-  const [avatar, setAvatar] = useState('https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80');
+  const [avatar, setAvatar] = useState('https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
   const [name, setName] = useState("John Doe");
   const [role, setRole] = useState("SENIOR SOFTWARE ENGINEER");
   const [location, setLocation] = useState("New York, USA");
@@ -58,7 +58,7 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
       <AutoResizeField
         value={value}
         onChange={onChange}
-        className="textEdit flex-1 bg-transparent border-b border-gray-300 hover:border-gray-400 focus:border-emerald-500 focus:outline-none transition-all"
+        className="p-2 textEdit flex-1 bg-transparent border-b border-gray-300 hover:border-gray-400 focus:border-emerald-500 focus:outline-none transition-all"
         placeholder={placeholder}
       />
     </div>
@@ -79,8 +79,8 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
   };
 
   return (
-    <div  className="print:!scale-100 print:mx-0 mb-2 print:mb-0 bg-white flex flex-col justify-between shadow-lg mx-auto mt-8 sm:mt-12 w-full sm:w-[90%] md:w-[80%] lg:w-[70%] xl:w-[60%] p-6 sm:p-10 rounded-md min-h-[1200px]">
-      <div id="resume-template" className="grid grid-cols-1 md:grid-cols-3">
+    <div className="print:!scale-100 print:mx-0 mb-2 print:mb-0 bg-white flex flex-col justify-between shadow-lg mx-auto mt-8 sm:mt-12 w-full sm:w-[90%] md:w-[80%] lg:w-[70%] xl:w-[60%] p-6 sm:p-10 rounded-md min-h-[1200px]">
+      <div  className="grid grid-cols-1 md:grid-cols-3">
         {/* Header */}
         <div className="col-span-1 md:col-span-3 p-4 flex items-start space-x-8 border-b">
           <div className="w-32 h-32 sm:w-48 sm:h-48 rounded-full overflow-hidden flex-shrink-0 shadow-md hover:scale-110 transform transition duration-300 ease-in-out">
@@ -122,8 +122,8 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
           <h2 className="text-lg sm:text-xl font-bold py-3" style={{ color: themeColor }}>
             PERSONAL DETAILS
           </h2>
-          <div className="space-y-4 text-sm mb-6">
-            {visibleSections.includes("location") &&
+          <div className="space-y-4 mb-6">
+            {visibleSections.includes("location") && 
               renderSection(
                 <MapPin className="h-5 w-5 text-gray-500" style={{ color: themeColor }} />,
                 location,

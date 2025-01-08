@@ -18,7 +18,7 @@ const AboutMe: React.FC<AboutMeProps> = ({ setAbout, about, themeColor }) => {
         type="textarea"
         onChange={(value: string) => setAbout(value)} // Ensure onChange works with string type
         value={about}
-        className="textEdit w-full text-sm text-gray-600 bg-gray-100 p-3 rounded-md border border-gray-300 focus:border-emerald-500 focus:outline-none transition-all"
+        className="textEdit w-full text-gray-600 bg-gray-100 p-3 rounded-md border border-gray-300 focus:border-emerald-500 focus:outline-none transition-all"
         placeholder="Professional Summary"
       />
     </div>

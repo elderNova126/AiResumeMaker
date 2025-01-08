@@ -87,7 +87,7 @@ const SelectorButton = ({
           {options.map((option) => (
             <button
               key={option.value}
-              className="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 flex items-center space-x-2"
+              className="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2"
               onClick={() => {
                 if (onDropdownToggle) {
                   onDropdownToggle(false);

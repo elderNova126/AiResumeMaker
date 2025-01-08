@@ -84,3 +84,26 @@ body {
   -moz-appearance: none;
   padding: 10px;
 }
+.ql-editor {
+  padding: 1px !important; /* Set padding-left to 0px */
+  padding-top: 1px !important; /* Remove padding on list items */
+  padding-bottom: 1px !important; /* Remove padding on list items */
+  padding-right: 1px !important; /* Remove padding on list items */
+}
+.ql-editor li {
+  padding-left: 1px !important; /* Remove padding on list items */
+
+  font-family: inherit !important;
+  font-feature-settings: inherit !important;
+  font-variation-settings: inherit !important;
+  font-size: 100% !important;
+  font-weight: inherit !important;
+  line-height: inherit !important;
+  letter-spacing: inherit;
+  color: inherit;
+  margin: 0;
+  padding: 0;
+}
+.ql-container {
+  border: none !important; /* Remove the border of the editor */
+}

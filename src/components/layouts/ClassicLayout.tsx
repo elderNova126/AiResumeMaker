@@ -35,7 +35,7 @@ const ClassicLayout : React.FC<SplitLayoutProps> = ({
   const [skills, setSkills] = useState([{ skillname: "", skilllevel: "" }]);
     const [languages, setLanguages] = useState([{ name: "", level: "" }]);
   
-    const [avatar, setAvatar] = useState('https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80');
+    const [avatar, setAvatar] = useState('https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
     const [name, setName] = useState("John Doe");
     const [role, setRole] = useState("SENIOR SOFTWARE ENGINEER");
     const [location, setLocation] = useState("New York, USA");
@@ -114,7 +114,7 @@ const ClassicLayout : React.FC<SplitLayoutProps> = ({
         </div>
       <div className="mb-2">
         <h2 className="text-lg sm:text-xl font-bold py-3" style={{ color: themeColor }}>PERSONAL DETAILS</h2>        
-        <div className="flex justify-center flex-wrap gap-4 mt-4 text-sm text-gray-600">
+        <div className="flex justify-center flex-wrap gap-4 mt-4 text-gray-600">
           {visibleSections.includes("location") &&
             renderSection(
               <MapPin className="h-5 w-5 text-gray-500" style={{ color: themeColor }} />,
@@ -162,13 +162,12 @@ const ClassicLayout : React.FC<SplitLayoutProps> = ({
       {visibleSections.includes('experience') && (
         <div className="mb-2">
           {visibleSections.includes("experience") && (
-              <Experiences setExperiences={setExperiences} experiences={experiences} themeColor={themeColor} />
-            )}
+            <Experiences setExperiences={setExperiences} experiences={experiences} themeColor={themeColor} />
+          )}
         </div>
       )}
       {/* Education */}
       {visibleSections.includes('education') && (
-      
         <div className="mb-2">
           <Educations setEducations={setEducations} educations={educations} themeColor={themeColor} />
         </div>

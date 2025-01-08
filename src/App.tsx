@@ -5,9 +5,9 @@ import { getFontFamily, getFontSize } from './utils/typography';
 
 function App() {
   const [layout, setLayout] = useState('split');
-  const [themeColor, setThemeColor] = useState('#7c3aed');
+  const [themeColor, setThemeColor] = useState('#0891b2');
   const [typography, setTypography] = useState({ font: 'nunito', size: 'medium' });
-  console.log(typography.font,typography.size)
+  // console.log(typography.font,typography.size)
   useEffect(() => {
     document.documentElement.style.setProperty('--font-primary', getFontFamily(typography.font));
     document.documentElement.style.setProperty('--font-size', getFontSize(typography.size));

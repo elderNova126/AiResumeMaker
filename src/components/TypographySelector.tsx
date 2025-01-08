@@ -52,7 +52,7 @@ const TypographySelector = ({ value, options, color = '#10b981', onChange }: Typ
             {sizes.map((size) => (
               <button
                 key={size.value}
-                className="flex-1 px-3 py-1.5 rounded-md text-sm font-medium transition-all duration-200"
+                className="flex-1 px-3 py-1.5 rounded-md font-medium transition-all duration-200"
                 style={getButtonStyles(value.size === size.value)}
                 onClick={() => onChange({ ...value, size: size.value })}
               >

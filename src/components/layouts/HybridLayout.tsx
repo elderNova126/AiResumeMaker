@@ -1,100 +1,115 @@
-import React from 'react';
+import React, { useState } from "react";
 import { Mail, MapPin, Phone, Globe, Linkedin } from 'lucide-react';
-
+import AutoResizeField from "../AutoResizeField";
+import AboutMe from "../AboutMe";
+import Experiences from "../Experiences";
+import Educations from "../Educations";
+import Skills from "../Skills";
+import LanguagesSection from "../Languages";
 interface HybridLayoutProps {
   themeColor: string;
   visibleSections:string[];
 }
 
-const HybridLayout = ({ themeColor,visibleSections }: HybridLayoutProps) => {
+const HybridLayout: React.FC<HybridLayoutProps> = ({
+  themeColor,
+  visibleSections,
+}) => {
+  const [experiences, setExperiences] = useState([
+      {
+        company: "Tech Solutions Inc.",
+        dateRange: "2018 - Present",
+        position: "Senior Software Engineer",
+        description: "",
+      },
+    ]);
   
+    const [educations, setEducations] = useState([
+      {
+        school: "University of Technology",
+        dateRange: "2014 - 2018",
+        degree: "Bachelor of Science in Computer Science",
+      },
+    ]);
+    const [skills, setSkills] = useState([{ skillname: "", skilllevel: "" }]);
+    const [languages, setLanguages] = useState([{ name: "", level: "" }]);
 
+    const [name, setName] = useState("Cristopher Gonan");
+    const [role, setRole] = useState("Finanicial Analyst");
+    const [location, setLocation] = useState("New York, USA");
+    const [email, setEmail] = useState("Cristopher.Gonan@email.com");
+    const [phone, setPhone] = useState("123-456-7890");
+    const [website, setWebsite] = useState("johndoe.com");
+    const [linkedin, setLinkedin] = useState("in/Cristopher");
+    const [about, setAbout] = useState(
+      "Highly skilled and experienced software engineer with a proven track record in developing scalable applications and leading development teams. Passionate about creating efficient solutions and mentoring junior developers."
+    );
+    const renderSection = (
+      icon: React.ReactNode,
+      value: string,
+      onChange: (value: string) => void,
+      placeholder: string
+    ) => (
+      <div className="flex items-center space-x-3">
+        {icon}
+        <AutoResizeField
+          value={value}
+          onChange={onChange}
+          className="textEdit flex-1 bg-transparent border-gray-300 hover:border-gray-400 focus:border-emerald-500 focus:outline-none transition-all"
+          placeholder={placeholder}
+        />
+      </div>
+    );
   return (
     <div className="bg-white shadow-lg mx-auto mt-24 p-8 w-[60vw]">
-      {/* Header with Photo */}
-      <div className="flex items-start space-x-8 mb-8">
-        <div className="w-44 h-44 rounded-full overflow-hidden flex-shrink-0">
-          <img
-            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-            alt="Profile"
-            className="w-full h-full object-cover"
-          />
-        </div>
-        
+      <div className="flex items-start space-x-2 mb-2"> 
         <div className="flex-grow">
           <input
             type="text"
-            className="p-l-2 text-5xl font-bold w-full border-b border-transparent hover:border-gray-200 focus:outline-none"
+            className="p-l-2 text-5xl font-bold w-full border-transparent hover:border-gray-200 focus:outline-none"
             style={{ color: themeColor }}
-            defaultValue="John Doe"
+            defaultValue={name}
             placeholder="Your Name"
-          />
-          <input
-            type="text"
-            className="text-lg text-gray-600 w-full mb-4 border-b border-transparent hover:border-gray-200 focus:border-emerald-500 focus:outline-none"
-            defaultValue="SENIOR SOFTWARE ENGINEER"
-            placeholder="Your Title"
-          />
-          
-          <h2 className="text-xl font-bold mt-6 mb-4" style={{ color: themeColor }}>PERSONAL DETAILS</h2>
-          
-          <div className="flex flex-wrap gap-4 text-sm text-gray-600">
-          {visibleSections.includes('location') && (
-            <div className="flex items-center space-x-2">
-              <MapPin className="h-4 w-4" style={{ color: themeColor }} />
-              <input
-                type="text"
-                className="p-l-2 border-b border-transparent hover:border-gray-200 focus:border-emerald-500 focus:outline-none"
-                defaultValue="New York, USA"
-                placeholder="Location"
-              />
-            </div>
-            )}
-            {visibleSections.includes('email') && (
-            <div className="flex items-center space-x-2">
-              <Mail className="h-4 w-4" style={{ color: themeColor }} />
-              <input
-                type="email"
-                className="p-l-2 border-b border-transparent hover:border-gray-200 focus:border-emerald-500 focus:outline-none"
-                defaultValue="john.doe@email.com"
-                placeholder="Email"
-              />
-            </div>
-            )}
-            {visibleSections.includes('phone') && (
-            <div className="flex items-center space-x-2">
-              <Phone className="h-4 w-4" style={{ color: themeColor }} />
-              <input
-                type="tel"
-                className="p-l-2 border-b border-transparent hover:border-gray-200 focus:border-emerald-500 focus:outline-none"
-                defaultValue="123-456-7890"
-                placeholder="Phone"
-              />
-            </div>
-            )}
-            {visibleSections.includes('website') && (
-            <div className="flex items-center space-x-2">
-              <Globe className="h-4 w-4" style={{ color: themeColor }} />
-              <input
-                type="url"
-                className="p-l-2 border-b border-transparent hover:border-gray-200 focus:border-emerald-500 focus:outline-none"
-                defaultValue="johndoe.com"
-                placeholder="Website"
-              />
-            </div>
-            )}
-            {visibleSections.includes('linkedin') && (
-            <div className="flex items-center space-x-2">
-              <Linkedin className="h-4 w-4" style={{ color: themeColor }} />
-              <input
-                type="text"
-                className="p-l-2 border-b border-transparent hover:border-gray-200 focus:border-emerald-500 focus:outline-none"
-                defaultValue="in/johndoe"
-                placeholder="LinkedIn"
-              />
-            </div>
-            )}
+          />          
+          <div className="flex pd-2">
+            {visibleSections.includes("location") &&
+              renderSection(
+                <MapPin className="text-gray-500" style={{ color: themeColor }} />,
+                location,
+                setLocation,
+                "Location"
+              )}
+            {visibleSections.includes("email") &&
+              renderSection(
+                <Mail className="h-5 w-5 text-gray-500" style={{ color: themeColor }} />,
+                email,
+                setEmail,
+                "Email"
+              )}
+            {visibleSections.includes("phone") &&
+              renderSection(
+                <Phone className="h-5 w-5 text-gray-500" style={{ color: themeColor }} />,
+                phone,
+                setPhone,
+                "Phone number"
+              )}
+            {visibleSections.includes("website") &&
+              renderSection(
+                <Globe className="h-5 w-5 text-gray-500" style={{ color: themeColor }} />,
+                website,
+                setWebsite,
+                "Website address"
+              )}
+            {visibleSections.includes("linkedin") &&
+              renderSection(
+                <Linkedin className="h-5 w-5 text-gray-500" style={{ color: themeColor }} />,
+                linkedin,
+                setLinkedin,
+                "LinkedIn address"
+              )}
+
           </div>
+          
         </div>
       </div>
 
@@ -102,127 +117,38 @@ const HybridLayout = ({ themeColor,visibleSections }: HybridLayoutProps) => {
         {/* Left Column */}
         <div className="col-span-2">
           {/* About Me */}
-          {visibleSections.includes('about') && (
-          <div>
-          <h2 className="text-xl font-bold mb-4" style={{ color: themeColor }}>ABOUT ME</h2>
-          <div className="mb-8">
-            <textarea
-              className="p-l-2 w-full p-2 text-sm text-gray-600 border rounded-md focus:border-emerald-500 focus:outline-none"
-              rows={4}
-              style={{
-                borderStyle: 'dashed',
-                borderColor: 'transparent',
-                '&:hover': {
-                  borderColor: themeColor
-                }
-              }}
-              defaultValue="Highly skilled and experienced software engineer with a proven track record in developing scalable applications and leading development teams. Passionate about creating efficient solutions and mentoring junior developers."
+          <div className="my-3 py-2">
+            <h2 className="text-lg sm:text-xl font-bold py-3" style={{ color: themeColor }}>
+              Professional Summary
+            </h2>
+            <AutoResizeField
+              type="textarea"
+              onChange={(value: string) => setAbout(value)} // Ensure onChange works with string type
+              value={about}
+              className="textEdit w-full text-sm text-gray-600 p-3 rounded-md focus:border-emerald-500 focus:outline-none transition-all"
               placeholder="Professional Summary"
             />
           </div>
-          </div>
-          )}
           {/* Experience */}
           {visibleSections.includes('experience') && (
-          <div className="mb-8">
-            <h2 className="text-xl font-bold mb-4" style={{ color: themeColor }}>EXPERIENCE</h2>
-            <div className="space-y-6">
-              <div>
-                <div className="flex justify-between">
-                  <input
-                    type="text"
-                    className="font-semibold border-b border-transparent hover:border-gray-200 focus:border-emerald-500 focus:outline-none"
-                    defaultValue="Tech Solutions Inc."
-                    placeholder="Company Name"
-                  />
-                  <input
-                    type="text"
-                    className="text-sm text-gray-600 border-b border-transparent hover:border-gray-200 focus:border-emerald-500 focus:outline-none"
-                    defaultValue="2018 - Present"
-                    placeholder="Date Range"
-                  />
-                </div>
-                <input
-                  type="text"
-                  className="p-2 text-gray-700 border-b border-transparent hover:border-gray-200 focus:border-emerald-500 focus:outline-none w-full"
-                  defaultValue="Senior Software Engineer"
-                  placeholder="Position"
-                />
-                <textarea
-                  className="w-full text-sm text-gray-600 border rounded-md focus:border-emerald-500 focus:outline-none"
-                  rows={4}
-                  defaultValue="• Led development of cloud-native applications using microservices architecture
-• Managed team of 5 developers, improving sprint velocity by 40%
-• Implemented CI/CD pipelines reducing deployment time by 60%
-• Mentored junior developers and conducted code reviews"
-                  placeholder="Job Description"
-                />
-              </div>
-            </div>
-          </div>
+            <Experiences setExperiences={setExperiences} experiences={experiences} themeColor={themeColor} />
           )}
           {/* Education */}
           {visibleSections.includes('education') && (
-          <div>
-            <h2 className="text-xl font-bold mb-4" style={{ color: themeColor }}>EDUCATION</h2>
-            <div>
-              <div className="flex justify-between">
-                <input
-                  type="text"
-                  className="font-semibold border-b border-transparent hover:border-gray-200 focus:border-emerald-500 focus:outline-none"
-                  defaultValue="University of Technology"
-                  placeholder="School Name"
-                />
-                <input
-                  type="text"
-                  className="text-sm text-gray-600 border-b border-transparent hover:border-gray-200 focus:border-emerald-500 focus:outline-none"
-                  defaultValue="2014 - 2018"
-                  placeholder="Date Range"
-                />
-              </div>
-              <input
-                type="text"
-                className="text-gray-700 border-b border-transparent hover:border-gray-200 focus:border-emerald-500 focus:outline-none w-full"
-                defaultValue="Bachelor of Science in Computer Science"
-                placeholder="Degree"
-              />
-            </div>
-          </div>
+            <Educations setEducations={setEducations} educations={educations} themeColor={themeColor} />
           )}
         </div>
 
         {/* Right Column */}
         <div className="col-span-1">
+          
           {/* Skills */}
           {visibleSections.includes('skills') && (
-          <div className="mb-8">
-            <h2 className="text-xl font-bold mb-4" style={{ color: themeColor }}>SKILLS</h2>
-            <textarea
-              className="w-full p-2 text-sm text-gray-600 border rounded-md focus:border-emerald-500 focus:outline-none"
-              rows={6}
-              defaultValue="Web Development
-UI/UX Design
-Project Management
-Team Leadership
-Problem Solving
-Communication"
-              placeholder="Your Skills"
-            />
-          </div>
+            <Skills setSkills={setSkills} skills={skills} themeColor={themeColor} />
           )}
           {/* Languages */}
           {visibleSections.includes('languages') && (
-          <div>
-            <h2 className="text-xl font-bold mb-4" style={{ color: themeColor }}>LANGUAGES</h2>
-            <textarea
-              className="w-full p-2 text-sm text-gray-600 border rounded-md focus:border-emerald-500 focus:outline-none"
-              rows={3}
-              defaultValue="English (Native)
-Spanish (Fluent)
-French (Basic)"
-              placeholder="Languages"
-            />
-          </div>
+            <LanguagesSection setLanguages={setLanguages} languages={languages} themeColor={themeColor} />       
           )}
         </div>
       </div>

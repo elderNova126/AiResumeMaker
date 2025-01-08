@@ -79,8 +79,8 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
   };
 
   return (
-    <div className="print:!scale-100 print:mx-0 mb-2 print:mb-0 bg-white flex flex-col justify-between shadow-lg mx-auto mt-8 sm:mt-12 w-full sm:w-[90%] md:w-[80%] lg:w-[70%] xl:w-[60%] p-6 sm:p-10 rounded-md min-h-[1200px]">
-      <div className="grid grid-cols-1 md:grid-cols-3">
+    <div  className="print:!scale-100 print:mx-0 mb-2 print:mb-0 bg-white flex flex-col justify-between shadow-lg mx-auto mt-8 sm:mt-12 w-full sm:w-[90%] md:w-[80%] lg:w-[70%] xl:w-[60%] p-6 sm:p-10 rounded-md min-h-[1200px]">
+      <div id="resume-template" className="grid grid-cols-1 md:grid-cols-3">
         {/* Header */}
         <div className="col-span-1 md:col-span-3 p-4 flex items-start space-x-8 border-b">
           <div className="w-32 h-32 sm:w-48 sm:h-48 rounded-full overflow-hidden flex-shrink-0 shadow-md hover:scale-110 transform transition duration-300 ease-in-out">
@@ -99,18 +99,19 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
               onChange={handleChange}
             />
           </div>
-          <div>
+          <div style={{display: "grid",placeItems: "center", width: "100%", height: "100%"}}>
             <AutoResizeField
               value={name}
               onChange={(value) => setName(value)}
-              className="textEdit text-3xl sm:text-4xl font-bold w-full"
-              style={{ color: themeColor }}
+              className="textEdit text-6xl sm:text-6xl font-bold w-full bg-transparent border-gray-300 hover:border-gray-400 focus:border-emerald-500 focus:outline-none transition-all"
+              style={{ color: themeColor,textAlign:"center",width:"100% !important" }}
               placeholder="Your Name"
             />
             <AutoResizeField
               value={role}
               onChange={(value) => setRole(value)}
-              className="textEdit text-lg sm:text-xl text-gray-600 w-full bg-transparent border-b border-gray-300 hover:border-gray-400 focus:border-emerald-500 focus:outline-none transition-all"
+              style={{width:"100% !important"}}
+              className="textEdit text-lg sm:text-xl text-gray-600 w-full bg-transparent border-gray-300 hover:border-gray-400 focus:border-emerald-500 focus:outline-none transition-all"
               placeholder="Your Role"
             />
           </div>

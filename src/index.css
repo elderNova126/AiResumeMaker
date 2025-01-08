@@ -78,3 +78,9 @@ body {
   height: 2rem;
   background: #fff;
 }
+.removeDropIcon {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding: 10px;
+}

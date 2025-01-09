@@ -35,7 +35,7 @@ const Header: React.FC<HeaderProps> = ({
   onTypographyChange,
   currentTypography,
   visibleSections,
-  setVisibleSections
+  setVisibleSections,
 }) => {
   const [showImportDialog, setShowImportDialog] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);

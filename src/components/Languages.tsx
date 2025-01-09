@@ -83,12 +83,12 @@ const LanguagesSection: React.FC<{
         LANGUAGE
       </h2>
       <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable droppableId="languages" direction="vertical">
+        <Droppable droppableId="languages" direction="horizontal">
           {(provided) => (
             <div
               {...provided.droppableProps}
               ref={provided.innerRef}
-              className="flex flex-col gap-3"
+              className="flex flex-wrap gap-2"
             >
               {languages.map((language, index) => (
                 <Draggable
@@ -133,8 +133,8 @@ const LanguagesSection: React.FC<{
                       >
                         +
                       </button>
-                      <div className="flex flex-col gap-2 sm:flex-row sm:gap-4">
-                        <select
+                      
+                        <select style={{ width: 'auto'}}
                           value={language.name}
                           onChange={(e) =>
                             setLanguages(
@@ -155,7 +155,7 @@ const LanguagesSection: React.FC<{
                             </option>
                           ))}
                         </select>
-                        <select
+                        {/* <select
                           value={language.level}
                           onChange={(e) =>
                             setLanguages(
@@ -175,8 +175,8 @@ const LanguagesSection: React.FC<{
                               {level}
                             </option>
                           ))}
-                        </select>
-                      </div>
+                        </select> */}
+                      
                     </div>
                   )}
                 </Draggable>

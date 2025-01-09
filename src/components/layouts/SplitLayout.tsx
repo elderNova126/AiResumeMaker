@@ -99,18 +99,18 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
               onChange={handleChange}
             />
           </div>
-          <div style={{display: "grid",placeItems: "center", width: "100%", height: "100%"}}>
+          <div style={{display: "grid",placeItems: "center", height: "100%"}}>
             <AutoResizeField
               value={name}
               onChange={(value) => setName(value)}
               className="textEdit text-6xl sm:text-6xl font-bold w-full bg-transparent border-gray-300 hover:border-gray-400 focus:border-emerald-500 focus:outline-none transition-all"
-              style={{ color: themeColor,textAlign:"center",width:"100% !important" }}
+              style={{ color: themeColor,textAlign:"center" }}
               placeholder="Your Name"
             />
             <AutoResizeField
               value={role}
               onChange={(value) => setRole(value)}
-              style={{width:"100% !important"}}
+              style={{textAlign:"center"}}
               className="textEdit text-lg sm:text-xl text-gray-600 w-full bg-transparent border-gray-300 hover:border-gray-400 focus:border-emerald-500 focus:outline-none transition-all"
               placeholder="Your Role"
             />

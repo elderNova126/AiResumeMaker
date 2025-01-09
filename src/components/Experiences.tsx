@@ -66,6 +66,16 @@ const Experiences: React.FC<{
     );
     setExperiences(updatedExperiences);
   };
+  const updateExperienceByDescription = (
+    index: number,
+    key: keyof ExperienceType,
+    value: string[]
+  ) => {
+    const updatedExperiences = experiences.map((experience, i) =>
+      i === index ? { ...experience, [key]: value } : experience
+    );
+    setExperiences(updatedExperiences);
+  };
   return (
     <div>
       <h2
@@ -139,7 +149,7 @@ const Experiences: React.FC<{
                       </button>
                       <div style={{ paddingLeft: "2rem" }}>
                         <div style={{ position: "relative" }}>
-                          <div className="timeline_bola color_estrellas"></div>
+                          <div className="timeline_bola color_estrellas" style={{background:themeColor}}></div>
                           <AutoResizeField
                             value={experience.company}
                             className="p-2 textEdit font-semibold placeholder-green-600 text-green-600 border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200"
@@ -168,7 +178,7 @@ const Experiences: React.FC<{
                             }                              
                           />
                         </div>
-                        <WorkExperienceEditor />
+                        <WorkExperienceEditor initialDescription={experience.description} updateExperience={updateExperienceByDescription} index={index} />
                         {/* <AutoResizeField
                         type="textarea"
                         defaultValue={experience.description}
@@ -178,7 +188,7 @@ const Experiences: React.FC<{
                       </div>
                       {experiences.length > 1 &&
                         experiences.length - 1 > index && (
-                          <div className="timeline_linea"></div>
+                          <div className="timeline_linea" style={{background:themeColor}}></div>
                         )}
                     </div>
                   )}

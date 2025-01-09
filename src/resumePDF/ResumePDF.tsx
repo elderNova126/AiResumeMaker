@@ -233,12 +233,16 @@ interface ContactItemProps {
   color: string;
 }
 
-const ContactItem: React.FC<ContactItemProps> = ({ path, color, text }) => (
-  <View style={[styles.contactItem]}>
-    <PdfSvgIcon color={color} width={10} height={10} path={path} />
-    <Text style={{ marginLeft: 5 }}>{text}</Text>
-  </View>
-);
+const ContactItem: React.FC<ContactItemProps> = ({ path, color, text }) => {
+  console.log("ContactItem", path, color, text);  // Add this line for debugging
+  return (
+    <View style={[styles.contactItem]}>
+      {/* <PdfSvgIcon color={color} width={10} height={10} path={path} /> */}
+      <Text style={{ marginLeft: 5 }}>{text}</Text>
+    </View>
+  );
+};
+
 
 interface Experience {
   company: string;
@@ -269,7 +273,7 @@ interface ResumePDFProps {
   avatar: string;
 }
 
-const TestLayout: React.FC<ResumePDFProps> = ({
+const ResumePDF: React.FC<ResumePDFProps> = ({
   themeColor = "#2563eb",
   // currentTypography,
   name,
@@ -292,8 +296,8 @@ const TestLayout: React.FC<ResumePDFProps> = ({
   );
   skills = skills.filter((e) => e.skillname);
   languages = languages.filter((e) => e.name);
+  console.log("**********", email);
   return (
-    <PDFViewer style={{ width: "100%", height: "100vh" }}>
       <Document>
         <Page size="A4" style={[styles.page]}>
           <View style={styles.header}>
@@ -447,8 +451,7 @@ const TestLayout: React.FC<ResumePDFProps> = ({
           </View>
         </Page>
       </Document>
-    </PDFViewer>
   );
 };
 
-export default TestLayout;
+export default ResumePDF;

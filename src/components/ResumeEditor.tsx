@@ -1,37 +1,93 @@
-import React from 'react';
-import SplitLayout from './layouts/SplitLayout';
-import ClassicLayout from './layouts/ClassicLayout';
-import HybridLayout from './layouts/HybridLayout';
-import TestLayout from '../resumePDF/TestLayout';
-import { generatePDF } from '../utils/pdfGenerator';
-import TemplateWrapper from './TemplateWrapper';
+import SplitLayout from "./layouts/SplitLayout";
+import ClassicLayout from "./layouts/ClassicLayout";
+import HybridLayout from "./layouts/HybridLayout";
+import TestLayout from "../resumePDF/TestLayout";
+import TemplateWrapper from "./TemplateWrapper";
+import { useUser } from "../context/UserContext";
 
 interface ResumeEditorProps {
   layout: string;
   themeColor: string;
-  visibleSections:string[];
+  visibleSections: string[];
+  currentTypography: { font: string; size: string };
 }
 
-const ResumeEditor = ({ layout, themeColor,visibleSections }: ResumeEditorProps) => {
+const ResumeEditor = ({
+  layout,
+  themeColor,
+  visibleSections,
+  currentTypography,
+}: ResumeEditorProps) => {
+  const {
+    name,
+    role,
+    location,
+    email,
+    phone,
+    website,
+    linkedin,
+    about,
+    experiences,
+    educations,
+    skills,
+    languages,
+    avatar,
+  } = useUser();
   const renderContent = () => {
     switch (layout) {
-      case 'split':
-        return <SplitLayout themeColor={themeColor} visibleSections={visibleSections} />;
-      case 'classic':
-        return <ClassicLayout themeColor={themeColor} visibleSections={visibleSections} />;
-      case 'hybrid':
-        return <HybridLayout themeColor={themeColor} visibleSections={visibleSections} />;
-        case 'test':
-          return <TestLayout themeColor={themeColor} visibleSections={visibleSections} />;        
+      case "split":
+        return (
+          <SplitLayout
+            themeColor={themeColor}
+            visibleSections={visibleSections}
+          />
+        );
+      case "classic":
+        return (
+          <ClassicLayout
+            themeColor={themeColor}
+            visibleSections={visibleSections}
+          />
+        );
+      case "hybrid":
+        return (
+          <HybridLayout
+            themeColor={themeColor}
+            visibleSections={visibleSections}
+          />
+        );
+      case "test":
+        return (
+          <TestLayout
+            themeColor={themeColor}
+            // currentTypography={currentTypography}
+            name={name}
+            role={role}
+            email={email}
+            location={location}
+            phone={phone}
+            websiteLink={website}
+            linkedinLink={linkedin}
+            summery={about}
+            experiences={experiences}
+            educations={educations}
+            skills={skills}
+            languages={languages}
+            avatar={avatar}
+          />
+        );
       default:
-        return <SplitLayout themeColor={themeColor} visibleSections={visibleSections} />;
+        return (
+          <SplitLayout
+            themeColor={themeColor}
+            visibleSections={visibleSections}
+          />
+        );
     }
   };
 
   return (
-    <TemplateWrapper themeColor={themeColor} >
-      {renderContent()}
-    </TemplateWrapper>
+    <TemplateWrapper themeColor={themeColor}>{renderContent()}</TemplateWrapper>
   );
 };
 

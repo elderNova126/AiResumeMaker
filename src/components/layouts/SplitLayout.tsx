@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { Mail, MapPin, Phone, Globe, Linkedin } from "lucide-react";
+import { FileUp } from "lucide-react";
+import {
+  SvgIcon,
+  MailSvgPath,
+  PhoneSvgPath,
+  LinkedSvgPath,
+  WebsiteSvgPath,
+  LocationSvgPath,
+} from "../../consts/SvgConst";
 import AutoResizeField from "../AutoResizeField";
 import AboutMe from "../AboutMe";
 import Experiences from "../Experiences";
@@ -17,37 +25,34 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
   themeColor,
   visibleSections,
 }) => {
-  // const [experiences, setExperiences] = useState([
-  //   {
-  //     company: "Tech Solutions Inc.",
-  //     dateRange: "2018 - Present",
-  //     position: "Senior Software Engineer",
-  //     description: "",
-  //   },
-  // ]);
-
-  const [educations, setEducations] = useState([
-    {
-      school: "University of Technology",
-      dateRange: "2014 - 2018",
-      degree: "Bachelor of Science in Computer Science",
-    },
-  ]);
-  const { name, setName, role, setRole, location, setLocation, email, setEmail, phone, setPhone, website, setWebsite, linkedin, setLinkedin, about, setAbout, experiences, setExperiences } = useUser();
-  const [skills, setSkills] = useState([{ skillname: "", skilllevel: "" }]);
-  const [languages, setLanguages] = useState([{ name: "", level: "" }]);
-
-  const [avatar, setAvatar] = useState('https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-  // const [name, setName] = useState("John Doe");
-  // const [role, setRole] = useState("SENIOR SOFTWARE ENGINEER");
-  // const [location, setLocation] = useState("New York, USA");
-  // const [email, setEmail] = useState("john.doe@email.com");
-  // const [phone, setPhone] = useState("123-456-7890");
-  // const [website, setWebsite] = useState("johndoe.com");
-  // const [linkedin, setLinkedin] = useState("in/johndoe");
-  // const [about, setAbout] = useState(
-  //   "Highly skilled and experienced software engineer with a proven track record in developing scalable applications and leading development teams. Passionate about creating efficient solutions and mentoring junior developers."
-  // );
+  const {
+    name,
+    setName,
+    role,
+    setRole,
+    location,
+    setLocation,
+    email,
+    setEmail,
+    phone,
+    setPhone,
+    website,
+    setWebsite,
+    linkedin,
+    setLinkedin,
+    about,
+    setAbout,
+    experiences,
+    setExperiences,
+    educations,
+    setEducations,
+    skills,
+    setSkills,
+    languages,
+    setLanguages,
+    avatar,
+    setAvatar,
+  } = useUser();
 
   const renderSection = (
     icon: React.ReactNode,
@@ -82,37 +87,46 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
 
   return (
     <div className="print:!scale-100 print:mx-0 mb-2 print:mb-0 bg-white flex flex-col justify-between shadow-lg mx-auto mt-8 sm:mt-12 w-full sm:w-[90%] md:w-[80%] lg:w-[70%] xl:w-[60%] p-6 sm:p-10 rounded-md min-h-[1200px]">
-      <div  className="grid grid-cols-1 md:grid-cols-3">
+      <div className="grid grid-cols-1 md:grid-cols-3">
         {/* Header */}
         <div className="col-span-1 md:col-span-3 p-4 flex items-start space-x-8 border-b">
-          <div className="w-32 h-32 sm:w-48 sm:h-48 rounded-full overflow-hidden flex-shrink-0 shadow-md hover:scale-110 transform transition duration-300 ease-in-out">
+          <div
+            className="w-32 h-32 sm:w-48 sm:h-48 rounded-full overflow-hidden shadow-md relative bg-gray-300 group cursor-pointer"
+            onClick={handleUpload}
+          >
             <img
-              onClick={handleUpload}
-              style={{ cursor: "pointer" }}
               src={avatar}
-              alt="Profile"
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-110"
             />
+            <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <FileUp className="h-6 w-6 text-white mb-2" />
+              <span className="text-white font-semibold text-sm">
+                Select Your Picture
+              </span>
+            </div>
             <input
               id="fileInput"
               type="file"
               accept="image/*"
-              style={{ display: "none" }}
+              className="hidden"
               onChange={handleChange}
             />
           </div>
-          <div style={{display: "grid",placeItems: "center", height: "100%"}}>
+
+          <div
+            style={{ display: "grid", placeItems: "center", height: "100%" }}
+          >
             <AutoResizeField
               value={name}
               onChange={(value) => setName(value)}
               className="textEdit text-6xl sm:text-6xl font-bold w-full bg-transparent border-gray-300 hover:border-gray-400 focus:border-emerald-500 focus:outline-none transition-all"
-              style={{ color: themeColor,textAlign:"center" }}
+              style={{ color: themeColor, textAlign: "center" }}
               placeholder="Your Name"
             />
             <AutoResizeField
               value={role}
               onChange={(value) => setRole(value)}
-              style={{textAlign:"center"}}
+              style={{ textAlign: "center" }}
               className="textEdit text-lg sm:text-xl text-gray-600 w-full bg-transparent border-gray-300 hover:border-gray-400 focus:border-emerald-500 focus:outline-none transition-all"
               placeholder="Your Role"
             />
@@ -120,76 +134,119 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
         </div>
 
         {/* Left Column */}
-        <div className="col-span-1 bg-gray-50 p-6 rounded-md shadow-md">
-          <h2 className="text-lg sm:text-xl font-bold py-3" style={{ color: themeColor }}>
+        <div className="col-span-1 bg-gray-50 p-6 rounded-md shadow-md min-h-[1000px]">
+          <h2
+            className="text-lg sm:text-xl font-bold py-3"
+            style={{ color: themeColor }}
+          >
             PERSONAL DETAILS
           </h2>
           <div className="space-y-4 mb-6">
-            {visibleSections.includes("location") && 
-              renderSection(
-                <MapPin className="h-5 w-5 text-gray-500" style={{ color: themeColor }} />,
-                location,
-                setLocation,
-                "Location"
-              )}
             {visibleSections.includes("email") &&
               renderSection(
-                <Mail className="h-5 w-5 text-gray-500" style={{ color: themeColor }} />,
+                <SvgIcon
+                  color={themeColor}
+                  path={MailSvgPath}
+                  className="h-5 w-5 text-gray-500"
+                />,
                 email,
                 setEmail,
                 "Email"
               )}
             {visibleSections.includes("phone") &&
               renderSection(
-                <Phone className="h-5 w-5 text-gray-500" style={{ color: themeColor }} />,
+                <SvgIcon
+                  color={themeColor}
+                  path={PhoneSvgPath}
+                  className="h-5 w-5 text-gray-500"
+                />,
                 phone,
                 setPhone,
                 "Phone number"
               )}
+            {visibleSections.includes("location") &&
+              renderSection(
+                <SvgIcon
+                  color={themeColor}
+                  path={LocationSvgPath}
+                  className="h-5 w-5 text-gray-500"
+                />,
+                location,
+                setLocation,
+                "Location"
+              )}
             {visibleSections.includes("website") &&
               renderSection(
-                <Globe className="h-5 w-5 text-gray-500" style={{ color: themeColor }} />,
+                <SvgIcon
+                  color={themeColor}
+                  path={WebsiteSvgPath}
+                  className="h-5 w-5 text-gray-500"
+                />,
                 website,
                 setWebsite,
                 "Website address"
               )}
             {visibleSections.includes("linkedin") &&
               renderSection(
-                <Linkedin className="h-5 w-5 text-gray-500" style={{ color: themeColor }} />,
+                <SvgIcon
+                  color={themeColor}
+                  path={LinkedSvgPath}
+                  className="h-5 w-5 text-gray-500"
+                />,
                 linkedin,
                 setLinkedin,
                 "LinkedIn address"
               )}
           </div>
           {visibleSections.includes("about") && (
-            <AboutMe 
-            setAbout={setAbout} about={about} themeColor={themeColor}/>
+            <AboutMe
+              setAbout={setAbout}
+              about={about}
+              themeColor={themeColor}
+            />
           )}
-
         </div>
 
         {/* Right Column */}
         <div className="col-span-1 md:col-span-2 p-6">
-
           {visibleSections.includes("experience") && (
-            <Experiences setExperiences={setExperiences} experiences={experiences} themeColor={themeColor} />
+            <Experiences
+              setExperiences={setExperiences}
+              experiences={experiences}
+              themeColor={themeColor}
+            />
           )}
           {visibleSections.includes("education") && (
-            <Educations setEducations={setEducations} educations={educations} themeColor={themeColor} />
+            <Educations
+              setEducations={setEducations}
+              educations={educations}
+              themeColor={themeColor}
+            />
           )}
           {visibleSections.includes("skills") && (
-            <Skills setSkills={setSkills} skills={skills} themeColor={themeColor} />
-          )}     
+            <Skills
+              setSkills={setSkills}
+              skills={skills}
+              themeColor={themeColor}
+            />
+          )}
           {visibleSections.includes("languages") && (
-            <LanguagesSection setLanguages={setLanguages} languages={languages} themeColor={themeColor} />
-          )}               
+            <LanguagesSection
+              setLanguages={setLanguages}
+              languages={languages}
+              themeColor={themeColor}
+            />
+          )}
         </div>
       </div>
 
       {/* Footer */}
       <div className="mt-8 text-center text-xs text-gray-400 print:hidden">
         Created for free by:{" "}
-        <a href="https://airesumemaker.online" className="hover:text-gray-600 transition-colors">
+        <a
+          href="https://airesumemaker.online"
+          className="hover:text-gray-600 transition-colors"
+        >
           airesumemaker.online
         </a>
       </div>

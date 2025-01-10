@@ -1,41 +1,38 @@
-/* eslint-disable default-case */
-import React, { useState } from "react";
+import React, { useState, ChangeEvent, FormEvent } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-export default function Forgot(props) {
-  const [forgotForm, setForgotForm] = useState({
+interface ForgotFormProps {
+  email: string;
+  new_password: string;
+}
+
+interface ForgotProps {
+  setPage: (page: string) => void;
+}
+
+const Forgot: React.FC<ForgotProps> = (props) => {
+  const [forgotForm, setForgotForm] = useState<ForgotFormProps>({
     email: "",
     new_password: "",
   });
 
-  const onChangeForm = (label, event) => {
-    switch (label) {
-      case "email":
-        setForgotForm({ ...forgotForm, email: event.target.value });
-        break;
-      case "new_password":
-        setForgotForm({ ...forgotForm, new_password: event.target.value });
-        break;
-    }
+  const onChangeForm = (label: keyof ForgotFormProps, event: ChangeEvent<HTMLInputElement>) => {
+    setForgotForm({ ...forgotForm, [label]: event.target.value });
   };
 
-  //   submit handler
-  const onSubmitHandler = async (event) => {
+  const onSubmitHandler = async (event: FormEvent) => {
     event.preventDefault();
-    console.log(forgotForm);
-    await axios
-      .post("http://localhost:8888/auth/forgot-password", forgotForm)
-      .then((response) => {
-        toast.success(response.data.detail)
-        setTimeout(()=>{
-            window.location.reload()
-        },1000)
-      })
-      .catch((error) => {
-        toast.success(error.response.data.detail)
-      });
+    try {
+      const response = await axios.post("http://localhost:8888/auth/forgot-password", forgotForm);
+      toast.success(response.data.detail);
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    } catch (error: any) {
+      toast.error(error.response?.data?.detail || "An error occurred");
+    }
   };
 
   return (
@@ -54,17 +51,13 @@ export default function Forgot(props) {
             type="email"
             placeholder="Email"
             className="block text-sm py-3 px-4 rounded-lg w-full border outline-none focus:ring focus:outline-none focus:ring-yellow-400"
-            onChange={(event) => {
-              onChangeForm("email", event);
-            }}
+            onChange={(event) => onChangeForm("email", event)}
           />
           <input
             type="password"
             placeholder="New Password"
             className="block text-sm py-3 px-4 rounded-lg w-full border outline-none focus:ring focus:outline-none focus:ring-yellow-400"
-            onChange={(event) => {
-              onChangeForm("new_password", event);
-            }}
+            onChange={(event) => onChangeForm("new_password", event)}
           />
         </div>
         <div className="text-center mt-6">
@@ -89,4 +82,6 @@ export default function Forgot(props) {
       </form>
     </React.Fragment>
   );
-}
+};
+
+export default Forgot;

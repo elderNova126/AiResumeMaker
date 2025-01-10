@@ -14,7 +14,7 @@ import ImportDialog from "./ImportDialog";
 import SelectorButton from "./SelectorButton";
 import SectionsSelector from "./SectionsSelector";
 import { PDFDownloadLink } from "@react-pdf/renderer";
-import TestLayout from "../resumePDF/TestLayout";
+import ResumePDF from "../resumePDF/ResumePDF";
 import { useUser } from "../context/UserContext";
 
 interface HeaderProps {
@@ -48,6 +48,10 @@ const Header: React.FC<HeaderProps> = ({
     linkedin,
     about,
     experiences,
+    educations,
+    skills,
+    languages,
+    avatar,
   } = useUser();
   const [showImportDialog, setShowImportDialog] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -64,8 +68,10 @@ const Header: React.FC<HeaderProps> = ({
   const layoutOptions = [
     { value: "split", label: "Split Layout" },
     { value: "classic", label: "Classic Layout" },
-    { value: "hybrid", label: "Hybrid Layout" },
-    { value: "test", label: "Test Layout" },
+    { value: "hybrid", label: "ATS Layout" },
+    { value: "test_split", label: "Preview Split" },
+    { value: "test_classic", label: "Preview Classic" },
+    { value: "test_ats", label: "Preview ATS" },
   ];
 
   const colorOptions = [
@@ -183,12 +189,12 @@ const Header: React.FC<HeaderProps> = ({
               }}
             >
               <FileUp className="h-4 w-4" />
-              <span>{name}</span>
+              <span>Import</span>
             </button>
             {/* Use PDFDownloadLink for downloading */}
             <PDFDownloadLink
               document={
-                <TestLayout
+                <ResumePDF
                   themeColor={currentColor}
                   name={name}
                   role={role}
@@ -199,9 +205,14 @@ const Header: React.FC<HeaderProps> = ({
                   linkedinLink={linkedin}
                   summery={about}
                   experiences={experiences}
+                  educations={educations}
+                  skills={skills}
+                  languages={languages}
+                  avatar={avatar}
+                  visibleSections={visibleSections}
                 />
               }
-              fileName="John_Doe_Resume.pdf"
+              fileName="Resume.pdf"
             >
               {({ downloadingLoading }) => (
                 <button

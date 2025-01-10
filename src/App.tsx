@@ -42,7 +42,7 @@ function App() {
   return (
     <UserProvider>
       <div
-        className="min-h-screen pb-[100px] font-primary"
+        className="font-primary"
         style={{ backgroundColor: `${themeColor}80` }}
       >
         <Header
@@ -58,6 +58,7 @@ function App() {
         <ResumeEditor
           layout={layout}
           themeColor={themeColor}
+          currentTypography={typography}
           visibleSections={visibleSections}
         />
       </div>

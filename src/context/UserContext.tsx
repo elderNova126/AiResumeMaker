@@ -6,7 +6,18 @@ interface Experience {
   position: string;
   description: string[];
 }
-
+interface Education {
+  school: string;
+dateRange: string;
+degree: string;
+}
+interface Skill {
+  skillname: string;
+}
+interface Language {
+  name: string;
+  level: string;
+}
 interface UserContextProps {
   name: string;
   setName: React.Dispatch<React.SetStateAction<string>>;
@@ -26,6 +37,14 @@ interface UserContextProps {
   setAbout: React.Dispatch<React.SetStateAction<string>>;
   experiences: Experience[];
   setExperiences: React.Dispatch<React.SetStateAction<Experience[]>>;
+  educations: Education[];
+  setEducations: React.Dispatch<React.SetStateAction<Education[]>>;  
+  skills: Skill[];
+  setSkills: React.Dispatch<React.SetStateAction<Skill[]>>;  
+  languages: Language[];
+  setLanguages: React.Dispatch<React.SetStateAction<Language[]>>;  
+  avatar: string;
+  setAvatar: React.Dispatch<React.SetStateAction<string>>;  
 }
 
 const UserContext = createContext<UserContextProps | undefined>(undefined);
@@ -33,26 +52,34 @@ const UserContext = createContext<UserContextProps | undefined>(undefined);
 export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [name, setName] = useState("John Doe");
+  const [name, setName] = useState("");
   const [role, setRole] = useState("");
-  const [location, setLocation] = useState("New York, USA");
-  const [email, setEmail] = useState("john.doe@email.com");
-  const [phone, setPhone] = useState("ss");
-  const [website, setWebsite] = useState("ss");
-  const [linkedin, setLinkedin] = useState("ss");
-  const [about, setAbout] = useState("ss");
+  const [location, setLocation] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [website, setWebsite] = useState("");
+  const [linkedin, setLinkedin] = useState("");
+  const [about, setAbout] = useState("");
   const [experiences, setExperiences] = useState<Experience[]>([
     {
-      company: "TechCorp",
-      dateRange: "Jan 2020 - Present",
-      position: "Senior Software Engineer",
-      description: [
-        "Led a team of developers to build scalable web applications.",
-        "Implemented CI/CD pipelines to streamline deployment processes.",
-      ],
+      company: "",
+      dateRange: "",
+      position: "",
+      description: [],
     }
   ]);
-
+  const [educations, setEducations] = useState<Education[]>([
+    {
+      school: "",
+      dateRange: "",
+      degree: "",
+    }
+  ]);
+    const [skills, setSkills] = useState([{ skillname: "" }]);
+    const [languages, setLanguages] = useState([{ name: "", level:"" }]);
+  const [avatar, setAvatar] = useState(
+    ""
+  );    
   return (
     <UserContext.Provider
       value={{
@@ -74,6 +101,14 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
         setAbout,
         experiences,
         setExperiences,
+        educations,
+        setEducations,
+        skills,
+        setSkills,
+        languages,
+        setLanguages,
+        avatar,
+        setAvatar,
       }}
     >
       {children}

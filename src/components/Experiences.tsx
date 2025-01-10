@@ -20,7 +20,8 @@ const Experiences: React.FC<{
   setExperiences: React.Dispatch<React.SetStateAction<ExperienceType[]>>;
   experiences: ExperienceType[];
   themeColor: string;
-}> = ({ setExperiences, experiences, themeColor }) => {
+  isATS: boolean;
+}> = ({ setExperiences, experiences, themeColor, isATS = false }) => {
   const reorder = (
     list: ExperienceType[],
     startIndex: number,
@@ -42,8 +43,10 @@ const Experiences: React.FC<{
       result.source.index,
       result.destination.index
     );
+    debugger;
     setExperiences(reorderedExperiences);
   };
+  console.log("**********", experiences);
 
   const addExperience = () => {
     setExperiences([
@@ -60,6 +63,16 @@ const Experiences: React.FC<{
     index: number,
     key: keyof ExperienceType,
     value: string
+  ) => {
+    const updatedExperiences = experiences.map((experience, i) =>
+      i === index ? { ...experience, [key]: value } : experience
+    );
+    setExperiences(updatedExperiences);
+  };
+  const updateExperienceByDescription = (
+    index: number,
+    key: keyof ExperienceType,
+    value: string[]
   ) => {
     const updatedExperiences = experiences.map((experience, i) =>
       i === index ? { ...experience, [key]: value } : experience
@@ -137,48 +150,99 @@ const Experiences: React.FC<{
                       >
                         +
                       </button>
-                      <div style={{ paddingLeft: "2rem" }}>
-                        <div style={{ position: "relative" }}>
-                          <div className="timeline_bola color_estrellas"></div>
-                          <AutoResizeField
-                            value={experience.company}
-                            className="p-2 textEdit font-semibold placeholder-green-600 text-green-600 border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200"
-                            placeholder="Company Name"
-                            onChange={(value) =>
-                              updateExperience(index, "company", value)
-                            }
+                      {isATS ? (
+                        <div className="pl-8 space-y-4 p-2">
+                          <div className="relative flex items-center gap-2">
+                            <div className="timeline_bola color_estrellas"></div>
+                            <AutoResizeField
+                              value={experience.position}
+                              className="p-2 textEdit font-semibold placeholder-green-600 text-green-600 border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200"
+                              placeholder="Position"
+                              onChange={(value) =>
+                                updateExperience(index, "position", value)
+                              }
+                            />
+                            <span className="text-gray-400">|</span>
+                            <AutoResizeField
+                              value={experience.company}
+                              className="p-2 textEdit font-semibold placeholder-black-600 text-gray-600 border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200"
+                              placeholder="Company"
+                              onChange={(value) =>
+                                updateExperience(index, "company", value)
+                              }
+                            />
+                          </div>
+                          <div className="relative flex items-center gap-2">
+                            <AutoResizeField
+                              value={experience.dateRange}
+                              className="p-2 textEdit text-gray-600 border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200"
+                              placeholder="Date Range"
+                              onChange={(value) =>
+                                updateExperience(index, "dateRange", value)
+                              }
+                            />
+                            <span className="text-gray-400">|</span>
+                            <AutoResizeField
+                              value={experience.location}
+                              className="p-2 textEdit text-gray-600 border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200"
+                              placeholder="Location"
+                            />
+                          </div>
+                          <WorkExperienceEditor
+                            initialDescription={experience.description}
+                            updateExperience={updateExperienceByDescription}
+                            index={index}
                           />
                         </div>
-                        <div className="flex justify-between gap-4">
-                          <AutoResizeField
-                            value={experience.position}
-                            className="p-2 textEdit text-gray-700 border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none w-full rounded-md transition ease-in-out duration-200"
-                            placeholder="Position"
-                            onChange={(value) =>
-                              updateExperience(index, "position", value)
-                            }                            
-                          />
-                          <AutoResizeField
-                            value={experience.dateRange}
-                            style={{ width: "30%" }}
-                            className="p-2 textEdit text-gray-600 border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200"
-                            placeholder="From ~ Until"
-                            onChange={(value) =>
-                              updateExperience(index, "dateRange", value)
-                            }                              
+                      ) : (
+                        <div style={{ paddingLeft: "2rem" }}>
+                          <div style={{ position: "relative" }}>
+                            <div
+                              className="timeline_bola color_estrellas"
+                              style={{ background: themeColor }}
+                            ></div>
+                            <AutoResizeField
+                              value={experience.company}
+                              className="p-2 textEdit font-semibold placeholder-green-600 text-green-600 border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200"
+                              placeholder="Company Name"
+                              onChange={(value) =>
+                                updateExperience(index, "company", value)
+                              }
+                            />
+                          </div>
+                          <div className="flex justify-between gap-4">
+                            <AutoResizeField
+                              value={experience.position}
+                              className="p-2 textEdit text-gray-700 border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none w-full rounded-md transition ease-in-out duration-200"
+                              placeholder="Position"
+                              onChange={(value) =>
+                                updateExperience(index, "position", value)
+                              }
+                            />
+                            <AutoResizeField
+                              value={experience.dateRange}
+                              style={{ width: "30%" }}
+                              className="p-2 textEdit text-gray-600 border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200"
+                              placeholder="From ~ Until"
+                              onChange={(value) =>
+                                updateExperience(index, "dateRange", value)
+                              }
+                            />
+                          </div>
+                          <WorkExperienceEditor
+                            initialDescription={experience.description}
+                            updateExperience={updateExperienceByDescription}
+                            index={index}
                           />
                         </div>
-                        <WorkExperienceEditor />
-                        {/* <AutoResizeField
-                        type="textarea"
-                        defaultValue={experience.description}
-                        className="p-3 textEdit w-full text-gray-600 border-b border-transparent rounded-lg focus:border-emerald-500 focus:outline-none shadow-sm transition ease-in-out duration-200"
-                        placeholder="Job Description"
-                      /> */}
-                      </div>
+                      )}
+
                       {experiences.length > 1 &&
                         experiences.length - 1 > index && (
-                          <div className="timeline_linea"></div>
+                          <div
+                            className="timeline_linea"
+                            style={{ background: themeColor }}
+                          ></div>
                         )}
                     </div>
                   )}

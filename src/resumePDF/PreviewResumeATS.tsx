@@ -20,24 +20,26 @@ import {
 
 import RegisterFonts from "../consts/FontRegister";
 
-// RegisterFonts();
+RegisterFonts();
 
 interface TimeProps {
-  themeColor: string;
+  themeColor: string;  
 }
 
 const Timeline: React.FC<TimeProps> = ({ themeColor }) => {
   const lightThemeColor = lightenColor(themeColor, 150);
   return (
-    <View style={styles.timelineDots}>
-      <View style={[styles.line, { backgroundColor: lightThemeColor }]} />
+    <View style={{marginTop:3, position: "absolute", left: 0, top: 0, bottom: 0, display: "flex", flexDirection: "column",
+      alignItems: "center", justifyContent: "space-between",}}>
+      <View style={{marginTop:8, position: "absolute", left: 2, top: 0, bottom: 0, width: 2, backgroundColor: lightThemeColor }} />
     </View>
   );
 };
 
 const TimeDot: React.FC<TimeProps> = ({ themeColor }) => (
-  <View style={styles.timelineDots}>
-    <View style={[styles.dot, { backgroundColor: themeColor }]} />
+  <View style={{marginTop:3, position: "absolute", left: 0, top: 0, bottom: 0, display: "flex", flexDirection: "column",
+    alignItems: "center", justifyContent: "space-between",}}>
+    <View style={{width: 6, height: 6, borderRadius: "50%", marginBottom: 15, backgroundColor: themeColor }} />
   </View>
 );
 
@@ -45,221 +47,18 @@ interface ContactItemProps {
   path: string;
   text: string;
   color: string;
+  fontF:string;
+  fontS:string
 }
 
-const ContactItem: React.FC<ContactItemProps> = ({ path, color, text }) => (
-  <View style={[styles.contactItem]}>
+const ContactItem: React.FC<ContactItemProps> = ({ path, color, text, fontF, fontS  }) => (
+  <View style={{fontSize: getFontSize(fontS), fontFamily: getFontFamily(fontF), flexDirection: "row", alignItems: "center", marginHorizontal: 10, marginBottom: 15, borderBottomWidth: 1, borderBottomColor: "#E0E0E0", paddingBottom: 5,}}>
     <PdfSvgIcon color={color} width={10} height={10} path={path} />
     <Text style={{ marginLeft: 5 }}>{text}</Text>
   </View>
 );
 
 
-const styles = StyleSheet.create({
-  page: {
-    backgroundColor: "#FFFFFF",
-    padding: 20,
-  },
-  header: {
-    flexDirection: "row-reverse", // Reverse the direction of the row
-    alignItems: "center",
-    borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
-    marginBottom: 10,
-    padding: 10,
-  },
-  profileImage: {
-    width: 80,
-    height: 80,
-    borderRadius: "50%",
-    marginLeft: 15, // Add margin to the left to create space between avatar and text
-  },
-  nameRoleContainer: {
-    flex: 1, // Ensures the container takes up the remaining space
-    flexDirection: "column",
-    justifyContent: "center",
-  },
-  name: {
-    // fontFamily: getFontFamily(currentTypography.font) || "Lucida Sans",
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "#000",
-  },
-  role: {
-    // fontFamily: getFontFamily(currentTypography.font) || "Lucida Sans",
-    fontSize: 16,
-    color: "#6b7280",
-    marginTop: 5,
-  },
-  
-
-  contact: {
-    // fontFamily: getFontFamily(currentTypography.font) || "Lucida Sans",
-    fontSize: 10 ,
-    color: "#666",
-    marginTop: 5,
-  },
-  section: {
-    marginBottom: 20,
-  },
-  sectionTitle: {
-    // fontFamily: getFontFamily(currentTypography.font) || "Lucida Sans",
-    fontSize: 12,
-    fontWeight: "bold",
-    marginBottom: 10,
-    color: "#1d4ed8",
-    textTransform: "uppercase",
-    // borderBottomWidth: 1,
-    // borderBottomColor: "#ccc",
-    paddingBottom: 5,
-  },
-  contactRow: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "left",
-    alignItems: "center",
-    marginVertical: 10,
-  },
-  contactItem: {
-    // fontFamily: getFontFamily(currentTypography.font) || "Lucida Sans",
-    fontSize: 10,
-    flexDirection: "row",
-    alignItems: "center",
-    marginHorizontal: 10,
-    marginBottom: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: "#E0E0E0",
-    paddingBottom: 5,
-  },
-  text: {
-    // fontFamily: getFontFamily(currentTypography.font)  || "Lucida Sans",
-    fontSize: 10,
-    color: "#000",
-    marginBottom: 5,
-  },
-  experienceBlock: {
-    marginBottom: 20,
-    marginLeft: 20,
-  },
-  jobTitle: {
-    // fontFamily: getFontFamily(currentTypography.font) || "Lucida Sans",
-    fontSize: 10,
-    fontWeight: "bold",
-    color: "green",
-  },
-  companyDetails: {
-    // fontFamily: getFontFamily(currentTypography.font) || "Lucida Sans",
-    fontSize: 10,
-    marginBottom: 5,
-  },
-  bulletPoint: {
-    // fontFamily: getFontFamily(currentTypography.font) || "Lucida Sans",
-    fontSize: 10,
-    marginLeft: 10,
-    marginBottom: 5,
-    lineHeight: 1.5,
-  },
-  LangName: {
-    // fontFamily: getFontFamily(currentTypography.font) || "Lucida Sans",
-    fontSize: 10,
-    fontWeight: "bold",
-    color: "#333",
-    textTransform: "capitalize",
-    flex: 1, // Ensures the name takes the available space
-  },
-
-  LangLevel: {
-    // fontFamily: getFontFamily(currentTypography.font) || "Lucida Sans",
-    fontSize: 10,
-    fontWeight: "normal",
-    color: "#555",
-    textAlign: "right", // Align level to the right for better contrast
-    flexShrink: 0, // Prevents level text from shrinking in narrow spaces
-  },
-  Lang: {
-    // fontFamily: getFontFamily(currentTypography.font) || "Lucida Sans",
-    fontSize: 10,
-    padding: 5,
-    marginRight: 5,
-    marginBottom: 5,
-    textAlign: "center",
-  },
-  skillGridContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-  },
-  skill: {
-    // fontFamily: getFontFamily(currentTypography.font) || "Lucida Sans",
-    fontSize: 10,
-    padding: 5,
-    backgroundColor: "#e5e7eb",
-    borderRadius: 4,
-    marginRight: 5,
-    marginBottom: 5,
-    textAlign: "center",
-  },
-  skillGridContainer1: {
-    display: "flex",
-    flexDirection: "row", // Display items in a row
-    flexWrap: "wrap", // Allow wrapping to the next line
-    gap: 12, // Add space between items
-    marginTop: 10,
-  },
-
-  skillItem: {
-    width: "30%", // Ensures 3 items per row (100% / 3 = 33.3%)
-    // fontFamily: getFontFamily(currentTypography.font) || "Lucida Sans",
-    fontSize: 10,
-    fontWeight: "bold",
-    color: "#374151",
-    backgroundColor: "#eff5f5",
-    borderRadius: 3,
-    paddingVertical: 5,
-    paddingHorizontal: 12,
-    textAlign: "center", // Centers text inside the skill
-    boxSizing: "border-box", // Ensures padding does not affect width
-    // marginBottom: 5, // Add space between rows
-    transition: "transform 0.2s ease-in-out", // Hover effect for interactivity (optional, if applicable in PDF context)
-  },
-  date: {
-    // fontFamily: getFontFamily(currentTypography.font) || "Lucida Sans",
-    fontSize: 10,
-    color: "#666",
-    marginBottom: 5,
-  },
-  timelineDots: {
-    marginTop:3,
-    position: "absolute",
-    left: 0,
-    top: 0,
-    bottom: 0,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  dot: {
-    width: 6,
-    height: 6,
-    backgroundColor: "#2563eb",
-    borderRadius: "50%",
-    marginBottom: 15,
-  },
-  line: {
-    marginTop:8,
-    position: "absolute",
-    left: 2,
-    top: 0,
-    bottom: 0,
-    width: 2,
-    backgroundColor: "#2563eb",
-  },
-  educationBlock: {
-    marginBottom: 15,
-    marginLeft: 20,
-  },
-  
-});
 
 
 const lightenColor = (color: string, add: number) => {
@@ -345,8 +144,211 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
   skills = skills.filter((e) => e.skillname);
   languages = languages.filter((e) => e.name);
 
-
+  const styles = StyleSheet.create({
+    page: {
+      backgroundColor: "#FFFFFF",
+      padding: 20,
+    },
+    header: {
+      flexDirection: "row-reverse", // Reverse the direction of the row
+      alignItems: "center",
+      borderBottomWidth: 1,
+      borderBottomColor: "#ccc",
+      marginBottom: 10,
+      padding: 10,
+    },
+    profileImage: {
+      width: 80,
+      height: 80,
+      borderRadius: "50%",
+      marginLeft: 15, // Add margin to the left to create space between avatar and text
+    },
+    nameRoleContainer: {
+      flex: 1, // Ensures the container takes up the remaining space
+      flexDirection: "column",
+      justifyContent: "center",
+    },
+    name: {
+      fontFamily: getFontFamily(currentTypography.font) || "Nunito",
+      fontSize: 24,
+      fontWeight: "bold",
+      color: "#000",
+    },
+    role: {
+      fontFamily: getFontFamily(currentTypography.font) || "Nunito",
+      fontSize: 16,
+      color: "#6b7280",
+      marginTop: 5,
+    },
+    
   
+    contact: {
+      fontFamily: getFontFamily(currentTypography.font) || "Nunito",
+      fontSize: getFontSize(currentTypography.size) ,
+      color: "#666",
+      marginTop: 5,
+    },
+    section: {
+      marginBottom: 20,
+    },
+    sectionTitle: {
+      fontFamily: getFontFamily(currentTypography.font) || "Nunito",
+      fontSize: getFontSize(currentTypography.size),
+      fontWeight: "bold",
+      marginBottom: 10,
+      color: "#1d4ed8",
+      textTransform: "uppercase",
+      // borderBottomWidth: 1,
+      // borderBottomColor: "#ccc",
+      paddingBottom: 5,
+    },
+    contactRow: {
+      flexDirection: "row",
+      flexWrap: "wrap",
+      justifyContent: "left",
+      alignItems: "center",
+      marginVertical: 10,
+    },
+    contactItem: {
+      fontFamily: getFontFamily(currentTypography.font) || "Nunito",
+      fontSize: getFontSize(currentTypography.size),
+      flexDirection: "row",
+      alignItems: "center",
+      marginHorizontal: 10,
+      marginBottom: 15,
+      borderBottomWidth: 1,
+      borderBottomColor: "#E0E0E0",
+      paddingBottom: 5,
+    },
+    text: {
+      // fontFamily: getFontFamily(currentTypography.font)  || "Nunito",
+      fontSize: getFontSize(currentTypography.size),
+      color: "#000",
+      marginBottom: 5,
+    },
+    experienceBlock: {
+      marginBottom: 20,
+      marginLeft: 20,
+    },
+    jobTitle: {
+      fontFamily: getFontFamily(currentTypography.font) || "Nunito",
+      fontSize: getFontSize(currentTypography.size),
+      fontWeight: "bold",
+      color: "green",
+    },
+    companyDetails: {
+      fontFamily: getFontFamily(currentTypography.font) || "Nunito",
+      fontSize: getFontSize(currentTypography.size),
+      marginBottom: 5,
+    },
+    bulletPoint: {
+      fontFamily: getFontFamily(currentTypography.font) || "Nunito",
+      fontSize: getFontSize(currentTypography.size),
+      marginLeft: 10,
+      marginBottom: 5,
+      lineHeight: 1.5,
+    },
+    LangName: {
+      fontFamily: getFontFamily(currentTypography.font) || "Nunito",
+      fontSize: getFontSize(currentTypography.size),
+      fontWeight: "bold",
+      color: "#333",
+      textTransform: "capitalize",
+      flex: 1, // Ensures the name takes the available space
+    },
+  
+    LangLevel: {
+      fontFamily: getFontFamily(currentTypography.font) || "Nunito",
+      fontSize: getFontSize(currentTypography.size),
+      fontWeight: "normal",
+      color: "#555",
+      textAlign: "right", // Align level to the right for better contrast
+      flexShrink: 0, // Prevents level text from shrinking in narrow spaces
+    },
+    Lang: {
+      fontFamily: getFontFamily(currentTypography.font) || "Nunito",
+      fontSize: getFontSize(currentTypography.size),
+      padding: 5,
+      marginRight: 5,
+      marginBottom: 5,
+      textAlign: "center",
+    },
+    skillGridContainer: {
+      flexDirection: "row",
+      flexWrap: "wrap",
+    },
+    skill: {
+      fontFamily: getFontFamily(currentTypography.font) || "Nunito",
+      fontSize: getFontSize(currentTypography.size),
+      padding: 5,
+      backgroundColor: "#e5e7eb",
+      borderRadius: 4,
+      marginRight: 5,
+      marginBottom: 5,
+      textAlign: "center",
+    },
+    skillGridContainer1: {
+      display: "flex",
+      flexDirection: "row", // Display items in a row
+      flexWrap: "wrap", // Allow wrapping to the next line
+      gap: 12, // Add space between items
+      marginTop: 10,
+    },
+  
+    skillItem: {
+      width: "30%", // Ensures 3 items per row (100% / 3 = 33.3%)
+      fontFamily: getFontFamily(currentTypography.font) || "Nunito",
+      fontSize: getFontSize(currentTypography.size),
+      fontWeight: "bold",
+      color: "#374151",
+      backgroundColor: "#eff5f5",
+      borderRadius: 3,
+      paddingVertical: 5,
+      paddingHorizontal: 12,
+      textAlign: "center", // Centers text inside the skill
+      boxSizing: "border-box", // Ensures padding does not affect width
+      // marginBottom: 5, // Add space between rows
+      transition: "transform 0.2s ease-in-out", // Hover effect for interactivity (optional, if applicable in PDF context)
+    },
+    date: {
+      fontFamily: getFontFamily(currentTypography.font) || "Nunito",
+      fontSize: getFontSize(currentTypography.size),
+      color: "#666",
+      marginBottom: 5,
+    },
+    timelineDots: {
+      marginTop:3,
+      position: "absolute",
+      left: 0,
+      top: 0,
+      bottom: 0,
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "space-between",
+    },
+    dot: {
+      width: 6,
+      height: 6,
+      backgroundColor: "#2563eb",
+      borderRadius: "50%",
+      marginBottom: 15,
+    },
+    line: {
+      marginTop:8,
+      position: "absolute",
+      left: 2,
+      top: 0,
+      bottom: 0,
+      width: 2,
+      backgroundColor: "#2563eb",
+    },
+    educationBlock: {
+      marginBottom: 15,
+      marginLeft: 20,
+    },
+    
+  });  
 
   return (
     <PDFViewer style={{ width: "100%", height: "100vh" }}>
@@ -367,6 +369,8 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
                     path={MailSvgPath}
                     color={themeColor}
                     text={email}
+                    fontF={currentTypography.font}
+                    fontS={currentTypography.size}
                   />
                 ) : null}
                 {phone && visibleSections.includes("phone") ? (
@@ -374,6 +378,8 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
                     path={PhoneSvgPath}
                     color={themeColor}
                     text={phone}
+                    fontF={currentTypography.font}
+                    fontS={currentTypography.size}
                   />
                 ) : null}
                 {location && visibleSections.includes("location") ? (
@@ -381,6 +387,8 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
                     path={LocationSvgPath}
                     color={themeColor}
                     text={location}
+                    fontF={currentTypography.font}
+                    fontS={currentTypography.size}
                   />
                 ) : null}
                 {websiteLink && visibleSections.includes("website") ? (
@@ -388,6 +396,8 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
                     path={WebsiteSvgPath}
                     color={themeColor}
                     text={websiteLink}
+                    fontF={currentTypography.font}
+                    fontS={currentTypography.size}
                   />
                 ) : null}
                 {linkedinLink && visibleSections.includes("linkedin") ? (
@@ -395,6 +405,8 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
                     path={LinkedSvgPath}
                     color={themeColor}
                     text={linkedinLink}
+                    fontF={currentTypography.font}
+                    fontS={currentTypography.size}
                   />
                 ) : null}
               </View>

@@ -14,7 +14,9 @@ import ImportDialog from "./ImportDialog";
 import SelectorButton from "./SelectorButton";
 import SectionsSelector from "./SectionsSelector";
 import { PDFDownloadLink } from "@react-pdf/renderer";
-import ResumePDF from "../resumePDF/ResumePDF";
+import ResumePDF from "../resumePDF/ResumeSplitPDF";
+import ResumeClassicPDF from "../resumePDF/ResumeClassicPDF";
+import ResumeATSPDF from "../resumePDF/ResumeATSPDF";
 import { useUser } from "../context/UserContext";
 
 interface HeaderProps {
@@ -69,10 +71,10 @@ const Header: React.FC<HeaderProps> = ({
     { value: "split", label: "Split Layout" },
     { value: "classic", label: "Classic Layout" },
     { value: "hybrid", label: "ATS Layout" },
-    { value: "test_split", label: "Preview Split" },
-    { value: "test_classic", label: "Preview Classic" },
-    { value: "test_ats", label: "Preview ATS" },
-    { value: "test", label: "Test" },
+    // { value: "test_split", label: "Preview Split" },
+    // { value: "test_classic", label: "Preview Classic" },
+    // { value: "test_ats", label: "Preview ATS" },
+    // { value: "test", label: "Test" },
   ];
 
   const colorOptions = [
@@ -193,6 +195,7 @@ const Header: React.FC<HeaderProps> = ({
               <span>Import</span>
             </button>
             {/* Use PDFDownloadLink for downloading */}
+            {currentLayout === "split" &&
             <PDFDownloadLink
               document={
                 <ResumePDF
@@ -213,7 +216,7 @@ const Header: React.FC<HeaderProps> = ({
                   visibleSections={visibleSections}
                 />
               }
-              fileName="Resume.pdf"
+              fileName="split_Resume.pdf"
             >
               {({ downloadingLoading }) => (
                 <button
@@ -229,7 +232,83 @@ const Header: React.FC<HeaderProps> = ({
                   </span>
                 </button>
               )}
-            </PDFDownloadLink>
+            </PDFDownloadLink>}
+            {currentLayout === "classic" &&
+            <PDFDownloadLink
+              document={
+                <ResumeClassicPDF
+                  themeColor={currentColor}
+                  name={name}
+                  role={role}
+                  location={location}
+                  email={email}
+                  phone={phone}
+                  websiteLink={website}
+                  linkedinLink={linkedin}
+                  summery={about}
+                  experiences={experiences}
+                  educations={educations}
+                  skills={skills}
+                  languages={languages}
+                  avatar={avatar}
+                  visibleSections={visibleSections}
+                />
+              }
+              fileName="Classic_Resume.pdf"
+            >
+              {({ downloadingLoading }) => (
+                <button
+                  className={`flex items-center space-x-2 px-4 py-2 text-white rounded-md transition-all hover:opacity-90 ${
+                    downloadingLoading ? "opacity-50" : ""
+                  }`}
+                  style={{ backgroundColor: currentColor }}
+                  disabled={downloadingLoading}
+                >
+                  <FileDown className="h-4 w-4" />
+                  <span>
+                    {downloadingLoading ? "Preparing..." : "Download"}
+                  </span>
+                </button>
+              )}
+            </PDFDownloadLink>}
+            {currentLayout === "hybrid" &&
+            <PDFDownloadLink
+              document={
+                <ResumeATSPDF
+                  themeColor={currentColor}
+                  name={name}
+                  role={role}
+                  location={location}
+                  email={email}
+                  phone={phone}
+                  websiteLink={website}
+                  linkedinLink={linkedin}
+                  summery={about}
+                  experiences={experiences}
+                  educations={educations}
+                  skills={skills}
+                  languages={languages}
+                  avatar={avatar}
+                  visibleSections={visibleSections}
+                />
+              }
+              fileName="ATS_Resume.pdf"
+            >
+              {({ downloadingLoading }) => (
+                <button
+                  className={`flex items-center space-x-2 px-4 py-2 text-white rounded-md transition-all hover:opacity-90 ${
+                    downloadingLoading ? "opacity-50" : ""
+                  }`}
+                  style={{ backgroundColor: currentColor }}
+                  disabled={downloadingLoading}
+                >
+                  <FileDown className="h-4 w-4" />
+                  <span>
+                    {downloadingLoading ? "Preparing..." : "Download"}
+                  </span>
+                </button>
+              )}
+            </PDFDownloadLink>}
           </div>
         </div>
 

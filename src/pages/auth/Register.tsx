@@ -1,4 +1,3 @@
-/* eslint-disable default-case */
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -6,8 +5,28 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-export default function Register(props) {
-  const options = [
+interface RegisterProps {
+  setPage: (page: string) => void;
+}
+
+interface FormRegister {
+  name: string;
+  username: string;
+  email: string;
+  phone_number: string;
+  password: string;
+  birth: string;
+  sex: string;
+  profile: string;
+}
+
+interface Option {
+  value: string;
+  label: string;
+}
+
+const Register: React.FC<RegisterProps> = (props) => {
+  const options: Option[] = [
     { value: "", label: "Select Your gender !" },
     { value: "MALE", label: "Male" },
     { value: "FEMALE", label: "Female" },
@@ -16,7 +35,7 @@ export default function Register(props) {
   const navigate = useNavigate();
 
   // Register Form
-  const [formRegister, setFormRegister] = useState({
+  const [formRegister, setFormRegister] = useState<FormRegister>({
     name: "",
     username: "",
     email: "",
@@ -26,78 +45,64 @@ export default function Register(props) {
     sex: "",
     profile: "",
   });
-  //    default value datepicker
-  const [birthDate, setBirthDate] = useState(null);
 
-  // convert format date to string
-  const formatDate = (date) => {
-    let d = new Date(date),
-      month = "" + (d.getMonth() + 1),
-      day = "" + d.getDate(),
-      year = d.getFullYear();
+  // Default value for DatePicker
+  const [birthDate, setBirthDate] = useState<Date | null>(null);
+
+  // Convert date to string in DD-MM-YYYY format
+  const formatDate = (date: Date): string => {
+    const d = new Date(date);
+    let month = "" + (d.getMonth() + 1);
+    let day = "" + d.getDate();
+    const year = d.getFullYear();
 
     if (month.length < 2) month = "0" + month;
     if (day.length < 2) day = "0" + day;
     return [day, month, year].join("-");
   };
 
-  const onChangeForm = (label, event) => {
+  const onChangeForm = (label: keyof FormRegister, event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const value = event.target.value;
     switch (label) {
-      case "name":
-        setFormRegister({ ...formRegister, name: event.target.value });
-        break;
-      case "username":
-        setFormRegister({ ...formRegister, username: event.target.value });
-        break;
       case "email":
-        // email validation
-        const email_validation = /\S+@\S+\.\S+/;
-        if (email_validation.test(event.target.value)) {
-          setFormRegister({ ...formRegister, email: event.target.value });
+        // Email validation
+        const emailValidation = /\S+@\S+\.\S+/;
+        if (emailValidation.test(value)) {
+          setFormRegister({ ...formRegister, email: value });
         }
         break;
-      case "phone_number":
-        setFormRegister({ ...formRegister, phone_number: event.target.value });
-        break;
-      case "password":
-        setFormRegister({ ...formRegister, password: event.target.value });
-        break;
-      case "sex":
-        setFormRegister({ ...formRegister, sex: event.target.value });
-        break;
       case "birth":
-        setBirthDate(event);
-        setFormRegister({ ...formRegister, birth: formatDate(event) });
+        if (event.target instanceof HTMLInputElement) {
+          const date = new Date(value);
+          setBirthDate(date);
+          setFormRegister({ ...formRegister, birth: formatDate(date) });
+        }
         break;
+      default:
+        setFormRegister({ ...formRegister, [label]: value });
     }
   };
 
-  //   Submit handler
+  const onDateChange = (date: Date | null) => {
+    if (date) {
+      setBirthDate(date);
+      setFormRegister({ ...formRegister, birth: formatDate(date) });
+    }
+  };
 
-  const onSubmitHandler = async (event) => {
+  // Submit handler
+  const onSubmitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(formRegister);
-    // Post to register API
-    await axios
-      .post("http://localhost:8888/auth/register", formRegister)
-      .then((response) => {
-        // move to sign in page
-        navigate("/?signin");
-
-        // add successfully notif
-        toast.success(response.data.detail);
-        // reload page
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);
-
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-        // add error notif
-        toast.error(error.response.data.detail);
-      });
+    try {
+      const response = await axios.post("http://localhost:8888/auth/register", formRegister);
+      navigate("/?signin");
+      toast.success(response.data.detail);
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    } catch (error: any) {
+      toast.error(error.response?.data?.detail || "Registration failed.");
+    }
   };
 
   return (
@@ -107,7 +112,7 @@ export default function Register(props) {
           Create An Account
         </h1>
         <p className="w-80 text-center text-sm mb-8 font-semibold text-gray-700 tracking-wide cursor-pointer mx-auto">
-          Welcome to lemoncode21!
+          Welcome to Resume Maker!
         </p>
       </div>
       <form onSubmit={onSubmitHandler}>
@@ -116,73 +121,49 @@ export default function Register(props) {
             type="text"
             placeholder="Name"
             className="block text-sm py-3 px-4 rounded-lg w-full border outline-none focus:ring focus:outline-none focus:ring-yellow-400"
-            onChange={(event) => {
-              onChangeForm("name", event);
-            }}
+            onChange={(event) => onChangeForm("name", event)}
           />
           <DatePicker
             className="block text-sm py-3 px-4 rounded-lg w-full border outline-none focus:ring focus:outline-none focus:ring-yellow-400"
             dateFormat="dd-MM-yyyy"
             placeholderText="Birth date"
             selected={birthDate}
-            onChange={(event) => {
-              onChangeForm("birth", event);
-            }}
+            onChange={onDateChange}
           />
           <select
             value={formRegister.sex}
             className="block text-sm py-3 px-4 rounded-lg w-full border outline-none focus:ring focus:outline-none focus:ring-yellow-400"
-            onChange={(event) => {
-              onChangeForm("sex", event);
-            }}
+            onChange={(event) => onChangeForm("sex", event)}
           >
-            {options.map((data) => {
-              if (data.value === "") {
-                return (
-                  <option key={data.label} value={data.value} disabled>
-                    {data.label}
-                  </option>
-                );
-              } else {
-                return (
-                  <option key={data.label} value={data.value}>
-                    {data.label}
-                  </option>
-                );
-              }
-            })}
+            {options.map((data) => (
+              <option key={data.label} value={data.value} disabled={!data.value}>
+                {data.label}
+              </option>
+            ))}
           </select>
           <input
             type="text"
             placeholder="Username"
             className="block text-sm py-3 px-4 rounded-lg w-full border outline-none focus:ring focus:outline-none focus:ring-yellow-400"
-            onChange={(event) => {
-              onChangeForm("username", event);
-            }}
+            onChange={(event) => onChangeForm("username", event)}
           />
-          <input
+          {/* <input
             type="number"
             placeholder="Phone number"
             className="block text-sm py-3 px-4 rounded-lg w-full border outline-none focus:ring focus:outline-none focus:ring-yellow-400"
-            onChange={(event) => {
-              onChangeForm("phone_number", event);
-            }}
-          />
+            onChange={(event) => onChangeForm("phone_number", event)}
+          /> */}
           <input
             type="email"
             placeholder="Email"
             className="block text-sm py-3 px-4 rounded-lg w-full border outline-none focus:ring focus:outline-none focus:ring-yellow-400"
-            onChange={(event) => {
-              onChangeForm("email", event);
-            }}
+            onChange={(event) => onChangeForm("email", event)}
           />
           <input
             type="password"
             placeholder="Password"
             className="block text-sm py-3 px-4 rounded-lg w-full border outline-none focus:ring focus:outline-none focus:ring-yellow-400"
-            onChange={(event) => {
-              onChangeForm("password", event);
-            }}
+            onChange={(event) => onChangeForm("password", event)}
           />
         </div>
         <div className="text-center mt-6">
@@ -196,9 +177,7 @@ export default function Register(props) {
             Already have an account?{" "}
             <Link
               to="/?signin"
-              onClick={() => {
-                props.setPage("login");
-              }}
+              onClick={() => props.setPage("login")}
             >
               <span className="underline cursor-pointer">Sign In</span>
             </Link>
@@ -207,4 +186,6 @@ export default function Register(props) {
       </form>
     </React.Fragment>
   );
-}
+};
+
+export default Register;

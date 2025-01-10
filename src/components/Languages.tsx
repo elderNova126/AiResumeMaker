@@ -10,13 +10,23 @@ import { Trash } from "lucide-react";
 
 interface LanguageType {
   name: string;
+  level: string;
 }
+
+const languageLevels = [
+  "Beginner",
+  "Intermediate",
+  "Advanced",
+  "Fluent",
+  "Native",
+];
 
 const LanguagesSection: React.FC<{
   setLanguages: React.Dispatch<React.SetStateAction<LanguageType[]>>;
   languages: LanguageType[];
   themeColor: string;
-}> = ({ setLanguages, languages, themeColor }) => {
+  isSplit: boolean;
+}> = ({ setLanguages, languages, themeColor, isSplit=false }) => {
   const reorder = (
     list: LanguageType[],
     startIndex: number,
@@ -41,18 +51,16 @@ const LanguagesSection: React.FC<{
   };
 
   const addLanguage = () => {
-    setLanguages([
-      ...languages,
-      { name: "" },
-    ]);
+    setLanguages([...languages, { name: "", level: "Beginner" }]);
   };
 
   const removeLanguage = (index: number) => {
-    const confirmed = window.confirm('Are you sure you want to delete item?');
+    const confirmed = window.confirm("Are you sure you want to delete item?");
     if (confirmed) {
       setLanguages(languages.filter((_, i) => i !== index));
-    }     
+    }
   };
+
   const updateLanguage = (
     index: number,
     key: keyof LanguageType,
@@ -63,6 +71,7 @@ const LanguagesSection: React.FC<{
     );
     setLanguages(updatedLanguages);
   };
+
   return (
     <div className="my-3 py-2">
       <h2
@@ -77,7 +86,7 @@ const LanguagesSection: React.FC<{
             <div
               {...provided.droppableProps}
               ref={provided.innerRef}
-              className="flex flex-wrap gap-2"
+              className={`${isSplit?"flex-wrap":"grid grid-cols-3 grid-auto-flow-column"}`}
             >
               {languages.map((language, index) => (
                 <Draggable
@@ -89,7 +98,7 @@ const LanguagesSection: React.FC<{
                     <div
                       ref={provided.innerRef}
                       {...provided.draggableProps}
-                      className={`relative group border border-transparent rounded-md hover:border-gray-300 transition-all flex-shrink-0${
+                      className={`relative group border border-transparent rounded-md hover:border-gray-300 transition-all flex-shrink-0 ${
                         snapshot.isDragging ? "bg-gray-100 shadow-md" : ""
                       }`}
                     >
@@ -104,32 +113,60 @@ const LanguagesSection: React.FC<{
                             <Trash className="h-4 w-4" />
                           </button>
                           <div
-                            style={{cursor:"pointer"}}
+                            style={{ cursor: "pointer" }}
                             className="absolute -top-3 right-9 hidden group-hover:flex items-center justify-center w-6 h-6 bg-red-500 text-white rounded-full shadow-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
                             {...provided.dragHandleProps}
                           >
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M7 15L12 20L17 15M7 9L12 4L17 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg> 
+                            <svg
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M7 15L12 20L17 15M7 9L12 4L17 9"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              ></path>
+                            </svg>
                           </div>
                         </>
                       )}
                       <button
                         type="button"
-                        className="absolute -top-3 right-2 hidden group-hover:flex items-center justify-center w-6 h-6 bg-red-500 text-white rounded-full shadow-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
+                        className="absolute -top-3 right-2 hidden group-hover:flex items-center justify-center w-6 h-6 bg-green-500 text-white rounded-full shadow-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-400 transition-all"
                         onClick={addLanguage}
                         aria-label="Add Language"
                       >
                         +
                       </button>
 
-                      <AutoResizeField
-                        value={language.name}
-                        className="p-2 textEdit border-b border-transparent hover:border-gray-300 bg-gray-100 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200 max-w-[400px]"
-                        placeholder="Language Name"
-                        onChange={(value) =>
-                          updateLanguage(index, "name", value)
-                        }  
-                      />
+                      <div className="grid grid-cols-2 items-center gap-2 p-2 bg-gray-100 rounded-md">
+                        <AutoResizeField
+                          value={language.name}
+                          className="p-2 textEdit border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200 max-w-[200px]"
+                          placeholder="Language Name"
+                          onChange={(value) =>
+                            updateLanguage(index, "name", value)
+                          }
+                        />
+                        <select
+                          value={language.level}
+                          onChange={(e) =>
+                            updateLanguage(index, "level", e.target.value)
+                          }
+                          className="p-2 border rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                        >
+                          {languageLevels.map((level) => (
+                            <option key={level} value={level}>
+                              {level}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
                     </div>
                   )}
                 </Draggable>
@@ -144,9 +181,6 @@ const LanguagesSection: React.FC<{
 };
 
 export default LanguagesSection;
-
-
-
 
 // import React from "react";
 // import {
@@ -220,7 +254,7 @@ export default LanguagesSection;
 
 //   const removeLanguage = (index: number) => {
 //     const confirmed = window.confirm('Are you sure you want to delete item?');
-//     if (confirmed) 
+//     if (confirmed)
 //       setLanguages(languages.filter((_, i) => i !== index));
 //   };
 
@@ -270,7 +304,7 @@ export default LanguagesSection;
 //                             {...provided.dragHandleProps}
 //                           >
 //                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-//                             <path d="M7 15L12 20L17 15M7 9L12 4L17 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg> 
+//                             <path d="M7 15L12 20L17 15M7 9L12 4L17 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
 //                           </div>
 //                         </>
 //                       )}
@@ -283,7 +317,7 @@ export default LanguagesSection;
 //                       >
 //                         +
 //                       </button>
-                      
+
 //                         <select style={{ width: 'auto'}}
 //                           value={language.name}
 //                           onChange={(e) =>
@@ -326,7 +360,7 @@ export default LanguagesSection;
 //                             </option>
 //                           ))}
 //                         </select> */}
-                      
+
 //                     </div>
 //                   )}
 //                 </Draggable>

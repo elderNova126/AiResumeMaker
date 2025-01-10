@@ -47,14 +47,14 @@ const styles = StyleSheet.create({
     borderRadius: "50%",
   },
   name: {
-    fontSize: 26,
+    fontSize: 24,
     fontWeight: "bold",
     textAlign: "right",
     color: "#000",
     padding: 10,
   },
   role: {
-    fontSize: 12,
+    fontSize: 10,
     color: "#6b7280",
     textAlign: "right",
     marginTop: 5,
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     paddingBottom: 40,
   },
   sectionTitle: {
-    fontSize: 14,
+    fontSize: 12,
     fontWeight: "bold",
     marginBottom: 10,
     color: "#1d4ed8",
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
   },
   contactItem: {
-    fontSize: 10,
+    fontSize: 9,
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 15,
@@ -97,33 +97,62 @@ const styles = StyleSheet.create({
     marginRight: 5,
   },
   bulletPoint: {
-    fontSize: 10,
+    fontSize: 9,
     marginLeft: 10,
     marginBottom: 5,
     lineHeight: 1.5,
   },
   summary: {
-    fontSize: 10,
-    marginBottom: 5,
+    fontSize: 9,
+    marginBottom: 20,
     lineHeight: 1.5,
   },
-  skill_lang_Item: {
+  LangGridContainer: {
+    flexDirection: "column",
+    gap: 10,
+    // marginTop: 10,
+    // paddingHorizontal: 10,
+  },
+
+  LangName: {
+    fontSize: 9,
+    fontWeight: "bold",
+    color: "#333",
+    textTransform: "capitalize",
+    flex: 1, // Ensures the name takes the available space
+  },
+
+  LangLevel: {
+    fontSize: 9,
+    fontWeight: "normal",
+    color: "#555",
+    textAlign: "right", // Align level to the right for better contrast
+    flexShrink: 0, // Prevents level text from shrinking in narrow spaces
+  },
+
+  skillGridContainer: {
+    display: "flex",
+    flexDirection: "row", // Display items in a row
+    flexWrap: "wrap", // Allow wrapping to the next line
+    gap: 12, // Add space between items
+    marginTop: 10,
+  },
+
+  skillItem: {
+    width: "30%", // Ensures 3 items per row (100% / 3 = 33.3%)
     fontSize: 10,
-    paddingVertical: 5,
-    paddingHorizontal: 8,
-    backgroundColor: "#e5e7eb",
-    borderRadius: 4,
-    marginBottom: 2,
-    textAlign: "center",
     fontWeight: "bold",
     color: "#374151",
+    backgroundColor: "#eff5f5",
+    borderRadius: 3,
+    paddingVertical: 5,
+    paddingHorizontal: 12,
+    textAlign: "center", // Centers text inside the skill
+    boxSizing: "border-box", // Ensures padding does not affect width
+    // marginBottom: 5, // Add space between rows
+    transition: "transform 0.2s ease-in-out", // Hover effect for interactivity (optional, if applicable in PDF context)
   },
-  gridContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: 10,
-    marginBottom: 30,
-  },
+
   timelineContainer: {
     position: "relative",
     paddingLeft: 30,
@@ -165,13 +194,13 @@ const styles = StyleSheet.create({
     // paddingBottom:20,
   },
   jobTitle: {
-    fontSize: 11,
+    fontSize: 10,
     fontStyle: "italic",
     // marginBottom: 5,
     marginVertical: 10,
   },
   date: {
-    fontSize: 10,
+    fontSize: 9,
     color: "#666",
     marginBottom: 5,
   },
@@ -251,7 +280,7 @@ interface Education {
   dateRange: string;
   degree: string;
 }
-interface ResumePDFProps {
+interface PreviewResumeSplitProps {
   themeColor?: string;
   // currentTypography: { font: string; size: string };
   name: string;
@@ -265,13 +294,13 @@ interface ResumePDFProps {
   experiences: Experience[];
   educations: Education[];
   skills: { skillname: string }[];
-  languages: { name: string }[];
+  languages: { name: string; level: string }[];
   avatar: string;
+  visibleSections: string[];
 }
 
-const TestLayout: React.FC<ResumePDFProps> = ({
+const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
   themeColor = "#2563eb",
-  // currentTypography,
   name,
   role,
   email,
@@ -285,6 +314,7 @@ const TestLayout: React.FC<ResumePDFProps> = ({
   skills,
   languages,
   avatar,
+  visibleSections,
 }) => {
   educations = educations.filter((e) => e.school || e.dateRange || e.degree);
   experiences = experiences.filter(
@@ -292,85 +322,105 @@ const TestLayout: React.FC<ResumePDFProps> = ({
   );
   skills = skills.filter((e) => e.skillname);
   languages = languages.filter((e) => e.name);
+
   return (
     <PDFViewer style={{ width: "100%", height: "100vh" }}>
       <Document>
         <Page size="A4" style={[styles.page]}>
           <View style={styles.header}>
-            {avatar && <Image style={styles.profileImage} src={avatar} />}
+            {avatar && visibleSections.includes("picture") ? (
+              <Image style={styles.profileImage} src={avatar} />
+            ) : null}
             <View style={styles.headerCenteredContainer}>
-              {name && (
-                <Text style={[styles.name, { color: themeColor }]}>{name}</Text>
-              )}
-              {role && <Text style={styles.role}>{role}</Text>}
+              <Text style={[styles.name, { color: themeColor }]}>{name}</Text>
+              {visibleSections.includes("role") ? (
+                <Text style={styles.role}>{role}</Text>
+              ) : null}
             </View>
           </View>
 
           <View style={styles.mainContent}>
             <View style={styles.leftColumn}>
-              {(email || phone || location || websiteLink || linkedinLink) && (
+              {email || phone || location || websiteLink || linkedinLink ? (
                 <>
                   <Text style={[styles.sectionTitle, { color: themeColor }]}>
                     Contact
                   </Text>
-                  {email && (
-                    <ContactItem
-                      path={MailSvgPath}
-                      color={themeColor}
-                      text={email}
-                    />
-                  )}
-                  {phone && (
-                    <ContactItem
-                      path={PhoneSvgPath}
-                      color={themeColor}
-                      text={phone}
-                    />
-                  )}
-                  {location && (
+                  {location && visibleSections.includes("location") ? (
                     <ContactItem
                       path={LocationSvgPath}
                       color={themeColor}
                       text={location}
                     />
-                  )}
-                  {websiteLink && (
+                  ) : null}
+                  {email && visibleSections.includes("email") ? (
+                    <ContactItem
+                      path={MailSvgPath}
+                      color={themeColor}
+                      text={email}
+                    />
+                  ) : null}
+                  {phone && visibleSections.includes("phone") ? (
+                    <ContactItem
+                      path={PhoneSvgPath}
+                      color={themeColor}
+                      text={phone}
+                    />
+                  ) : null}
+                  {websiteLink && visibleSections.includes("website") ? (
                     <ContactItem
                       path={WebsiteSvgPath}
                       color={themeColor}
                       text={websiteLink}
                     />
-                  )}
-                  {linkedinLink && (
+                  ) : null}
+                  {linkedinLink && visibleSections.includes("linkedin") ? (
                     <ContactItem
                       path={LinkedSvgPath}
                       color={themeColor}
                       text={linkedinLink}
                     />
-                  )}
+                  ) : null}
                 </>
-              )}
-              {summery && (
+              ) : null}
+
+              {summery && visibleSections.includes("about") ? (
                 <View style={{ marginTop: 20 }}>
                   <Text style={[styles.sectionTitle, { color: themeColor }]}>
                     About Me
                   </Text>
                   <Text style={styles.summary}>{summery}</Text>
                 </View>
-              )}
+              ) : null}
+              {languages.length > 0 && visibleSections.includes("languages") ? (
+                <>
+                  <Text style={[styles.sectionTitle, { color: themeColor }]}>
+                    Languages
+                  </Text>
+                  <View style={styles.LangGridContainer}>
+                    {languages.map((language, index) => (
+                      <View key={index} style={styles.LangItemContainer}>
+                        <Text style={styles.LangName}>- {language.name}</Text>
+                        <Text style={styles.LangLevel}>{language.level}</Text>
+                      </View>
+                    ))}
+                  </View>
+                </>
+              ) : null}
             </View>
 
             <View style={styles.rightColumn}>
-              {experiences.length > 0 && (
+              {experiences.length > 0 &&
+              visibleSections.includes("experience") ? (
                 <>
                   <Text style={[styles.sectionTitle, { color: themeColor }]}>
                     Work Experience
                   </Text>
                   {experiences.map((experience, index) => (
                     <View key={index}>
-                      {index < experiences.length - 1 && (
+                      {index < experiences.length - 1 ? (
                         <Timeline themeColor={themeColor} />
-                      )}
+                      ) : null}
                       <TimeDot themeColor={themeColor} />
                       <View style={styles.experienceBlock}>
                         <Text style={styles.companyName}>
@@ -391,17 +441,19 @@ const TestLayout: React.FC<ResumePDFProps> = ({
                     </View>
                   ))}
                 </>
-              )}
-              {educations.length > 0 && (
+              ) : null}
+
+              {educations.length > 0 &&
+              visibleSections.includes("education") ? (
                 <>
                   <Text style={[styles.sectionTitle, { color: themeColor }]}>
                     Education
                   </Text>
                   {educations.map((education, index) => (
                     <View key={index}>
-                      {index < educations.length - 1 && (
+                      {index < educations.length - 1 ? (
                         <Timeline themeColor={themeColor} />
-                      )}
+                      ) : null}
                       <TimeDot themeColor={themeColor} />
                       <View style={styles.educationBlock}>
                         <Text style={styles.companyName}>
@@ -411,38 +463,24 @@ const TestLayout: React.FC<ResumePDFProps> = ({
                         <Text style={styles.date}>{education.dateRange}</Text>
                       </View>
                     </View>
-                  ))}{" "}
+                  ))}
                 </>
-              )}
+              ) : null}
 
-              {skills.length > 0 && (
+              {skills.length > 0 && visibleSections.includes("skills") ? (
                 <>
                   <Text style={[styles.sectionTitle, { color: themeColor }]}>
                     Skills
                   </Text>
-                  <View style={styles.gridContainer}>
+                  <View style={styles.skillGridContainer}>
                     {skills.map((skill, index) => (
-                      <Text key={index} style={styles.skill_lang_Item}>
+                      <Text key={index} style={styles.skillItem}>
                         {skill.skillname}
                       </Text>
                     ))}
                   </View>
                 </>
-              )}
-              {languages.length > 0 && (
-                <>
-                  <Text style={[styles.sectionTitle, { color: themeColor }]}>
-                    Languages
-                  </Text>
-                  <View style={styles.gridContainer}>
-                    {languages.map((language, index) => (
-                      <Text key={index} style={styles.skill_lang_Item}>
-                        {language.name}
-                      </Text>
-                    ))}
-                  </View>
-                </>
-              )}
+              ) : null}
             </View>
           </View>
         </Page>
@@ -451,4 +489,4 @@ const TestLayout: React.FC<ResumePDFProps> = ({
   );
 };
 
-export default TestLayout;
+export default PreviewResumeSplit;

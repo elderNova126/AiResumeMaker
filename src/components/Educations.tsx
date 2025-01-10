@@ -18,7 +18,8 @@ const Educations: React.FC<{
   setEducations: React.Dispatch<React.SetStateAction<EducationType[]>>;
   educations: EducationType[];
   themeColor: string;
-}> = ({ setEducations, educations, themeColor }) => {
+  isATS: boolean;
+}> = ({ setEducations, educations, themeColor, isATS = false }) => {
   const reorder = (
     list: EducationType[],
     startIndex: number,
@@ -43,16 +44,12 @@ const Educations: React.FC<{
   };
 
   const addEducation = () => {
-    setEducations([
-      ...educations,
-      { school: "", dateRange: "", degree: "" },
-    ]);
+    setEducations([...educations, { school: "", dateRange: "", degree: "" }]);
   };
 
   const removeEducation = (index: number) => {
-    const confirmed = window.confirm('Are you sure you want to delete item?');
-    if (confirmed) 
-      setEducations(educations.filter((_, i) => i !== index));
+    const confirmed = window.confirm("Are you sure you want to delete item?");
+    if (confirmed) setEducations(educations.filter((_, i) => i !== index));
   };
   const updateEducation = (
     index: number,
@@ -96,19 +93,35 @@ const Educations: React.FC<{
                     >
                       {educations.length > 1 && (
                         <>
-                          
                           <button
                             type="button"
                             className="zorder-top absolute -top-3 right-16 hidden group-hover:flex items-center justify-center w-6 h-6 bg-red-500 text-white rounded-full shadow-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
                             onClick={() => removeEducation(index)}
                             aria-label="Remove Education"
                           >
-                          <Trash className="h-4 w-4" />
+                            <Trash className="h-4 w-4" />
                           </button>
                           <div
-                            style={{cursor:"pointer"}}
+                            style={{ cursor: "pointer" }}
                             className="zorder-top absolute -top-3 right-9 hidden group-hover:flex items-center justify-center w-6 h-6 bg-red-500 text-white rounded-full shadow-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
-                            {...provided.dragHandleProps}> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 15L12 20L17 15M7 9L12 4L17 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                            {...provided.dragHandleProps}
+                          >
+                            {" "}
+                            <svg
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M7 15L12 20L17 15M7 9L12 4L17 9"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              ></path>
+                            </svg>
                           </div>
                         </>
                       )}
@@ -120,41 +133,84 @@ const Educations: React.FC<{
                       >
                         +
                       </button>
-                      <div style={{paddingLeft: "2rem"}}>
-                        <div style={{position:"relative"}}>
-                          <div className="timeline_bola color_estrellas" style={{background:themeColor}}></div>
-                          <AutoResizeField
-                            value={education.school}
-                            className="p-2 textEdit font-semibold placeholder-green-600 text-green-600 border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200"
-                            placeholder="School Name"
-                            onChange={(value) =>
-                              updateEducation(index, "school", value)
-                            }
-                          />
-                      </div>
-                      <div className="flex justify-between gap-4">
-                        <AutoResizeField
-                          value={education.degree}
-                          className="p-2 textEdit text-gray-700 border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none w-full rounded-md transition ease-in-out duration-200"
-                          placeholder="Degree"
-                          onChange={(value) =>
-                            updateEducation(index, "degree", value)
-                          }                          
-                        />
-                        <AutoResizeField
-                          value={education.dateRange}
-                          style={{ width: "30%" }}
-                          className="p-2 textEdit text-gray-600 border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200"
-                          placeholder="From ~ Until"
-                          onChange={(value) =>
-                            updateEducation(index, "dateRange", value)
-                          }                              
-                        />
-                      </div>
-                      {educations.length > 1 && (educations.length-1 > index) && (
-                      <div className="timeline_linea" style={{background:themeColor}}></div>
+                      {isATS ? (
+                        <div className="pl-8  p-2">
+                          <div className="relative flex items-center gap-2">
+                            <div className="timeline_bola color_estrellas"></div>
+                            <AutoResizeField
+                              value={education.degree}
+                              className="p-2 textEdit text-gray-700 placeholder-green-600 text-green-600 border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none w-full rounded-md transition ease-in-out duration-200"
+                              placeholder="Degree"
+                              onChange={(value) =>
+                                updateEducation(index, "degree", value)
+                              }
+                            />
+                            <span className="text-gray-400">|</span>
+                            <AutoResizeField
+                              value={education.school}
+                              className="p-2 textEdit font-semibold placeholder-black-600 text-black-600 border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200"
+                              placeholder="University"
+                              onChange={(value) =>
+                                updateEducation(index, "school", value)
+                              }                              
+                            />
+                          </div>
+                          <div className="flex justify-between gap-4">
+                            <AutoResizeField
+                              value={education.dateRange}
+                              style={{ width: "30%" }}
+                              className="p-2 textEdit text-gray-600 border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200"
+                              placeholder="Date Range"
+                              onChange={(value) =>
+                                updateEducation(index, "dateRange", value)
+                              }
+                            />
+                          </div>
+                        </div>
+                      ) : (
+                        <div style={{ paddingLeft: "2rem" }}>
+                          <div style={{ position: "relative" }}>
+                            <div
+                              className="timeline_bola color_estrellas"
+                              style={{ background: themeColor }}
+                            ></div>
+                            <AutoResizeField
+                              value={education.school}
+                              className="p-2 textEdit font-semibold placeholder-green-600 text-green-600 border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200"
+                              placeholder="School Name"
+                              onChange={(value) =>
+                                updateEducation(index, "school", value)
+                              }
+                            />
+                          </div>
+                          <div className="flex justify-between gap-4">
+                            <AutoResizeField
+                              value={education.degree}
+                              className="p-2 textEdit text-gray-700 border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none w-full rounded-md transition ease-in-out duration-200"
+                              placeholder="Degree"
+                              onChange={(value) =>
+                                updateEducation(index, "degree", value)
+                              }
+                            />
+                            <AutoResizeField
+                              value={education.dateRange}
+                              style={{ width: "30%" }}
+                              className="p-2 textEdit text-gray-600 border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200"
+                              placeholder="From ~ Until"
+                              onChange={(value) =>
+                                updateEducation(index, "dateRange", value)
+                              }
+                            />
+                          </div>
+                          {educations.length > 1 &&
+                            educations.length - 1 > index && (
+                              <div
+                                className="timeline_linea"
+                                style={{ background: themeColor }}
+                              ></div>
+                            )}
+                        </div>
                       )}
-                    </div>
                     </div>
                   )}
                 </Draggable>

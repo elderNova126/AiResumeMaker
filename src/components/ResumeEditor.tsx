@@ -1,7 +1,9 @@
 import SplitLayout from "./layouts/SplitLayout";
 import ClassicLayout from "./layouts/ClassicLayout";
 import HybridLayout from "./layouts/HybridLayout";
-import TestLayout from "../resumePDF/TestLayout";
+import PreviewResumeSplit from "../resumePDF/PreviewResumeSplit";
+import PreviewResumeClassic from "../resumePDF/PreviewResumeClassic";
+import PreviewResumeATS from "../resumePDF/PreviewResumeATS";
 import TemplateWrapper from "./TemplateWrapper";
 import { useUser } from "../context/UserContext";
 
@@ -56,9 +58,9 @@ const ResumeEditor = ({
             visibleSections={visibleSections}
           />
         );
-      case "test":
+      case "test_split":
         return (
-          <TestLayout
+          <PreviewResumeSplit
             themeColor={themeColor}
             // currentTypography={currentTypography}
             name={name}
@@ -74,6 +76,49 @@ const ResumeEditor = ({
             skills={skills}
             languages={languages}
             avatar={avatar}
+            visibleSections={visibleSections}
+          />
+        );
+      case "test_classic":
+        return (
+          <PreviewResumeClassic
+            themeColor={themeColor}
+            // currentTypography={currentTypography}
+            name={name}
+            role={role}
+            email={email}
+            location={location}
+            phone={phone}
+            websiteLink={website}
+            linkedinLink={linkedin}
+            summery={about}
+            experiences={experiences}
+            educations={educations}
+            skills={skills}
+            languages={languages}
+            avatar={avatar}
+            visibleSections={visibleSections}
+          />
+        );
+      case "test_ats":
+        return (
+          <PreviewResumeATS
+            themeColor={themeColor}
+            // currentTypography={currentTypography}
+            name={name}
+            role={role}
+            email={email}
+            location={location}
+            phone={phone}
+            websiteLink={website}
+            linkedinLink={linkedin}
+            summery={about}
+            experiences={experiences}
+            educations={educations}
+            skills={skills}
+            languages={languages}
+            avatar={avatar}
+            visibleSections={visibleSections}
           />
         );
       default:

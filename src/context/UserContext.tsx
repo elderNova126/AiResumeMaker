@@ -16,6 +16,7 @@ interface Skill {
 }
 interface Language {
   name: string;
+  level: string;
 }
 interface UserContextProps {
   name: string;
@@ -75,7 +76,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   ]);
     const [skills, setSkills] = useState([{ skillname: "" }]);
-    const [languages, setLanguages] = useState([{ name: "" }]);
+    const [languages, setLanguages] = useState([{ name: "", level:"" }]);
   const [avatar, setAvatar] = useState(
     ""
   );    

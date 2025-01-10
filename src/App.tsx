@@ -4,6 +4,10 @@ import ResumeEditor from "./components/ResumeEditor";
 import { getFontFamily, getFontSize } from "./utils/typography";
 import { UserProvider } from "./context/UserContext";
 
+import Forgot from "./pages/auth/Forgot";
+import Login from "./pages/auth/Login";
+import Register from "./pages/auth/Register";
+
 function App() {
   const [layout, setLayout] = useState("split");
   const [themeColor, setThemeColor] = useState("#0891b2");

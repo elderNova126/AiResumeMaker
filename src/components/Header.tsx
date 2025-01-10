@@ -72,6 +72,7 @@ const Header: React.FC<HeaderProps> = ({
     { value: "test_split", label: "Preview Split" },
     { value: "test_classic", label: "Preview Classic" },
     { value: "test_ats", label: "Preview ATS" },
+    { value: "test", label: "Test" },
   ];
 
   const colorOptions = [

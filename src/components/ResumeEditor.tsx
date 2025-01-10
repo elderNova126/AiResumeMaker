@@ -4,6 +4,7 @@ import HybridLayout from "./layouts/HybridLayout";
 import PreviewResumeSplit from "../resumePDF/PreviewResumeSplit";
 import PreviewResumeClassic from "../resumePDF/PreviewResumeClassic";
 import PreviewResumeATS from "../resumePDF/PreviewResumeATS";
+import ResumeExtractor from "../resumePDF/ResumeAnlayzer"
 import TemplateWrapper from "./TemplateWrapper";
 import { useUser } from "../context/UserContext";
 
@@ -121,6 +122,8 @@ const ResumeEditor = ({
             visibleSections={visibleSections}
           />
         );
+      case "test":
+        return (<ResumeExtractor />);
       default:
         return (
           <SplitLayout

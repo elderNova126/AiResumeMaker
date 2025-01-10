@@ -17,7 +17,7 @@ import {
   WebsiteSvgPath,
   LinkedSvgPath,
 } from "../consts/SvgConst";
-// import RegisterFonts from "../consts/FontRegister";
+import RegisterFonts from "../consts/FontRegister";
 
 // RegisterFonts();
 const styles = StyleSheet.create({
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   role: {
-    fontSize: 10,
+    fontSize: 16,
     color: "#6b7280",
     textAlign: "right",
     marginTop: 5,
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     marginRight: 5,
   },
   bulletPoint: {
-    fontSize: 9,
+    fontSize: 10,
     marginLeft: 10,
     marginBottom: 5,
     lineHeight: 1.5,
@@ -159,6 +159,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   timelineDots: {
+    marginTop:3,
     position: "absolute",
     left: 0,
     top: 0,
@@ -176,6 +177,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   line: {
+    marginTop:8,
     position: "absolute",
     left: 2,
     top: 0,

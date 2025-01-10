@@ -104,7 +104,7 @@ const ResumeEditor = ({
         return (
           <PreviewResumeATS
             themeColor={themeColor}
-            // currentTypography={currentTypography}
+            currentTypography={currentTypography}
             name={name}
             role={role}
             email={email}

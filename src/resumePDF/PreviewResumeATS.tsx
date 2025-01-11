@@ -1,4 +1,5 @@
 import React from "react";
+import { getFontFamily, getFontSize } from "./../utils/typography";
 import {
   Document,
   Page,
@@ -16,6 +17,43 @@ import {
   WebsiteSvgPath,
   LinkedSvgPath,
 } from "../consts/SvgConst";
+
+import RegisterFonts from "../consts/FontRegister";
+
+// RegisterFonts();
+
+interface TimeProps {
+  themeColor: string;
+}
+
+const Timeline: React.FC<TimeProps> = ({ themeColor }) => {
+  const lightThemeColor = lightenColor(themeColor, 150);
+  return (
+    <View style={styles.timelineDots}>
+      <View style={[styles.line, { backgroundColor: lightThemeColor }]} />
+    </View>
+  );
+};
+
+const TimeDot: React.FC<TimeProps> = ({ themeColor }) => (
+  <View style={styles.timelineDots}>
+    <View style={[styles.dot, { backgroundColor: themeColor }]} />
+  </View>
+);
+
+interface ContactItemProps {
+  path: string;
+  text: string;
+  color: string;
+}
+
+const ContactItem: React.FC<ContactItemProps> = ({ path, color, text }) => (
+  <View style={[styles.contactItem]}>
+    <PdfSvgIcon color={color} width={10} height={10} path={path} />
+    <Text style={{ marginLeft: 5 }}>{text}</Text>
+  </View>
+);
+
 
 const styles = StyleSheet.create({
   page: {
@@ -42,19 +80,22 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   name: {
+    // fontFamily: getFontFamily(currentTypography.font) || "Lucida Sans",
     fontSize: 24,
     fontWeight: "bold",
     color: "#000",
   },
   role: {
-    fontSize: 12,
+    // fontFamily: getFontFamily(currentTypography.font) || "Lucida Sans",
+    fontSize: 16,
     color: "#6b7280",
     marginTop: 5,
   },
   
 
   contact: {
-    fontSize: 10,
+    // fontFamily: getFontFamily(currentTypography.font) || "Lucida Sans",
+    fontSize: 10 ,
     color: "#666",
     marginTop: 5,
   },
@@ -62,20 +103,25 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   sectionTitle: {
-    fontSize: 14,
+    // fontFamily: getFontFamily(currentTypography.font) || "Lucida Sans",
+    fontSize: 12,
     fontWeight: "bold",
-    color: "#1d4ed8",
     marginBottom: 10,
+    color: "#1d4ed8",
     textTransform: "uppercase",
+    // borderBottomWidth: 1,
+    // borderBottomColor: "#ccc",
+    paddingBottom: 5,
   },
   contactRow: {
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "center",
+    justifyContent: "left",
     alignItems: "center",
     marginVertical: 10,
   },
   contactItem: {
+    // fontFamily: getFontFamily(currentTypography.font) || "Lucida Sans",
     fontSize: 10,
     flexDirection: "row",
     alignItems: "center",
@@ -86,34 +132,64 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
   },
   text: {
+    // fontFamily: getFontFamily(currentTypography.font)  || "Lucida Sans",
     fontSize: 10,
     color: "#000",
     marginBottom: 5,
   },
   experienceBlock: {
-    marginBottom: 10,
+    marginBottom: 20,
+    marginLeft: 20,
   },
   jobTitle: {
-    fontSize: 12,
+    // fontFamily: getFontFamily(currentTypography.font) || "Lucida Sans",
+    fontSize: 10,
     fontWeight: "bold",
-    color: "#2563eb",
+    color: "green",
   },
   companyDetails: {
+    // fontFamily: getFontFamily(currentTypography.font) || "Lucida Sans",
     fontSize: 10,
-    color: "#666",
     marginBottom: 5,
   },
   bulletPoint: {
+    // fontFamily: getFontFamily(currentTypography.font) || "Lucida Sans",
     fontSize: 10,
     marginLeft: 10,
     marginBottom: 5,
     lineHeight: 1.5,
   },
-  skillsContainer: {
+  LangName: {
+    // fontFamily: getFontFamily(currentTypography.font) || "Lucida Sans",
+    fontSize: 10,
+    fontWeight: "bold",
+    color: "#333",
+    textTransform: "capitalize",
+    flex: 1, // Ensures the name takes the available space
+  },
+
+  LangLevel: {
+    // fontFamily: getFontFamily(currentTypography.font) || "Lucida Sans",
+    fontSize: 10,
+    fontWeight: "normal",
+    color: "#555",
+    textAlign: "right", // Align level to the right for better contrast
+    flexShrink: 0, // Prevents level text from shrinking in narrow spaces
+  },
+  Lang: {
+    // fontFamily: getFontFamily(currentTypography.font) || "Lucida Sans",
+    fontSize: 10,
+    padding: 5,
+    marginRight: 5,
+    marginBottom: 5,
+    textAlign: "center",
+  },
+  skillGridContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
   },
   skill: {
+    // fontFamily: getFontFamily(currentTypography.font) || "Lucida Sans",
     fontSize: 10,
     padding: 5,
     backgroundColor: "#e5e7eb",
@@ -122,22 +198,129 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     textAlign: "center",
   },
+  skillGridContainer1: {
+    display: "flex",
+    flexDirection: "row", // Display items in a row
+    flexWrap: "wrap", // Allow wrapping to the next line
+    gap: 12, // Add space between items
+    marginTop: 10,
+  },
+
+  skillItem: {
+    width: "30%", // Ensures 3 items per row (100% / 3 = 33.3%)
+    // fontFamily: getFontFamily(currentTypography.font) || "Lucida Sans",
+    fontSize: 10,
+    fontWeight: "bold",
+    color: "#374151",
+    backgroundColor: "#eff5f5",
+    borderRadius: 3,
+    paddingVertical: 5,
+    paddingHorizontal: 12,
+    textAlign: "center", // Centers text inside the skill
+    boxSizing: "border-box", // Ensures padding does not affect width
+    // marginBottom: 5, // Add space between rows
+    transition: "transform 0.2s ease-in-out", // Hover effect for interactivity (optional, if applicable in PDF context)
+  },
+  date: {
+    // fontFamily: getFontFamily(currentTypography.font) || "Lucida Sans",
+    fontSize: 10,
+    color: "#666",
+    marginBottom: 5,
+  },
+  timelineDots: {
+    marginTop:3,
+    position: "absolute",
+    left: 0,
+    top: 0,
+    bottom: 0,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  dot: {
+    width: 6,
+    height: 6,
+    backgroundColor: "#2563eb",
+    borderRadius: "50%",
+    marginBottom: 15,
+  },
+  line: {
+    marginTop:8,
+    position: "absolute",
+    left: 2,
+    top: 0,
+    bottom: 0,
+    width: 2,
+    backgroundColor: "#2563eb",
+  },
+  educationBlock: {
+    marginBottom: 15,
+    marginLeft: 20,
+  },
+  
 });
 
-interface ContactItemProps {
-  path: string;
-  text: string;
-  color: string;
+
+const lightenColor = (color: string, add: number) => {
+  let r = 0,
+    g = 0,
+    b = 0;
+
+  if (color.startsWith("#")) {
+    r = parseInt(color.substring(1, 3), 16);
+    g = parseInt(color.substring(3, 5), 16);
+    b = parseInt(color.substring(5, 7), 16);
+  } else if (color.startsWith("rgb")) {
+    const rgba = color.match(
+      /rgba?\((\d+), (\d+), (\d+)(?:, (\d+(\.\d+)?))?\)/
+    );
+    if (rgba) {
+      r = parseInt(rgba[1], 10);
+      g = parseInt(rgba[2], 10);
+      b = parseInt(rgba[3], 10);
+    }
+  }
+
+  r = Math.min(255, r + add);
+  g = Math.min(255, g + add);
+  b = Math.min(255, b + add);
+
+  return `rgb(${r}, ${g}, ${b})`;
+};
+
+interface Experience {
+  company: string;
+  dateRange: string;
+  position: string;
+  description: string[];
+}
+interface Education {
+  school: string;
+  dateRange: string;
+  degree: string;
 }
 
-const ContactItem: React.FC<ContactItemProps> = ({ path, color, text }) => (
-  <View style={[styles.contactItem]}>
-    <PdfSvgIcon color={color} width={10} height={10} path={path} />
-    <Text style={{ marginLeft: 5 }}>{text}</Text>
-  </View>
-);
-
-const PreviewResumeATS = ({
+interface PreviewResumeATSProps {
+  themeColor?: string;
+  // currentTypography: { font: string; size: string };
+  name: string;
+  role: string;
+  email: string;
+  phone: string;
+  websiteLink: string;
+  linkedinLink: string;
+  location: string;
+  summery: string;
+  experiences: Experience[];
+  educations: Education[];
+  skills: { skillname: string }[];
+  languages: { name: string; level: string }[];
+  avatar: string;
+  visibleSections: string[];
+  currentTypography: { font: string; size: string };
+}
+const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
   themeColor,
   name,
   role,
@@ -146,61 +329,68 @@ const PreviewResumeATS = ({
   location,
   websiteLink,
   linkedinLink,
-  summary,
+  summery,
   experiences,
   educations,
   skills,
   languages,
-  avatar,
+  visibleSections,
+  currentTypography,
 }) => {
+
+  educations = educations.filter((e) => e.school || e.dateRange || e.degree);
+  experiences = experiences.filter(
+    (e) => e.position || e.dateRange || e.company || e.location
+  );
+  skills = skills.filter((e) => e.skillname);
+  languages = languages.filter((e) => e.name);
+
+
+  
+
   return (
     <PDFViewer style={{ width: "100%", height: "100vh" }}>
       <Document>
         <Page size="A4" style={styles.page}>
           {/* Header */}
-          <View style={styles.header}>
-            <View style={styles.headerLeftContainer}>
-              {avatar ? (
-                <Image style={styles.profileImage} src={avatar} />
-              ) : null}
-              <View style={styles.nameRoleContainer}>
-                <Text style={[styles.name, { color: themeColor }]}>{name}</Text>
-                <Text style={styles.role}>{role}</Text>
-              </View>
-            </View>
-          </View>
+          <View style={styles.header}> 
+            <View style={styles.nameRoleContainer}>
+              <Text style={[styles.name, { color: themeColor }]}>{name}</Text>
+              <Text style={styles.role}>{role}</Text>
+            </View>            
+          </View>          
           <View>
             {email || phone || location || websiteLink || linkedinLink ? (
               <View style={styles.contactRow}>
-                {email ? (
+                {email && visibleSections.includes("email") ? (
                   <ContactItem
                     path={MailSvgPath}
                     color={themeColor}
                     text={email}
                   />
                 ) : null}
-                {phone ? (
+                {phone && visibleSections.includes("phone") ? (
                   <ContactItem
                     path={PhoneSvgPath}
                     color={themeColor}
                     text={phone}
                   />
                 ) : null}
-                {location ? (
+                {location && visibleSections.includes("location") ? (
                   <ContactItem
                     path={LocationSvgPath}
                     color={themeColor}
                     text={location}
                   />
                 ) : null}
-                {websiteLink ? (
+                {websiteLink && visibleSections.includes("website") ? (
                   <ContactItem
                     path={WebsiteSvgPath}
                     color={themeColor}
                     text={websiteLink}
                   />
                 ) : null}
-                {linkedinLink ? (
+                {linkedinLink && visibleSections.includes("linkedin") ? (
                   <ContactItem
                     path={LinkedSvgPath}
                     color={themeColor}
@@ -210,55 +400,80 @@ const PreviewResumeATS = ({
               </View>
             ) : null}
           </View>
-
           {/* Summary Section */}
-          {summary && (
+          {summery && visibleSections.includes("about") && (
             <View style={styles.section}>
-              <Text style={styles.sectionTitle}>Professional Summary</Text>
-              <Text style={styles.text}>{summary}</Text>
+              <Text style={[styles.sectionTitle, { color: themeColor }]}>Professional Summary</Text>
+              <Text style={styles.text}>{summery}</Text>
             </View>
           )}
 
           {/* Experience Section */}
-          {experiences.length > 0 && (
-            <View style={styles.section}>
-              <Text style={styles.sectionTitle}>Work Experience</Text>
-              {experiences.map((exp, index) => (
-                <View key={index} style={styles.experienceBlock}>
-                  <Text style={styles.jobTitle}>{exp.position}</Text>
-                  <Text style={styles.companyDetails}>
-                    {exp.company} | {exp.dateRange}
-                  </Text>
-                  {exp.description.map((point, i) => (
-                    <Text key={i} style={styles.bulletPoint}>
-                      • {point}
-                    </Text>
-                  ))}
-                </View>
-              ))}
-            </View>
-          )}
+          {experiences.length > 0 &&
+            visibleSections.includes("experience") ? (
+              <>
+                <Text style={[styles.sectionTitle, { color: themeColor }]}>
+                  Work Experience
+                </Text>
+                {experiences.map((experience, index) => (
+                  <View key={index}>
+                    {index < experiences.length - 1 ? (
+                      <Timeline themeColor={themeColor} />
+                    ) : null}
+                    <TimeDot themeColor={themeColor} />
+                    <View style={styles.experienceBlock}>                     
+                    <Text style={styles.text}> 
+                      <Text style={styles.jobTitle}>{experience.position} </Text>
+                      <Text style={styles.companyDetails}> |  {experience.company}</Text>
+                    </Text> 
+                    <Text style={styles.text}> 
+                      <Text style={styles.date}>{experience.dateRange}</Text>
+                      <Text style={styles.text}> |  {experience.location} </Text>
+                    </Text>                 
+                  
+                      {experience.description.map((point, i) =>
+                        point !== "<br>" ? (
+                          <Text key={i} style={styles.bulletPoint}>
+                            • {point}
+                          </Text>
+                        ) : null
+                      )}
+                    </View>
+                  </View>
+                ))}
+              </>
+            ) : null}
 
           {/* Education Section */}
-          {educations.length > 0 && (
+          {educations.length > 0 && visibleSections.includes("education") ?(
             <View style={styles.section}>
-              <Text style={styles.sectionTitle}>Education</Text>
+              <Text style={[styles.sectionTitle, { color: themeColor }]}>Education</Text>
               {educations.map((edu, index) => (
+
                 <View key={index}>
-                  <Text style={styles.text}>
-                    {edu.degree} - {edu.school}
+                  {index < educations.length - 1 ? (
+                    <Timeline themeColor={themeColor} />
+                  ) : null}
+                  <TimeDot themeColor={themeColor} />
+                  <View style={styles.educationBlock}>
+                  <Text style={styles.text}> 
+                    <Text style={styles.jobTitle}>{edu.degree} </Text>
+                    <Text style={styles.text}> - {edu.school} </Text>
                   </Text>
                   <Text style={styles.text}>{edu.dateRange}</Text>
+                  </View>
                 </View>
               ))}
             </View>
-          )}
+          ): null}
 
           {/* Skills Section */}
-          {skills.length > 0 && (
-            <View style={styles.section}>
-              <Text style={styles.sectionTitle}>Skills</Text>
-              <View style={styles.skillsContainer}>
+          {skills.length > 0 && visibleSections.includes("skills") ? (
+             <View style={styles.section}>
+              <Text style={[styles.sectionTitle, { color: themeColor }]}>
+                Skills
+              </Text>
+              <View style={styles.skillGridContainer}>
                 {skills.map((skill, index) => (
                   <Text key={index} style={styles.skill}>
                     {skill.skillname}
@@ -266,19 +481,23 @@ const PreviewResumeATS = ({
                 ))}
               </View>
             </View>
-          )}
+          ) : null}
 
           {/* Languages Section */}
-          {languages.length > 0 && (
+          {languages.length > 0 && visibleSections.includes("languages") ? (
             <View style={styles.section}>
-              <Text style={styles.sectionTitle}>Languages</Text>
-              {languages.map((lang, index) => (
-                <Text key={index} style={styles.text}>
-                  {lang.name}
-                </Text>
-              ))}
+              <Text style={[styles.sectionTitle, { color: themeColor }]}>
+                Languages
+              </Text>
+              <View style={styles.skillGridContainer}>
+                {languages.map((language, index) => (
+                  <View key={index} style={styles.Lang}>
+                    <Text style={styles.LangName}>- {language.name}  {language.level}</Text>
+                  </View>
+                ))}
+              </View>
             </View>
-          )}
+          ) : null}
         </Page>
       </Document>
     </PDFViewer>

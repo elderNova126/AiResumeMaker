@@ -1,55 +1,30 @@
 import { Font } from '@react-pdf/renderer';
+import Nunito from './Nunito.ttf';
+import ArchivoNarrow from './ArchivoNarrow.ttf';
+import Syne from './Syne.ttf';
+import DM_Serif_Display from './DMSerifDisplay.ttf';
+import DMSans_18pt from './DMSans_18pt.ttf';
+import Poppins from './Poppins.ttf';
+import Rubik from './Rubik.ttf';
+import FiraSans from './FiraSans.ttf';
+import JosefinSans from './JosefinSans.ttf';
+import RobotoMono from './RobotoMono.ttf';
+import FjallaOne from './FjallaOne.ttf';
+import Inter_18pt from './Inter_18pt.ttf';
 
 const RegisterFonts = () => {
-
-    Font.register({
-        family: "Nunito",
-        src: "./nunitso.ttf",
-      });
-      Font.register({
-        family: "Archivo Narrow",
-        src: "https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@400;500;600;700&display=swap",
-      });
-      Font.register({
-        family: "Syne",
-        src: "https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&display=swap",
-      });
-      Font.register({
-        family: "DM Serif Display + DM Sans",
-        src: "https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap",
-      });
-      Font.register({
-        family: "DM Sans",
-        src: "https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap",
-      });
-      Font.register({
-        family: "Poppins",
-        src: "https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap",
-      });
-      Font.register({
-        family: "Rubik",
-        src: "https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap",
-      });
-      Font.register({
-        family: "Fira Sans",
-        src: "https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;600;700&display=swap",
-      });
-      Font.register({
-        family: "Josefin Sans",
-        src: "https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&display=swap",
-      });
-      Font.register({
-        family: "Roboto Mono",
-        src: "https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;600;700&display=swap",
-      });
-      Font.register({
-        family: "Fjalla One + Inter",
-        src: "https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap",
-      });
-      Font.register({
-        family: "Inter",
-        src: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
-      });
+    Font.register({family: "Nunito",src: Nunito,});
+    Font.register({family: "Archivo Narrow",src: ArchivoNarrow,});
+    Font.register({family: "Syne",src: Syne,});
+    Font.register({family: "DM Serif Display + DM Sans", src: DM_Serif_Display, });
+    Font.register({family: "DM Sans",src: DMSans_18pt,});
+    Font.register({family: "Poppins", src: Poppins, });
+    Font.register({family: "Rubik", src: Rubik,});
+    Font.register({family: "Fira Sans", src: FiraSans,});
+    Font.register({family: "Josefin Sans",src: JosefinSans,});
+    Font.register({family: "Roboto Mono",src: RobotoMono,});
+    Font.register({family: "Fjalla One + Inter",src: FjallaOne,});
+    Font.register({family: "Inter", src: Inter_18pt,});
 };
 
 export default RegisterFonts;

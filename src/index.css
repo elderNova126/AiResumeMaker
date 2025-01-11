@@ -105,4 +105,6 @@ body {
 }
 .ql-container {
   border: none !important; /* Remove the border of the editor */
+  font-size: inherit !important;
+  font-family: inherit !important;
 }

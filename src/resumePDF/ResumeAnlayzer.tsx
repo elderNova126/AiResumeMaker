@@ -1,12 +1,12 @@
 
 
 import React, { useState } from 'react';
-import OpenAI from 'openai';
+// import OpenAI from 'openai';
 
-const openai = new OpenAI({
-  apiKey: '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', // Replace with your OpenAI API key
-  dangerouslyAllowBrowser: true,
-});
+// const openai = new OpenAI({
+//   apiKey: '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', // Replace with your OpenAI API key
+//   dangerouslyAllowBrowser: true,
+// });
 
 interface ParsedData {
   name?: string;

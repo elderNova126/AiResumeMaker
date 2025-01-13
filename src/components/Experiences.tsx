@@ -116,7 +116,7 @@ const Experiences: React.FC<{
                         <>
                           <button
                             type="button"
-                            className="zorder-top absolute -top-3 right-16 hidden group-hover:flex items-center justify-center w-6 h-6 bg-red-500 text-white rounded-full shadow-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
+                            className="zorder-top absolute -top-3 right-16 hidden group-hover:flex items-center justify-center w-6 h-6 bg-orange-600 text-white rounded-full shadow-md hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
                             onClick={() => removeExperience(index)}
                             aria-label="Remove Experience"
                           >
@@ -124,7 +124,7 @@ const Experiences: React.FC<{
                           </button>
                           <div
                             style={{ cursor: "pointer" }}
-                            className="zorder-top absolute -top-3 right-9 hidden group-hover:flex items-center justify-center w-6 h-6 bg-red-500 text-white rounded-full shadow-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
+                            className="zorder-top absolute -top-3 right-9 hidden group-hover:flex items-center justify-center w-6 h-6 bg-orange-600 text-white rounded-full shadow-md hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
                             {...provided.dragHandleProps}
                           >
                             <svg
@@ -137,7 +137,7 @@ const Experiences: React.FC<{
                           </div>
                           <button
                             type="button"
-                            className="zorder-top absolute -top-3 right-[94px] hidden text-default-sm group-hover:flex items-center justify-center h-6 bg-red-500 text-white rounded-full shadow-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
+                            className="zorder-top absolute -top-3 right-[94px] hidden text-default-sm group-hover:flex items-center justify-center h-6 bg-orange-600 text-white rounded-full shadow-md hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
                             onClick={() => setShowAiDialog(true)}
                             aria-label="Add AI"
                             style={{ width: "145px"}}
@@ -148,14 +148,14 @@ const Experiences: React.FC<{
                       ):(
                         <button
                           type="button"
-                          className="zorder-top absolute -top-3 right-9 hidden group-hover:flex text-text-default-sm items-center justify-center h-6 bg-red-500 text-white rounded-full shadow-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
+                          className="zorder-top absolute -top-3 right-9 hidden group-hover:flex text-text-default-sm items-center justify-center h-6 bg-orange-600 text-white rounded-full shadow-md hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
                           onClick={() => setShowAiDialog(true)}
                           aria-label="Add AI"
                           style={{ width: "145px"}}>✧ Writing Assistant </button>
                       )}
                       <button
                         type="button"
-                        className="zorder-top absolute -top-3 right-2 hidden group-hover:flex items-center justify-center w-6 h-6 bg-red-500 text-white rounded-full shadow-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
+                        className="zorder-top absolute -top-3 right-2 hidden group-hover:flex items-center justify-center w-6 h-6 bg-orange-600 text-white rounded-full shadow-md hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
                         onClick={addExperience}
                         aria-label="Add Experience"
                       >

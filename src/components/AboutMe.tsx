@@ -19,7 +19,7 @@ const AboutMe: React.FC<AboutMeProps> = ({ setAbout, about, themeColor }) => {
       <div className="relative group border-transparent rounded-md hover:border-gray-300 transition-all">
       <button
         type="button"
-        className="zorder-top absolute -top-3 right-2 hidden text-default-sm group-hover:flex items-center justify-center h-6 bg-red-500 text-white rounded-full shadow-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
+        className="zorder-top absolute -top-3 right-2 hidden text-default-sm group-hover:flex items-center justify-center h-6 bg-orange-600 text-white rounded-full shadow-md hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
         onClick={() => setShowAiDialog(true)}
         aria-label="Add AI"
         style={{ width: "145px"}}>✧ Writing Assistant</button>

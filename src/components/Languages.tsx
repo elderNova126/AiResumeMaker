@@ -106,7 +106,7 @@ const LanguagesSection: React.FC<{
                         <>
                           <button
                             type="button"
-                            className="absolute -top-3 right-16 hidden group-hover:flex items-center justify-center w-6 h-6 bg-red-500 text-white rounded-full shadow-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
+                            className="absolute -top-3 right-16 hidden group-hover:flex items-center justify-center w-6 h-6 bg-orange-600 text-white rounded-full shadow-md hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
                             onClick={() => removeLanguage(index)}
                             aria-label="Remove Language"
                           >
@@ -114,7 +114,7 @@ const LanguagesSection: React.FC<{
                           </button>
                           <div
                             style={{ cursor: "pointer" }}
-                            className="absolute -top-3 right-9 hidden group-hover:flex items-center justify-center w-6 h-6 bg-red-500 text-white rounded-full shadow-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
+                            className="absolute -top-3 right-9 hidden group-hover:flex items-center justify-center w-6 h-6 bg-orange-600 text-white rounded-full shadow-md hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
                             {...provided.dragHandleProps}
                           >
                             <svg
@@ -137,7 +137,7 @@ const LanguagesSection: React.FC<{
                       )}
                       <button
                         type="button"
-                        className="absolute -top-3 right-2 hidden group-hover:flex items-center justify-center w-6 h-6 bg-red-500 text-white rounded-full shadow-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
+                        className="absolute -top-3 right-2 hidden group-hover:flex items-center justify-center w-6 h-6 bg-orange-600 text-white rounded-full shadow-md hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
                         onClick={addLanguage}
                         aria-label="Add Language"
                       >
@@ -292,7 +292,7 @@ export default LanguagesSection;
 //                         <>
 //                           <button
 //                             type="button"
-//                             className="absolute -top-3 right-16 hidden group-hover:flex items-center justify-center w-6 h-6 bg-red-500 text-white rounded-full shadow-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
+//                             className="absolute -top-3 right-16 hidden group-hover:flex items-center justify-center w-6 h-6 bg-orange-600 text-white rounded-full shadow-md hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
 //                             onClick={() => removeLanguage(index)}
 //                             aria-label="Remove Language"
 //                           >
@@ -300,7 +300,7 @@ export default LanguagesSection;
 //                           </button>
 //                           <div
 //                             style={{cursor:"pointer"}}
-//                             className="absolute -top-3 right-9 hidden group-hover:flex items-center justify-center w-6 h-6 bg-red-500 text-white rounded-full shadow-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
+//                             className="absolute -top-3 right-9 hidden group-hover:flex items-center justify-center w-6 h-6 bg-orange-600 text-white rounded-full shadow-md hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
 //                             {...provided.dragHandleProps}
 //                           >
 //                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -311,7 +311,7 @@ export default LanguagesSection;
 
 //                       <button
 //                         type="button"
-//                         className="absolute -top-3 right-2 hidden group-hover:flex items-center justify-center w-6 h-6 bg-red-500 text-white rounded-full shadow-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
+//                         className="absolute -top-3 right-2 hidden group-hover:flex items-center justify-center w-6 h-6 bg-orange-600 text-white rounded-full shadow-md hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
 //                         onClick={addLanguage}
 //                         aria-label="Add Education"
 //                       >

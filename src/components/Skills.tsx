@@ -12,14 +12,13 @@ import Ai_Modal from "./../components/Ai_Modal";
 interface SkillType {
   skillname: string;
 }
-
 const Skills: React.FC<{
   setSkills: React.Dispatch<React.SetStateAction<SkillType[]>>;
   skills: SkillType[];
   themeColor: string;
 }> = ({ setSkills, skills, themeColor }) => {
-
   const [showAiDialog, setShowAiDialog] = useState(false);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null); // Track hovered item
 
   const reorder = (
     list: SkillType[],
@@ -45,18 +44,16 @@ const Skills: React.FC<{
   };
 
   const addSkill = () => {
-    setSkills([
-      ...skills,
-      { skillname: "" },
-    ]);
+    setSkills([...skills, { skillname: "" }]);
   };
 
   const removeSkill = (index: number) => {
-    const confirmed = window.confirm('Are you sure you want to delete item?');
+    const confirmed = window.confirm("Are you sure you want to delete item?");
     if (confirmed) {
       setSkills(skills.filter((_, i) => i !== index));
-    }     
+    }
   };
+
   const updateSkill = (
     index: number,
     key: keyof SkillType,
@@ -67,6 +64,7 @@ const Skills: React.FC<{
     );
     setSkills(updatedSkills);
   };
+
   return (
     <div className="py-2 relative group border border-transparent rounded-md hover:border-gray-300 transition-all">
       <h2
@@ -77,10 +75,10 @@ const Skills: React.FC<{
       </h2>
       <button
         type="button"
-        className="zorder-top absolute -top-3 right-2 hidden text-default-sm group-hover:flex items-center justify-center h-6 bg-red-500 text-white rounded-full shadow-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
+        className="zorder-top absolute -top-3 right-2 hidden text-default-sm group-hover:flex items-center justify-center h-6 bg-orange-600 text-white rounded-full shadow-md hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
         onClick={() => setShowAiDialog(true)}
         aria-label="Add AI"
-        style={{ width: "145px"}}
+        style={{ width: "145px" }}
       >
         ✧ Writing Assistant
       </button>
@@ -102,44 +100,63 @@ const Skills: React.FC<{
                     <div
                       ref={provided.innerRef}
                       {...provided.draggableProps}
-                      className={`relative group border border-transparent rounded-md hover:border-gray-300 transition-all flex-shrink-0${
+                      className={`relative group border border-transparent rounded-md hover:border-gray-300 transition-all flex-shrink-0 ${
                         snapshot.isDragging ? "bg-gray-100 shadow-md" : ""
                       }`}
+                      onMouseEnter={() => setHoveredIndex(index)} // Set hovered index
+                      onMouseLeave={() => setHoveredIndex(null)} // Clear hovered index
                     >
-                      {skills.length > 1 && (
+                      {hoveredIndex === index && skills.length > 1 && (
                         <>
                           <button
                             type="button"
-                            className="absolute -top-3 right-16 hidden group-hover:flex items-center justify-center w-6 h-6 bg-red-500 text-white rounded-full shadow-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
+                            className="absolute -top-3 right-16 flex items-center justify-center w-6 h-6 bg-orange-600 text-white rounded-full shadow-md hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
                             onClick={() => removeSkill(index)}
                             aria-label="Remove Skill"
                           >
                             <Trash className="h-4 w-4" />
                           </button>
                           <div
-                            style={{cursor:"pointer"}}
-                            className="absolute -top-3 right-9 hidden group-hover:flex items-center justify-center w-6 h-6 bg-red-500 text-white rounded-full shadow-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
+                            style={{ cursor: "pointer" }}
+                            className="absolute -top-3 right-9 flex items-center justify-center w-6 h-6 bg-orange-600 text-white rounded-full shadow-md hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
                             {...provided.dragHandleProps}
                           >
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M7 15L12 20L17 15M7 9L12 4L17 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg> 
+                            <svg
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M7 15L12 20L17 15M7 9L12 4L17 9"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              ></path>
+                            </svg>
                           </div>
                         </>
                       )}
-                      <button
-                        type="button"
-                        className="absolute -top-3 right-2 hidden group-hover:flex items-center justify-center w-6 h-6 bg-red-500 text-white rounded-full shadow-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
-                        onClick={addSkill}
-                        aria-label="Add Skill"
-                      >
-                        +
-                      </button>
+                      {hoveredIndex === index && (
+                        <button
+                          type="button"
+                          className="absolute -top-3 right-2 flex items-center justify-center w-6 h-6 bg-orange-600 text-white rounded-full shadow-md hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
+                          onClick={addSkill}
+                          aria-label="Add Skill"
+                        >
+                          +
+                        </button>
+                      )}
 
                       <AutoResizeField
                         value={skill.skillname}
                         className="p-2 textEdit text-pad border-b border-transparent min-w-[130px] hover:border-gray-300 bg-gray-100 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200 max-w-[400px]"
                         placeholder="Skill Name"
-                        onChange={(value) => updateSkill(index, "skillname", value)}  
+                        onChange={(value) =>
+                          updateSkill(index, "skillname", value)
+                        }
                         flag={true}
                       />
                     </div>
@@ -154,8 +171,7 @@ const Skills: React.FC<{
       {showAiDialog && (
         <Ai_Modal
           onClose={() => setShowAiDialog(false)}
-          // onImport={handleImport}
-          headerText={'Skill'}
+          headerText={"Skill"}
         />
       )}
     </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {
   DragDropContext,
   Droppable,
@@ -7,6 +7,7 @@ import {
 } from "react-beautiful-dnd";
 import AutoResizeField from "./AutoResizeField";
 import { Trash } from "lucide-react";
+import Ai_Modal from "./../components/Ai_Modal";
 
 interface SkillType {
   skillname: string;
@@ -17,6 +18,9 @@ const Skills: React.FC<{
   skills: SkillType[];
   themeColor: string;
 }> = ({ setSkills, skills, themeColor }) => {
+
+  const [showAiDialog, setShowAiDialog] = useState(false);
+
   const reorder = (
     list: SkillType[],
     startIndex: number,
@@ -64,13 +68,22 @@ const Skills: React.FC<{
     setSkills(updatedSkills);
   };
   return (
-    <div className="my-3 py-2">
+    <div className="py-2 relative group border border-transparent rounded-md hover:border-gray-300 transition-all">
       <h2
         className="text-xl sm:text-xl font-bold mb-2"
         style={{ color: themeColor }}
       >
         SKILLS
       </h2>
+      <button
+        type="button"
+        className="zorder-top absolute -top-3 right-2 hidden text-default-sm group-hover:flex items-center justify-center h-6 bg-red-500 text-white rounded-full shadow-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
+        onClick={() => setShowAiDialog(true)}
+        aria-label="Add AI"
+        style={{ width: "145px"}}
+      >
+        ✧ Writing Assistant
+      </button>
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="skills" direction="horizontal">
           {(provided) => (
@@ -124,11 +137,10 @@ const Skills: React.FC<{
 
                       <AutoResizeField
                         value={skill.skillname}
-                        className="p-2 textEdit border-b border-transparent hover:border-gray-300 bg-gray-100 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200 max-w-[400px]"
+                        className="p-2 textEdit text-pad border-b border-transparent min-w-[130px] hover:border-gray-300 bg-gray-100 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200 max-w-[400px]"
                         placeholder="Skill Name"
-                        onChange={(value) =>
-                          updateSkill(index, "skillname", value)
-                        }  
+                        onChange={(value) => updateSkill(index, "skillname", value)}  
+                        flag={true}
                       />
                     </div>
                   )}
@@ -139,6 +151,13 @@ const Skills: React.FC<{
           )}
         </Droppable>
       </DragDropContext>
+      {showAiDialog && (
+        <Ai_Modal
+          onClose={() => setShowAiDialog(false)}
+          // onImport={handleImport}
+          headerText={'Skill'}
+        />
+      )}
     </div>
   );
 };

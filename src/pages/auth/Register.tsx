@@ -111,7 +111,7 @@ const Register: React.FC<RegisterProps> = (props) => {
         <h1 className="text-3xl font-bold text-center mb-4 cursor-pointer">
           Create An Account
         </h1>
-        <p className="w-80 text-center text-sm mb-8 font-semibold text-gray-700 tracking-wide cursor-pointer mx-auto">
+        <p className="w-80 text-center text-sm mb-8 font-semibold  tracking-wide cursor-pointer mx-auto">
           Welcome to Resume Maker!
         </p>
       </div>

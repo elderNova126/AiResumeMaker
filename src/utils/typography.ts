@@ -27,3 +27,11 @@ export const getFontSize = (size: string): string => {
   };
   return sizes[size] || sizes['medium'];
 };
+export const getFontSize1 = (size: string): string => {
+  const sizes: Record<string, string> = {
+    'small': '10',
+    'medium': '12',
+    'big': '14'
+  };
+  return sizes[size] || sizes['medium'];
+};

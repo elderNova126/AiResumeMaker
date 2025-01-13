@@ -73,7 +73,7 @@ const LanguagesSection: React.FC<{
   };
 
   return (
-    <div className="my-3 py-2">
+    <div className="py-2">
       <h2
         className="text-xl sm:text-xl font-bold mb-2"
         style={{ color: themeColor }}
@@ -137,7 +137,7 @@ const LanguagesSection: React.FC<{
                       )}
                       <button
                         type="button"
-                        className="absolute -top-3 right-2 hidden group-hover:flex items-center justify-center w-6 h-6 bg-green-500 text-white rounded-full shadow-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-400 transition-all"
+                        className="absolute -top-3 right-2 hidden group-hover:flex items-center justify-center w-6 h-6 bg-red-500 text-white rounded-full shadow-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
                         onClick={addLanguage}
                         aria-label="Add Language"
                       >
@@ -147,7 +147,7 @@ const LanguagesSection: React.FC<{
                       <div className="grid grid-cols-2 items-center gap-2 p-2 bg-gray-100 rounded-md">
                         <AutoResizeField
                           value={language.name}
-                          className="p-2 textEdit border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200 max-w-[200px]"
+                          className="p-2 textEdit text-pad border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200 max-w-[200px]"
                           placeholder="Language Name"
                           onChange={(value) =>
                             updateLanguage(index, "name", value)
@@ -158,7 +158,7 @@ const LanguagesSection: React.FC<{
                           onChange={(e) =>
                             updateLanguage(index, "level", e.target.value)
                           }
-                          className="p-2 border rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                          className="p-2 text-pad border rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
                         >
                           {languageLevels.map((level) => (
                             <option key={level} value={level}>

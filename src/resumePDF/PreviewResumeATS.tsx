@@ -1,5 +1,5 @@
 import React from "react";
-import { getFontFamily, getFontSize } from "./../utils/typography";
+import { getFontFamily, getFontSize1 } from "./../utils/typography";
 import {
   Document,
   Page,
@@ -17,10 +17,6 @@ import {
   WebsiteSvgPath,
   LinkedSvgPath,
 } from "../consts/SvgConst";
-
-import RegisterFonts from "../consts/FontRegister";
-
-RegisterFonts();
 
 interface TimeProps {
   themeColor: string;  
@@ -44,15 +40,15 @@ const TimeDot: React.FC<TimeProps> = ({ themeColor }) => (
 );
 
 interface ContactItemProps {
-  path: string;
-  text: string;
+  path: string;  
   color: string;
+  text: string;
   fontF:string;
   fontS:string
 }
 
 const ContactItem: React.FC<ContactItemProps> = ({ path, color, text, fontF, fontS  }) => (
-  <View style={{fontSize: getFontSize(fontS), fontFamily: getFontFamily(fontF), flexDirection: "row", alignItems: "center", marginHorizontal: 10, marginBottom: 15, borderBottomWidth: 1, borderBottomColor: "#E0E0E0", paddingBottom: 5,}}>
+  <View style={{fontSize: getFontSize1(fontS), fontFamily: getFontFamily(fontF), flexDirection: "row", alignItems: "center", marginHorizontal: 10, marginBottom: 15, borderBottomWidth: 1, borderBottomColor: "#E0E0E0", paddingBottom: 5,}}>
     <PdfSvgIcon color={color} width={10} height={10} path={path} />
     <Text style={{ marginLeft: 5 }}>{text}</Text>
   </View>
@@ -170,21 +166,20 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
     },
     name: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
-      fontSize: 24,
+      fontSize: 30,
       fontWeight: "bold",
-      color: "#000",
+      color: themeColor,
     },
     role: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
       fontSize: 16,
-      color: "#6b7280",
       marginTop: 5,
     },
     
   
     contact: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
-      fontSize: getFontSize(currentTypography.size) ,
+      fontSize: getFontSize1(currentTypography.size) ,
       color: "#666",
       marginTop: 5,
     },
@@ -193,7 +188,7 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
     },
     sectionTitle: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
-      fontSize: getFontSize(currentTypography.size),
+      fontSize: getFontSize1(currentTypography.size),
       fontWeight: "bold",
       marginBottom: 10,
       color: "#1d4ed8",
@@ -211,7 +206,7 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
     },
     contactItem: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
-      fontSize: getFontSize(currentTypography.size),
+      fontSize: getFontSize1(currentTypography.size),
       flexDirection: "row",
       alignItems: "center",
       marginHorizontal: 10,
@@ -221,8 +216,8 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
       paddingBottom: 5,
     },
     text: {
-      // fontFamily: getFontFamily(currentTypography.font)  || "Nunito",
-      fontSize: getFontSize(currentTypography.size),
+      fontFamily: getFontFamily(currentTypography.font)  || "Nunito",
+      fontSize: getFontSize1(currentTypography.size),
       color: "#000",
       marginBottom: 5,
     },
@@ -232,42 +227,37 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
     },
     jobTitle: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
-      fontSize: getFontSize(currentTypography.size),
+      fontSize: getFontSize1(currentTypography.size),
       fontWeight: "bold",
-      color: "green",
     },
     companyDetails: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
-      fontSize: getFontSize(currentTypography.size),
+      fontSize: getFontSize1(currentTypography.size),
       marginBottom: 5,
     },
     bulletPoint: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
-      fontSize: getFontSize(currentTypography.size),
+      fontSize: getFontSize1(currentTypography.size),
       marginLeft: 10,
       marginBottom: 5,
       lineHeight: 1.5,
     },
     LangName: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
-      fontSize: getFontSize(currentTypography.size),
-      fontWeight: "bold",
-      color: "#333",
+      fontSize: getFontSize1(currentTypography.size),
       textTransform: "capitalize",
       flex: 1, // Ensures the name takes the available space
     },
   
     LangLevel: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
-      fontSize: getFontSize(currentTypography.size),
-      fontWeight: "normal",
-      color: "#555",
+      fontSize: getFontSize1(currentTypography.size),
       textAlign: "right", // Align level to the right for better contrast
       flexShrink: 0, // Prevents level text from shrinking in narrow spaces
     },
     Lang: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
-      fontSize: getFontSize(currentTypography.size),
+      fontSize: getFontSize1(currentTypography.size),
       padding: 5,
       marginRight: 5,
       marginBottom: 5,
@@ -279,7 +269,7 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
     },
     skill: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
-      fontSize: getFontSize(currentTypography.size),
+      fontSize: getFontSize1(currentTypography.size),
       padding: 5,
       backgroundColor: "#e5e7eb",
       borderRadius: 4,
@@ -298,8 +288,7 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
     skillItem: {
       width: "30%", // Ensures 3 items per row (100% / 3 = 33.3%)
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
-      fontSize: getFontSize(currentTypography.size),
-      fontWeight: "bold",
+      fontSize: getFontSize1(currentTypography.size),
       color: "#374151",
       backgroundColor: "#eff5f5",
       borderRadius: 3,
@@ -312,8 +301,7 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
     },
     date: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
-      fontSize: getFontSize(currentTypography.size),
-      color: "#666",
+      fontSize: getFontSize1(currentTypography.size),
       marginBottom: 5,
     },
     timelineDots: {
@@ -351,7 +339,7 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
   });  
 
   return (
-    <PDFViewer style={{ width: "100%", height: "100vh" }}>
+    // <PDFViewer style={{ width: "100%", height: "100vh" }}>
       <Document>
         <Page size="A4" style={styles.page}>
           {/* Header */}
@@ -364,6 +352,15 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
           <View>
             {email || phone || location || websiteLink || linkedinLink ? (
               <View style={styles.contactRow}>
+                {location && visibleSections.includes("location") ? (
+                  <ContactItem
+                    path={LocationSvgPath}
+                    color={themeColor}
+                    text={location}
+                    fontF={currentTypography.font}
+                    fontS={currentTypography.size}
+                  />
+                ) : null}
                 {email && visibleSections.includes("email") ? (
                   <ContactItem
                     path={MailSvgPath}
@@ -381,16 +378,7 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
                     fontF={currentTypography.font}
                     fontS={currentTypography.size}
                   />
-                ) : null}
-                {location && visibleSections.includes("location") ? (
-                  <ContactItem
-                    path={LocationSvgPath}
-                    color={themeColor}
-                    text={location}
-                    fontF={currentTypography.font}
-                    fontS={currentTypography.size}
-                  />
-                ) : null}
+                ) : null}                
                 {websiteLink && visibleSections.includes("website") ? (
                   <ContactItem
                     path={WebsiteSvgPath}
@@ -415,7 +403,7 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
           {/* Summary Section */}
           {summery && visibleSections.includes("about") && (
             <View style={styles.section}>
-              <Text style={[styles.sectionTitle, { color: themeColor }]}>Professional Summary</Text>
+              <Text style={[styles.sectionTitle, { color: themeColor }]}>Profile</Text>
               <Text style={styles.text}>{summery}</Text>
             </View>
           )}
@@ -425,7 +413,7 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
             visibleSections.includes("experience") ? (
               <>
                 <Text style={[styles.sectionTitle, { color: themeColor }]}>
-                  Work Experience
+                  Experience
                 </Text>
                 {experiences.map((experience, index) => (
                   <View key={index}>
@@ -512,7 +500,7 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
           ) : null}
         </Page>
       </Document>
-    </PDFViewer>
+    // </PDFViewer>
   );
 };
 

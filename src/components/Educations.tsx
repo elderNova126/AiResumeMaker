@@ -62,7 +62,7 @@ const Educations: React.FC<{
     setEducations(updatedExperiences);
   };
   return (
-    <div className="my-3 py-2">
+    <div className="py-2">
       <h2
         className="text-xl sm:text-xl font-bold mb-2"
         style={{ color: themeColor }}
@@ -96,11 +96,7 @@ const Educations: React.FC<{
                           <button
                             type="button"
                             className="zorder-top absolute -top-3 right-16 hidden group-hover:flex items-center justify-center w-6 h-6 bg-red-500 text-white rounded-full shadow-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
-                            onClick={() => removeEducation(index)}
-                            aria-label="Remove Education"
-                          >
-                            <Trash className="h-4 w-4" />
-                          </button>
+                            onClick={() => removeEducation(index)} aria-label="Remove Education"><Trash className="h-4 w-4" /> </button>
                           <div
                             style={{ cursor: "pointer" }}
                             className="zorder-top absolute -top-3 right-9 hidden group-hover:flex items-center justify-center w-6 h-6 bg-red-500 text-white rounded-full shadow-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
@@ -108,21 +104,11 @@ const Educations: React.FC<{
                           >
                             {" "}
                             <svg
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
+                              width="24"  height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                               <path
-                                d="M7 15L12 20L17 15M7 9L12 4L17 9"
-                                stroke="currentColor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                              ></path>
+                                d="M7 15L12 20L17 15M7 9L12 4L17 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
                             </svg>
-                          </div>
+                          </div>                          
                         </>
                       )}
                       <button
@@ -136,36 +122,46 @@ const Educations: React.FC<{
                       {isATS ? (
                         <div className="pl-8  p-2">
                           <div className="relative flex items-center gap-2">
-                            <div className="timeline_bola color_estrellas"></div>
+                            <div className="timeline_bola color_estrellas" style={{ background: themeColor }}> </div>
                             <AutoResizeField
                               value={education.degree}
-                              className="p-2 textEdit text-gray-700 placeholder-green-600 text-green-600 border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none w-full rounded-md transition ease-in-out duration-200"
+                              className="p-2 textEdit text-pad border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none w-full rounded-md transition ease-in-out duration-200"
                               placeholder="Degree"
                               onChange={(value) =>
                                 updateEducation(index, "degree", value)
                               }
+                              flag={true}
                             />
                             <span className="text-gray-400">|</span>
                             <AutoResizeField
                               value={education.school}
-                              className="p-2 textEdit font-semibold placeholder-black-600 text-black-600 border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200"
+                              className="p-2 textEdit text-pad font-semibold placeholder-black-600 text-black-600 border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200"
                               placeholder="University"
                               onChange={(value) =>
                                 updateEducation(index, "school", value)
-                              }                              
+                              }    
+                              flag={true}                          
                             />
                           </div>
                           <div className="flex justify-between gap-4">
                             <AutoResizeField
                               value={education.dateRange}
                               style={{ width: "30%" }}
-                              className="p-2 textEdit text-gray-600 border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200"
+                              className="p-2 textEdit text-pad border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200"
                               placeholder="Date Range"
                               onChange={(value) =>
                                 updateEducation(index, "dateRange", value)
                               }
+                              flag={true}
                             />
                           </div>
+                          {educations.length > 1 &&
+                              educations.length - 1 > index && (
+                              <div
+                                className="timeline_linea"
+                                style={{ background: themeColor }}
+                              ></div>
+                            )}
                         </div>
                       ) : (
                         <div style={{ paddingLeft: "2rem" }}>
@@ -176,7 +172,7 @@ const Educations: React.FC<{
                             ></div>
                             <AutoResizeField
                               value={education.school}
-                              className="p-2 textEdit font-semibold placeholder-green-600 text-green-600 border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200"
+                              className="p-2 textEdit text-pad font-semibold w-full border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200"
                               placeholder="School Name"
                               onChange={(value) =>
                                 updateEducation(index, "school", value)
@@ -186,7 +182,7 @@ const Educations: React.FC<{
                           <div className="flex justify-between gap-4">
                             <AutoResizeField
                               value={education.degree}
-                              className="p-2 textEdit text-gray-700 border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none w-full rounded-md transition ease-in-out duration-200"
+                              className="p-2 textEdit text-pad border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none w-full rounded-md transition ease-in-out duration-200"
                               placeholder="Degree"
                               onChange={(value) =>
                                 updateEducation(index, "degree", value)
@@ -195,15 +191,16 @@ const Educations: React.FC<{
                             <AutoResizeField
                               value={education.dateRange}
                               style={{ width: "30%" }}
-                              className="p-2 textEdit text-gray-600 border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200"
+                              className="p-2 textEdit text-pad border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200"
                               placeholder="From ~ Until"
                               onChange={(value) =>
                                 updateEducation(index, "dateRange", value)
                               }
+                              flag={true}
                             />
                           </div>
-                          {educations.length > 1 &&
-                            educations.length - 1 > index && (
+                            {educations.length > 1 &&
+                              educations.length - 1 > index && (
                               <div
                                 className="timeline_linea"
                                 style={{ background: themeColor }}

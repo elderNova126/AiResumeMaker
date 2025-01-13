@@ -52,7 +52,7 @@ const analyzeContent = (content: string): ResumeData => {
   return extractedData as ResumeData;
 };
 
-export const parsePDFContent = async (file: File): Promise<ResumeData> => {
+export const parsePDFContent = async (file: File) => {
   try {
     // Ensure worker is initialized
     if (!isWorkerInitialized) {
@@ -86,17 +86,19 @@ export const parsePDFContent = async (file: File): Promise<ResumeData> => {
         .join(' ');
       fullText += pageText + '\n';
     }
-
+    
     console.log('Text extraction complete, analyzing content...');
-    return analyzeContent(fullText);
+    // return analyzeContent(fullText);+
+    return fullText;
   } catch (error) {
     console.error('Error parsing PDF:', error);
     throw error;
   }
 };
 
-export const mapToTemplate = (data: ResumeData | null): Record<string, string> => {
-  if (!data) {
+export  const  mapToTemplate = async (resumeText: string | null)=> {
+  const data = {};
+  if (!resumeText) {
     return {
       'contact.email': '',
       'contact.phone': '',
@@ -109,16 +111,87 @@ export const mapToTemplate = (data: ResumeData | null): Record<string, string> =
       'languages': '',
     };
   }
+  
 
-  return {
-    'contact.email': data.contact?.email || '',
-    'contact.phone': data.contact?.phone || '',
-    'contact.website': data.contact?.website || '',
-    'contact.linkedin': data.contact?.linkedin || '',
-    'summary': data.summary?.trim() || '',
-    'experience': data.experience?.trim() || '',
-    'education': data.education?.trim() || '',
-    'skills': data.skills?.trim() || '',
-    'languages': data.languages?.trim() || '',
-  };
+  data.name = resumeText.match(/- \*\*Name:\*\* (.*)/)?.[1]?.trim() || resumeText.match(/- \*\*Name\*\*: (.*)/)?.[1]?.trim();
+  
+  data.role = resumeText.match(/- \*\*Role:\*\* (.*)/)?.[1]?.trim() || resumeText.match(/- \*\*Role\*\*: (.*)/)?.[1]?.trim();
+  data.location = resumeText.match(/- \*\*Location:\*\* (.*)/)?.[1]?.trim() || resumeText.match(/- \*\*Location\*\*: (.*)/)?.[1]?.trim();
+  data.email = resumeText.match(/- \*\*Email:\*\* (.*)/)?.[1]?.trim() || resumeText.match(/- \*\*Email\*\*: (.*)/)?.[1]?.trim();
+  data.phone = resumeText.match(/- \*\*Phone Number:\*\* (.*)/)?.[1]?.trim() || resumeText.match(/- \*\*Phone Number\*\*: (.*)/)?.[1]?.trim();
+  data.website = resumeText.match(/- \*\*Website Address:\*\* (.*)/)?.[1]?.trim() || resumeText.match(/- \*\*Website Address\*\*: (.*)/)?.[1]?.trim();
+  data.linkedin = resumeText.match(/- \*\*LinkedIn Address\*\*: (.*)/)?.[1]?.trim() || resumeText.match(/- \*\*LinkedIn address:\*\* (.*)/)?.[1]?.trim();
+  data.profile = resumeText.match(/- \*\*Profile Summary:\*\* ([\s\S]*?)(?=- \*\*Work Experience:)/)?.[1]?.trim() || resumeText.match(/- \*\*Profile Summary\*\*:([\s\S]*?)(?=- \*\*Work Experience\*\*:)/)?.[1]?.trim();
+
+  const workExperienceMatches = Array.from(
+    resumeText.matchAll(
+      /- \*\*Company Name\*\*: (.*)\n\s*- \*\*Position\*\*: (.*)\n\s*- \*\*Period\*\*: (.*)\n\s*- \*\*Description\*\*:([\s\S]*?)(?=\n\s*- \*\*|\n$)/g
+    )
+  );
+  let workExperience = workExperienceMatches.map((match) => ({
+    companyName: match[1]?.trim(),
+    position: match[2]?.trim(),
+    period: match[3]?.trim(),
+    description: match[4]?.trim().split("\n").map((desc) => desc.replace(/^\s*- /, "").trim()),
+  }));
+  if(workExperience.length==0){
+      const workExperienceMatches = Array.from(
+        resumeText.matchAll(/- \*\*Company Name:\*\* (.*)\n\s*- \*\*Position:\*\* (.*)\n\s*- \*\*Period:\*\* (.*)\n\s*- \*\*Description:\*\*([\s\S]*?)(?=\n\s*- \*\*|\n$)/g)
+      );
+      workExperience = workExperienceMatches.map((match) => ({
+        companyName: match[1]?.trim(),
+        position: match[2]?.trim(),
+        period: match[3]?.trim(),
+        description: match[4]?.trim().split('\n').map((desc) => desc.replace(/^\s*- /, '').trim()),
+      }));
+    }
+    
+    data.experience=workExperience;
+
+    
+    let skills = resumeText.match(/- \*\*Skills\*\*:([\s\S]*?)(?=- \*\*Education\*\*:)/)?.[1]?.trim().split("\n").map((skill) => skill.trim()) || [];
+    if(skills.length==0){
+      skills = resumeText.match(/- \*\*Skills:\*\*([\s\S]*?)(?=- \*\*Education:\*\*)/)?.[1]?.trim().split("\n").map((skill) => skill.trim()) || [];
+    }
+    data.skill=skills;
+
+    const educationMatches = Array.from(
+      resumeText.matchAll(/- \*\*School Name:\*\* (.*)\n\s*- \*\*Degree:\*\* (.*)\n\s*- \*\*Period:\*\* (.*)/g)
+    );
+    let education = educationMatches.map((match) => ({
+      schoolName: match[1]?.trim(),
+      degree: match[2]?.trim(),
+      period: match[3]?.trim(),
+    }));
+    if(education.length==0){
+      const educationMatches = Array.from(
+        resumeText.matchAll(/- \*\*School Name\*\*: (.*)\n\s*- \*\*Degree\*\*: (.*)\n\s*- \*\*Period\*\*: (.*)/g)
+      );
+      education = educationMatches.map((match) => ({
+        schoolName: match[1]?.trim(),
+        degree: match[2]?.trim(),
+        period: match[3]?.trim(),
+      }));
+    }
+    data.edu=education;
+    const languagesMatches = Array.from(
+      resumeText.matchAll(/- \*\*Language Name:\*\* (.*)\n\s*- \*\*Level:\*\* (.*)/g)
+    );
+    let languages = languagesMatches.map((match) => ({
+      languageName: match[1]?.trim(),
+      level: match[2]?.trim(),
+    }));
+    if(languages.length==0){
+      const languagesMatches = Array.from(
+        resumeText.matchAll(/- \*\*Language Name\*\*: (.*)\n\s*- \*\*Level\*\*: (.*)/g)
+      );
+      languages = languagesMatches.map((match) => ({
+        languageName: match[1]?.trim(),
+        level: match[2]?.trim(),
+      }));
+    }
+    data.lng=languages;
+  console.log("ddddddddddddddddddddddddddddd",data)
+  return data;
+ 
 };

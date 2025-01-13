@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { X, AlertCircle, FileUp } from 'lucide-react';
 import { parsePDFContent, mapToTemplate, initializePDFWorker } from '../utils/resumeParser';
-
+import { filterResumeItems } from './parseByAi';
 interface ImportDialogProps {
   onClose: () => void;
-  onImport: (data: Record<string, string>) => void;
+  onImport: (data:string[]) => void;
 }
 
 const ImportDialog = ({ onClose, onImport }: ImportDialogProps) => {
@@ -30,10 +30,8 @@ const ImportDialog = ({ onClose, onImport }: ImportDialogProps) => {
   const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
-
     // Reset file input to allow re-uploading the same file
-    event.target.value = '';
-    
+    event.target.value = '';    
     // Add file size check
     const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
     if (file.size > MAX_FILE_SIZE) {
@@ -52,11 +50,14 @@ const ImportDialog = ({ onClose, onImport }: ImportDialogProps) => {
     try {
       console.log('Starting PDF processing...');
       console.log('Processing file:', file.name, 'Size:', file.size);
-      const extractedData: ResumeData = await parsePDFContent(file);
+      const extractedData = await parsePDFContent(file);
       console.log('Extracted data:', extractedData);
+      const structuredData=await filterResumeItems(extractedData);
       
-      const mappedData = mapToTemplate(extractedData);
-      onImport(mappedData);
+      // console.log('structuredData file:', structuredData);
+      // const mappedData = await mapToTemplate(structuredData);
+
+      onImport(structuredData);
       onClose();
     } catch (err) {
       console.error('PDF parsing error:', err);
@@ -73,7 +74,7 @@ const ImportDialog = ({ onClose, onImport }: ImportDialogProps) => {
           <h2 className="text-xl font-semibold text-gray-800">Import Resume</h2>
           <button
             onClick={onClose}
-            className="text-gray-500 hover:text-gray-700 transition-colors"
+            className="text-gray-500 hover: transition-colors"
           >
             <X className="h-5 w-5" />
           </button>
@@ -102,7 +103,7 @@ const ImportDialog = ({ onClose, onImport }: ImportDialogProps) => {
             className="cursor-pointer flex flex-col items-center"
           >
             <FileUp className="h-12 w-12 text-gray-400 mb-4" />
-            <span className="text-sm text-gray-600">
+            <span className="text-sm ">
               {isProcessing ? 'Processing...' : 'Click to upload PDF resume'}
             </span>
           </label>

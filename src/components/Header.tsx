@@ -1,23 +1,18 @@
 import React, { useState } from "react";
-import {
-  FileDown,
-  FileUp,
-  ScrollText,
-  Layout,
-  Palette,
-  Type,
-  Layers,
-  Phone,
-} from "lucide-react";
+import { FileDown, FileUp, ScrollText, Layout, Palette, Type, Layers, Phone,} from "lucide-react";
 // import { generatePDF } from '../utils/pdfGenerator';
 import ImportDialog from "./ImportDialog";
 import SelectorButton from "./SelectorButton";
 import SectionsSelector from "./SectionsSelector";
 import { PDFDownloadLink } from "@react-pdf/renderer";
-import ResumePDF from "../resumePDF/ResumeSplitPDF";
-import ResumeClassicPDF from "../resumePDF/ResumeClassicPDF";
-import ResumeATSPDF from "../resumePDF/ResumeATSPDF";
+// import ResumePDF from "../resumePDF/ResumeSplitPDF";
+// import ResumeClassicPDF from "../resumePDF/ResumeClassicPDF";
+// import ResumeATSPDF from "../resumePDF/ResumeATSPDF";
 import { useUser } from "../context/UserContext";
+
+import ResumeATSPDF from "../resumePDF/PreviewResumeATS";
+import ResumeClassicPDF from "../resumePDF/PreviewResumeClassic";
+import ResumePDF from "../resumePDF/PreviewResumeSplit";
 
 interface HeaderProps {
   onLayoutChange: (layout: string) => void;
@@ -42,18 +37,31 @@ const Header: React.FC<HeaderProps> = ({
 }) => {
   const {
     name,
+    setName,
     role,
+    setRole,
     location,
+    setLocation,
     email,
+    setEmail,
     phone,
+    setPhone,
     website,
+    setWebsite,
     linkedin,
+    setLinkedin,
     about,
+    setAbout,
     experiences,
+    setExperiences,
     educations,
+    setEducations,
     skills,
+    setSkills,
     languages,
+    setLanguages,
     avatar,
+    setAvatar,
   } = useUser();
   const [showImportDialog, setShowImportDialog] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -63,8 +71,43 @@ const Header: React.FC<HeaderProps> = ({
     setIsDropdownOpen(isOpen);
   };
 
-  const handleImport = (data: Record<string, string>) => {
-    console.log("Imported data:", data);
+  const handleImport = (data:string[]) => {
+    console.log("handleimport",data)
+    setName(data.Name);
+    setRole(data.Role);
+    setLocation(data.Location);
+    setEmail(data.Email);
+    setPhone(data.Phone);
+    setWebsite(data.Website);
+    setLinkedin(data.Linkedin);
+    setAbout(data.Profile);
+
+   
+    const formattedSkills = data.Skills.map((item) => ({
+      skillname: item,
+    }));
+    setSkills(formattedSkills);
+
+    const transformedLng = data.Languages.map((item) => ({
+      name: item.Name,
+      level: item.Level,
+    }));
+    setLanguages(transformedLng);
+
+    const transformedExperiences = data.Experiences.map(exp => ({
+      company: exp.Company,
+      dateRange: exp.DateRange,
+      position: exp.Position,
+      description: exp.Description,
+    }));
+    setExperiences(transformedExperiences);
+
+    const transformedEducation = data.Educations.map((item) => ({
+      school: item.School,
+      dateRange: item.DateRange,
+      degree: item.Degree,
+    }));
+    setEducations(transformedEducation);
   };
 
   const layoutOptions = [
@@ -185,7 +228,7 @@ const Header: React.FC<HeaderProps> = ({
           <div className="flex items-center justify-end space-x-3">
             <button
               onClick={() => setShowImportDialog(true)}
-              className="flex items-center space-x-2 px-4 py-2 rounded-md transition-all"
+              className="flex items-center text-default-sm space-x-2 px-4 py-2 rounded-md transition-all"
               style={{
                 backgroundColor: `${currentColor}20`,
                 color: currentColor,
@@ -214,13 +257,15 @@ const Header: React.FC<HeaderProps> = ({
                   languages={languages}
                   avatar={avatar}
                   visibleSections={visibleSections}
+                  currentTypography={currentTypography}
                 />
               }
               fileName="split_Resume.pdf"
             >
-              {({ downloadingLoading }) => (
+              <>
+              
                 <button
-                  className={`flex items-center space-x-2 px-4 py-2 text-white rounded-md transition-all hover:opacity-90 ${
+                  className={`flex items-center space-x-2 px-4 py-2 text-default-sm text-white rounded-md transition-all hover:opacity-90 ${
                     downloadingLoading ? "opacity-50" : ""
                   }`}
                   style={{ backgroundColor: currentColor }}
@@ -231,7 +276,8 @@ const Header: React.FC<HeaderProps> = ({
                     {downloadingLoading ? "Preparing..." : "Download"}
                   </span>
                 </button>
-              )}
+             
+              </>              
             </PDFDownloadLink>}
             {currentLayout === "classic" &&
             <PDFDownloadLink
@@ -252,13 +298,15 @@ const Header: React.FC<HeaderProps> = ({
                   languages={languages}
                   avatar={avatar}
                   visibleSections={visibleSections}
+                  currentTypography={currentTypography}
                 />
               }
               fileName="Classic_Resume.pdf"
             >
-              {({ downloadingLoading }) => (
+              <>
+             
                 <button
-                  className={`flex items-center space-x-2 px-4 py-2 text-white rounded-md transition-all hover:opacity-90 ${
+                  className={`flex items-center space-x-2 px-4 py-2 text-default-sm text-white rounded-md transition-all hover:opacity-90 ${
                     downloadingLoading ? "opacity-50" : ""
                   }`}
                   style={{ backgroundColor: currentColor }}
@@ -269,7 +317,9 @@ const Header: React.FC<HeaderProps> = ({
                     {downloadingLoading ? "Preparing..." : "Download"}
                   </span>
                 </button>
-              )}
+             
+              </>
+              
             </PDFDownloadLink>}
             {currentLayout === "hybrid" &&
             <PDFDownloadLink
@@ -290,13 +340,15 @@ const Header: React.FC<HeaderProps> = ({
                   languages={languages}
                   avatar={avatar}
                   visibleSections={visibleSections}
+                  currentTypography={currentTypography}
                 />
               }
               fileName="ATS_Resume.pdf"
             >
-              {({ downloadingLoading }) => (
+              <>
+             
                 <button
-                  className={`flex items-center space-x-2 px-4 py-2 text-white rounded-md transition-all hover:opacity-90 ${
+                  className={`flex items-center space-x-2 px-4 py-2 text-default-sm text-white rounded-md transition-all hover:opacity-90 ${
                     downloadingLoading ? "opacity-50" : ""
                   }`}
                   style={{ backgroundColor: currentColor }}
@@ -307,7 +359,9 @@ const Header: React.FC<HeaderProps> = ({
                     {downloadingLoading ? "Preparing..." : "Download"}
                   </span>
                 </button>
-              )}
+             
+              </>
+              
             </PDFDownloadLink>}
           </div>
         </div>

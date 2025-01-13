@@ -56,7 +56,7 @@ const SelectorButton = ({
   return (
     <div className="relative" ref={buttonRef}>
       <button 
-        className={`flex items-center space-x-2 py-2 hover:opacity-80 transition-colors ${className}`}
+        className={`flex items-center space-x-2 py-2 text-default-sm hover:opacity-80 transition-colors ${className}`}
         onClick={handleToggle}
       >
         <Icon className="h-4 w-4" />
@@ -87,7 +87,7 @@ const SelectorButton = ({
           {options.map((option) => (
             <button
               key={option.value}
-              className="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2"
+              className="w-full px-4 py-2 text-default-sm text-left hover:bg-gray-50 flex items-center space-x-2"
               onClick={() => {
                 if (onDropdownToggle) {
                   onDropdownToggle(false);

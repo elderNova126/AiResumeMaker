@@ -8,6 +8,7 @@ interface AutoResizeFieldProps {
   className?: string;
   style?: React.CSSProperties;
   onChange?: (value: string) => void;
+  flag?:false;
 }
 
 const AutoResizeField: React.FC<AutoResizeFieldProps> = ({
@@ -17,19 +18,34 @@ const AutoResizeField: React.FC<AutoResizeFieldProps> = ({
   className,
   style,
   onChange,
+  flag,
 }) => {
   const fieldRef = useRef<HTMLTextAreaElement | HTMLInputElement>(null);
 
+  const getTextWidth = (text: string, font: string) => {
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext("2d");
+
+    if (context) {
+      context.font = font;
+      const metrics = context.measureText(text);
+      return metrics.width; // Returns the width in pixels
+    }
+    return 0;
+  };
   // Adjust height for textarea dynamically
   const adjustHeight = () => {
     const field = fieldRef.current;
     if (type === 'textarea' && field instanceof HTMLTextAreaElement) {
       field.style.height = 'auto'; // Reset height to auto to recalculate
       field.style.height = `${field.scrollHeight+10}px`; // Set height to scrollHeight
-    } else if (type === 'input' && field instanceof HTMLInputElement) {
-      // Adjust input field width dynamically based on content
-      field.style.width = 'auto'; // Reset width to auto to recalculate
-      field.style.width = `${field.scrollWidth}px`; // Set width to scrollWidth
+    } else if (type === 'input' && field instanceof HTMLInputElement && flag) {
+      const inputStyles =getComputedStyle(field);
+      const font = `${inputStyles.fontSize} ${inputStyles.fontFamily}`;
+      const text = field.value || field.placeholder || "";
+      const textWidth = getTextWidth(text, font);
+      field.style.width =`${textWidth + 20}px`; // Set width to scrollWidth
+      // alert(textWidth)
     }
   };
 

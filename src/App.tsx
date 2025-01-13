@@ -9,6 +9,9 @@ import Forgot from "./pages/auth/Forgot";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 
+import RegisterFonts from "./consts/FontRegister";
+RegisterFonts();
+
 function App() {
   const [page, setPage] = useState<string>("login");
   const [token, setToken] = useState<string | null>(null);
@@ -103,9 +106,29 @@ function App() {
   };
 
   return (
-    <BrowserRouter> {/* Wrap the app in BrowserRouter */}
-      {pages()}
-    </BrowserRouter>
+    <UserProvider>
+          <div
+            className="font-primary"
+            style={{ backgroundColor: `${themeColor}80` }}
+          >
+            <Header
+              onLayoutChange={setLayout}
+              currentLayout={layout}
+              onColorChange={setThemeColor}
+              currentColor={themeColor}
+              onTypographyChange={setTypography}
+              currentTypography={typography}
+              visibleSections={visibleSections}
+              setVisibleSections={setVisibleSections}
+            />
+            <ResumeEditor
+              layout={layout}
+              themeColor={themeColor}
+              currentTypography={typography}
+              visibleSections={visibleSections}
+            />
+          </div>
+        </UserProvider>
   );
 }
 

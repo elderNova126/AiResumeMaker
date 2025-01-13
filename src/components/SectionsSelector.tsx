@@ -46,7 +46,7 @@ const SectionsSelector = ({ sections, visibleSections, onChange, themeColor = '#
             {personalDetails.map((section) => (
               <button
                 key={section.id}
-                className="w-full flex items-center px-1 py-0.5 text-[0.7rem] text-gray-600 hover:bg-gray-50 rounded gap-2"
+                className="w-full flex items-center px-1 py-0.5 text-[0.7rem]  hover:bg-gray-50 rounded gap-2"
                 onClick={() => toggleSection(section.id)}
               >
                 {getIcon(section.id)}
@@ -73,7 +73,7 @@ const SectionsSelector = ({ sections, visibleSections, onChange, themeColor = '#
             {contentInfo.map((section) => (
               <button
                 key={section.id}
-                className="w-full flex items-center px-1 py-0.5 text-[0.7rem] text-gray-600 hover:bg-gray-50 rounded"
+                className="w-full flex items-center px-1 py-0.5 text-[0.7rem]  hover:bg-gray-50 rounded"
                 onClick={() => toggleSection(section.id)}
               >
                 <div

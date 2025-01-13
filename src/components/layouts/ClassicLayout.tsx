@@ -58,15 +58,17 @@ const ClassicLayout: React.FC<ClassicLayoutProps> = ({
     icon: React.ReactNode,
     value: string,
     onChange: (value: string) => void,
-    placeholder: string
+    placeholder: string,
+    flag:boolean
   ) => (
-    <div className="flex items-center space-x-3">
+    <div className="flex items-center marginR15 space-x-1">
       {icon}
       <AutoResizeField
         value={value}
         onChange={onChange}
-        className="p-2 textEdit flex-1 bg-transparent border-b border-gray-300 hover:border-gray-400 focus:border-emerald-500 focus:outline-none transition-all"
+        className="p-1 textEdit flex-1 bg-transparent border-b border-gray-300 hover:border-gray-400 focus:border-emerald-500 focus:outline-none transition-all"
         placeholder={placeholder}
+        flag={flag}
       />
     </div>
   );
@@ -98,45 +100,21 @@ const ClassicLayout: React.FC<ClassicLayoutProps> = ({
             <AutoResizeField
               value={role}
               onChange={(value) => setRole(value)}
-              className="textEdit text-lg sm:text-xl text-gray-600 w-full my-5 bg-transparent border-gray-300 hover:border-gray-400 focus:border-emerald-500 focus:outline-none transition-all"
+              className="textEdit text-lg sm:text-xl w-full bg-transparent border-gray-300 hover:border-gray-400 focus:border-emerald-500 focus:outline-none transition-all"
               placeholder="Your Role"
             />
           )}
-        </div>
-        {visibleSections.includes("picture") && (
-          <div
-            className="w-32 h-32 sm:w-48 sm:h-48 rounded-full overflow-hidden shadow-md relative bg-gray-300 group cursor-pointer"
-            onClick={handleUpload}
-          >
-            <img
-              src={avatar}
-              className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-110"
-            />
-            <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <FileUp className="h-6 w-6 text-white mb-2" />
-              <span className="text-white font-semibold text-sm">
-                Select Your Picture
-              </span>
-            </div>
-            <input
-              id="fileInput"
-              type="file"
-              accept="image/*"
-              className="hidden"
-              onChange={handleChange}
-            />
-          </div>
-        )}
+        </div>        
       </div>
 
-      <div className="mb-2">
+      <div className="py-2">
         <h2
           className="text-lg sm:text-xl font-bold py-3"
           style={{ color: themeColor }}
         >
           PERSONAL DETAILS
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 mt-4 text-gray-600">
+        <div className="classicStyle mt-4 ">
           {visibleSections.includes("location") &&
             renderSection(
               <div className="flex justify-center items-center">
@@ -152,7 +130,8 @@ const ClassicLayout: React.FC<ClassicLayoutProps> = ({
               </div>,
               location,
               setLocation,
-              "Location"
+              "Location",
+              true,
             )}
           {visibleSections.includes("email") &&
             renderSection(
@@ -168,7 +147,8 @@ const ClassicLayout: React.FC<ClassicLayoutProps> = ({
               </div>,
               email,
               setEmail,
-              "Email"
+              "Email",
+              true,
             )}
           {visibleSections.includes("phone") &&
             renderSection(
@@ -184,7 +164,8 @@ const ClassicLayout: React.FC<ClassicLayoutProps> = ({
               </div>,
               phone,
               setPhone,
-              "Phone number"
+              "Phone number",
+              true,
             )}
           {visibleSections.includes("website") &&
             renderSection(
@@ -200,7 +181,8 @@ const ClassicLayout: React.FC<ClassicLayoutProps> = ({
               </div>,
               website,
               setWebsite,
-              "Website address"
+              "Website address",
+              true,
             )}
           {visibleSections.includes("linkedin") &&
             renderSection(
@@ -216,7 +198,8 @@ const ClassicLayout: React.FC<ClassicLayoutProps> = ({
               </div>,
               linkedin,
               setLinkedin,
-              "LinkedIn address"
+              "LinkedIn address",
+              true,
             )}
         </div>
       </div>

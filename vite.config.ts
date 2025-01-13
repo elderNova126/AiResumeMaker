@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   optimizeDeps: {
     exclude: ['lucide-react'],
-    include: ['pdfjs-dist/build/pdf.min.js']
+    include: ['pdfjs-dist/build/pdf.min.js'],
   },
   server: {
     headers: {
@@ -22,5 +22,5 @@ export default defineConfig({
         }
       }
     }
-  }
+  },
 });

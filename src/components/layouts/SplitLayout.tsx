@@ -1,13 +1,6 @@
 import React, { useState } from "react";
 import { FileUp } from "lucide-react";
-import {
-  SvgIcon,
-  MailSvgPath,
-  PhoneSvgPath,
-  LinkedSvgPath,
-  WebsiteSvgPath,
-  LocationSvgPath,
-} from "../../consts/SvgConst";
+import { SvgIcon, MailSvgPath, PhoneSvgPath, LinkedSvgPath, WebsiteSvgPath, LocationSvgPath,} from "../../consts/SvgConst";
 import AutoResizeField from "../AutoResizeField";
 import AboutMe from "../AboutMe";
 import Experiences from "../Experiences";
@@ -15,6 +8,7 @@ import Educations from "../Educations";
 import Skills from "../Skills";
 import LanguagesSection from "../Languages";
 import { useUser } from "../../context/UserContext";
+
 
 interface SplitLayoutProps {
   themeColor: string;
@@ -65,7 +59,7 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
       <AutoResizeField
         value={value}
         onChange={onChange}
-        className="p-2 textEdit flex-1 bg-transparent border-b border-gray-300 hover:border-gray-400 focus:border-emerald-500 focus:outline-none transition-all"
+        className="p-1 textEdit text-pad flex-1 bg-transparent border-b hover:border-gray-400 focus:border-emerald-500 focus:outline-none transition-all"
         placeholder={placeholder}
       />
     </div>
@@ -119,9 +113,9 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
             </div>
           )}
 
-          <div
+          <div className="flex flex-col justify-center items-center justify-center items-center"
             style={{
-              display: "grid",
+              // display: "ruby",
               placeItems: visibleSections.includes("picture")
                 ? "center"
                 : "start",
@@ -149,7 +143,7 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
                     ? "center"
                     : "left",
                 }}
-                className="textEdit text-lg sm:text-xl text-gray-600 w-full bg-transparent border-gray-300 hover:border-gray-400 focus:border-emerald-500 focus:outline-none transition-all"
+                className="textEdit text-lg sm:text-xl  w-full bg-transparent border-gray-300 hover:border-gray-400 focus:border-emerald-500 focus:outline-none transition-all"
                 placeholder="Your Role"
               />
             )}
@@ -157,14 +151,14 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
         </div>
 
         {/* Left Column */}
-        <div className="col-span-1 bg-gray-50 p-6 rounded-md shadow-md min-h-[1000px]">
+        <div className="col-span-1 bg-gray-50 p-2 rounded-md shadow-md min-h-[1000px]">
           <h2
             className="text-lg sm:text-xl font-bold py-3"
             style={{ color: themeColor }}
           >
             PERSONAL DETAILS
           </h2>
-          <div className="space-y-4 mb-6">
+          <div className="space-y-2 mb-3">
             {visibleSections.includes("location") &&
               renderSection(
                 <SvgIcon
@@ -240,7 +234,7 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
         </div>
 
         {/* Right Column */}
-        <div className="col-span-1 md:col-span-2 p-6">
+        <div className="col-span-1 md:col-span-2 p-6"  style={{ paddingTop: "0px" }}>
           {visibleSections.includes("experience") && (
             <Experiences
               setExperiences={setExperiences}

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { BrowserRouter } from "react-router-dom"; // Import BrowserRouter
 import Header from "./components/Header";
 import ResumeEditor from "./components/ResumeEditor";
@@ -13,6 +13,9 @@ import RegisterFonts from "./consts/FontRegister";
 RegisterFonts();
 
 function App() {
+
+  const [newSize, setNewSize] = useState(10);
+  const [preSize, setPreSize] = useState(newSize);
   const [page, setPage] = useState<string>("login");
   const [token, setToken] = useState<string | null>(null);
   const [layout, setLayout] = useState("split");
@@ -27,12 +30,33 @@ function App() {
       "--font-primary",
       getFontFamily(typography.font)
     );
-    document.documentElement.style.setProperty(
-      "--font-size",
-      getFontSize(typography.size)
-    );
+    const tempnewSize = parseFloat(getFontSize(typography.size));
+    if (tempnewSize == preSize) return;
+    let appSize = 1;
+    if (tempnewSize > preSize) {
+      appSize = (tempnewSize - preSize);
+
+    } else {
+      appSize = (tempnewSize - preSize);
+    }
+    // alert(preSize + "---" + tempnewSize)
+    setNewSize(tempnewSize);
+    const element = document.getElementById("resume");
+    const elements = element.querySelectorAll('[contenteditable]');
+    // alert(parseFloat(getFontSize(typography.size)))
+    elements.forEach((el) => {
+      const computedStyle = window.getComputedStyle(el);
+      const currentFontSize = parseFloat(computedStyle.fontSize);
+      const newFontSize = currentFontSize + appSize;
+      // alert(currentFontSize);
+      (el as HTMLElement).style.fontSize = `${newFontSize}px`;
+    });
+
   }, [typography]);
 
+  useEffect(() => {
+    setPreSize(newSize);
+  }, [newSize]);
   useEffect(() => {
     const auth = localStorage.getItem("auth_token");
     setToken(auth);
@@ -107,28 +131,28 @@ function App() {
 
   return (
     <UserProvider>
-          <div
-            className="font-primary"
-            style={{ backgroundColor: `${themeColor}80` }}
-          >
-            <Header
-              onLayoutChange={setLayout}
-              currentLayout={layout}
-              onColorChange={setThemeColor}
-              currentColor={themeColor}
-              onTypographyChange={setTypography}
-              currentTypography={typography}
-              visibleSections={visibleSections}
-              setVisibleSections={setVisibleSections}
-            />
-            <ResumeEditor
-              layout={layout}
-              themeColor={themeColor}
-              currentTypography={typography}
-              visibleSections={visibleSections}
-            />
-          </div>
-        </UserProvider>
+      <div
+        className="font-primary"
+        style={{ backgroundColor: `${themeColor}80` }}
+      >
+        <Header
+          onLayoutChange={setLayout}
+          currentLayout={layout}
+          onColorChange={setThemeColor}
+          currentColor={themeColor}
+          onTypographyChange={setTypography}
+          currentTypography={typography}
+          visibleSections={visibleSections}
+          setVisibleSections={setVisibleSections}
+        />
+        <ResumeEditor
+          layout={layout}
+          themeColor={themeColor}
+          currentTypography={typography}
+          visibleSections={visibleSections}
+        />
+      </div>
+    </UserProvider>
   );
 }
 

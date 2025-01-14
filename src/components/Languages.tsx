@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Contenteditable from "./Contenteditable";
 import {
   DragDropContext,
@@ -19,6 +19,8 @@ const Languages: React.FC<{
   languages: LanguageType[];
   themeColor: string;
 }> = ({ setLanguages, languages, themeColor }) => {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null); // Track hovered item
+
   const reorder = (
     list: LanguageType[],
     startIndex: number,
@@ -50,7 +52,10 @@ const Languages: React.FC<{
     const confirmed = window.confirm(
       "Are you sure you want to delete this language?"
     );
-    if (confirmed) setLanguages(languages.filter((_, i) => i !== index));
+    if (confirmed) {
+      // Remove the selected language by the correct index
+      setLanguages(languages.filter((_, i) => i !== index));
+    }
   };
 
   const updateLanguage = (index: number, key: keyof LanguageType, value: string) => {
@@ -59,8 +64,6 @@ const Languages: React.FC<{
     );
     setLanguages(updatedLanguages);
   };
-
-  console.log("languages: ", languages);
 
   return (
     <div id="languages" className="list with-border">
@@ -90,7 +93,11 @@ const Languages: React.FC<{
                       {...provided.draggableProps}
                       className={`relative group border border-transparent rounded-md hover:border-gray-300 transition-all ${
                         snapshot.isDragging ? "bg-gray-100 shadow-md" : ""
-                      }`}
+                      } ${
+                        hoveredIndex === index ? "bg-gray-100 shadow-md" : ""
+                      }`} // Apply hover effect styles
+                      onMouseEnter={() => setHoveredIndex(index)} // Set hovered index
+                      onMouseLeave={() => setHoveredIndex(null)} // Clear hovered index
                     >
                       <Contenteditable
                         value={language.name}
@@ -104,16 +111,16 @@ const Languages: React.FC<{
                         data-gramm="false"
                       />
                       <div className="btn-edit">
-                        {languages.length > 1 && (
+                        {languages.length > 1 && hoveredIndex === index && ( // Show buttons only for hovered item
                           <>
                             <RemoveButton
                               index={index}
-                              removeFunc={removeLanguage}
+                              removeFunc={removeLanguage} // Pass index directly
                             />
                             <ReorderButton provided={provided} />
                           </>
                         )}
-                        <AddButton addFunc={addLanguage} />
+                        {hoveredIndex === index && <AddButton addFunc={addLanguage} />}
                       </div>
                     </div>
                   )}

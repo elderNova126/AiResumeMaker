@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+import Contenteditable from "./Contenteditable";
 
 interface ExperienceType {
   company: string;
@@ -24,49 +23,51 @@ const WorkExperienceEditor: React.FC<WorkExperienceEditorProps> = ({
   updateExperience,
   index,
 }) => {
-  // Generate HTML list from the description array
-  const generateHTMLFromDescription = (description: string[]) =>
-    `<ul>${description.map((item) => `<li>${item}</li>`).join("")}</ul>`;
+  // Convert description array to plain text with bullet points, if there's content
+  const generateTextFromDescription = (description: string[]) =>
+    description.length > 0
+      ? description.map((item) => `• ${item}`).join("\n")
+      : ""; // Empty string when no description
 
-  // Parse HTML list back into an array
-  const parseDescriptionFromHTML = (html: string) =>
-    html
-      .replace(/<\/?ul>/g, "") // Remove <ul> tags
-      .split("<li>") // Split by <li> tags
-      .filter((item) => item.trim() !== "") // Remove empty items
-      .map((item) => item.replace(/<\/li>/g, "").trim()); // Remove </li> tags and trim
+  // Parse plain text back into an array
+  const parseDescriptionFromText = (text: string) =>
+    text
+      .split(/\n+/) // Split by newlines
+      .map((line) => line.replace(/^•\s*/, "").trim()) // Remove leading bullets
+      .filter((line) => line !== ""); // Remove empty lines
 
-  // Initial value as HTML
+  // State for the editable content
   const [value, setValue] = useState<string>(
-    generateHTMLFromDescription(initialDescription)
+    generateTextFromDescription(initialDescription)
   );
 
-  // Sync value with initialDescription changes
+  // Update state when initialDescription changes
   useEffect(() => {
-    setValue(generateHTMLFromDescription(initialDescription));
+    setValue(generateTextFromDescription(initialDescription));
   }, [initialDescription]);
 
   const handleChange = (newValue: string) => {
-    console.log(newValue);
+    
     setValue(newValue);
 
-    // Convert HTML to description array and update the parent
-    const updatedDescription = parseDescriptionFromHTML(newValue);
+    // Convert plain text back to description array
+    const updatedDescription = parseDescriptionFromText(newValue);
     updateExperience(index, "description", updatedDescription);
   };
-
+  console.log("newvalue: ", value);
   return (
-    <span>
-      <p
-        contentEditable="true"
-        translate-data="Enter your work experience description"
-        placeholder="Enter your work experience description"
-        data-gramm="false"
-        onInput={(e) => handleChange(e.currentTarget.innerHTML || '')}
-        // Use dangerouslySetInnerHTML to display HTML
-        dangerouslySetInnerHTML={{ __html: value }}
-      />
-    </span>
+    <Contenteditable
+      value={value} // Pass plain text with \n for newlines
+      onChange={(updatedContent) => {
+        handleChange(updatedContent); // Handle updates
+      }}
+      as="p"
+      placeholder="Enter your work experience description"
+      style={{
+        whiteSpace: "pre-line", // Render \n as newlines in plain text
+        wordWrap: "break-word", // Ensure long words wrap correctly
+      }}
+    />
   );
 };
 

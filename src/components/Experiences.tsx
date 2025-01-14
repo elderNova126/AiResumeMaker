@@ -5,7 +5,10 @@ import {
   Draggable,
   DropResult,
 } from "react-beautiful-dnd";
-import { Trash } from "lucide-react";
+import RemoveButton from "./RemoveButton";
+import ReorderButton from "./ReorderButton";
+import AddButton from "./AddButton";
+
 import WorkExperienceEditor from "./WorkExperienceEditor";
 import Ai_Modal from "./../components/Ai_Modal";
 import Contenteditable from "./Contenteditable";
@@ -162,74 +165,11 @@ const Experiences: React.FC<{
                             </span>
                             {experiences.length > 1 && (
                               <>
-                                <span
-                                  className="remove-button"
-                                  translate-data="Remove"
-                                  data-tooltip="Remove"
-                                  onClick={removeExperience}
-                                >
-                                  <svg
-                                    width="24"
-                                    height="24"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  >
-                                    <path
-                                      d="M5 12H19"
-                                      stroke="currentColor"
-                                      strokeWidth="2"
-                                      stroke-linecap="round"
-                                      stroke-linejoin="round"
-                                    ></path>
-                                  </svg>
-                                </span>
-                                <span
-                                  className="reorder-button"
-                                  translate-data="Reorder"
-                                  data-tooltip="Reorder"
-                                  {...provided.dragHandleProps}
-                                >
-                                  <svg
-                                    width="24"
-                                    height="24"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  >
-                                    <path
-                                      d="M7 15L12 20L17 15M7 9L12 4L17 9"
-                                      stroke="currentColor"
-                                      strokeWidth="2"
-                                      stroke-linecap="round"
-                                      stroke-linejoin="round"
-                                    ></path>
-                                  </svg>
-                                </span>
+                              <RemoveButton index={index} removeFunc={removeExperience} />
+                              <ReorderButton provided={provided} />
                               </>
                             )}
-                            <span
-                              className="add-button"
-                              translate-data="Add"
-                              data-tooltip="Add"
-                              onClick={addExperience}
-                            >
-                              <svg
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M12 5V19M5 12H19"
-                                  stroke="currentColor"
-                                  strokeWidth="2"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                ></path>
-                              </svg>
-                            </span>
+                            <AddButton addFunc={addExperience} />
                           </div>
                         </div>
                       </div>

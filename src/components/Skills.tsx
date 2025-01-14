@@ -96,9 +96,6 @@ const Skills: React.FC<{
                     <div
                       ref={provided.innerRef}
                       {...provided.draggableProps}
-                      className={`relative group border border-transparent rounded-md hover:border-gray-300 transition-all ${
-                        snapshot.isDragging ? "bg-gray-100 shadow-md" : ""
-                      } ${hoveredIndex === index ? "bg-gray-100 shadow-md" : ""}`}
                       onMouseEnter={() => setHoveredIndex(index)} // Set hovered index
                       onMouseLeave={() => setHoveredIndex(null)} // Clear hovered index
                     >

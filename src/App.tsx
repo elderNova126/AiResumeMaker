@@ -61,7 +61,12 @@ function App() {
     const auth = localStorage.getItem("auth_token");
     setToken(auth);
   }, [token]);
-
+  useEffect(() => {
+    document.documentElement.style.setProperty(
+      "--main-color",
+      themeColor
+    );
+  }, [themeColor]);
   const [visibleSections, setVisibleSections] = useState<string[]>([
     "location",
     "phone",

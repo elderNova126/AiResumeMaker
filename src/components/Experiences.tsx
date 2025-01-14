@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import {
   DragDropContext,
   Droppable,
@@ -6,7 +6,6 @@ import {
   DropResult,
 } from "react-beautiful-dnd";
 import { Trash } from "lucide-react";
-import AutoResizeField from "./AutoResizeField";
 import WorkExperienceEditor from "./WorkExperienceEditor";
 import Ai_Modal from "./../components/Ai_Modal";
 
@@ -21,8 +20,8 @@ const Experiences: React.FC<{
   setExperiences: React.Dispatch<React.SetStateAction<ExperienceType[]>>;
   experiences: ExperienceType[];
   themeColor: string;
-  isATS: boolean;
-}> = ({ setExperiences, experiences, themeColor, isATS = false }) => {
+  // isATS: boolean;
+}> = ({ setExperiences, experiences, themeColor }) => {
 
   const [showAiDialog, setShowAiDialog] = useState(false);
 
@@ -82,13 +81,13 @@ const Experiences: React.FC<{
     setExperiences(updatedExperiences);
   };
   return (
-    <div className="py-2">
+    <div id="work">
       <h2
-        className="text-xl sm:text-xl font-bold my-3"
-        style={{ color: themeColor }}
-      >
-        EXPERIENCE
-      </h2>
+        contentEditable="true"
+        translate-data="Experience"
+        placeholder="Experience"
+        data-gramm="false"
+      ></h2>
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="experiences">
           {(provided) => (
@@ -107,150 +106,117 @@ const Experiences: React.FC<{
                     <div
                       ref={provided.innerRef}
                       {...provided.draggableProps}
-                      className={`relative group border border-transparent rounded-md hover:border-gray-300 transition-all ${
-                        snapshot.isDragging ? "bg-gray-100 shadow-md" : ""
-                      }`}
+                      className={`relative group border border-transparent rounded-md hover:border-gray-300 transition-all ${snapshot.isDragging ? "bg-gray-100 shadow-md" : ""
+                        }`}
                     >
-                      
-                      {experiences.length > 1 ? (
-                        <>
-                          <button
-                            type="button"
-                            className="zorder-top absolute -top-3 right-16 hidden group-hover:flex items-center justify-center w-6 h-6 bg-orange-600 text-white rounded-full shadow-md hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
-                            onClick={() => removeExperience(index)}
-                            aria-label="Remove Experience"
-                          >
-                            <Trash className="h-4 w-4" />
-                          </button>
-                          <div
-                            style={{ cursor: "pointer" }}
-                            className="zorder-top absolute -top-3 right-9 hidden group-hover:flex items-center justify-center w-6 h-6 bg-orange-600 text-white rounded-full shadow-md hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
-                            {...provided.dragHandleProps}
-                          >
-                            <svg
-                              width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path
-                                d="M7 15L12 20L17 15M7 9L12 4L17 9" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round"  stroke-linejoin="round"
-                              ></path>
-                            </svg>
-                          </div>
-                          <button
-                            type="button"
-                            className="zorder-top absolute -top-3 right-[94px] hidden text-default-sm group-hover:flex items-center justify-center h-6 bg-orange-600 text-white rounded-full shadow-md hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
-                            onClick={() => setShowAiDialog(true)}
-                            aria-label="Add AI"
-                            style={{ width: "145px"}}
-                          >
-                            ✧ Writing Assistant
-                          </button>
-                        </>                        
-                      ):(
-                        <button
-                          type="button"
-                          className="zorder-top absolute -top-3 right-9 hidden group-hover:flex text-text-default-sm items-center justify-center h-6 bg-orange-600 text-white rounded-full shadow-md hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
-                          onClick={() => setShowAiDialog(true)}
-                          aria-label="Add AI"
-                          style={{ width: "145px"}}>✧ Writing Assistant </button>
-                      )}
-                      <button
-                        type="button"
-                        className="zorder-top absolute -top-3 right-2 hidden group-hover:flex items-center justify-center w-6 h-6 bg-orange-600 text-white rounded-full shadow-md hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
-                        onClick={addExperience}
-                        aria-label="Add Experience"
-                      >
-                        +
-                      </button>
-                      {isATS ? (
-                        <div className="pl-8 p-2">
-                          <div className="relative flex items-center gap-2">
-                            <div className="timeline_bola color_estrellas" style={{ background: themeColor }}></div>
-                            <AutoResizeField
-                              value={experience.position}
-                              className="p-2 textEdit text-pad font-semibold border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200"
+                      <div className="sortable-wrapper">
+                        <div className="with-border">
+                          <h3
+                            contentEditable="true"
+                            translate-data="Employer"
+                            placeholder="Employer"
+                            data-gramm="false"
+                            spellcheck="false"
+                            onInput={(e) => updateExperience(index, "company", e.currentTarget.textContent)}
+                          >{experience.company}</h3>
+                          <div>
+                            <h4
+                              contentEditable="true"
+                              translate-data="Position"
                               placeholder="Position"
-                              onChange={(value) =>
-                                updateExperience(index, "position", value)
-                              }
-                              flag={true}
-                            />
-                            <span className="text-gray-400">|</span>
-                            <AutoResizeField
-                              value={experience.company}
-                              className="p-2 textEdit text-pad font-semibold placeholder-black-600  border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200"
-                              placeholder="Company"
-                              onChange={(value) =>
-                                updateExperience(index, "company", value)
-                              }
-                              flag={true}
-                            />
-                          </div>
-                          <div className="relative flex items-center gap-2">
-                            <AutoResizeField
-                              value={experience.dateRange}
-                              className="p-2 textEdit text-pad border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200"
-                              placeholder="Date Range"
-                              onChange={(value) =>
-                                updateExperience(index, "dateRange", value)
-                              }
-                              flag={true}
-                            />
-                            <span className="text-gray-400">|</span>
-                            <AutoResizeField
-                              value={experience.location}
-                              className="p-2 textEdit text-pad border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200"
-                              placeholder="Location"
-                              flag={true}
-                            />
+                              data-gramm="false"
+                              onInput={(e) => updateExperience(index, "position", e.currentTarget.textContent)}
+                            >{experience.position}</h4>
+                            <p
+                              contentEditable="true"
+                              translate-data="From - Until"
+                              placeholder="From - Until"
+                              data-gramm="false"
+                              onInput={(e) => updateExperience(index, "dateRange", e.currentTarget.textContent)}
+                            >{experience.dateRange}</p>
                           </div>
                           <WorkExperienceEditor
                             initialDescription={experience.description}
                             updateExperience={updateExperienceByDescription}
                             index={index}
                           />
-                        </div>
-                      ) : (
-                        <div style={{ paddingLeft: "2rem" }}>
-                          <div style={{ position: "relative" }}>
-                            <div
-                              className="timeline_bola color_estrellas"
-                              style={{ background: themeColor }}
-                            ></div>
-                            <AutoResizeField
-                              value={experience.company}
-                              className="p-2 textEdit text-pad font-semibold w-full border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200"
-                              placeholder="Company Name"
-                              onChange={(value) =>
-                                updateExperience(index, "company", value)
-                              }
-                            />
+                          <div className="btn-edit">
+                            <span
+                              className="writing-assistant"
+                              onClick="openModal('Experience', this)"
+                              translate-data="✧ Writing Assistant"
+                            >
+                              ✧ Writing Assistant
+                            </span>
+                            <span
+                              className="remove-button"
+                              translate-data="Remove"
+                              data-tooltip="Remove"
+                              onClick={removeExperience}
+                            >
+                              <svg
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M5 12H19"
+                                  stroke="currentColor"
+                                  strokeWidth="2"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                ></path>
+                              </svg>
+                            </span>
+                            <span
+                              className="reorder-button"
+                              translate-data="Reorder"
+                              data-tooltip="Reorder"
+                              {...provided.dragHandleProps}
+                            >
+                              <svg
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M7 15L12 20L17 15M7 9L12 4L17 9"
+                                  stroke="currentColor"
+                                  strokeWidth="2"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                ></path>
+                              </svg>
+                            </span>
+                            <span
+                              className="add-button"
+                              translate-data="Add"
+                              data-tooltip="Add"
+                              onClick={addExperience}
+                            >
+                              <svg
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M12 5V19M5 12H19"
+                                  stroke="currentColor"
+                                  strokeWidth="2"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                ></path>
+                              </svg>
+                            </span>
                           </div>
-                          <div className="flex justify-between gap-4">
-                            <AutoResizeField
-                              value={experience.position}
-                              className="p-2 textEdit text-pad border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none w-full rounded-md transition ease-in-out duration-200"
-                              placeholder="Position"
-                              onChange={(value) =>
-                                updateExperience(index, "position", value)
-                              }
-                            />
-                            <AutoResizeField
-                              value={experience.dateRange}
-                              style={{ width: "30%" }}
-                              className="p-2 textEdit text-pad border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200"
-                              placeholder="From ~ Until"
-                              onChange={(value) =>updateExperience(index, "dateRange", value)}
-                              flag={true}
-                              
-                            />
-                          </div>
-                          <WorkExperienceEditor
-                            initialDescription={experience.description}
-                            updateExperience={updateExperienceByDescription}
-                            index={index}
-                          />
                         </div>
-                      )}
+                      </div>
 
                       {experiences.length > 1 &&
                         experiences.length - 1 > index && (
@@ -265,7 +231,7 @@ const Experiences: React.FC<{
               ))}
               {provided.placeholder}
             </div>
-            
+
           )}
         </Droppable>
       </DragDropContext>

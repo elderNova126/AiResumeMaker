@@ -65,7 +65,7 @@ const Educations: React.FC<{
   return (
     <div id="education">
       <h2
-        contenteditable="true"
+        contentEditable="true"
         translate-data="Education"
         placeholder="Education"
         data-gramm="false"
@@ -88,29 +88,28 @@ const Educations: React.FC<{
                     <div
                       ref={provided.innerRef}
                       {...provided.draggableProps}
-                      className={`relative group border border-transparent rounded-md hover:border-gray-300 transition-all ${
-                        snapshot.isDragging ? "bg-gray-100 shadow-md" : ""
-                      }`}
+                      className={`relative group border border-transparent rounded-md hover:border-gray-300 transition-all ${snapshot.isDragging ? "bg-gray-100 shadow-md" : ""
+                        }`}
                     >
                       <div className="sortable-wrapper">
                         <div className="with-border">
                           <h3
-                            contenteditable="true"
+                            contentEditable="true"
                             translate-data="School"
                             placeholder="School"
                             data-gramm="false"
                             spellcheck="false"
-                            style={{color: themeColor}}
+                            style={{ color: themeColor }}
                           >{education.school}</h3>
                           <div>
                             <h4
-                              contenteditable="true"
+                              contentEditable="true"
                               translate-data="Degree"
                               placeholder="Degree"
                               data-gramm="false"
                             >{education.degree}</h4>
                             <p
-                              contenteditable="true"
+                              contentEditable="true"
                               translate-data="From - Until"
                               placeholder="From - Until"
                               data-gramm="false"
@@ -133,7 +132,7 @@ const Educations: React.FC<{
                                 <path
                                   d="M5 12H19"
                                   stroke="currentColor"
-                                  stroke-width="2"
+                                  strokeWidth="2"
                                   stroke-linecap="round"
                                   stroke-linejoin="round"
                                 ></path>
@@ -155,7 +154,7 @@ const Educations: React.FC<{
                                 <path
                                   d="M7 15L12 20L17 15M7 9L12 4L17 9"
                                   stroke="currentColor"
-                                  stroke-width="2"
+                                  strokeWidth="2"
                                   stroke-linecap="round"
                                   stroke-linejoin="round"
                                 ></path>
@@ -177,7 +176,7 @@ const Educations: React.FC<{
                                 <path
                                   d="M12 5V19M5 12H19"
                                   stroke="currentColor"
-                                  stroke-width="2"
+                                  strokeWidth="2"
                                   stroke-linecap="round"
                                   stroke-linejoin="round"
                                 ></path>

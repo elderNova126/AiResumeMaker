@@ -47,6 +47,7 @@ const WorkExperienceEditor: React.FC<WorkExperienceEditorProps> = ({
   }, [initialDescription]);
 
   const handleChange = (newValue: string) => {
+    console.log(newValue);
     setValue(newValue);
 
     // Convert HTML to description array and update the parent
@@ -55,17 +56,17 @@ const WorkExperienceEditor: React.FC<WorkExperienceEditorProps> = ({
   };
 
   return (
-    <div className="work-experience-editor">
-      <ReactQuill
-        className="textEdit rounded-md w-full bg-transparent border-gray-300 hover:border-gray-400 focus:border-emerald-500 focus:outline-none transition-all"
-        modules={{ toolbar: false }}
-        style={{ border: "none", paddingLeft: "0px" }}
-        theme="snow"
-        value={value}
-        onChange={handleChange}
-        placeholder="Enter Description"
+    <span>
+      <p
+        contentEditable="true"
+        translate-data="Enter your work experience description"
+        placeholder="Enter your work experience description"
+        data-gramm="false"
+        onInput={(e) => handleChange(e.currentTarget.innerHTML || '')}
+        // Use dangerouslySetInnerHTML to display HTML
+        dangerouslySetInnerHTML={{ __html: value }}
       />
-    </div>
+    </span>
   );
 };
 

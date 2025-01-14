@@ -26,7 +26,7 @@ const LanguagesSection: React.FC<{
   languages: LanguageType[];
   themeColor: string;
   isSplit: boolean;
-}> = ({ setLanguages, languages, themeColor, isSplit=false }) => {
+}> = ({ setLanguages, languages, themeColor, isSplit = false }) => {
   const reorder = (
     list: LanguageType[],
     startIndex: number,
@@ -86,7 +86,7 @@ const LanguagesSection: React.FC<{
             <div
               {...provided.droppableProps}
               ref={provided.innerRef}
-              className={`${isSplit?"flex-wrap":"grid grid-cols-3 grid-auto-flow-column"}`}
+              className={`${isSplit ? "flex-wrap" : "grid grid-cols-3 grid-auto-flow-column"}`}
             >
               {languages.map((language, index) => (
                 <Draggable
@@ -98,9 +98,8 @@ const LanguagesSection: React.FC<{
                     <div
                       ref={provided.innerRef}
                       {...provided.draggableProps}
-                      className={`relative group border border-transparent rounded-md hover:border-gray-300 transition-all flex-shrink-0 ${
-                        snapshot.isDragging ? "bg-gray-100 shadow-md" : ""
-                      }`}
+                      className={`relative group border border-transparent rounded-md hover:border-gray-300 transition-all flex-shrink-0 ${snapshot.isDragging ? "bg-gray-100 shadow-md" : ""
+                        }`}
                     >
                       {languages.length > 1 && (
                         <>
@@ -127,7 +126,7 @@ const LanguagesSection: React.FC<{
                               <path
                                 d="M7 15L12 20L17 15M7 9L12 4L17 9"
                                 stroke="currentColor"
-                                stroke-width="2"
+                                strokeWidth="2"
                                 stroke-linecap="round"
                                 stroke-linejoin="round"
                               ></path>
@@ -304,7 +303,7 @@ export default LanguagesSection;
 //                             {...provided.dragHandleProps}
 //                           >
 //                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-//                             <path d="M7 15L12 20L17 15M7 9L12 4L17 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+//                             <path d="M7 15L12 20L17 15M7 9L12 4L17 9" stroke="currentColor" strokeWidth="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
 //                           </div>
 //                         </>
 //                       )}

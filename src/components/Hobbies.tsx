@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Contenteditable from "./Contenteditable";
 import {
   DragDropContext,
@@ -13,12 +13,13 @@ import AddButton from "./AddButton";
 interface HobbyType {
   name: string;
 }
-
 const Hobbies: React.FC<{
   setHobbies: React.Dispatch<React.SetStateAction<HobbyType[]>>;
   hobbies: HobbyType[];
   themeColor: string;
 }> = ({ setHobbies, hobbies, themeColor }) => {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null); // Track hovered item
+
   const reorder = (
     list: HobbyType[],
     startIndex: number,
@@ -50,7 +51,10 @@ const Hobbies: React.FC<{
     const confirmed = window.confirm(
       "Are you sure you want to delete this hobby?"
     );
-    if (confirmed) setHobbies(hobbies.filter((_, i) => i !== index));
+    if (confirmed) {
+      // Fix: Remove the selected item by the correct index
+      setHobbies(hobbies.filter((_, i) => i !== index));
+    }
   };
 
   const updateHobby = (index: number, key: keyof HobbyType, value: string) => {
@@ -59,8 +63,6 @@ const Hobbies: React.FC<{
     );
     setHobbies(updatedHobbies);
   };
-
-  console.log("hobbies: ", hobbies);
 
   return (
     <div id="hobbies" className="list with-border">
@@ -90,7 +92,11 @@ const Hobbies: React.FC<{
                       {...provided.draggableProps}
                       className={`relative group border border-transparent rounded-md hover:border-gray-300 transition-all ${
                         snapshot.isDragging ? "bg-gray-100 shadow-md" : ""
-                      }`}
+                      } ${
+                        hoveredIndex === index ? "bg-gray-100 shadow-md" : ""
+                      }`} // Apply hover effect styles
+                      onMouseEnter={() => setHoveredIndex(index)} // Set hovered index
+                      onMouseLeave={() => setHoveredIndex(null)} // Clear hovered index
                     >
                       <Contenteditable
                         value={hobby.name}
@@ -104,16 +110,16 @@ const Hobbies: React.FC<{
                         data-gramm="false"
                       />
                       <div className="btn-edit">
-                        {hobbies.length > 1 && (
+                        {hobbies.length > 1 && hoveredIndex === index && ( // Show buttons only for hovered item
                           <>
                             <RemoveButton
                               index={index}
-                              removeFunc={removeHobby}
+                              removeFunc={removeHobby} // Pass index directly
                             />
                             <ReorderButton provided={provided} />
                           </>
                         )}
-                        <AddButton addFunc={addHobby} />
+                        {hoveredIndex === index && <AddButton addFunc={addHobby} />}
                       </div>
                     </div>
                   )}

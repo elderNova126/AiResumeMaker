@@ -18,6 +18,9 @@ interface Language {
   name: string;
   level: string;
 }
+interface Hobby {
+  name: string;
+}
 interface UserContextProps {
   name: string;
   setName: React.Dispatch<React.SetStateAction<string>>;
@@ -45,6 +48,8 @@ interface UserContextProps {
   setLanguages: React.Dispatch<React.SetStateAction<Language[]>>;  
   avatar: string;
   setAvatar: React.Dispatch<React.SetStateAction<string>>;  
+  hobbies: Hobby[]
+  setHobbies: React.Dispatch<React.SetStateAction<Hobby[]>>;  
 }
 
 const UserContext = createContext<UserContextProps | undefined>(undefined);
@@ -77,6 +82,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   ]);
     const [skills, setSkills] = useState([{ skillname: "" }]);
     const [languages, setLanguages] = useState([{ name: "", level:"" }]);
+    const [hobbies, setHobbies] = useState([{ name: "" }]);
   const [avatar, setAvatar] = useState(
     ""
   );    
@@ -109,6 +115,8 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
         setLanguages,
         avatar,
         setAvatar,
+        hobbies,
+        setHobbies,
       }}
     >
       {children}

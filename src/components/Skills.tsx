@@ -1,13 +1,14 @@
-import React, {useState} from "react";
+import React from "react";
+import Contenteditable from "./Contenteditable";
 import {
   DragDropContext,
   Droppable,
   Draggable,
   DropResult,
 } from "react-beautiful-dnd";
-import AutoResizeField from "./AutoResizeField";
-import { Trash } from "lucide-react";
-import Ai_Modal from "./../components/Ai_Modal";
+import RemoveButton from "./RemoveButton";
+import ReorderButton from "./ReorderButton";
+import AddButton from "./AddButton";
 
 interface SkillType {
   skillname: string;
@@ -17,9 +18,6 @@ const Skills: React.FC<{
   skills: SkillType[];
   themeColor: string;
 }> = ({ setSkills, skills, themeColor }) => {
-  const [showAiDialog, setShowAiDialog] = useState(false);
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null); // Track hovered item
-
   const reorder = (
     list: SkillType[],
     startIndex: number,
@@ -48,47 +46,36 @@ const Skills: React.FC<{
   };
 
   const removeSkill = (index: number) => {
-    const confirmed = window.confirm("Are you sure you want to delete item?");
-    if (confirmed) {
-      setSkills(skills.filter((_, i) => i !== index));
-    }
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this skill?"
+    );
+    if (confirmed) setSkills(skills.filter((_, i) => i !== index));
   };
 
-  const updateSkill = (
-    index: number,
-    key: keyof SkillType,
-    value: string
-  ) => {
+  const updateSkill = (index: number, key: keyof SkillType, value: string) => {
     const updatedSkills = skills.map((skill, i) =>
       i === index ? { ...skill, [key]: value } : skill
     );
     setSkills(updatedSkills);
   };
 
+  console.log("skills: ", skills);
+
   return (
-    <div className="py-2 relative group border border-transparent rounded-md hover:border-gray-300 transition-all">
+    <div id="skills" className="list with-border">
       <h2
-        className="text-xl sm:text-xl font-bold mb-2"
-        style={{ color: themeColor }}
-      >
-        SKILLS
-      </h2>
-      <button
-        type="button"
-        className="zorder-top absolute -top-3 right-2 hidden text-default-sm group-hover:flex items-center justify-center h-6 bg-orange-600 text-white rounded-full shadow-md hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
-        onClick={() => setShowAiDialog(true)}
-        aria-label="Add AI"
-        style={{ width: "145px" }}
-      >
-        ✧ Writing Assistant
-      </button>
+        contentEditable="true"
+        translate-data="Skills"
+        placeholder="Skills"
+        data-gramm="false"
+      ></h2>
       <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable droppableId="skills" direction="horizontal">
+        <Droppable droppableId="skills">
           {(provided) => (
             <div
               {...provided.droppableProps}
               ref={provided.innerRef}
-              className="flex flex-wrap gap-2"
+              style={{display:"contents"}}
             >
               {skills.map((skill, index) => (
                 <Draggable
@@ -100,65 +87,30 @@ const Skills: React.FC<{
                     <div
                       ref={provided.innerRef}
                       {...provided.draggableProps}
-                      className={`relative group border border-transparent rounded-md hover:border-gray-300 transition-all flex-shrink-0 ${
-                        snapshot.isDragging ? "bg-gray-100 shadow-md" : ""
-                      }`}
-                      onMouseEnter={() => setHoveredIndex(index)} // Set hovered index
-                      onMouseLeave={() => setHoveredIndex(null)} // Clear hovered index
                     >
-                      {hoveredIndex === index && skills.length > 1 && (
-                        <>
-                          <button
-                            type="button"
-                            className="absolute -top-3 right-16 flex items-center justify-center w-6 h-6 bg-orange-600 text-white rounded-full shadow-md hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
-                            onClick={() => removeSkill(index)}
-                            aria-label="Remove Skill"
-                          >
-                            <Trash className="h-4 w-4" />
-                          </button>
-                          <div
-                            style={{ cursor: "pointer" }}
-                            className="absolute -top-3 right-9 flex items-center justify-center w-6 h-6 bg-orange-600 text-white rounded-full shadow-md hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
-                            {...provided.dragHandleProps}
-                          >
-                            <svg
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M7 15L12 20L17 15M7 9L12 4L17 9"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              ></path>
-                            </svg>
-                          </div>
-                        </>
-                      )}
-                      {hoveredIndex === index && (
-                        <button
-                          type="button"
-                          className="absolute -top-3 right-2 flex items-center justify-center w-6 h-6 bg-orange-600 text-white rounded-full shadow-md hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
-                          onClick={addSkill}
-                          aria-label="Add Skill"
-                        >
-                          +
-                        </button>
-                      )}
-
-                      <AutoResizeField
+                      <Contenteditable
                         value={skill.skillname}
-                        className="p-2 textEdit text-pad border-b border-transparent min-w-[130px] hover:border-gray-300 bg-gray-100 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200 max-w-[400px]"
-                        placeholder="Skill Name"
-                        onChange={(value) =>
-                          updateSkill(index, "skillname", value)
-                        }
-                        flag={true}
+                        onChange={(updatedContent) => {
+                          updateSkill(index, "skillname", updatedContent);
+                        }}
+                        as="p"
+                        placeholder="Enter skill"
+                        className=""
+                        translate-data="Enter skill"
+                        data-gramm="false"
                       />
+                      <div className="btn-edit">
+                        {skills.length > 1 && (
+                          <>
+                            <RemoveButton
+                              index={index}
+                              removeFunc={removeSkill}
+                            />
+                            <ReorderButton provided={provided} />
+                          </>
+                        )}
+                        <AddButton addFunc={addSkill} />
+                      </div>
                     </div>
                   )}
                 </Draggable>
@@ -168,12 +120,15 @@ const Skills: React.FC<{
           )}
         </Droppable>
       </DragDropContext>
-      {showAiDialog && (
-        <Ai_Modal
-          onClose={() => setShowAiDialog(false)}
-          headerText={"Skill"}
-        />
-      )}
+      <span className="btn-edit">
+                <span
+                  className="writing-assistant"
+                  onClick="openModal('Skills', this)"
+                  translate-data="✧ Writing Assistant"
+                >
+                  ✧ Writing Assistant
+                </span>
+              </span>
     </div>
   );
 };

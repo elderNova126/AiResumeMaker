@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Contenteditable from "./Contenteditable";
 import AutoResizeField from "./AutoResizeField";
 import Ai_Modal from "./../components/Ai_Modal";
 
@@ -19,22 +20,18 @@ const AboutMe: React.FC<AboutMeProps> = ({ setAbout, about, themeColor }) => {
         style={{ color: themeColor }}
       ></h2>
       <span>
-        <p
-          contentEditable="true"
-          translate-data="Enter your professional summary"
+        <Contenteditable
+          value={about}
+          onChange={(updatedContent) => {
+            setAbout(updatedContent);
+          }}
+          as="p"
           placeholder="Enter your professional summary"
-          data-gramm="false"
-          onInput={(e) => setAbout(e.currentTarget.textContent)}
-        >{about}</p>
+        />
       </span>
       <div className="btn-edit">
-        <span
-          className="writing-assistant"
-          onClick="openModal('Summary')"
-        >
-          <span translate-data="✧ Writing Assistant">
-            ✧ Writing Assistant
-          </span>
+        <span className="writing-assistant" onClick="openModal('Summary')">
+          <span translate-data="✧ Writing Assistant">✧ Writing Assistant</span>
         </span>
       </div>
     </div>
@@ -45,7 +42,6 @@ const AboutMe: React.FC<AboutMeProps> = ({ setAbout, about, themeColor }) => {
     //       headerText={'About Me'}
     //     />
     //   )}
-
   );
 };
 

@@ -1,4 +1,5 @@
-import SplitLayout from "./layouts/SplitLayout";
+// import SplitLayout from "./layouts/SplitLayout";
+import SplitLayout from "./layouts/SplitLayout_test";
 import ClassicLayout from "./layouts/ClassicLayout";
 import HybridLayout from "./layouts/HybridLayout";
 import PreviewResumeSplit from "../resumePDF/PreviewResumeSplit";

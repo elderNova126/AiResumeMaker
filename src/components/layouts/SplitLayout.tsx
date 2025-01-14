@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 import { FileUp } from "lucide-react";
-import { SvgIcon, MailSvgPath, PhoneSvgPath, LinkedSvgPath, WebsiteSvgPath, LocationSvgPath,} from "../../consts/SvgConst";
+import {
+  SvgIcon,
+  MailSvgPath,
+  PhoneSvgPath,
+  LinkedSvgPath,
+  WebsiteSvgPath,
+  LocationSvgPath,
+} from "../../consts/SvgConst";
 import AutoResizeField from "../AutoResizeField";
 import AboutMe from "../AboutMe";
 import Experiences from "../Experiences";
@@ -8,7 +15,6 @@ import Educations from "../Educations";
 import Skills from "../Skills";
 import LanguagesSection from "../Languages";
 import { useUser } from "../../context/UserContext";
-
 
 interface SplitLayoutProps {
   themeColor: string;
@@ -80,40 +86,47 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
   };
 
   return (
-    <div className="print:!scale-100 print:mx-0 mb-2 print:mb-0 bg-white flex flex-col justify-between shadow-lg mx-auto mt-8 sm:mt-12 w-full sm:w-[90%] md:w-[80%] lg:w-[70%] xl:w-[60%] p-6 sm:p-10 rounded-md min-h-[1200px]">
-      <div className="grid grid-cols-1 md:grid-cols-3">
-        {/* Header */}
-        <div
-          className={`col-span-1 md:col-span-3 p-4 flex items-start ${
-            visibleSections.includes("picture") ? "space-x-8" : "justify-start"
-          } border-b`}
-        >
+    <div className="min-h-[92.61rem] w-[74.41rem] bg-white relative mx-auto overflow-hidden text-0 flex flex-col p-[3.3rem] gap-[1.1rem]">
+      <div className="flex flex-row gap-8">
+        {/* First Column */}
+        <div className="flex flex-col gap-16 w-1/4">
           {visibleSections.includes("picture") && (
-            <div
-              className="w-32 h-32 sm:w-48 sm:h-48 rounded-full overflow-hidden shadow-md relative bg-gray-300 group cursor-pointer"
-              onClick={handleUpload}
-            >
-              <img
-                src={avatar}
-                className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <FileUp className="h-6 w-6 text-white mb-2" />
-                <span className="text-white font-semibold text-sm">
-                  Select Your Picture
-                </span>
-              </div>
-              <input
-                id="fileInput"
-                type="file"
-                accept="image/*"
-                className="hidden"
-                onChange={handleChange}
-              />
+            <div className="relative aspect-square w-32 sm:w-48 rounded-full cursor-pointer bg-gray-400 flex items-center justify-center overflow-hidden">
+              {avatar ? (
+                <img
+                  src={avatar}
+                  alt="Uploaded avatar"
+                  className="w-full h-full object-cover rounded-full"
+                  onClick={handleUpload}
+                />
+              ) : (
+                <label
+                  className="w-full h-full flex flex-col items-center justify-center text-white font-semibold text-sm bg-gray-400 rounded-full transition-opacity hover:opacity-80"
+                  onClick={handleUpload}
+                >
+                  <span className="opacity-75 mb-2">Select Your Picture</span>
+                  <div
+                    className="w-8 h-8 bg-white rounded-full flex items-center justify-center"
+                    style={{
+                      backgroundImage: "url('data:image/svg+xml;base64,...')",
+                    }}
+                  ></div>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={handleChange}
+                  />
+                </label>
+              )}
             </div>
           )}
+        </div>
 
-          <div className="flex flex-col justify-center items-center justify-center items-center"
+        {/* Second Column */}
+        <div className="flex flex-col gap-16 w-3/4">
+          <div
+            className="flex flex-col justify-center items-center justify-center items-center"
             style={{
               // display: "ruby",
               placeItems: visibleSections.includes("picture")
@@ -149,9 +162,11 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
             )}
           </div>
         </div>
-
-        {/* Left Column */}
-        <div className="col-span-1 bg-gray-50 p-2 rounded-md shadow-md min-h-[1000px]">
+      </div>
+      {/* main */}
+      <div className="flex flex-row gap-8">
+        {/* First Column */}
+        <div className="flex flex-col gap-16 w-1/4">
           <h2
             className="text-lg sm:text-xl font-bold py-3"
             style={{ color: themeColor }}
@@ -233,8 +248,8 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
           )}
         </div>
 
-        {/* Right Column */}
-        <div className="col-span-1 md:col-span-2 p-6"  style={{ paddingTop: "0px" }}>
+        {/* Second Column */}
+        <div className="flex flex-col gap-16 w-3/4">
           {visibleSections.includes("experience") && (
             <Experiences
               setExperiences={setExperiences}

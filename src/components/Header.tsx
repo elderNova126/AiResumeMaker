@@ -166,7 +166,7 @@ const Header: React.FC<HeaderProps> = ({
 
   return (
     <>
-      <header className="w-full bg-white shadow-sm py-4 px-6 fixed top-0 z-50  print:hidden">
+      <header className="w-full bg-white shadow-sm py-4 px-6 fixed top-0 z-50 print:hidden scale-[1.82] ">
         <div className="max-w-7xl mx-auto grid grid-cols-3 items-center">
           <div
             className="flex items-center space-x-2"

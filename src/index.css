@@ -1553,14 +1553,7 @@ span p {
 .reorder-button svg {
   width: 1.8rem !important;
 }
-.sortable-wrapper .with-border:only-of-type .remove-button,
-.sortable-wrapper .with-border:only-of-type .reorder-button {
-  display: none;
-}
-.list > div:only-of-type .remove-button,
-.list > div:only-of-type .reorder-button {
-  display: none;
-}
+
 .sortable .ui-sortable-handle:active,
 .reorder-button:active,
 .ui-sortable-helper *,
@@ -2313,9 +2306,6 @@ span.o--Button--children {
   .list div:last-child .btn-edit .remove-button,
   .list div:only-of-type .btn-edit .remove-button,
   .list div:last-child .btn-edit .reorder-button,
-  .list div:only-of-type .btn-edit .reorder-button {
-    display: none;
-  }
   .list div:hover .btn-edit .reorder-button,
   .list div:hover .btn-edit .remove-button {
     display: flex;

@@ -7,6 +7,7 @@ import {
 } from "react-beautiful-dnd";
 import AutoResizeField from "./AutoResizeField";
 import { Trash } from "lucide-react";
+import { color } from "html2canvas/dist/types/css/types/color";
 
 interface EducationType {
   school: string;
@@ -18,8 +19,7 @@ const Educations: React.FC<{
   setEducations: React.Dispatch<React.SetStateAction<EducationType[]>>;
   educations: EducationType[];
   themeColor: string;
-  isATS: boolean;
-}> = ({ setEducations, educations, themeColor, isATS = false }) => {
+}> = ({ setEducations, educations, themeColor }) => {
   const reorder = (
     list: EducationType[],
     startIndex: number,
@@ -61,14 +61,15 @@ const Educations: React.FC<{
     );
     setEducations(updatedExperiences);
   };
+  console.log("educations: ", educations);
   return (
-    <div className="py-2">
+    <div id="education">
       <h2
-        className="text-xl sm:text-xl font-bold mb-2"
-        style={{ color: themeColor }}
-      >
-        EDUCATION
-      </h2>
+        contenteditable="true"
+        translate-data="Education"
+        placeholder="Education"
+        data-gramm="false"
+      ></h2>
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="educations">
           {(provided) => (
@@ -91,123 +92,100 @@ const Educations: React.FC<{
                         snapshot.isDragging ? "bg-gray-100 shadow-md" : ""
                       }`}
                     >
-                      {educations.length > 1 && (
-                        <>
-                          <button
-                            type="button"
-                            className="zorder-top absolute -top-3 right-16 hidden group-hover:flex items-center justify-center w-6 h-6 bg-orange-600 text-white rounded-full shadow-md hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
-                            onClick={() => removeEducation(index)} aria-label="Remove Education"><Trash className="h-4 w-4" /> </button>
-                          <div
-                            style={{ cursor: "pointer" }}
-                            className="zorder-top absolute -top-3 right-9 hidden group-hover:flex items-center justify-center w-6 h-6 bg-orange-600 text-white rounded-full shadow-md hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
-                            {...provided.dragHandleProps}
-                          >
-                            {" "}
-                            <svg
-                              width="24"  height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path
-                                d="M7 15L12 20L17 15M7 9L12 4L17 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                            </svg>
-                          </div>                          
-                        </>
-                      )}
-                      <button
-                        type="button"
-                        className="zorder-top absolute -top-3 right-2 hidden group-hover:flex items-center justify-center w-6 h-6 bg-orange-600 text-white rounded-full shadow-md hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition-all"
-                        onClick={addEducation}
-                        aria-label="Add Education"
-                      >
-                        +
-                      </button>
-                      {isATS ? (
-                        <div className="pl-8  p-2">
-                          <div className="relative flex items-center gap-2">
-                            <div className="timeline_bola color_estrellas" style={{ background: themeColor }}> </div>
-                            <AutoResizeField
-                              value={education.degree}
-                              className="p-2 textEdit text-pad border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none w-full rounded-md transition ease-in-out duration-200"
+                      <div className="sortable-wrapper">
+                        <div className="with-border">
+                          <h3
+                            contenteditable="true"
+                            translate-data="School"
+                            placeholder="School"
+                            data-gramm="false"
+                            spellcheck="false"
+                            style={{color: themeColor}}
+                          >{education.school}</h3>
+                          <div>
+                            <h4
+                              contenteditable="true"
+                              translate-data="Degree"
                               placeholder="Degree"
-                              onChange={(value) =>
-                                updateEducation(index, "degree", value)
-                              }
-                              flag={true}
-                            />
-                            <span className="text-gray-400">|</span>
-                            <AutoResizeField
-                              value={education.school}
-                              className="p-2 textEdit text-pad font-semibold placeholder-black-600 text-black-600 border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200"
-                              placeholder="University"
-                              onChange={(value) =>
-                                updateEducation(index, "school", value)
-                              }    
-                              flag={true}                          
-                            />
+                              data-gramm="false"
+                            >{education.degree}</h4>
+                            <p
+                              contenteditable="true"
+                              translate-data="From - Until"
+                              placeholder="From - Until"
+                              data-gramm="false"
+                            >{education.dateRange}</p>
                           </div>
-                          <div className="flex justify-between gap-4">
-                            <AutoResizeField
-                              value={education.dateRange}
-                              style={{ width: "30%" }}
-                              className="p-2 textEdit text-pad border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200"
-                              placeholder="Date Range"
-                              onChange={(value) =>
-                                updateEducation(index, "dateRange", value)
-                              }
-                              flag={true}
-                            />
+                          <div className="btn-edit">
+                            <span
+                              className="remove-button"
+                              translate-data="Remove"
+                              data-tooltip="Remove"
+                              onClick={() => removeEducation(index)}
+                            >
+                              <svg
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M5 12H19"
+                                  stroke="currentColor"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                ></path>
+                              </svg>
+                            </span>
+                            <span
+                              className="reorder-button"
+                              translate-data="Reorder"
+                              data-tooltip="Reorder"
+                              {...provided.dragHandleProps}
+                            >
+                              <svg
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M7 15L12 20L17 15M7 9L12 4L17 9"
+                                  stroke="currentColor"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                ></path>
+                              </svg>
+                            </span>
+                            <span
+                              className="add-button"
+                              translate-data="Add"
+                              data-tooltip="Add"
+                              onClick={addEducation}
+                            >
+                              <svg
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M12 5V19M5 12H19"
+                                  stroke="currentColor"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                ></path>
+                              </svg>
+                            </span>
                           </div>
-                          {educations.length > 1 &&
-                              educations.length - 1 > index && (
-                              <div
-                                className="timeline_linea"
-                                style={{ background: themeColor }}
-                              ></div>
-                            )}
                         </div>
-                      ) : (
-                        <div style={{ paddingLeft: "2rem" }}>
-                          <div style={{ position: "relative" }}>
-                            <div
-                              className="timeline_bola color_estrellas"
-                              style={{ background: themeColor }}
-                            ></div>
-                            <AutoResizeField
-                              value={education.school}
-                              className="p-2 textEdit text-pad font-semibold w-full border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200"
-                              placeholder="School Name"
-                              onChange={(value) =>
-                                updateEducation(index, "school", value)
-                              }
-                            />
-                          </div>
-                          <div className="flex justify-between gap-4">
-                            <AutoResizeField
-                              value={education.degree}
-                              className="p-2 textEdit text-pad border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none w-full rounded-md transition ease-in-out duration-200"
-                              placeholder="Degree"
-                              onChange={(value) =>
-                                updateEducation(index, "degree", value)
-                              }
-                            />
-                            <AutoResizeField
-                              value={education.dateRange}
-                              style={{ width: "30%" }}
-                              className="p-2 textEdit text-pad border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none rounded-md transition ease-in-out duration-200"
-                              placeholder="From ~ Until"
-                              onChange={(value) =>
-                                updateEducation(index, "dateRange", value)
-                              }
-                              flag={true}
-                            />
-                          </div>
-                            {educations.length > 1 &&
-                              educations.length - 1 > index && (
-                              <div
-                                className="timeline_linea"
-                                style={{ background: themeColor }}
-                              ></div>
-                            )}
-                        </div>
-                      )}
+                      </div>
                     </div>
                   )}
                 </Draggable>

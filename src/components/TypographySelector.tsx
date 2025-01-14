@@ -32,13 +32,13 @@ const TypographySelector = ({ value, options, color = '#10b981', onChange }: Typ
         {/* Font Selection */}
         <div>
           <label className="block text-default-sm font-medium  mb-2">Font</label>
-          <select 
+          <select
             className="w-full p-2 border text-default-sm rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500"
             value={value.font}
             onChange={(e) => onChange({ ...value, font: e.target.value })}
           >
             {options.map((option) => (
-              <option key={option.value} value={option.value}>
+              <option key={option.value} value={option.value} style={{ fontSize: "medium" }}>
                 {option.label}
               </option>
             ))}

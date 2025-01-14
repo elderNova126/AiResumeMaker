@@ -1,7 +1,7 @@
 // import SplitLayout from "./layouts/SplitLayout";
 import SplitLayout from "./layouts/SplitLayout_test";
-import ClassicLayout from "./layouts/ClassicLayout";
-import HybridLayout from "./layouts/HybridLayout";
+import ClassicLayout from "./layouts/ClassicLayout_test";
+import HybridLayout from "./layouts/HybridLayout_test";
 import PreviewResumeSplit from "../resumePDF/PreviewResumeSplit";
 import PreviewResumeClassic from "../resumePDF/PreviewResumeClassic";
 import PreviewResumeATS from "../resumePDF/PreviewResumeATS";

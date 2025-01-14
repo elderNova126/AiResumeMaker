@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FileDown, FileUp, ScrollText, Layout, Palette, Type, Layers, Phone,} from "lucide-react";
+import { FileDown, FileUp, ScrollText, Layout, Palette, Type, Layers, Phone, } from "lucide-react";
 // import { generatePDF } from '../utils/pdfGenerator';
 import ImportDialog from "./ImportDialog";
 import SelectorButton from "./SelectorButton";
@@ -71,8 +71,8 @@ const Header: React.FC<HeaderProps> = ({
     setIsDropdownOpen(isOpen);
   };
 
-  const handleImport = (data:string[]) => {
-    console.log("handleimport",data)
+  const handleImport = (data: string[]) => {
+    console.log("handleimport", data)
     setName(data.Name);
     setRole(data.Role);
     setLocation(data.Location);
@@ -82,7 +82,7 @@ const Header: React.FC<HeaderProps> = ({
     setLinkedin(data.Linkedin);
     setAbout(data.Profile);
 
-   
+
     const formattedSkills = data.Skills.map((item) => ({
       skillname: item,
     }));
@@ -166,7 +166,7 @@ const Header: React.FC<HeaderProps> = ({
 
   return (
     <>
-      <header className="w-full bg-white shadow-sm py-4 px-6 fixed top-0 z-50 print:hidden scale-[1.82] ">
+      <header className="w-full bg-white shadow-sm py-4 px-6 fixed top-[15px] z-50 scale-[1.82] ">
         <div className="max-w-7xl mx-auto grid grid-cols-3 items-center">
           <div
             className="flex items-center space-x-2"
@@ -239,130 +239,127 @@ const Header: React.FC<HeaderProps> = ({
             </button>
             {/* Use PDFDownloadLink for downloading */}
             {currentLayout === "split" &&
-            <PDFDownloadLink
-              document={
-                <ResumePDF
-                  themeColor={currentColor}
-                  name={name}
-                  role={role}
-                  location={location}
-                  email={email}
-                  phone={phone}
-                  websiteLink={website}
-                  linkedinLink={linkedin}
-                  summery={about}
-                  experiences={experiences}
-                  educations={educations}
-                  skills={skills}
-                  languages={languages}
-                  avatar={avatar}
-                  visibleSections={visibleSections}
-                  currentTypography={currentTypography}
-                />
-              }
-              fileName="split_Resume.pdf"
-            >
-              <>
-              
-                <button
-                  className={`flex items-center space-x-2 px-4 py-2 text-default-sm text-white rounded-md transition-all hover:opacity-90 ${
-                    downloadingLoading ? "opacity-50" : ""
-                  }`}
-                  style={{ backgroundColor: currentColor }}
-                  disabled={downloadingLoading}
-                >
-                  <FileDown className="h-4 w-4" />
-                  <span>
-                    {downloadingLoading ? "Preparing..." : "Download"}
-                  </span>
-                </button>
-             
-              </>              
-            </PDFDownloadLink>}
+              <PDFDownloadLink
+                document={
+                  <ResumePDF
+                    themeColor={currentColor}
+                    name={name}
+                    role={role}
+                    location={location}
+                    email={email}
+                    phone={phone}
+                    websiteLink={website}
+                    linkedinLink={linkedin}
+                    summery={about}
+                    experiences={experiences}
+                    educations={educations}
+                    skills={skills}
+                    languages={languages}
+                    avatar={avatar}
+                    visibleSections={visibleSections}
+                    currentTypography={currentTypography}
+                  />
+                }
+                fileName="split_Resume.pdf"
+              >
+                <>
+
+                  <button
+                    className={`flex items-center space-x-2 px-4 py-2 text-default-sm text-white rounded-md transition-all hover:opacity-90 ${downloadingLoading ? "opacity-50" : ""
+                      }`}
+                    style={{ backgroundColor: currentColor }}
+                    disabled={downloadingLoading}
+                  >
+                    <FileDown className="h-4 w-4" />
+                    <span>
+                      {downloadingLoading ? "Preparing..." : "Download"}
+                    </span>
+                  </button>
+
+                </>
+              </PDFDownloadLink>}
             {currentLayout === "classic" &&
-            <PDFDownloadLink
-              document={
-                <ResumeClassicPDF
-                  themeColor={currentColor}
-                  name={name}
-                  role={role}
-                  location={location}
-                  email={email}
-                  phone={phone}
-                  websiteLink={website}
-                  linkedinLink={linkedin}
-                  summery={about}
-                  experiences={experiences}
-                  educations={educations}
-                  skills={skills}
-                  languages={languages}
-                  avatar={avatar}
-                  visibleSections={visibleSections}
-                  currentTypography={currentTypography}
-                />
-              }
-              fileName="Classic_Resume.pdf"
-            >
-              <>
-             
-                <button
-                  className={`flex items-center space-x-2 px-4 py-2 text-default-sm text-white rounded-md transition-all hover:opacity-90 ${
-                    downloadingLoading ? "opacity-50" : ""
-                  }`}
-                  style={{ backgroundColor: currentColor }}
-                  disabled={downloadingLoading}
-                >
-                  <FileDown className="h-4 w-4" />
-                  <span>
-                    {downloadingLoading ? "Preparing..." : "Download"}
-                  </span>
-                </button>
-             
-              </>
-              
-            </PDFDownloadLink>}
+              <PDFDownloadLink
+                document={
+                  <ResumeClassicPDF
+                    themeColor={currentColor}
+                    name={name}
+                    role={role}
+                    location={location}
+                    email={email}
+                    phone={phone}
+                    websiteLink={website}
+                    linkedinLink={linkedin}
+                    summery={about}
+                    experiences={experiences}
+                    educations={educations}
+                    skills={skills}
+                    languages={languages}
+                    avatar={avatar}
+                    visibleSections={visibleSections}
+                    currentTypography={currentTypography}
+                  />
+                }
+                fileName="Classic_Resume.pdf"
+              >
+                <>
+
+                  <button
+                    className={`flex items-center space-x-2 px-4 py-2 text-default-sm text-white rounded-md transition-all hover:opacity-90 ${downloadingLoading ? "opacity-50" : ""
+                      }`}
+                    style={{ backgroundColor: currentColor }}
+                    disabled={downloadingLoading}
+                  >
+                    <FileDown className="h-4 w-4" />
+                    <span>
+                      {downloadingLoading ? "Preparing..." : "Download"}
+                    </span>
+                  </button>
+
+                </>
+
+              </PDFDownloadLink>}
             {currentLayout === "hybrid" &&
-            <PDFDownloadLink
-              document={
-                <ResumeATSPDF
-                  themeColor={currentColor}
-                  name={name}
-                  role={role}
-                  location={location}
-                  email={email}
-                  phone={phone}
-                  websiteLink={website}
-                  linkedinLink={linkedin}
-                  summery={about}
-                  experiences={experiences}
-                  educations={educations}
-                  skills={skills}
-                  languages={languages}
-                  avatar={avatar}
-                  visibleSections={visibleSections}
-                  currentTypography={currentTypography}
-                />
-              }
-              fileName="ATS_Resume.pdf"
-            >
-              <>
-             
-                <button
-                  className={`flex items-center space-x-2 px-4 py-2 text-default-sm text-white rounded-md transition-all hover:opacity-90 ${
-                    downloadingLoading ? "opacity-50" : ""
-                  }`}
-                  style={{ backgroundColor: currentColor }}
-                  disabled={downloadingLoading}
-                >
-                  <FileDown className="h-4 w-4" />
-                  <span>
-                    {downloadingLoading ? "Preparing..." : "Download"}
-                  </span>
-                </button>
-             
-              </>
-              
-            </PDFDownloadLink>}
+              <PDFDownloadLink
+                document={
+                  <ResumeATSPDF
+                    themeColor={currentColor}
+                    name={name}
+                    role={role}
+                    location={location}
+                    email={email}
+                    phone={phone}
+                    websiteLink={website}
+                    linkedinLink={linkedin}
+                    summery={about}
+                    experiences={experiences}
+                    educations={educations}
+                    skills={skills}
+                    languages={languages}
+                    avatar={avatar}
+                    visibleSections={visibleSections}
+                    currentTypography={currentTypography}
+                  />
+                }
+                fileName="ATS_Resume.pdf"
+              >
+                <>
+
+                  <button
+                    className={`flex items-center space-x-2 px-4 py-2 text-default-sm text-white rounded-md transition-all hover:opacity-90 ${downloadingLoading ? "opacity-50" : ""
+                      }`}
+                    style={{ backgroundColor: currentColor }}
+                    disabled={downloadingLoading}
+                  >
+                    <FileDown className="h-4 w-4" />
+                    <span>
+                      {downloadingLoading ? "Preparing..." : "Download"}
+                    </span>
+                  </button>
+
+                </>
+
+              </PDFDownloadLink>}
           </div>
         </div>
 

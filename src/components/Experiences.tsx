@@ -8,6 +8,7 @@ import {
 import { Trash } from "lucide-react";
 import WorkExperienceEditor from "./WorkExperienceEditor";
 import Ai_Modal from "./../components/Ai_Modal";
+import Contenteditable from "./Contenteditable";
 
 interface ExperienceType {
   company: string;
@@ -22,7 +23,6 @@ const Experiences: React.FC<{
   themeColor: string;
   // isATS: boolean;
 }> = ({ setExperiences, experiences, themeColor }) => {
-
   const [showAiDialog, setShowAiDialog] = useState(false);
 
   const reorder = (
@@ -106,34 +106,46 @@ const Experiences: React.FC<{
                     <div
                       ref={provided.innerRef}
                       {...provided.draggableProps}
-                      className={`relative group border border-transparent rounded-md hover:border-gray-300 transition-all ${snapshot.isDragging ? "bg-gray-100 shadow-md" : ""
-                        }`}
+                      className={`relative group border border-transparent rounded-md hover:border-gray-300 transition-all ${
+                        snapshot.isDragging ? "bg-gray-100 shadow-md" : ""
+                      }`}
                     >
                       <div className="sortable-wrapper">
                         <div className="with-border">
-                          <h3
-                            contentEditable="true"
-                            translate-data="Employer"
+                          <Contenteditable
+                            value={experience.company}
+                            onChange={(updatedContent) => {
+                              updateEducation(index, "company", updatedContent);
+                            }}
+                            as="h3"
                             placeholder="Employer"
-                            data-gramm="false"
-                            spellcheck="false"
-                            onInput={(e) => updateExperience(index, "company", e.currentTarget.textContent)}
-                          >{experience.company}</h3>
+                          />
+
                           <div>
-                            <h4
-                              contentEditable="true"
-                              translate-data="Position"
+                            <Contenteditable
+                              value={experience.position}
+                              onChange={(updatedContent) => {
+                                updateEducation(
+                                  index,
+                                  "company",
+                                  updatedContent
+                                );
+                              }}
+                              as="h4"
                               placeholder="Position"
-                              data-gramm="false"
-                              onInput={(e) => updateExperience(index, "position", e.currentTarget.textContent)}
-                            >{experience.position}</h4>
-                            <p
-                              contentEditable="true"
-                              translate-data="From - Until"
+                            />
+                            <Contenteditable
+                              value={experience.dateRange}
+                              onChange={(updatedContent) => {
+                                updateEducation(
+                                  index,
+                                  "dateRange",
+                                  updatedContent
+                                );
+                              }}
+                              as="p"
                               placeholder="From - Until"
-                              data-gramm="false"
-                              onInput={(e) => updateExperience(index, "dateRange", e.currentTarget.textContent)}
-                            >{experience.dateRange}</p>
+                            />
                           </div>
                           <WorkExperienceEditor
                             initialDescription={experience.description}
@@ -148,50 +160,54 @@ const Experiences: React.FC<{
                             >
                               ✧ Writing Assistant
                             </span>
-                            <span
-                              className="remove-button"
-                              translate-data="Remove"
-                              data-tooltip="Remove"
-                              onClick={removeExperience}
-                            >
-                              <svg
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M5 12H19"
-                                  stroke="currentColor"
-                                  strokeWidth="2"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                ></path>
-                              </svg>
-                            </span>
-                            <span
-                              className="reorder-button"
-                              translate-data="Reorder"
-                              data-tooltip="Reorder"
-                              {...provided.dragHandleProps}
-                            >
-                              <svg
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M7 15L12 20L17 15M7 9L12 4L17 9"
-                                  stroke="currentColor"
-                                  strokeWidth="2"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                ></path>
-                              </svg>
-                            </span>
+                            {experiences.length > 1 && (
+                              <>
+                                <span
+                                  className="remove-button"
+                                  translate-data="Remove"
+                                  data-tooltip="Remove"
+                                  onClick={removeExperience}
+                                >
+                                  <svg
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      d="M5 12H19"
+                                      stroke="currentColor"
+                                      strokeWidth="2"
+                                      stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                    ></path>
+                                  </svg>
+                                </span>
+                                <span
+                                  className="reorder-button"
+                                  translate-data="Reorder"
+                                  data-tooltip="Reorder"
+                                  {...provided.dragHandleProps}
+                                >
+                                  <svg
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      d="M7 15L12 20L17 15M7 9L12 4L17 9"
+                                      stroke="currentColor"
+                                      strokeWidth="2"
+                                      stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                    ></path>
+                                  </svg>
+                                </span>
+                              </>
+                            )}
                             <span
                               className="add-button"
                               translate-data="Add"
@@ -231,7 +247,6 @@ const Experiences: React.FC<{
               ))}
               {provided.placeholder}
             </div>
-
           )}
         </Droppable>
       </DragDropContext>
@@ -239,7 +254,7 @@ const Experiences: React.FC<{
         <Ai_Modal
           onClose={() => setShowAiDialog(false)}
           // onImport={handleImport}
-          headerText={'Experience'}
+          headerText={"Experience"}
         />
       )}
     </div>

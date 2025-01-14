@@ -10,20 +10,20 @@ import RemoveButton from "./RemoveButton";
 import ReorderButton from "./ReorderButton";
 import AddButton from "./AddButton";
 
-interface LanguageType {
+interface HobbyType {
   name: string;
 }
 
-const Languages: React.FC<{
-  setLanguages: React.Dispatch<React.SetStateAction<LanguageType[]>>;
-  languages: LanguageType[];
+const Hobbies: React.FC<{
+  setHobbies: React.Dispatch<React.SetStateAction<HobbyType[]>>;
+  hobbies: HobbyType[];
   themeColor: string;
-}> = ({ setLanguages, languages, themeColor }) => {
+}> = ({ setHobbies, hobbies, themeColor }) => {
   const reorder = (
-    list: LanguageType[],
+    list: HobbyType[],
     startIndex: number,
     endIndex: number
-  ): LanguageType[] => {
+  ): HobbyType[] => {
     const result = Array.from(list);
     const [removed] = result.splice(startIndex, 1);
     result.splice(endIndex, 0, removed);
@@ -34,54 +34,54 @@ const Languages: React.FC<{
     if (!result.destination) {
       return;
     }
-    const reorderedLanguages = reorder(
-      languages,
+    const reorderedHobbies = reorder(
+      hobbies,
       result.source.index,
       result.destination.index
     );
-    setLanguages(reorderedLanguages);
+    setHobbies(reorderedHobbies);
   };
 
-  const addLanguage = () => {
-    setLanguages([...languages, { name: "" }]);
+  const addHobby = () => {
+    setHobbies([...hobbies, { name: "" }]);
   };
 
-  const removeLanguage = (index: number) => {
+  const removeHobby = (index: number) => {
     const confirmed = window.confirm(
-      "Are you sure you want to delete this language?"
+      "Are you sure you want to delete this hobby?"
     );
-    if (confirmed) setLanguages(languages.filter((_, i) => i !== index));
+    if (confirmed) setHobbies(hobbies.filter((_, i) => i !== index));
   };
 
-  const updateLanguage = (index: number, key: keyof LanguageType, value: string) => {
-    const updatedLanguages = languages.map((language, i) =>
-      i === index ? { ...language, [key]: value } : language
+  const updateHobby = (index: number, key: keyof HobbyType, value: string) => {
+    const updatedHobbies = hobbies.map((hobby, i) =>
+      i === index ? { ...hobby, [key]: value } : hobby
     );
-    setLanguages(updatedLanguages);
+    setHobbies(updatedHobbies);
   };
 
-  console.log("languages: ", languages);
+  console.log("hobbies: ", hobbies);
 
   return (
-    <div id="languages" className="list with-border">
+    <div id="hobbies" className="list with-border">
       <h2
         contentEditable="true"
-        translate-data="Languages"
-        placeholder="Languages"
+        translate-data="Hobbies"
+        placeholder="Hobbies"
         data-gramm="false"
       ></h2>
       <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable droppableId="languages">
+        <Droppable droppableId="hobbies">
           {(provided) => (
             <div
               {...provided.droppableProps}
               ref={provided.innerRef}
               style={{ display: "contents" }}
             >
-              {languages.map((language, index) => (
+              {hobbies.map((hobby, index) => (
                 <Draggable
-                  key={`language-${index}`}
-                  draggableId={`language-${index}`}
+                  key={`hobby-${index}`}
+                  draggableId={`hobby-${index}`}
                   index={index}
                 >
                   {(provided, snapshot) => (
@@ -93,27 +93,27 @@ const Languages: React.FC<{
                       }`}
                     >
                       <Contenteditable
-                        value={language.name}
+                        value={hobby.name}
                         onChange={(updatedContent) => {
-                          updateLanguage(index, "name", updatedContent);
+                          updateHobby(index, "name", updatedContent);
                         }}
                         as="p"
-                        placeholder="Enter language"
+                        placeholder="Enter hobby"
                         className=""
-                        translate-data="Enter language"
+                        translate-data="Enter hobby"
                         data-gramm="false"
                       />
                       <div className="btn-edit">
-                        {languages.length > 1 && (
+                        {hobbies.length > 1 && (
                           <>
                             <RemoveButton
                               index={index}
-                              removeFunc={removeLanguage}
+                              removeFunc={removeHobby}
                             />
                             <ReorderButton provided={provided} />
                           </>
                         )}
-                        <AddButton addFunc={addLanguage} />
+                        <AddButton addFunc={addHobby} />
                       </div>
                     </div>
                   )}
@@ -128,4 +128,4 @@ const Languages: React.FC<{
   );
 };
 
-export default Languages;
+export default Hobbies;

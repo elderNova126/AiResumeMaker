@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Contenteditable from "../Contenteditable";
 import { FileUp } from "lucide-react";
 import {
   SvgIcon,
@@ -13,7 +14,8 @@ import AboutMe from "../AboutMe";
 import Experiences from "../Experiences";
 import Educations from "../Educations";
 import Skills from "../Skills";
-import LanguagesSection from "../Languages";
+import Languages from "../Languages"
+import Hobbies from "../Hobbies"
 import { useUser } from "../../context/UserContext";
 
 interface SplitLayoutProps {
@@ -52,6 +54,8 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
     setLanguages,
     avatar,
     setAvatar,
+    hobbies,
+    setHobbies,
   } = useUser();
 
   const renderSection = (
@@ -100,15 +104,15 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
           </div>
         )}
         <div id="name-role">
-          <h1
-            contentEditable="true"
-            translate-data="Your Name"
+          <Contenteditable
+            value={name}
+            onChange={(updatedContent) => {
+              setName(updatedContent);
+            }}
+            as="h1"
             placeholder="Your Name"
-            id="fullname"
-            data-gramm="false"
-            spellcheck="false"
-            onInput={(e) => setName(e.currentTarget.textContent)}
-          >{name}</h1>
+          />
+
           {visibleSections.includes("role") && (
             <h2
               contentEditable="true"
@@ -116,8 +120,10 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
               placeholder="Your Role"
               id="role"
               data-gramm="false"
-            // onInput={(e) => setRole(e.currentTarget.textContent)}
-            >{role}</h2>
+              // onInput={(e) => setRole(e.currentTarget.textContent)}
+            >
+              {role}
+            </h2>
           )}
         </div>
       </div>
@@ -152,14 +158,14 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
                     fill="currentColor"
                   ></path>
                 </svg>
-                <p
-                  contentEditable="true"
-                  translate-data="Enter Location"
+                <Contenteditable
+                  value={location}
+                  onChange={(updatedContent) => {
+                    setLocation(updatedContent);
+                  }}
+                  as="p"
                   placeholder="Enter Location"
-                  data-gramm="false"
-                  spellcheck="false"
-                  onInput={(e) => setLocation(e.currentTarget.textContent)}
-                >{location}</p>
+                />
               </div>
             )}
             {visibleSections.includes("email") && (
@@ -176,14 +182,14 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
                     fill="black"
                   ></path>
                 </svg>
-                <p
-                  contentEditable="true"
-                  translate-data="Enter your email"
+                <Contenteditable
+                  value={email}
+                  onChange={(updatedContent) => {
+                    setEmail(updatedContent);
+                  }}
+                  as="p"
                   placeholder="Enter your email"
-                  data-gramm="false"
-                  spellcheck="false"
-                  onInput={(e) => setEmail(e.currentTarget.textContent)}
-                >{email}</p>
+                />
               </div>
             )}
             {visibleSections.includes("phone") && (
@@ -200,13 +206,14 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
                     fill="currentColor"
                   ></path>
                 </svg>
-                <p
-                  contentEditable="true"
-                  translate-data="Enter your phone"
+                <Contenteditable
+                  value={phone}
+                  onChange={(updatedContent) => {
+                    setPhone(updatedContent);
+                  }}
+                  as="p"
                   placeholder="Enter your phone"
-                  data-gramm="false"
-                  onInput={(e) => setPhone(e.currentTarget.textContent)}
-                >{phone}</p>
+                />
               </div>
             )}
             {visibleSections.includes("website") && (
@@ -223,14 +230,14 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
                     fill="currentColor"
                   ></path>
                 </svg>
-                <p
-                  contentEditable="true"
-                  translate-data="Enter URL"
+                <Contenteditable
+                  value={website}
+                  onChange={(updatedContent) => {
+                    setWebsite(updatedContent);
+                  }}
+                  as="p"
                   placeholder="Enter URL"
-                  data-gramm="false"
-                  spellcheck="false"
-                  onInput={(e) => setWebsite(e.currentTarget.textContent)}
-                >{website}</p>
+                />
               </div>
             )}
             {visibleSections.includes("linkedin") && (
@@ -247,382 +254,42 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
                     fill="currentColor"
                   ></path>
                 </svg>
-                <p
-                  contentEditable="true"
-                  translate-data="Enter URL"
+                <Contenteditable
+                  value={linkedin}
+                  onChange={(updatedContent) => {
+                    setLinkedin(updatedContent);
+                  }}
+                  as="p"
                   placeholder="Enter URL"
-                  data-gramm="false"
-                  spellcheck="false"
-                  onInput={(e) => setLinkedin(e.currentTarget.textContent)}
-                >{linkedin}</p>
+                />
               </div>
             )}
           </div>
         </div>
         <div>
           {visibleSections.includes("experience") && (
-            <Experiences setExperiences={setExperiences} experiences={experiences} themeColor={themeColor} />
+            <Experiences
+              setExperiences={setExperiences}
+              experiences={experiences}
+              themeColor={themeColor}
+            />
           )}
           {visibleSections.includes("education") && (
-            <Educations setEducations={setEducations} educations={educations} themeColor={themeColor} />
-            // <div id="education">
-            //   <h2
-            //     contentEditable="true"
-            //     translate-data="Education"
-            //     placeholder="Education"
-            //     data-gramm="false"
-            //   ></h2>
-            //   <div className="sortable-wrapper">
-            //     <div className="with-border">
-            //       <h3
-            //         contentEditable="true"
-            //         translate-data="School"
-            //         placeholder="School"
-            //         data-gramm="false"
-            //         spellcheck="false"
-            //       ></h3>
-            //       <div>
-            //         <h4
-            //           contentEditable="true"
-            //           translate-data="Degree"
-            //           placeholder="Degree"
-            //           data-gramm="false"
-            //         ></h4>
-            //         <p
-            //           contentEditable="true"
-            //           translate-data="From - Until"
-            //           placeholder="From - Until"
-            //           data-gramm="false"
-            //         ></p>
-            //       </div>
-            //       <div className="btn-edit">
-            //         <span
-            //           className="remove-button"
-            //           translate-data="Remove"
-            //           data-tooltip="Remove"
-            //         >
-            //           <svg
-            //             width="24"
-            //             height="24"
-            //             viewBox="0 0 24 24"
-            //             fill="none"
-            //             xmlns="http://www.w3.org/2000/svg"
-            //           >
-            //             <path
-            //               d="M5 12H19"
-            //               stroke="currentColor"
-            //               strokeWidth="2"
-            //               stroke-linecap="round"
-            //               stroke-linejoin="round"
-            //             ></path>
-            //           </svg>
-            //         </span>
-            //         <span
-            //           className="reorder-button"
-            //           translate-data="Reorder"
-            //           data-tooltip="Reorder"
-            //         >
-            //           <svg
-            //             width="24"
-            //             height="24"
-            //             viewBox="0 0 24 24"
-            //             fill="none"
-            //             xmlns="http://www.w3.org/2000/svg"
-            //           >
-            //             <path
-            //               d="M7 15L12 20L17 15M7 9L12 4L17 9"
-            //               stroke="currentColor"
-            //               strokeWidth="2"
-            //               stroke-linecap="round"
-            //               stroke-linejoin="round"
-            //             ></path>
-            //           </svg>
-            //         </span>
-            //         <span
-            //           className="add-button"
-            //           translate-data="Add"
-            //           data-tooltip="Add"
-            //         >
-            //           <svg
-            //             width="24"
-            //             height="24"
-            //             viewBox="0 0 24 24"
-            //             fill="none"
-            //             xmlns="http://www.w3.org/2000/svg"
-            //           >
-            //             <path
-            //               d="M12 5V19M5 12H19"
-            //               stroke="currentColor"
-            //               strokeWidth="2"
-            //               stroke-linecap="round"
-            //               stroke-linejoin="round"
-            //             ></path>
-            //           </svg>
-            //         </span>
-            //       </div>
-            //     </div>
-            //   </div>
-            // </div>
+            <Educations
+              setEducations={setEducations}
+              educations={educations}
+              themeColor={themeColor}
+            />
           )}
           {visibleSections.includes("skills") && (
-            <div id="skills" className="list with-border">
-              <h2
-                contentEditable="true"
-                translate-data="Skills"
-                placeholder="Skills"
-              ></h2>
-              <div>
-                <p
-                  contentEditable="true"
-                  translate-data="Enter skill"
-                  placeholder="Enter skill"
-                  className=""
-                  data-gramm="false"
-                ></p>
-                <div className="btn-edit">
-                  <span
-                    className="remove-button"
-                    translate-data="Remove"
-                    data-tooltip="Remove"
-                  >
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M5 12H19"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      ></path>
-                    </svg>
-                  </span>
-                  <span
-                    className="reorder-button"
-                    translate-data="Reorder"
-                    data-tooltip="Reorder"
-                  >
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M7 15L12 20L17 15M7 9L12 4L17 9"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      ></path>
-                    </svg>
-                  </span>
-                  <span
-                    className="add-button"
-                    translate-data="Add"
-                    data-tooltip="Add"
-                  >
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M12 5V19M5 12H19"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      ></path>
-                    </svg>
-                  </span>
-                </div>
-              </div>
-              <span className="btn-edit">
-                <span
-                  className="writing-assistant"
-                  onClick="openModal('Skills', this)"
-                  translate-data="✧ Writing Assistant"
-                >
-                  ✧ Writing Assistant
-                </span>
-              </span>
-            </div>
+            <Skills setSkills={setSkills} skills={skills} themeColor={themeColor}/>
           )}
           {visibleSections.includes("languages") && (
-            <div id="languages" className="list with-border">
-              <h2
-                contentEditable="true"
-                translate-data="Languages"
-                placeholder="Languages"
-              ></h2>
-              <div>
-                <p
-                  contentEditable="true"
-                  translate-data="Enter language"
-                  placeholder="Enter language"
-                  className=""
-                  data-gramm="false"
-                ></p>
-                <div className="btn-edit">
-                  <span
-                    className="remove-button"
-                    translate-data="Remove"
-                    data-tooltip="Remove"
-                  >
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M5 12H19"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      ></path>
-                    </svg>
-                  </span>
-                  <span
-                    className="reorder-button"
-                    translate-data="Reorder"
-                    data-tooltip="Reorder"
-                  >
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M7 15L12 20L17 15M7 9L12 4L17 9"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      ></path>
-                    </svg>
-                  </span>
-                  <span
-                    className="add-button"
-                    translate-data="Add"
-                    data-tooltip="Add"
-                  >
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M12 5V19M5 12H19"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      ></path>
-                    </svg>
-                  </span>
-                </div>
-              </div>
-            </div>
+            <Languages setLanguages={setLanguages} languages={languages} themeColor={themeColor}/>
+            
           )}
           {visibleSections.includes("interests") && (
-            <div id="hobbies" className="list with-border">
-              <h2
-                contentEditable="true"
-                translate-data="Hobbies"
-                placeholder="Hobbies"
-                data-gramm="false"
-              ></h2>
-              <div>
-                <p
-                  contentEditable="true"
-                  translate-data="Enter hobby"
-                  placeholder="Enter hobby"
-                  className=""
-                  data-gramm="false"
-                ></p>
-                <div className="btn-edit">
-                  <span
-                    className="remove-button"
-                    translate-data="Remove"
-                    data-tooltip="Remove"
-                  >
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M5 12H19"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      ></path>
-                    </svg>
-                  </span>
-                  <span
-                    className="reorder-button"
-                    translate-data="Reorder"
-                    data-tooltip="Reorder"
-                  >
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M7 15L12 20L17 15M7 9L12 4L17 9"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      ></path>
-                    </svg>
-                  </span>
-                  <span
-                    className="add-button"
-                    translate-data="Add"
-                    data-tooltip="Add"
-                  >
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M12 5V19M5 12H19"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      ></path>
-                    </svg>
-                  </span>
-                </div>
-              </div>
-
-            </div>
+            <Hobbies setHobbies={setHobbies} hobbies={hobbies} themeColor={themeColor}/>
           )}
         </div>
       </div>

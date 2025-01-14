@@ -60,12 +60,12 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
     onChange: (value: string) => void,
     placeholder: string
   ) => (
-    <div classNameName="flex items-center space-x-3">
+    <div className="flex items-center space-x-3">
       {icon}
       <AutoResizeField
         value={value}
         onChange={onChange}
-        classNameName="p-1 textEdit text-pad flex-1 bg-transparent border-b hover:border-gray-400 focus:border-emerald-500 focus:outline-none transition-all"
+        className="p-1 textEdit text-pad flex-1 bg-transparent border-b hover:border-gray-400 focus:border-emerald-500 focus:outline-none transition-all"
         placeholder={placeholder}
       />
     </div>
@@ -101,59 +101,42 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
         )}
         <div id="name-role">
           <h1
-            contenteditable="true"
+            contentEditable="true"
             translate-data="Your Name"
             placeholder="Your Name"
             id="fullname"
             data-gramm="false"
             spellcheck="false"
-          ></h1>
+            onInput={(e) => setName(e.currentTarget.textContent)}
+          >{name}</h1>
           {visibleSections.includes("role") && (
             <h2
-              contenteditable="true"
+              contentEditable="true"
               translate-data="Your Role"
               placeholder="Your Role"
               id="role"
               data-gramm="false"
-            ></h2>
+            // onInput={(e) => setRole(e.currentTarget.textContent)}
+            >{role}</h2>
           )}
         </div>
       </div>
       <div className="main-wrapper">
         <div>
           {visibleSections.includes("about") && (
-            <div id="summary" className="with-border">
-              <h2
-                contenteditable="true"
-                translate-data="About Me"
-                placeholder="About Me"
-              ></h2>
-              <span>
-                <p
-                  contenteditable="true"
-                  translate-data="Enter your professional summary"
-                  placeholder="Enter your professional summary"
-                  data-gramm="false"
-                ></p>
-              </span>
-              <div className="btn-edit">
-                <span
-                  className="writing-assistant"
-                  onclick="openModal('Summary')"
-                >
-                  <span translate-data="✧ Writing Assistant">
-                    ✧ Writing Assistant
-                  </span>
-                </span>
-              </div>
-            </div>
+            <AboutMe
+              setAbout={setAbout}
+              about={about}
+              themeColor={themeColor}
+            />
           )}
           <div id="details">
             <h2
-              contenteditable="true"
+              contentEditable="true"
               translate-data="Personal Details"
               placeholder="Personal Details"
               data-gramm="false"
+              style={{ color: themeColor }}
             ></h2>
             {visibleSections.includes("location") && (
               <div id="location">
@@ -170,12 +153,13 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
                   ></path>
                 </svg>
                 <p
-                  contenteditable="true"
+                  contentEditable="true"
                   translate-data="Enter Location"
                   placeholder="Enter Location"
                   data-gramm="false"
                   spellcheck="false"
-                ></p>
+                  onInput={(e) => setLocation(e.currentTarget.textContent)}
+                >{location}</p>
               </div>
             )}
             {visibleSections.includes("email") && (
@@ -193,12 +177,13 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
                   ></path>
                 </svg>
                 <p
-                  contenteditable="true"
+                  contentEditable="true"
                   translate-data="Enter your email"
                   placeholder="Enter your email"
                   data-gramm="false"
                   spellcheck="false"
-                ></p>
+                  onInput={(e) => setEmail(e.currentTarget.textContent)}
+                >{email}</p>
               </div>
             )}
             {visibleSections.includes("phone") && (
@@ -216,11 +201,12 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
                   ></path>
                 </svg>
                 <p
-                  contenteditable="true"
+                  contentEditable="true"
                   translate-data="Enter your phone"
                   placeholder="Enter your phone"
                   data-gramm="false"
-                ></p>
+                  onInput={(e) => setPhone(e.currentTarget.textContent)}
+                >{phone}</p>
               </div>
             )}
             {visibleSections.includes("website") && (
@@ -238,12 +224,13 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
                   ></path>
                 </svg>
                 <p
-                  contenteditable="true"
+                  contentEditable="true"
                   translate-data="Enter URL"
                   placeholder="Enter URL"
                   data-gramm="false"
                   spellcheck="false"
-                ></p>
+                  onInput={(e) => setWebsite(e.currentTarget.textContent)}
+                >{website}</p>
               </div>
             )}
             {visibleSections.includes("linkedin") && (
@@ -261,137 +248,26 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
                   ></path>
                 </svg>
                 <p
-                  contenteditable="true"
+                  contentEditable="true"
                   translate-data="Enter URL"
                   placeholder="Enter URL"
                   data-gramm="false"
                   spellcheck="false"
-                ></p>
+                  onInput={(e) => setLinkedin(e.currentTarget.textContent)}
+                >{linkedin}</p>
               </div>
             )}
           </div>
         </div>
         <div>
           {visibleSections.includes("experience") && (
-            <div id="work">
-              <h2
-                contenteditable="true"
-                translate-data="Experience"
-                placeholder="Experience"
-                data-gramm="false"
-              ></h2>
-              <div className="sortable-wrapper">
-                <div className="with-border">
-                  <h3
-                    contenteditable="true"
-                    translate-data="Employer"
-                    placeholder="Employer"
-                    data-gramm="false"
-                    spellcheck="false"
-                  ></h3>
-                  <div>
-                    <h4
-                      contenteditable="true"
-                      translate-data="Position"
-                      placeholder="Position"
-                      data-gramm="false"
-                    ></h4>
-                    <p
-                      contenteditable="true"
-                      translate-data="From - Until"
-                      placeholder="From - Until"
-                      data-gramm="false"
-                    ></p>
-                  </div>
-                  <span>
-                    <p
-                      contenteditable="true"
-                      translate-data="Enter your work experience description"
-                      placeholder="Enter your work experience description"
-                      data-gramm="false"
-                    ></p>
-                  </span>
-                  <div className="btn-edit">
-                    <span
-                      className="writing-assistant"
-                      onclick="openModal('Experience', this)"
-                      translate-data="✧ Writing Assistant"
-                    >
-                      ✧ Writing Assistant
-                    </span>
-                    <span
-                      className="remove-button"
-                      translate-data="Remove"
-                      data-tooltip="Remove"
-                    >
-                      <svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M5 12H19"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        ></path>
-                      </svg>
-                    </span>
-                    <span
-                      className="reorder-button"
-                      translate-data="Reorder"
-                      data-tooltip="Reorder"
-                    >
-                      <svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M7 15L12 20L17 15M7 9L12 4L17 9"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        ></path>
-                      </svg>
-                    </span>
-                    <span
-                      className="add-button"
-                      translate-data="Add"
-                      data-tooltip="Add"
-                    >
-                      <svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M12 5V19M5 12H19"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        ></path>
-                      </svg>
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <Experiences setExperiences={setExperiences} experiences={experiences} themeColor={themeColor} />
           )}
           {visibleSections.includes("education") && (
-            <Educations setEducations={setEducations} educations={educations} themeColor={themeColor}/>
+            <Educations setEducations={setEducations} educations={educations} themeColor={themeColor} />
             // <div id="education">
             //   <h2
-            //     contenteditable="true"
+            //     contentEditable="true"
             //     translate-data="Education"
             //     placeholder="Education"
             //     data-gramm="false"
@@ -399,7 +275,7 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
             //   <div className="sortable-wrapper">
             //     <div className="with-border">
             //       <h3
-            //         contenteditable="true"
+            //         contentEditable="true"
             //         translate-data="School"
             //         placeholder="School"
             //         data-gramm="false"
@@ -407,13 +283,13 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
             //       ></h3>
             //       <div>
             //         <h4
-            //           contenteditable="true"
+            //           contentEditable="true"
             //           translate-data="Degree"
             //           placeholder="Degree"
             //           data-gramm="false"
             //         ></h4>
             //         <p
-            //           contenteditable="true"
+            //           contentEditable="true"
             //           translate-data="From - Until"
             //           placeholder="From - Until"
             //           data-gramm="false"
@@ -435,7 +311,7 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
             //             <path
             //               d="M5 12H19"
             //               stroke="currentColor"
-            //               stroke-width="2"
+            //               strokeWidth="2"
             //               stroke-linecap="round"
             //               stroke-linejoin="round"
             //             ></path>
@@ -456,7 +332,7 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
             //             <path
             //               d="M7 15L12 20L17 15M7 9L12 4L17 9"
             //               stroke="currentColor"
-            //               stroke-width="2"
+            //               strokeWidth="2"
             //               stroke-linecap="round"
             //               stroke-linejoin="round"
             //             ></path>
@@ -477,7 +353,7 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
             //             <path
             //               d="M12 5V19M5 12H19"
             //               stroke="currentColor"
-            //               stroke-width="2"
+            //               strokeWidth="2"
             //               stroke-linecap="round"
             //               stroke-linejoin="round"
             //             ></path>
@@ -491,13 +367,13 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
           {visibleSections.includes("skills") && (
             <div id="skills" className="list with-border">
               <h2
-                contenteditable="true"
+                contentEditable="true"
                 translate-data="Skills"
                 placeholder="Skills"
               ></h2>
               <div>
                 <p
-                  contenteditable="true"
+                  contentEditable="true"
                   translate-data="Enter skill"
                   placeholder="Enter skill"
                   className=""
@@ -519,7 +395,7 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
                       <path
                         d="M5 12H19"
                         stroke="currentColor"
-                        stroke-width="2"
+                        strokeWidth="2"
                         stroke-linecap="round"
                         stroke-linejoin="round"
                       ></path>
@@ -540,7 +416,7 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
                       <path
                         d="M7 15L12 20L17 15M7 9L12 4L17 9"
                         stroke="currentColor"
-                        stroke-width="2"
+                        strokeWidth="2"
                         stroke-linecap="round"
                         stroke-linejoin="round"
                       ></path>
@@ -561,7 +437,7 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
                       <path
                         d="M12 5V19M5 12H19"
                         stroke="currentColor"
-                        stroke-width="2"
+                        strokeWidth="2"
                         stroke-linecap="round"
                         stroke-linejoin="round"
                       ></path>
@@ -572,7 +448,7 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
               <span className="btn-edit">
                 <span
                   className="writing-assistant"
-                  onclick="openModal('Skills', this)"
+                  onClick="openModal('Skills', this)"
                   translate-data="✧ Writing Assistant"
                 >
                   ✧ Writing Assistant
@@ -583,13 +459,13 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
           {visibleSections.includes("languages") && (
             <div id="languages" className="list with-border">
               <h2
-                contenteditable="true"
+                contentEditable="true"
                 translate-data="Languages"
                 placeholder="Languages"
               ></h2>
               <div>
                 <p
-                  contenteditable="true"
+                  contentEditable="true"
                   translate-data="Enter language"
                   placeholder="Enter language"
                   className=""
@@ -611,7 +487,7 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
                       <path
                         d="M5 12H19"
                         stroke="currentColor"
-                        stroke-width="2"
+                        strokeWidth="2"
                         stroke-linecap="round"
                         stroke-linejoin="round"
                       ></path>
@@ -632,7 +508,7 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
                       <path
                         d="M7 15L12 20L17 15M7 9L12 4L17 9"
                         stroke="currentColor"
-                        stroke-width="2"
+                        strokeWidth="2"
                         stroke-linecap="round"
                         stroke-linejoin="round"
                       ></path>
@@ -653,7 +529,7 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
                       <path
                         d="M12 5V19M5 12H19"
                         stroke="currentColor"
-                        stroke-width="2"
+                        strokeWidth="2"
                         stroke-linecap="round"
                         stroke-linejoin="round"
                       ></path>
@@ -666,14 +542,14 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
           {visibleSections.includes("interests") && (
             <div id="hobbies" className="list with-border">
               <h2
-                contenteditable="true"
+                contentEditable="true"
                 translate-data="Hobbies"
                 placeholder="Hobbies"
                 data-gramm="false"
               ></h2>
               <div>
                 <p
-                  contenteditable="true"
+                  contentEditable="true"
                   translate-data="Enter hobby"
                   placeholder="Enter hobby"
                   className=""
@@ -695,7 +571,7 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
                       <path
                         d="M5 12H19"
                         stroke="currentColor"
-                        stroke-width="2"
+                        strokeWidth="2"
                         stroke-linecap="round"
                         stroke-linejoin="round"
                       ></path>
@@ -716,7 +592,7 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
                       <path
                         d="M7 15L12 20L17 15M7 9L12 4L17 9"
                         stroke="currentColor"
-                        stroke-width="2"
+                        strokeWidth="2"
                         stroke-linecap="round"
                         stroke-linejoin="round"
                       ></path>
@@ -737,7 +613,7 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
                       <path
                         d="M12 5V19M5 12H19"
                         stroke="currentColor"
-                        stroke-width="2"
+                        strokeWidth="2"
                         stroke-linecap="round"
                         stroke-linejoin="round"
                       ></path>
@@ -745,7 +621,7 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
                   </span>
                 </div>
               </div>
-              
+
             </div>
           )}
         </div>

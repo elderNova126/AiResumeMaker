@@ -1350,18 +1350,18 @@ button svg {
 .main-wrapper > div:nth-of-type(2) {
   width: 75%;
 }
-[contenteditable="true"]:focus,
-[contenteditable="true"]:hover {
+[contentEditable="true"]:focus,
+[contentEditable="true"]:hover {
   background: rgba(128, 128, 128, 0.2);
   border-radius: 0.4rem;
 }
-[contenteditable="true"] {
+[contentEditable="true"] {
   padding: 0.6rem;
   border-radius: 0.4rem;
   transition: 0.2s ease;
   cursor: text !important;
 }
-[contenteditable="true"]:empty:before {
+[contentEditable="true"]:empty:before {
   content: attr(placeholder);
   display: block;
 }
@@ -1396,7 +1396,7 @@ button svg {
 .sortable-placeholder {
   outline: 0.2rem dashed transparent !important;
 }
-.downloading [contenteditable="true"]:empty:before {
+.downloading [contentEditable="true"]:empty:before {
 }
 h1,
 h2,

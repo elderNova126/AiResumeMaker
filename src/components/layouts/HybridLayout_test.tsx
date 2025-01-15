@@ -12,6 +12,8 @@ import AutoResizeField from "../AutoResizeField";
 import AboutMe from "../AboutMe";
 import Experiences from "../Experiences";
 import Educations from "../Educations";
+import Languages from "../Languages";
+import Hobbies from "../Hobbies";
 import Skills from "../Skills";
 import { useUser } from "../../context/UserContext";
 
@@ -251,6 +253,7 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
           setSkills={setSkills}
           skills={skills}
           themeColor={themeColor}
+          isSplit={false}
 
         />
       )}
@@ -259,11 +262,12 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
           setLanguages={setLanguages}
           languages={languages}
           themeColor={themeColor}
+          isSplit={false}
 
         />
       )}
       {visibleSections.includes("interests") && (
-        <Hobbies setHobbies={setHobbies} hobbies={hobbies} themeColor={themeColor} cate={3} />
+        <Hobbies setHobbies={setHobbies} hobbies={hobbies} themeColor={themeColor} isSplit={false} />
       )}
     </div>
   );

@@ -17,7 +17,8 @@ const Hobbies: React.FC<{
   setHobbies: React.Dispatch<React.SetStateAction<HobbyType[]>>;
   hobbies: HobbyType[];
   themeColor: string;
-}> = ({ setHobbies, hobbies, themeColor }) => {
+  isSplit: boolean;
+}> = ({ setHobbies, hobbies, themeColor, isSplit=true}) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null); // Track hovered item
 
   const reorder = (
@@ -94,6 +95,7 @@ const Hobbies: React.FC<{
                       } ${hoveredIndex === index ? "bg-gray-100 shadow-md" : ""}`} // Apply hover effect styles
                     onMouseEnter={() => setHoveredIndex(index)} // Set hovered index
                     onMouseLeave={() => setHoveredIndex(null)} // Clear hovered index
+                    style={isSplit?{flex:"0 0 calc(33.33% - 0.666rem)"}:{flex:"0 0 calc(24.5% - 0.666rem)"}}
                   >
                     <Contenteditable
                       value={hobby.name}

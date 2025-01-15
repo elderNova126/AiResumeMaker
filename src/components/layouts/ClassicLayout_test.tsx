@@ -13,6 +13,7 @@ import AboutMe from "../AboutMe";
 import Experiences from "../Experiences";
 import Educations from "../Educations";
 import Skills from "../Skills";
+import Hobbies from "../Hobbies"
 import LanguagesSection from "../Languages";
 import { useUser } from "../../context/UserContext";
 
@@ -52,6 +53,8 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
     setLanguages,
     avatar,
     setAvatar,
+    hobbies,
+    setHobbies,
   } = useUser();
 
   const renderSection = (
@@ -258,6 +261,7 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
           setSkills={setSkills}
           skills={skills}
           themeColor={themeColor}
+          cate={2}
         />
       )}
       {visibleSections.includes("languages") && (
@@ -265,8 +269,11 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
           setLanguages={setLanguages}
           languages={languages}
           themeColor={themeColor}
-          isSplit={true}
+          cate={2}
         />
+      )}
+      {visibleSections.includes("interests") && (
+        <Hobbies setHobbies={setHobbies} hobbies={hobbies} themeColor={themeColor} cate={2} />
       )}
     </div>
   );

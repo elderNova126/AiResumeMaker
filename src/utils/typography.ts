@@ -21,9 +21,9 @@ export const getFontFamily = (font: string): string => {
 
 export const getFontSize = (size: string): string => {
   const sizes: Record<string, string> = {
-    'small': '0.75rem',
-    'medium': '1rem',
-    'big': '1.25rem'
+    'small': '8',
+    'medium': '10',
+    'big': '12'
   };
   return sizes[size] || sizes['medium'];
 };

@@ -278,7 +278,10 @@ html {
   overflow-x: hidden;
   color: #101828;
 }
-@media screen and (min-width: 2000px) {
+header {
+  font-size: 155.5%;
+}
+/* @media screen and (min-width: 2000px) {
   html,
   body {
     font-size: 62.5%;
@@ -295,7 +298,7 @@ html {
   body {
     font-size: 42%;
   }
-}
+} */
 
 *,
 *:after,
@@ -1165,7 +1168,8 @@ button svg {
 #resume h3,
 #resume h4,
 #resume p {
-  font-family: "Nunito";
+  font-family: inherit;
+  font-size: inherit;
 }
 .main-wrapper {
   display: flex;
@@ -1370,6 +1374,28 @@ p {
   gap: 0rem;
   position: relative;
 }
+#details1 {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  flex-direction: row;
+}
+#details1 path {
+  fill: var(--main-color);
+}
+#details1 svg {
+  min-width: 3.22rem;
+  width: 3.2rem;
+  height: 2rem;
+  display: inline-block;
+  color: var(--main-color);
+}
+
+#details1 div {
+  align-items: center;
+  display: flex;
+}
+
 #details {
   display: flex;
   flex-wrap: wrap;

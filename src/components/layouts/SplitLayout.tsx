@@ -169,7 +169,6 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
         <div className="flex flex-col gap-16 w-1/4">
           <h2
             className="text-lg sm:text-xl font-bold py-3"
-            style={{ color: themeColor }}
           >
             PERSONAL DETAILS
           </h2>

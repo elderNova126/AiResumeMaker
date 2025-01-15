@@ -135,7 +135,6 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
               translate-data="Personal Details"
               placeholder="Personal Details"
               data-gramm="false"
-              style={{ color: themeColor }}
             ></h2>
             {visibleSections.includes("location") && (
               <div id="location">

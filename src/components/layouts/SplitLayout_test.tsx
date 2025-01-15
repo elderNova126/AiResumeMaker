@@ -94,7 +94,7 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
     <div id="resume" >
       <div className="main-wrapper">
         {visibleSections.includes("picture") && (
-          <Picture />
+          <Picture image={avatar} setImage={setAvatar}/>
         )}
         <div id="name-role">
           <Contenteditable

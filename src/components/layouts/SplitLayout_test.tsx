@@ -89,6 +89,7 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
       setAvatar(imageUrl);
     }
   };
+  console.log("*****", hobbies);
 
   return (
     <div id="resume">

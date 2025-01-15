@@ -42,8 +42,8 @@ body {
 }
 
 .timeline_linea {
-  position: absolute;
-  /* height: 100%; */
+  position: relative;
+  height: 100%;
   width: 0.3rem;
   background: #000;
   left: 0.7rem;

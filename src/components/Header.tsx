@@ -70,7 +70,18 @@ const Header: React.FC<HeaderProps> = ({
   const handleDropdownToggle = (isOpen: boolean) => {
     setIsDropdownOpen(isOpen);
   };
-
+  const printPdf = () => {
+    document.body.style.paddingTop = '0px';
+    const header = document.querySelector('header'); // or document.getElementById('header');
+    if (header) {
+      header.classList.add('print:hidden');
+    }
+    window.print();
+    if (header) {
+      header.classList.remove('print:hidden');
+    }
+    document.body.style.paddingTop = 'calc(6.4rem + 4.8rem)';
+  }
   const handleImport = (data: string[]) => {
     console.log("handleimport", data)
     setName(data.Name);
@@ -166,7 +177,7 @@ const Header: React.FC<HeaderProps> = ({
 
   return (
     <>
-      <header className="w-full bg-white shadow-sm py-4 px-6 fixed top-[15px] z-50 scale-[1.82] ">
+      <header className="w-full bg-white shadow-sm px-6 fixed top-[15px] z-50 scale-[1.82]">
         <div className="max-w-7xl mx-auto grid grid-cols-3 items-center">
           <div
             className="flex items-center space-x-2"
@@ -232,10 +243,14 @@ const Header: React.FC<HeaderProps> = ({
               style={{
                 backgroundColor: `${currentColor}20`,
                 color: currentColor,
+                height: "20px",
               }}
             >
               <FileUp className="h-4 w-4" />
               <span>Import</span>
+            </button>
+            <button onClick={printPdf} style={{ display: "none" }}>
+              print
             </button>
             {/* Use PDFDownloadLink for downloading */}
             {currentLayout === "split" &&
@@ -267,8 +282,9 @@ const Header: React.FC<HeaderProps> = ({
                   <button
                     className={`flex items-center space-x-2 px-4 py-2 text-default-sm text-white rounded-md transition-all hover:opacity-90 ${downloadingLoading ? "opacity-50" : ""
                       }`}
-                    style={{ backgroundColor: currentColor }}
+                    style={{ backgroundColor: currentColor, height: "20px", }}
                     disabled={downloadingLoading}
+
                   >
                     <FileDown className="h-4 w-4" />
                     <span>
@@ -307,7 +323,7 @@ const Header: React.FC<HeaderProps> = ({
                   <button
                     className={`flex items-center space-x-2 px-4 py-2 text-default-sm text-white rounded-md transition-all hover:opacity-90 ${downloadingLoading ? "opacity-50" : ""
                       }`}
-                    style={{ backgroundColor: currentColor }}
+                    style={{ backgroundColor: currentColor, height: "20px", }}
                     disabled={downloadingLoading}
                   >
                     <FileDown className="h-4 w-4" />
@@ -348,7 +364,7 @@ const Header: React.FC<HeaderProps> = ({
                   <button
                     className={`flex items-center space-x-2 px-4 py-2 text-default-sm text-white rounded-md transition-all hover:opacity-90 ${downloadingLoading ? "opacity-50" : ""
                       }`}
-                    style={{ backgroundColor: currentColor }}
+                    style={{ backgroundColor: currentColor, height: "20px", }}
                     disabled={downloadingLoading}
                   >
                     <FileDown className="h-4 w-4" />

@@ -86,7 +86,7 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
   };
 
   return (
-    <div id="resume" data-text="Created for free at www.resumemaker.online">
+    <div id="resume" >
       <div className="main-wrapper">
         <div id="name-role">
           <h1

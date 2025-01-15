@@ -2378,3 +2378,166 @@ span.o--Button--children {
 .template3 #picture {
   margin-bottom: 2rem;
 }
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 9999999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 2.4rem;
+  text-align: center;
+}
+.modal > div {
+  background: white;
+  padding: 2.4rem;
+  width: 100%;
+  max-width: 56rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  position: relative;
+  max-height: calc(100vh - 4.8rem);
+  border-radius: 1.6rem;
+}
+.modal .close {
+  position: absolute;
+  right: 0rem;
+  top: 0rem;
+  width: 4.8rem;
+  height: 4.8rem;
+  z-index: 99999;
+  cursor: pointer !important;
+  font-size: 2rem;
+}
+.modal p {
+  margin-bottom: 1.2rem;
+  margin-top: -0.6rem;
+  font-size: 1.4rem;
+}
+label {
+  display: block;
+  font-weight: 500;
+  font-size: 1.2rem;
+  color: #101828;
+  overflow: hidden;
+  user-select: none;
+  text-align: left;
+  margin-bottom: 0.6rem;
+}
+input[type="text"],
+input[type="number"],
+select,
+textarea,
+input[type="number"],
+.goog-te-gadget .goog-te-combo {
+  width: 100%;
+  font-size: 1.4rem;
+  border-radius: 0.8rem;
+  border: 1px solid var(--main-color-50);
+  padding: 1rem 1.2rem;
+  line-height: 1.3;
+  max-width: 100%;
+}
+input[type="text"],
+select {
+  height: 4rem;
+}
+#modalExperience .output,
+#modalSkills .output {
+  padding: 1rem 1.2rem;
+  font-size: 1.4rem;
+  text-align: left;
+  border-radius: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  max-height: 25rem;
+  overflow-y: scroll;
+  border: 1px solid var(--main-color-50);
+  background: white;
+  box-shadow: 0 0.1rem 0.2rem 0 rgb(0 0 0 / 5%);
+}
+.modal .output {
+  opacity: 1 !important;
+  background: whitesmoke;
+  padding: 1rem 1.2rem;
+  font-size: 1.4rem;
+  text-align: left;
+}
+#modalSkills .output {
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+button[disabled],
+.loading_ai button {
+  cursor: default;
+  opacity: 0.5;
+  pointer-events: none;
+}
+.btn-primary,
+.btn-secondary,
+.btn-edit span {
+  transition: 0.2s ease;
+}
+.btn-secondary {
+  color: white;
+  background: var(--main-color);
+}
+button,
+#modalDownload .btn-primary {
+  line-height: 4rem;
+  cursor: pointer;
+  user-select: none;
+  padding: 0rem 1rem;
+  height: 4rem;
+  border: none;
+  position: relative;
+  font-size: 1.4rem;
+  border-radius: 0.8rem;
+  font-weight: 700;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  gap: 0.6rem;
+  background: transparent;
+  white-space: nowrap;
+}
+input,
+select,
+textarea,
+button {
+  font-family: "nunito", sans-serif;
+}
+.modal button.apply[disabled] {
+  display: none;
+}
+
+.columns {
+  display: flex;
+  flex-direction: row !important;
+  gap: 0.6rem;
+  width: 100%;
+}
+.modal .columns div {
+  flex-grow: 1;
+}

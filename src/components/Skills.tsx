@@ -9,6 +9,7 @@ import {
 import RemoveButton from "./RemoveButton";
 import ReorderButton from "./ReorderButton";
 import AddButton from "./AddButton";
+import Ai_Modal from "./Ai_Modal";
 
 interface SkillType {
   skillname: string;
@@ -20,7 +21,7 @@ const Skills: React.FC<{
   themeColor: string;
 }> = ({ setSkills, skills, themeColor }) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null); // Track hovered item
-
+  const [showModal, setShowModal] = useState(false);
   const reorder = (
     list: SkillType[],
     startIndex: number,
@@ -71,76 +72,86 @@ const Skills: React.FC<{
   };
 
   return (
-    <div id="skills" className="list with-border">
-      <h2
-        contentEditable="true"
-        translate-data="Skills"
-        placeholder="Skills"
-        data-gramm="false"
-      ></h2>
-      <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable droppableId="skills">
-          {(provided) => (
-            <div
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-              style={{ display: "contents" }}
-            >
-              {skills.map((skill, index) => (
-                <Draggable
-                  key={`skill-${index}`}
-                  draggableId={`skill-${index}`}
-                  index={index}
-                >
-                  {(provided, snapshot) => (
-                    <div
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      onMouseEnter={() => setHoveredIndex(index)} // Set hovered index
-                      onMouseLeave={() => setHoveredIndex(null)} // Clear hovered index
-                    >
-                      <Contenteditable
-                        value={skill.skillname}
-                        onChange={(updatedContent) => {
-                          updateSkill(index, "skillname", updatedContent);
-                        }}
-                        as="p"
-                        placeholder="Enter skill"
-                        className=""
-                        translate-data="Enter skill"
-                        data-gramm="false"
-                      />
-                      <div className="btn-edit">
-                        {skills.length > 1 && hoveredIndex === index && (
-                          <>
-                            <RemoveButton
-                              index={index}
-                              removeFunc={removeSkill}
-                            />
-                            <ReorderButton provided={provided} />
-                          </>
-                        )}
-                        {hoveredIndex === index && <AddButton addFunc={addSkill} />}
+    <div>
+      <div id="skills" className="list with-border">
+        <h2
+          contentEditable="true"
+          translate-data="Skills"
+          placeholder="Skills"
+          data-gramm="false"
+        ></h2>
+        <DragDropContext onDragEnd={onDragEnd}>
+          <Droppable droppableId="skills">
+            {(provided) => (
+              <div
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+                className="flex flex-wrap"
+              // style={{ display: "" }}
+              >
+                {skills.map((skill, index) => (
+                  <Draggable
+                    key={`skill-${index}`}
+                    draggableId={`skill-${index}`}
+                    index={index}
+                  >
+                    {(provided, snapshot) => (
+                      <div
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        onMouseEnter={() => setHoveredIndex(index)} // Set hovered index
+                        onMouseLeave={() => setHoveredIndex(null)} // Clear hovered index
+                      >
+                        <Contenteditable
+                          value={skill.skillname}
+                          onChange={(updatedContent) => {
+                            updateSkill(index, "skillname", updatedContent);
+                          }}
+                          as="p"
+                          placeholder="Enter skill"
+                          className=""
+                          translate-data="Enter skill"
+                          data-gramm="false"
+                        />
+                        <div className="btn-edit">
+                          {skills.length > 1 && hoveredIndex === index && (
+                            <>
+                              <RemoveButton
+                                index={index}
+                                removeFunc={removeSkill}
+                              />
+                              <ReorderButton provided={provided} />
+                            </>
+                          )}
+                          {hoveredIndex === index && <AddButton addFunc={addSkill} />}
+                        </div>
                       </div>
-                    </div>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
-      <span className="btn-edit">
-        <span
-          className="writing-assistant"
-          onClick={() => openModal("Skills", this)}
-          translate-data="✧ Writing Assistant"
-        >
-          ✧ Writing Assistant
+                    )}
+                  </Draggable>
+                ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
+        <span className="btn-edit">
+          <span
+            className="writing-assistant"
+            onClick={() => setShowModal(true)}
+            translate-data="✧ Writing Assistant"
+          >
+            ✧ Writing Assistant
+          </span>
         </span>
-      </span>
+
+      </div>
+      {showModal && (
+        <Ai_Modal onClose={() => setShowModal(false)}
+          headerText={"Skill"} />
+      )}
+
     </div>
+
   );
 };
 

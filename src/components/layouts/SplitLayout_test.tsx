@@ -90,7 +90,7 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
   };
 
   return (
-    <div id="resume" data-text="Created for free at www.resumemaker.online">
+    <div id="resume" >
       <div className="main-wrapper">
         {visibleSections.includes("picture") && (
           <div id="picture">
@@ -120,7 +120,7 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
               placeholder="Your Role"
               id="role"
               data-gramm="false"
-              // onInput={(e) => setRole(e.currentTarget.textContent)}
+            // onInput={(e) => setRole(e.currentTarget.textContent)}
             >
               {role}
             </h2>
@@ -282,14 +282,14 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
             />
           )}
           {visibleSections.includes("skills") && (
-            <Skills setSkills={setSkills} skills={skills} themeColor={themeColor}/>
+            <Skills setSkills={setSkills} skills={skills} themeColor={themeColor} />
           )}
           {visibleSections.includes("languages") && (
-            <Languages setLanguages={setLanguages} languages={languages} themeColor={themeColor}/>
-            
+            <Languages setLanguages={setLanguages} languages={languages} themeColor={themeColor} />
+
           )}
           {visibleSections.includes("interests") && (
-            <Hobbies setHobbies={setHobbies} hobbies={hobbies} themeColor={themeColor}/>
+            <Hobbies setHobbies={setHobbies} hobbies={hobbies} themeColor={themeColor} />
           )}
         </div>
       </div>

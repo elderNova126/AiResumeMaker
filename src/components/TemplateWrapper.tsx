@@ -8,7 +8,7 @@ interface TemplateWrapperProps {
 
 const TemplateWrapper = ({ children, themeColor, id }: TemplateWrapperProps) => {
   return (
-    <div id="resume-template" className="pt-[11px] pb-[50px]" style={{ backgroundColor: themeColor }}>
+    <div id="resume-template">
       {children}
     </div>
   );

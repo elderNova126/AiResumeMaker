@@ -13,8 +13,6 @@ import AboutMe from "../AboutMe";
 import Experiences from "../Experiences";
 import Educations from "../Educations";
 import Skills from "../Skills";
-import Hobbies from "../Hobbies"
-import LanguagesSection from "../Languages";
 import { useUser } from "../../context/UserContext";
 
 interface SplitLayoutProps {
@@ -253,15 +251,15 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
           setSkills={setSkills}
           skills={skills}
           themeColor={themeColor}
-          cate={3}
+
         />
       )}
       {visibleSections.includes("languages") && (
-        <LanguagesSection
+        <Languages
           setLanguages={setLanguages}
           languages={languages}
           themeColor={themeColor}
-          cate={3}
+
         />
       )}
       {visibleSections.includes("interests") && (

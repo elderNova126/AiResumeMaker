@@ -69,7 +69,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
       company: "",
       dateRange: "",
       position: "",
-      description: ["fff","ffffddd"],
+      description: [],
     }
   ]);
   const [educations, setEducations] = useState<Education[]>([

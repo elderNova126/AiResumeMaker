@@ -1519,6 +1519,12 @@ span p {
   gap: 1rem;
   position: relative;
 }
+.list1 {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  position: relative;
+}
 .btn-edit {
   font-size: 1.2rem;
   font-weight: 600;

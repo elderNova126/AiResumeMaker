@@ -45,8 +45,9 @@ const WorkExperienceEditor: React.FC<WorkExperienceEditorProps> = ({
   // Synchronize value with initialDescription if it changes
   useEffect(() => {
     setValue(generateTextFromDescription(initialDescription));
+    console.log("bbbbbbbb", initialDescription, generateTextFromDescription(initialDescription));
   }, [initialDescription]);
-
+  console.log("aaaa", initialDescription);
   const handleChange = (newValue: string) => {
     setValue(newValue);
 

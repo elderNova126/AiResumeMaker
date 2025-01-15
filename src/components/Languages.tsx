@@ -9,7 +9,6 @@ import {
 import RemoveButton from "./RemoveButton";
 import ReorderButton from "./ReorderButton";
 import AddButton from "./AddButton";
-import { display } from "html2canvas/dist/types/css/property-descriptors/display";
 
 interface LanguageType {
   name: string;
@@ -19,7 +18,8 @@ const Languages: React.FC<{
   setLanguages: React.Dispatch<React.SetStateAction<LanguageType[]>>;
   languages: LanguageType[];
   themeColor: string;
-}> = ({ setLanguages, languages, themeColor }) => {
+  isSplit:boolean;
+}> = ({ setLanguages, languages, themeColor, isSplit=true }) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null); // Track hovered item
 
   const reorder = (
@@ -39,7 +39,7 @@ const Languages: React.FC<{
       return;
     }
     const reorderedLanguages = reorder(
-      languages,
+      languages,  
       result.source.index,
       result.destination.index
     );
@@ -101,6 +101,7 @@ const Languages: React.FC<{
                     {...provided.dragHandleProps} // Ensure drag functionality
                     onMouseEnter={() => setHoveredIndex(index)} // Set hovered index
                     onMouseLeave={() => setHoveredIndex(null)} // Clear hovered index
+                    style={isSplit?{flex:"0 0 calc(33.33% - 0.666rem)"}:{flex:"0 0 calc(24.5% - 0.666rem)"}}
                   >
 
                     <Contenteditable

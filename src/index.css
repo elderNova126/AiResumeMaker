@@ -83,6 +83,17 @@ body {
   -webkit-appearance: none;
   -moz-appearance: none;
 }
+.ql-container.ql-snow {
+  border: none;
+  font-family: inherit;
+}
+.ql-editor::before {
+  color: #000000 !important; /* Placeholder color */
+  font-size: 14px; /* Adjust font size */
+  font-family: inherit; /* Set font family */
+  font-style: normal !important;
+}
+
 .ql-editor {
   padding: 1px !important; /* Set padding-left to 0px */
   padding-top: 1px !important; /* Remove padding on list items */
@@ -103,11 +114,7 @@ body {
   margin: 0;
   padding: 0;
 }
-.ql-container {
-  border: none !important; /* Remove the border of the editor */
-  font-size: inherit !important;
-  font-family: inherit !important;
-}
+
 .classicStyle {
   display: ruby;
 }
@@ -302,7 +309,7 @@ header {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
-  font-smoothing: antialiased;
+  font-family: inherit;
 }
 *:focus {
   outline: none;

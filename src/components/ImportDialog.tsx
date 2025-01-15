@@ -4,7 +4,7 @@ import { parsePDFContent, mapToTemplate, initializePDFWorker } from '../utils/re
 import { filterResumeItems } from './parseByAi';
 interface ImportDialogProps {
   onClose: () => void;
-  onImport: (data:string[]) => void;
+  onImport: (data: string[]) => void;
 }
 
 const ImportDialog = ({ onClose, onImport }: ImportDialogProps) => {
@@ -31,7 +31,7 @@ const ImportDialog = ({ onClose, onImport }: ImportDialogProps) => {
     const file = event.target.files?.[0];
     if (!file) return;
     // Reset file input to allow re-uploading the same file
-    event.target.value = '';    
+    event.target.value = '';
     // Add file size check
     const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
     if (file.size > MAX_FILE_SIZE) {
@@ -52,8 +52,8 @@ const ImportDialog = ({ onClose, onImport }: ImportDialogProps) => {
       console.log('Processing file:', file.name, 'Size:', file.size);
       const extractedData = await parsePDFContent(file);
       console.log('Extracted data:', extractedData);
-      const structuredData=await filterResumeItems(extractedData);
-      
+      const structuredData = await filterResumeItems(extractedData);
+
       // console.log('structuredData file:', structuredData);
       // const mappedData = await mapToTemplate(structuredData);
 
@@ -68,7 +68,7 @@ const ImportDialog = ({ onClose, onImport }: ImportDialogProps) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" style={{ scale: "200%" }}>
       <div className="bg-white rounded-lg shadow-xl p-6 w-full max-w-md">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-semibold text-gray-800">Import Resume</h2>
@@ -87,9 +87,8 @@ const ImportDialog = ({ onClose, onImport }: ImportDialogProps) => {
           </div>
         )}
 
-        <div className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${
-          isProcessing ? 'border-emerald-300 bg-emerald-50' : 'border-gray-300'
-        }`}>
+        <div className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${isProcessing ? 'border-emerald-300 bg-emerald-50' : 'border-gray-300'
+          }`}>
           <input
             type="file"
             accept=".pdf"

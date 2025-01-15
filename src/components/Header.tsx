@@ -374,14 +374,14 @@ const Header: React.FC<HeaderProps> = ({
           </div>
         </div>
 
-        {showImportDialog && (
-          <ImportDialog
-            onClose={() => setShowImportDialog(false)}
-            onImport={handleImport}
-          />
-        )}
-      </header>
 
+      </header>
+      {showImportDialog && (
+        <ImportDialog
+          onClose={() => setShowImportDialog(false)}
+          onImport={handleImport}
+        />
+      )}
       {isDropdownOpen && (
         <div
           className="fixed inset-0 bg-black/50 mt-[50px] z-40"

@@ -14,8 +14,8 @@ import AboutMe from "../AboutMe";
 import Experiences from "../Experiences";
 import Educations from "../Educations";
 import Skills from "../Skills";
-import Languages from "../Languages"
-import Hobbies from "../Hobbies"
+import Languages from "../Languages";
+import Hobbies from "../Hobbies";
 import Picture from "../Picture";
 import { useUser } from "../../context/UserContext";
 
@@ -91,10 +91,10 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
   };
 
   return (
-    <div id="resume" >
+    <div id="resume">
       <div className="main-wrapper">
         {visibleSections.includes("picture") && (
-          <Picture image={avatar} setImage={setAvatar}/>
+          <Picture image={avatar} setImage={setAvatar} />
         )}
         <div id="name-role">
           <Contenteditable
@@ -107,16 +107,14 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
           />
 
           {visibleSections.includes("role") && (
-            <h2
-              contentEditable="true"
-              translate-data="Your Role"
-              placeholder="Your Role"
-              id="role"
-              data-gramm="false"
-            // onInput={(e) => setRole(e.currentTarget.textContent)}
-            >
-              {role}
-            </h2>
+            <Contenteditable
+              value={role}
+              onChange={(updatedContent) => {
+                setRole(updatedContent);
+              }}
+              as="h2"
+              placeholder="Your Name"
+            />
           )}
         </div>
       </div>
@@ -274,14 +272,25 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
             />
           )}
           {visibleSections.includes("skills") && (
-            <Skills setSkills={setSkills} skills={skills} themeColor={themeColor} />
+            <Skills
+              setSkills={setSkills}
+              skills={skills}
+              themeColor={themeColor}
+            />
           )}
           {visibleSections.includes("languages") && (
-            <Languages setLanguages={setLanguages} languages={languages} themeColor={themeColor} />
-
+            <Languages
+              setLanguages={setLanguages}
+              languages={languages}
+              themeColor={themeColor}
+            />
           )}
           {visibleSections.includes("interests") && (
-            <Hobbies setHobbies={setHobbies} hobbies={hobbies} themeColor={themeColor} />
+            <Hobbies
+              setHobbies={setHobbies}
+              hobbies={hobbies}
+              themeColor={themeColor}
+            />
           )}
         </div>
       </div>

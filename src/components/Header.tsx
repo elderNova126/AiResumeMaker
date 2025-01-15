@@ -253,7 +253,7 @@ const Header: React.FC<HeaderProps> = ({
               print
             </button>
             {/* Use PDFDownloadLink for downloading */}
-            {currentLayout === "split" &&
+            {/* {currentLayout === "split" &&
               <PDFDownloadLink
                 document={
                   <ResumePDF
@@ -370,7 +370,7 @@ const Header: React.FC<HeaderProps> = ({
 
                 </>
 
-              </PDFDownloadLink>}
+              </PDFDownloadLink>} */}
           </div>
         </div>
 

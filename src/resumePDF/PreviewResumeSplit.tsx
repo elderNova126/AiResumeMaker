@@ -52,21 +52,57 @@ interface TimeProps {
 const Timeline: React.FC<TimeProps> = ({ themeColor }) => {
   const lightThemeColor = lightenColor(themeColor, 150);
   return (
-    <View style={{
-      marginTop: 3, position: "absolute", left: 0, top: 0, bottom: 0, display: "flex", flexDirection: "column",
-      alignItems: "center", justifyContent: "space-between",
-    }}>
-      <View style={{ marginTop: 8, position: "absolute", left: 2, top: 0, bottom: 0, width: 2, backgroundColor: lightThemeColor }} />
+    <View
+      style={{
+        marginTop: 3,
+        position: "absolute",
+        left: 0,
+        top: 0,
+        bottom: 0,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "space-between",
+      }}
+    >
+      <View
+        style={{
+          marginTop: 8,
+          position: "absolute",
+          left: 2,
+          top: 0,
+          bottom: 0,
+          width: 2,
+          backgroundColor: lightThemeColor,
+        }}
+      />
     </View>
   );
 };
 
 const TimeDot: React.FC<TimeProps> = ({ themeColor }) => (
-  <View style={{
-    marginTop: 3, position: "absolute", left: 0, top: 0, bottom: 0, display: "flex", flexDirection: "column",
-    alignItems: "center", justifyContent: "space-between",
-  }}>
-    <View style={{ width: 6, height: 6, borderRadius: "50%", marginBottom: 15, backgroundColor: themeColor }} />
+  <View
+    style={{
+      marginTop: 3,
+      position: "absolute",
+      left: 0,
+      top: 0,
+      bottom: 0,
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "space-between",
+    }}
+  >
+    <View
+      style={{
+        width: 6,
+        height: 6,
+        borderRadius: "50%",
+        marginBottom: 15,
+        backgroundColor: themeColor,
+      }}
+    />
   </View>
 );
 
@@ -78,8 +114,24 @@ interface ContactItemProps {
   fontS: string;
 }
 
-const ContactItem: React.FC<ContactItemProps> = ({ path, color, text, fontF, fontS }) => (
-  <View style={{ fontSize: getFontSize1(fontS), fontFamily: getFontFamily(fontF), flexDirection: "row", alignItems: "center", marginHorizontal: 10, marginBottom: 15, borderBottomWidth: 1, borderBottomColor: "#E0E0E0", paddingBottom: 5, }}>
+const ContactItem: React.FC<ContactItemProps> = ({
+  path,
+  color,
+  text,
+  fontF,
+  fontS,
+}) => (
+  <View
+    style={{
+      fontSize: getFontSize1(fontS),
+      fontFamily: getFontFamily(fontF),
+      flexDirection: "row",
+      alignItems: "center",
+      // marginHorizontal: 10,
+      marginBottom: 10,
+      paddingBottom: 5,
+    }}
+  >
     <PdfSvgIcon color={color} width={10} height={10} path={path} />
     <Text style={{ marginLeft: 5 }}>{text}</Text>
   </View>
@@ -160,38 +212,39 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
     headerCenteredContainer: {
       flex: 1,
       justifyContent: "center",
-      alignItems: "center",
+      alignItems: "flex-start",
     },
     profileImage: {
-      width: 80,
-      height: 80,
+      width: 120,
+      height: 120,
       borderRadius: "50%",
     },
     name: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
       fontSize: 30,
       fontWeight: "bold",
-      textAlign: "right",
-      padding: 10,
+      // textAlign: "right",
+      paddingLeft: 20,
     },
     role: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
       fontSize: 16,
-      textAlign: "right",
-      marginTop: 5,
+      paddingLeft:20,
+      // textAlign: "right",
+      // marginTop: 5,
     },
     mainContent: {
       flexDirection: "row",
       flex: 1,
     },
     leftColumn: {
-      width: "35%",
-      backgroundColor: "#f3f4f6",
+      width: "25%",
+      // backgroundColor: "#f3f4f6",
       padding: 8,
       paddingBottom: 40,
     },
     rightColumn: {
-      width: "65%",
+      width: "75%",
       padding: 8,
       paddingBottom: 40,
     },
@@ -199,7 +252,7 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
       fontSize: getFontSize1(currentTypography.size),
       fontWeight: "bold",
-      marginBottom: 10,
+      marginBottom: 8,
       color: "#1d4ed8",
       textTransform: "uppercase",
       // borderBottomWidth: 1,
@@ -254,19 +307,26 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
     },
 
     skillGridContainer: {
-      flexDirection: "row",
-      flexWrap: "wrap",
+      display: "flex",
+      flexDirection: "row", // Display items in a row
+      flexWrap: "wrap", // Allow wrapping to the next line
+      gap: 12, // Add space between items
+      // marginTop: 10,
     },
-
+  
     skillItem: {
-      fontFamily: getFontFamily(currentTypography.font) || "Nunito",
-      fontSize: getFontSize1(currentTypography.size),
-      padding: 5,
-      backgroundColor: "#e5e7eb",
-      borderRadius: 4,
-      marginRight: 5,
-      marginBottom: 5,
-      textAlign: "center",
+      width: "30%", // Ensures 3 items per row (100% / 3 = 33.3%)
+      fontSize: 10,
+      fontWeight: "bold",
+      color: "#374151",
+      backgroundColor: "#eff5f5",
+      borderRadius: 3,
+      paddingVertical: 5,
+      paddingHorizontal: 12,
+      textAlign: "center", // Centers text inside the skill
+      boxSizing: "border-box", // Ensures padding does not affect width
+      // marginBottom: 5, // Add space between rows
+      transition: "transform 0.2s ease-in-out", // Hover effect for interactivity (optional, if applicable in PDF context)
     },
 
     timelineContainer: {
@@ -302,7 +362,7 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
       backgroundColor: "#2563eb",
     },
     experienceBlock: {
-      marginBottom: 20,
+      // marginBottom: 20,
       marginLeft: 20,
     },
     companyName: {
@@ -322,7 +382,7 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
       marginBottom: 5,
     },
     educationBlock: {
-      marginBottom: 15,
+      // marginBottom: 5,
       marginLeft: 20,
     },
   });
@@ -344,11 +404,17 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
 
           <View style={styles.mainContent}>
             <View style={styles.leftColumn}>
+              {summery && visibleSections.includes("about") ? (
+                <View>
+                  <Text style={{ ...styles.sectionTitle, color: themeColor }}>
+                    About Me
+                  </Text>
+                  <Text style={styles.summary}>{summery}</Text>
+                </View>
+              ) : null}
               {email || phone || location || websiteLink || linkedinLink ? (
                 <>
-                  <Text style={styles.sectionTitle}>
-                    PERSONAL DETAILS
-                  </Text>
+                  <Text style={{ ...styles.sectionTitle, color: themeColor }} >PERSONAL DETAILS</Text>
                   {location && visibleSections.includes("location") ? (
                     <ContactItem
                       path={LocationSvgPath}
@@ -396,34 +462,11 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
                   ) : null}
                 </>
               ) : null}
-
-              {summery && visibleSections.includes("about") ? (
-                <View style={{ marginTop: 20 }}>
-                  <Text style={{ ...styles.sectionTitle, color: themeColor }}>
-                    Profile
-                  </Text>
-                  <Text style={styles.summary}>{summery}</Text>
-                </View>
-              ) : null}
-              {languages.length > 0 && visibleSections.includes("languages") ? (
-                <>
-                  <Text style={{ ...styles.sectionTitle, color: themeColor }}>
-                    Languages
-                  </Text>
-                  <View style={styles.LangGridContainer}>
-                    {languages.map((language, index) => (
-                      <View key={index} style={styles.LangItemContainer}>
-                        <Text style={styles.LangName}>- {language.name}</Text>
-                      </View>
-                    ))}
-                  </View>
-                </>
-              ) : null}
             </View>
 
             <View style={styles.rightColumn}>
               {experiences.length > 0 &&
-                visibleSections.includes("experience") ? (
+              visibleSections.includes("experience") ? (
                 <>
                   <Text style={{ ...styles.sectionTitle, color: themeColor }}>
                     Experience
@@ -456,7 +499,7 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
               ) : null}
 
               {educations.length > 0 &&
-                visibleSections.includes("education") ? (
+              visibleSections.includes("education") ? (
                 <>
                   <Text style={{ ...styles.sectionTitle, color: themeColor }}>
                     Education
@@ -478,10 +521,9 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
                   ))}
                 </>
               ) : null}
-
               {skills.length > 0 && visibleSections.includes("skills") ? (
                 <>
-                  <Text style={{ ...styles.sectionTitle, color: themeColor }}>
+                  <Text style={[styles.sectionTitle, { color: themeColor }]}>
                     Skills
                   </Text>
                   <View style={styles.skillGridContainer}>
@@ -492,6 +534,20 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
                     ))}
                   </View>
                 </>
+              ) : null}
+              {languages.length > 0 && visibleSections.includes("languages") ? (
+                <>
+                <Text style={[styles.sectionTitle, { color: themeColor }, skills.length>0?{marginTop:15}:{marginTop:0}]}>
+                  Language
+                </Text>
+                <View style={styles.skillGridContainer}>
+                  {languages.map((language, index) => (
+                    <Text key={index} style={styles.skillItem}>
+                      {language.name}
+                    </Text>
+                  ))}
+                </View>
+              </>
               ) : null}
             </View>
           </View>

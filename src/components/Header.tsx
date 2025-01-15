@@ -60,6 +60,8 @@ const Header: React.FC<HeaderProps> = ({
     setSkills,
     languages,
     setLanguages,
+    hobbies,
+    setHobbies,
     avatar,
     setAvatar,
   } = useUser();
@@ -105,6 +107,12 @@ const Header: React.FC<HeaderProps> = ({
     }));
     setLanguages(transformedLng);
 
+    const transformedHob = data.Hobbies.map((item) => ({
+      name: item.Name,
+    }));
+
+    setHobbies(transformedHob);
+
     const transformedExperiences = data.Experiences.map(exp => ({
       company: exp.Company,
       dateRange: exp.DateRange,
@@ -125,9 +133,9 @@ const Header: React.FC<HeaderProps> = ({
     { value: "split", label: "Split Layout" },
     { value: "classic", label: "Classic Layout" },
     { value: "hybrid", label: "ATS Layout" },
-    { value: "test_split", label: "Preview Split" },
-    { value: "test_classic", label: "Preview Classic" },
-    { value: "test_ats", label: "Preview ATS" },
+    // { value: "test_split", label: "Preview Split" },
+    // { value: "test_classic", label: "Preview Classic" },
+    // { value: "test_ats", label: "Preview ATS" },
     // { value: "test", label: "Test" },
   ];
 
@@ -270,6 +278,7 @@ const Header: React.FC<HeaderProps> = ({
                     educations={educations}
                     skills={skills}
                     languages={languages}
+                    hobbies={hobbies}
                     avatar={avatar}
                     visibleSections={visibleSections}
                     currentTypography={currentTypography}
@@ -306,6 +315,7 @@ const Header: React.FC<HeaderProps> = ({
                     educations={educations}
                     skills={skills}
                     languages={languages}
+                    hobbies={hobbies}
                     avatar={avatar}
                     visibleSections={visibleSections}
                     currentTypography={currentTypography}
@@ -347,6 +357,7 @@ const Header: React.FC<HeaderProps> = ({
                     educations={educations}
                     skills={skills}
                     languages={languages}
+                    hobbies={hobbies}
                     avatar={avatar}
                     visibleSections={visibleSections}
                     currentTypography={currentTypography}

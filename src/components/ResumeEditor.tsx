@@ -35,6 +35,7 @@ const ResumeEditor = ({
     educations,
     skills,
     languages,
+    hobbies,
     avatar,
   } = useUser();
   const renderContent = () => {
@@ -60,69 +61,72 @@ const ResumeEditor = ({
             visibleSections={visibleSections}
           />
         );
-      case "test_split":
-        return (
-          <PreviewResumeSplit
-            themeColor={themeColor}
-            name={name}
-            role={role}
-            email={email}
-            location={location}
-            phone={phone}
-            websiteLink={website}
-            linkedinLink={linkedin}
-            summery={about}
-            experiences={experiences}
-            educations={educations}
-            skills={skills}
-            languages={languages}
-            avatar={avatar}
-            visibleSections={visibleSections}
-            currentTypography={currentTypography}
-          />
-        );
-      case "test_classic":
-        return (
-          <PreviewResumeClassic
-            themeColor={themeColor}
-            currentTypography={currentTypography}
-            name={name}
-            role={role}
-            email={email}
-            location={location}
-            phone={phone}
-            websiteLink={website}
-            linkedinLink={linkedin}
-            summery={about}
-            experiences={experiences}
-            educations={educations}
-            skills={skills}
-            languages={languages}
-            avatar={avatar}
-            visibleSections={visibleSections}
-          />
-        );
-      case "test_ats":
-        return (
-          <PreviewResumeATS
-            themeColor={themeColor}
-            currentTypography={currentTypography}
-            name={name}
-            role={role}
-            email={email}
-            location={location}
-            phone={phone}
-            websiteLink={website}
-            linkedinLink={linkedin}
-            summery={about}
-            experiences={experiences}
-            educations={educations}
-            skills={skills}
-            languages={languages}
-            avatar={avatar}
-            visibleSections={visibleSections}
-          />
-        );
+      // case "test_split":
+      //   return (
+      //     <PreviewResumeSplit
+      //       themeColor={themeColor}
+      //       name={name}
+      //       role={role}
+      //       email={email}
+      //       location={location}
+      //       phone={phone}
+      //       websiteLink={website}
+      //       linkedinLink={linkedin}
+      //       summery={about}
+      //       experiences={experiences}
+      //       educations={educations}
+      //       skills={skills}
+      //       languages={languages}
+      //       hobbies={hobbies}
+      //       avatar={avatar}
+      //       visibleSections={visibleSections}
+      //       currentTypography={currentTypography}
+      //     />
+      //   );
+      // case "test_classic":
+      //   return (
+      //     <PreviewResumeClassic
+      //       themeColor={themeColor}
+      //       currentTypography={currentTypography}
+      //       name={name}
+      //       role={role}
+      //       email={email}
+      //       location={location}
+      //       phone={phone}
+      //       websiteLink={website}
+      //       linkedinLink={linkedin}
+      //       summery={about}
+      //       experiences={experiences}
+      //       educations={educations}
+      //       skills={skills}
+      //       languages={languages}
+      //       hobbies={hobbies}
+      //       avatar={avatar}
+      //       visibleSections={visibleSections}
+      //     />
+      //   );
+      // case "test_ats":
+      //   return (
+      //     <PreviewResumeATS
+      //       themeColor={themeColor}
+      //       currentTypography={currentTypography}
+      //       name={name}
+      //       role={role}
+      //       email={email}
+      //       location={location}
+      //       phone={phone}
+      //       websiteLink={website}
+      //       linkedinLink={linkedin}
+      //       summery={about}
+      //       experiences={experiences}
+      //       educations={educations}
+      //       skills={skills}
+      //       languages={languages}
+      //       hobbies={hobbies}
+      //       avatar={avatar}
+      //       visibleSections={visibleSections}
+      //     />
+      //   );
       case "test":
         return (<ResumeExtractor />);
       default:

@@ -31,33 +31,30 @@ const WorkExperienceEditor: React.FC<WorkExperienceEditorProps> = ({
 
   // Parse plain text back into an array
   const parseDescriptionFromText = (text: string) => {
-    // Split by the bullet symbol (•) followed by a space, then clean up
     return text
       .split("•") // Split by the bullet point
       .filter((line) => line.trim() !== "") // Remove empty lines
       .map((line) => line.trim()); // Trim each line
   };
-  
+
   // State for the editable content
   const [value, setValue] = useState<string>(
     generateTextFromDescription(initialDescription)
   );
 
-  // Update state when initialDescription changes
-  // useEffect(() => {
-  //   setValue(generateTextFromDescription(initialDescription));
-  // }, [initialDescription]);
+  // Synchronize value with initialDescription if it changes
+  useEffect(() => {
+    setValue(generateTextFromDescription(initialDescription));
+  }, [initialDescription]);
 
   const handleChange = (newValue: string) => {
-    
     setValue(newValue);
 
     // Convert plain text back to description array
     const updatedDescription = parseDescriptionFromText(newValue);
-    console.log("updatedDescription: ", updatedDescription);
     updateExperience(index, "description", updatedDescription);
   };
-  console.log("newvalue: ", value);
+
   return (
     <Contenteditable
       value={value} // Pass plain text with \n for newlines

@@ -64,96 +64,89 @@ const Educations: React.FC<{
   };
   console.log("educations: ", educations);
   return (
-    <div id="education">
-      <h2
-        contentEditable="true"
-        translate-data="Education"
-        placeholder="Education"
-        data-gramm="false"
-      ></h2>
-      <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable droppableId="educations">
-          {(provided) => (
-            <div
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-              className="space-y-4"
-            >
-              {educations.map((education, index) => (
-                <Draggable
-                  key={`education-${index}`}
-                  draggableId={`education-${index}`}
-                  index={index}
-                >
-                  {(provided, snapshot) => (
-                    <div
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      className={`relative group border border-transparent rounded-md hover:border-gray-300 transition-all ${
-                        snapshot.isDragging ? "bg-gray-100 shadow-md" : ""
-                      }`}
-                    >
-                      <div className="sortable-wrapper">
-                        <div className="with-border">
-                          <Contenteditable
-                            value={education.school}
-                            onChange={(updatedContent) => {
-                              updateEducation(index, "school", updatedContent);
-                            }}
-                            as="h3"
-                            placeholder="School"
-                          />
-                          <div>
-                            <Contenteditable
-                              value={education.degree}
-                              onChange={(updatedContent) => {
-                                updateEducation(
-                                  index,
-                                  "degree",
-                                  updatedContent
-                                );
-                              }}
-                              as="h4"
-                              placeholder="Degree"
-                            />
+    <DragDropContext onDragEnd={onDragEnd}>
+      <Droppable droppableId="educations">
+        {(provided) => (
+          <div
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+            id="education"
+          >
+            <h2
+              contentEditable="true"
+              translate-data="Education"
+              placeholder="Education"
+              data-gramm="false"
+            ></h2>
+            {educations.map((education, index) => (
+              <Draggable
+                key={`education-${index}`}
+                draggableId={`education-${index}`}
+                index={index}
+              >
+                {(provided, snapshot) => (
+                  <div
+                    ref={provided.innerRef}
+                    {...provided.draggableProps}
+                    className="sortable-wrapper"
+                  >
+                    <div className="with-border">
+                      <Contenteditable
+                        value={education.school}
+                        onChange={(updatedContent) => {
+                          updateEducation(index, "school", updatedContent);
+                        }}
+                        as="h3"
+                        placeholder="School"
+                      />
+                      <div>
+                        <Contenteditable
+                          value={education.degree}
+                          onChange={(updatedContent) => {
+                            updateEducation(index, "degree", updatedContent);
+                          }}
+                          as="h4"
+                          placeholder="Degree"
+                        />
 
-                            <Contenteditable
-                              value={education.dateRange}
-                              onChange={(updatedContent) => {
-                                updateEducation(
-                                  index,
-                                  "dateRange",
-                                  updatedContent
-                                );
-                              }}
-                              as="p"
-                              placeholder="From - Until"
+                        <Contenteditable
+                          value={education.dateRange}
+                          onChange={(updatedContent) => {
+                            updateEducation(index, "dateRange", updatedContent);
+                          }}
+                          as="p"
+                          placeholder="From - Until"
+                        />
+                      </div>
+                      <div className="btn-edit">
+                        {educations.length > 1 && (
+                          <>
+                            <RemoveButton
+                              index={index}
+                              removeFunc={removeEducation}
                             />
-                          </div>
-                          <div className="btn-edit">
-                            {educations.length > 1 && (
-                              <>
-                                <RemoveButton
-                                  index={index}
-                                  removeFunc={removeEducation}
-                                />
-                                <ReorderButton provided={provided} />
-                              </>
-                            )}
-                            <AddButton addFunc={addEducation} />
-                          </div>
-                        </div>
+                            <ReorderButton provided={provided} />
+                          </>
+                        )}
+                        <AddButton addFunc={addEducation} />
                       </div>
                     </div>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
-    </div>
+                    {educations.length > 1 &&
+                        educations.length - 1 > index && (
+                          <div
+                            className="timeline_linea"
+                            style={{ background: themeColor }}
+                          ></div>
+                        )}
+                  </div>
+                )}
+              </Draggable>
+            ))}
+            {provided.placeholder}
+          </div>
+        )}
+      </Droppable>
+    </DragDropContext>
   );
 };
 

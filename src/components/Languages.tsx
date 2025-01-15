@@ -102,6 +102,7 @@ const Languages: React.FC<{
                     onMouseEnter={() => setHoveredIndex(index)} // Set hovered index
                     onMouseLeave={() => setHoveredIndex(null)} // Clear hovered index
                   >
+                    
                     <Contenteditable
                       value={language.name}
                       onChange={(updatedContent) => {
@@ -113,7 +114,7 @@ const Languages: React.FC<{
                       translate-data="Enter language"
                       data-gramm="false"
                     />
-                    <div className="btn-edit">
+                    <span className="btn-edit">
                       {languages.length > 1 &&
                         hoveredIndex === index && ( // Show buttons only for hovered item
                           <>
@@ -127,7 +128,7 @@ const Languages: React.FC<{
                       {hoveredIndex === index && (
                         <AddButton addFunc={addLanguage} />
                       )}
-                    </div>
+                    </span>
                   </div>
                 )}
               </Draggable>

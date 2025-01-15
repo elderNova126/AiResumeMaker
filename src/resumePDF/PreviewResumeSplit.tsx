@@ -17,8 +17,7 @@ import {
   WebsiteSvgPath,
   LinkedSvgPath,
 } from "../consts/SvgConst";
-// import RegisterFonts from "./../consts/FontRegister";
-// RegisterFonts();
+
 const lightenColor = (color: string, add: number) => {
   let r = 0,
     g = 0,
@@ -71,7 +70,6 @@ const TimeDot: React.FC<TimeProps> = ({ themeColor }) => (
   </View>
 );
 
-
 interface ContactItemProps {
   path: string;
   text: string;
@@ -100,7 +98,6 @@ interface Education {
 }
 interface PreviewResumeSplitProps {
   themeColor?: string;
-  currentTypography: { font: string; size: string };
   name: string;
   role: string;
   email: string;
@@ -112,9 +109,10 @@ interface PreviewResumeSplitProps {
   experiences: Experience[];
   educations: Education[];
   skills: { skillname: string }[];
-  languages: { name: string; level: string }[];
+  languages: { name: string }[];
   avatar: string;
   visibleSections: string[];
+  currentTypography: { font: string; size: string };
 }
 
 const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
@@ -139,6 +137,7 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
   experiences = experiences.filter(
     (e) => e.position || e.dateRange || e.company
   );
+
   skills = skills.filter((e) => e.skillname);
   languages = languages.filter((e) => e.name);
 
@@ -260,7 +259,7 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
     },
 
     skillItem: {
-      fontFamily: getFontFamily(currentTypography.font) || "Nunito" || "Nunito",
+      fontFamily: getFontFamily(currentTypography.font) || "Nunito",
       fontSize: getFontSize1(currentTypography.size),
       padding: 5,
       backgroundColor: "#e5e7eb",
@@ -327,180 +326,178 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
       marginLeft: 20,
     },
   });
-
   return (
-    // <PDFViewer style={{ width: "100%", height: "100vh" }}>
-    <Document>
-      <Page size="A4" style={[styles.page]}>
-        <View style={styles.header}>
-          {avatar && visibleSections.includes("picture") ? (
-            <Image style={styles.profileImage} src={avatar} />
-          ) : null}
-          <View style={styles.headerCenteredContainer}>
-            <Text style={[styles.name, { color: themeColor }]}>{name}</Text>
-            {visibleSections.includes("role") ? (
-              <Text style={styles.role}>{role}</Text>
+    <PDFViewer style={{ width: "100%", height: "100vh" }}>
+      <Document>
+        <Page size="A4" style={styles.page}>
+          <View style={styles.header}>
+            {avatar && visibleSections.includes("picture") ? (
+              <Image style={styles.profileImage} src={avatar} />
             ) : null}
+            <View style={styles.headerCenteredContainer}>
+              <Text style={{ ...styles.name, color: themeColor }}>{name}</Text>
+              {visibleSections.includes("role") ? (
+                <Text style={styles.role}>{role}</Text>
+              ) : null}
+            </View>
           </View>
-        </View>
 
-        <View style={styles.mainContent}>
-          <View style={styles.leftColumn}>
-            {email || phone || location || websiteLink || linkedinLink ? (
-              <>
-                <Text style={[styles.sectionTitle]}>
-                  PERSONAL DETAILS
-                </Text>
-                {location && visibleSections.includes("location") ? (
-                  <ContactItem
-                    path={LocationSvgPath}
-                    color={themeColor}
-                    text={location}
-                    fontF={currentTypography.font}
-                    fontS={currentTypography.size}
-                  />
-                ) : null}
-                {email && visibleSections.includes("email") ? (
-                  <ContactItem
-                    path={MailSvgPath}
-                    color={themeColor}
-                    text={email}
-                    fontF={currentTypography.font}
-                    fontS={currentTypography.size}
-                  />
-                ) : null}
-                {phone && visibleSections.includes("phone") ? (
-                  <ContactItem
-                    path={PhoneSvgPath}
-                    color={themeColor}
-                    text={phone}
-                    fontF={currentTypography.font}
-                    fontS={currentTypography.size}
-                  />
-                ) : null}
-                {websiteLink && visibleSections.includes("website") ? (
-                  <ContactItem
-                    path={WebsiteSvgPath}
-                    color={themeColor}
-                    text={websiteLink}
-                    fontF={currentTypography.font}
-                    fontS={currentTypography.size}
-                  />
-                ) : null}
-                {linkedinLink && visibleSections.includes("linkedin") ? (
-                  <ContactItem
-                    path={LinkedSvgPath}
-                    color={themeColor}
-                    text={linkedinLink}
-                    fontF={currentTypography.font}
-                    fontS={currentTypography.size}
-                  />
-                ) : null}
-              </>
-            ) : null}
+          <View style={styles.mainContent}>
+            <View style={styles.leftColumn}>
+              {email || phone || location || websiteLink || linkedinLink ? (
+                <>
+                  <Text style={styles.sectionTitle}>
+                    PERSONAL DETAILS
+                  </Text>
+                  {location && visibleSections.includes("location") ? (
+                    <ContactItem
+                      path={LocationSvgPath}
+                      color={themeColor}
+                      text={location}
+                      fontF={currentTypography.font}
+                      fontS={currentTypography.size}
+                    />
+                  ) : null}
+                  {email && visibleSections.includes("email") ? (
+                    <ContactItem
+                      path={MailSvgPath}
+                      color={themeColor}
+                      text={email}
+                      fontF={currentTypography.font}
+                      fontS={currentTypography.size}
+                    />
+                  ) : null}
+                  {phone && visibleSections.includes("phone") ? (
+                    <ContactItem
+                      path={PhoneSvgPath}
+                      color={themeColor}
+                      text={phone}
+                      fontF={currentTypography.font}
+                      fontS={currentTypography.size}
+                    />
+                  ) : null}
+                  {websiteLink && visibleSections.includes("website") ? (
+                    <ContactItem
+                      path={WebsiteSvgPath}
+                      color={themeColor}
+                      text={websiteLink}
+                      fontF={currentTypography.font}
+                      fontS={currentTypography.size}
+                    />
+                  ) : null}
+                  {linkedinLink && visibleSections.includes("linkedin") ? (
+                    <ContactItem
+                      path={LinkedSvgPath}
+                      color={themeColor}
+                      text={linkedinLink}
+                      fontF={currentTypography.font}
+                      fontS={currentTypography.size}
+                    />
+                  ) : null}
+                </>
+              ) : null}
 
-            {summery && visibleSections.includes("about") ? (
-              <View style={{ marginTop: 20 }}>
-                <Text style={[styles.sectionTitle, { color: themeColor }]}>
-                  Profile
-                </Text>
-                <Text style={styles.summary}>{summery}</Text>
-              </View>
-            ) : null}
-            {languages.length > 0 && visibleSections.includes("languages") ? (
-              <>
-                <Text style={[styles.sectionTitle, { color: themeColor }]}>
-                  Languages
-                </Text>
-                <View style={styles.LangGridContainer}>
-                  {languages.map((language, index) => (
-                    <View key={index} style={styles.LangItemContainer}>
-                      <Text style={styles.LangName}>- {language.name}</Text>
-                      <Text style={styles.LangLevel}>{language.level}</Text>
+              {summery && visibleSections.includes("about") ? (
+                <View style={{ marginTop: 20 }}>
+                  <Text style={{ ...styles.sectionTitle, color: themeColor }}>
+                    Profile
+                  </Text>
+                  <Text style={styles.summary}>{summery}</Text>
+                </View>
+              ) : null}
+              {languages.length > 0 && visibleSections.includes("languages") ? (
+                <>
+                  <Text style={{ ...styles.sectionTitle, color: themeColor }}>
+                    Languages
+                  </Text>
+                  <View style={styles.LangGridContainer}>
+                    {languages.map((language, index) => (
+                      <View key={index} style={styles.LangItemContainer}>
+                        <Text style={styles.LangName}>- {language.name}</Text>
+                      </View>
+                    ))}
+                  </View>
+                </>
+              ) : null}
+            </View>
+
+            <View style={styles.rightColumn}>
+              {experiences.length > 0 &&
+                visibleSections.includes("experience") ? (
+                <>
+                  <Text style={{ ...styles.sectionTitle, color: themeColor }}>
+                    Experience
+                  </Text>
+                  {experiences.map((experience, index) => (
+                    <View key={index}>
+                      {index < experiences.length - 1 ? (
+                        <Timeline themeColor={themeColor} />
+                      ) : null}
+                      <TimeDot themeColor={themeColor} />
+                      <View style={styles.experienceBlock}>
+                        <Text style={styles.companyName}>
+                          {experience.company}
+                        </Text>
+                        <Text style={styles.jobTitle}>
+                          {experience.position}
+                        </Text>
+                        <Text style={styles.date}>{experience.dateRange}</Text>
+                        {experience.description.map((point, i) =>
+                          point !== "<br>" ? (
+                            <Text key={i} style={styles.bulletPoint}>
+                              • {point}
+                            </Text>
+                          ) : null
+                        )}
+                      </View>
                     </View>
                   ))}
-                </View>
-              </>
-            ) : null}
-          </View>
+                </>
+              ) : null}
 
-          <View style={styles.rightColumn}>
-            {experiences.length > 0 &&
-              visibleSections.includes("experience") ? (
-              <>
-                <Text style={[styles.sectionTitle, { color: themeColor }]}>
-                  Experience
-                </Text>
-                {experiences.map((experience, index) => (
-                  <View key={index}>
-                    {index < experiences.length - 1 ? (
-                      <Timeline themeColor={themeColor} />
-                    ) : null}
-                    <TimeDot themeColor={themeColor} />
-                    <View style={styles.experienceBlock}>
-                      <Text style={styles.companyName}>
-                        {experience.company}
-                      </Text>
-                      <Text style={styles.jobTitle}>
-                        {experience.position}
-                      </Text>
-                      <Text style={styles.date}>{experience.dateRange}</Text>
-                      {experience.description.map((point, i) =>
-                        point !== "<br>" ? (
-                          <Text key={i} style={styles.bulletPoint}>
-                            • {point}
-                          </Text>
-                        ) : null
-                      )}
+              {educations.length > 0 &&
+                visibleSections.includes("education") ? (
+                <>
+                  <Text style={{ ...styles.sectionTitle, color: themeColor }}>
+                    Education
+                  </Text>
+                  {educations.map((education, index) => (
+                    <View key={index}>
+                      {index < educations.length - 1 ? (
+                        <Timeline themeColor={themeColor} />
+                      ) : null}
+                      <TimeDot themeColor={themeColor} />
+                      <View style={styles.educationBlock}>
+                        <Text style={styles.companyName}>
+                          {education.school}
+                        </Text>
+                        <Text style={styles.jobTitle}>{education.degree}</Text>
+                        <Text style={styles.date}>{education.dateRange}</Text>
+                      </View>
                     </View>
-                  </View>
-                ))}
-              </>
-            ) : null}
-
-            {educations.length > 0 &&
-              visibleSections.includes("education") ? (
-              <>
-                <Text style={[styles.sectionTitle, { color: themeColor }]}>
-                  Education
-                </Text>
-                {educations.map((education, index) => (
-                  <View key={index}>
-                    {index < educations.length - 1 ? (
-                      <Timeline themeColor={themeColor} />
-                    ) : null}
-                    <TimeDot themeColor={themeColor} />
-                    <View style={styles.educationBlock}>
-                      <Text style={styles.companyName}>
-                        {education.school}
-                      </Text>
-                      <Text style={styles.jobTitle}>{education.degree}</Text>
-                      <Text style={styles.date}>{education.dateRange}</Text>
-                    </View>
-                  </View>
-                ))}
-              </>
-            ) : null}
-
-            {skills.length > 0 && visibleSections.includes("skills") ? (
-              <>
-                <Text style={[styles.sectionTitle, { color: themeColor }]}>
-                  Skills
-                </Text>
-                <View style={styles.skillGridContainer}>
-                  {skills.map((skill, index) => (
-                    <Text key={index} style={styles.skillItem}>
-                      {skill.skillname}
-                    </Text>
                   ))}
-                </View>
-              </>
-            ) : null}
+                </>
+              ) : null}
+
+              {skills.length > 0 && visibleSections.includes("skills") ? (
+                <>
+                  <Text style={{ ...styles.sectionTitle, color: themeColor }}>
+                    Skills
+                  </Text>
+                  <View style={styles.skillGridContainer}>
+                    {skills.map((skill, index) => (
+                      <Text key={index} style={styles.skillItem}>
+                        {skill.skillname}
+                      </Text>
+                    ))}
+                  </View>
+                </>
+              ) : null}
+            </View>
           </View>
-        </View>
-      </Page>
-    </Document>
-    // </PDFViewer>
+        </Page>
+      </Document>
+    </PDFViewer>
   );
 };
 

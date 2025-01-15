@@ -1505,11 +1505,7 @@ span p {
   position: relative;
   border-radius: 0.4rem;
 }
-.list1 div {
-  flex: 0 0 calc(24.5% - 0.666rem);
-  position: relative;
-  border-radius: 0.4rem;
-}
+
 .main-wrapper > div:nth-child(1) .list div {
   width: 100%;
   flex: unset;

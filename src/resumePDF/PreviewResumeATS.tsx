@@ -155,6 +155,7 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
   );
   skills = skills.filter((e) => e.skillname);
   languages = languages.filter((e) => e.name);
+  hobbies = hobbies.filter((e) => e.name);
 
   const styles = StyleSheet.create({
     page: {
@@ -524,7 +525,7 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
                 style={[
                   styles.sectionTitle,
                   { color: themeColor },
-                  skills.length > 0 ? { marginTop: 15 } : { marginTop: 0 },
+                  languages.length > 0 ? { marginTop: 15 } : { marginTop: 0 },
                 ]}
               >
                 Hobbies

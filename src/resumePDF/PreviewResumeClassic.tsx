@@ -200,6 +200,7 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
   );
   skills = skills.filter((e) => e.skillname);
   languages = languages.filter((e) => e.name);
+  hobbies = hobbies.filter((e) => e.name);
 
   const styles = StyleSheet.create({
     page: {
@@ -586,7 +587,7 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
                 style={[
                   styles.sectionTitle,
                   { color: themeColor },
-                  skills.length > 0 ? { marginTop: 15 } : { marginTop: 0 },
+                  languages.length > 0 ? { marginTop: 15 } : { marginTop: 0 },
                 ]}
               >
                 Hobbies

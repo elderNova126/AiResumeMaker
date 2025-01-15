@@ -194,7 +194,8 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
 
   skills = skills.filter((e) => e.skillname);
   languages = languages.filter((e) => e.name);
-
+  hobbies = hobbies.filter((e) => e.name);
+  
   const styles = StyleSheet.create({
     page: {
       flexDirection: "column",
@@ -206,8 +207,8 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
       flexDirection: "row",
       alignItems: "center",
       justifyContent: "space-between",
-      borderBottomWidth: 1,
-      borderBottomColor: "#ccc",
+      // borderBottomWidth: 1,
+      // borderBottomColor: "#ccc",
       marginBottom: 2,
       padding: 10,
     },
@@ -569,7 +570,7 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
               ) : null}
               {hobbies.length > 0 && visibleSections.includes("interests") ? (
                 <>
-                <Text style={[styles.sectionTitle, { color: themeColor }, skills.length>0?{marginTop:15}:{marginTop:0}]}>
+                <Text style={[styles.sectionTitle, { color: themeColor }, languages.length>0?{marginTop:15}:{marginTop:0}]}>
                   Hobbies
                 </Text>
                 <View style={styles.skillGridContainer}>

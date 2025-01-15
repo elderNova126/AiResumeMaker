@@ -62,6 +62,7 @@ const Skills: React.FC<{
   console.log("skills: ", skills);
 
   return (
+
     <div id="skills" className="list with-border">
       <h2
         contentEditable="true"
@@ -75,7 +76,7 @@ const Skills: React.FC<{
             <div
               {...provided.droppableProps}
               ref={provided.innerRef}
-              style={{display:"contents"}}
+              style={{ display: "contents" }}
             >
               {skills.map((skill, index) => (
                 <Draggable
@@ -121,14 +122,14 @@ const Skills: React.FC<{
         </Droppable>
       </DragDropContext>
       <span className="btn-edit">
-                <span
-                  className="writing-assistant"
-                  onClick="openModal('Skills', this)"
-                  translate-data="✧ Writing Assistant"
-                >
-                  ✧ Writing Assistant
-                </span>
-              </span>
+        <span
+          className="writing-assistant"
+          onClick="openModal('Skills', this)"
+          translate-data="✧ Writing Assistant"
+        >
+          ✧ Writing Assistant
+        </span>
+      </span>
     </div>
   );
 };

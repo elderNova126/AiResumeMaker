@@ -127,12 +127,7 @@ body {
 }
 
 /* ///////////////////////robot//////////////// */
-:root {
-  --main-color: #0082e6;
-  --main-color-50: rgba(0, 130, 230, 0.2);
-  --secondary-color: #e66400;
-  --text-color: white;
-}
+
 .robot-body {
   height: 1.5rem;
   width: 3rem;
@@ -270,7 +265,7 @@ body {
 
 html {
   padding: 0;
-  margin: 0;
+  margin: -45px;
   font-size: 55.5%;
   font-family: nunito, sans-serif;
   -webkit-text-size-adjust: none;
@@ -281,7 +276,7 @@ html {
 header {
   font-size: 155.5%;
 }
-/* @media screen and (min-width: 2000px) {
+@media screen and (min-width: 2000px) {
   html,
   body {
     font-size: 62.5%;
@@ -298,7 +293,7 @@ header {
   body {
     font-size: 42%;
   }
-} */
+}
 
 *,
 *:after,
@@ -1508,6 +1503,11 @@ span p {
 }
 .list div {
   flex: 0 0 calc(33.333% - 0.666rem);
+  position: relative;
+  border-radius: 0.4rem;
+}
+.list1 div {
+  flex: 0 0 calc(24.5% - 0.666rem);
   position: relative;
   border-radius: 0.4rem;
 }

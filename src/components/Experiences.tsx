@@ -127,7 +127,7 @@ const Experiences: React.FC<{
                             onChange={(updatedContent) => {
                               updateExperience(
                                 index,
-                                "company",
+                                "position",
                                 updatedContent
                               );
                             }}

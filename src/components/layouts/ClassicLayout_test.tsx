@@ -251,7 +251,7 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
 
       </div>
       {visibleSections.includes("experience") && (
-        <Experiences setExperiences={setExperiences} experiences={experiences} themeColor={themeColor} />
+        <Experiences setExperiences={setExperiences} experiences={experiences} themeColor={themeColor} isSplit={false}/>
       )}
       {visibleSections.includes("education") && (
         <Educations setEducations={setEducations} educations={educations} themeColor={themeColor} />

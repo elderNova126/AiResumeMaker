@@ -99,6 +99,7 @@ body {
   padding-top: 1px !important; /* Remove padding on list items */
   padding-bottom: 1px !important; /* Remove padding on list items */
   padding-right: 1px !important; /* Remove padding on list items */
+  font-size: medium;
 }
 .ql-editor li {
   padding-left: 1px !important; /* Remove padding on list items */

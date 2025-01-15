@@ -12,20 +12,24 @@ import AddButton from "./AddButton";
 import WorkExperienceEditor from "./WorkExperienceEditor";
 import Ai_Modal from "./../components/Ai_Modal";
 import Contenteditable from "./Contenteditable";
+import { color } from "html2canvas/dist/types/css/types/color";
+import { fontStyle } from "html2canvas/dist/types/css/property-descriptors/font-style";
+import { fontWeight } from "html2canvas/dist/types/css/property-descriptors/font-weight";
 
 interface ExperienceType {
   company: string;
   dateRange: string;
   position: string;
   description: string[];
+  isSplit: boolean;
 }
 
 const Experiences: React.FC<{
   setExperiences: React.Dispatch<React.SetStateAction<ExperienceType[]>>;
   experiences: ExperienceType[];
   themeColor: string;
-  // isATS: boolean;
-}> = ({ setExperiences, experiences, themeColor }) => {
+  isSplit: boolean;
+}> = ({ setExperiences, experiences, themeColor, isSplit }) => {
   const [showModal, setShowModal] = useState(false);
 
   const reorder = (
@@ -108,45 +112,105 @@ const Experiences: React.FC<{
                       className="sortable-wrapper"
                     >
                       <div className="with-border">
-                        <Contenteditable
-                          value={experience.company}
-                          onChange={(updatedContent) => {
-                            updateExperience(
-                              index,
-                              "company",
-                              updatedContent
-                            );
-                          }}
-                          as="h3"
-                          placeholder="Employer"
-                        />
-
-                        <div>
-                          <Contenteditable
-                            value={experience.position}
-                            onChange={(updatedContent) => {
-                              updateExperience(
-                                index,
-                                "position",
-                                updatedContent
-                              );
-                            }}
-                            as="h4"
-                            placeholder="Position"
-                          />
-                          <Contenteditable
-                            value={experience.dateRange}
-                            onChange={(updatedContent) => {
-                              updateExperience(
-                                index,
-                                "dateRange",
-                                updatedContent
-                              );
-                            }}
-                            as="p"
-                            placeholder="From - Until"
-                          />
-                        </div>
+                        {isSplit ? (
+                          <div style={{ display: "contents" }}>
+                            <div style={{ display: "flex" }}>
+                              <Contenteditable
+                                value={experience.position}
+                                onChange={(updatedContent) => {
+                                  updateExperience(
+                                    index,
+                                    "position",
+                                    updatedContent
+                                  );
+                                }}
+                                as="p"
+                                style={{ color: themeColor, fontWeight: "bold" }}
+                                placeholder="Position"
+                              /><p style={{ fontSize: "large" }}>   |   </p>
+                              <Contenteditable
+                                value={experience.company}
+                                onChange={(updatedContent) => {
+                                  updateExperience(
+                                    index,
+                                    "company",
+                                    updatedContent
+                                  );
+                                }}
+                                as="p"
+                                style={{ fontWeight: "bold" }}
+                                placeholder="Company"
+                              />
+                            </div>
+                            <div style={{ display: "flex" }}>
+                              <Contenteditable
+                                value={experience.dateRange}
+                                onChange={(updatedContent) => {
+                                  updateExperience(
+                                    index,
+                                    "dateRange",
+                                    updatedContent
+                                  );
+                                }}
+                                as="p"
+                                placeholder="From - Until"
+                              /><p style={{ fontSize: "large" }}>   -   </p>
+                              <Contenteditable
+                                // value={experience.dateRange}
+                                // onChange={(updatedContent) => {
+                                //   updateExperience(
+                                //     index,
+                                //     "dateRange",
+                                //     updatedContent
+                                //   );
+                                // }}
+                                as="p"
+                                placeholder="Location"
+                              />
+                            </div>
+                          </div>
+                        ) : (
+                          <>
+                            <Contenteditable
+                              value={experience.company}
+                              onChange={(updatedContent) => {
+                                updateExperience(
+                                  index,
+                                  "company",
+                                  updatedContent
+                                );
+                              }}
+                              as="h3"
+                              placeholder="Employer"
+                            />
+                            <div>
+                              <Contenteditable
+                                value={experience.position}
+                                onChange={(updatedContent) => {
+                                  updateExperience(
+                                    index,
+                                    "position",
+                                    updatedContent
+                                  );
+                                }}
+                                as="h4"
+                                placeholder="Position"
+                              />
+                              <Contenteditable
+                                value={experience.dateRange}
+                                onChange={(updatedContent) => {
+                                  updateExperience(
+                                    index,
+                                    "dateRange",
+                                    updatedContent
+                                  );
+                                }}
+                                as="p"
+                                placeholder="From - Until"
+                              />
+                            </div>
+                          </>
+                        )}
                         <WorkExperienceEditor
                           initialDescription={experience.description}
                           updateExperience={updateExperienceByDescription}

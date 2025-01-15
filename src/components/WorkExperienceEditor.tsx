@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Contenteditable from "./Contenteditable";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 interface ExperienceType {
   company: string;
@@ -23,52 +24,48 @@ const WorkExperienceEditor: React.FC<WorkExperienceEditorProps> = ({
   updateExperience,
   index,
 }) => {
-  // Convert description array to plain text with bullet points, if there's content
-  const generateTextFromDescription = (description: string[]) =>
-    description.length > 0
-      ? description.map((item) => `• ${item}`).join("\n")
-      : ""; // Empty string when no description
+  // Generate HTML list from the description array
+  const generateHTMLFromDescription = (description: string[]) =>
+    `<ul>${description.map((item) => `<li>${item}</li>`).join("")}</ul>`;
 
-  // Parse plain text back into an array
-  const parseDescriptionFromText = (text: string) => {
-    return text
-      .split("•") // Split by the bullet point
-      .filter((line) => line.trim() !== "") // Remove empty lines
-      .map((line) => line.trim()); // Trim each line
-  };
+  // Parse HTML list back into an array
+  const parseDescriptionFromHTML = (html: string) =>
+    html
+      .replace(/<\/?ul>/g, "") // Remove <ul> tags
+      .split("<li>") // Split by <li> tags
+      .filter((item) => item.trim() !== "") // Remove empty items
+      .map((item) => item.replace(/<\/li>/g, "").trim()); // Remove </li> tags and trim
 
-  // State for the editable content
+  // Initial value as HTML
   const [value, setValue] = useState<string>(
-    generateTextFromDescription(initialDescription)
+    generateHTMLFromDescription(initialDescription)
   );
 
-  // Synchronize value with initialDescription if it changes
+  // Sync value with initialDescription changes
   useEffect(() => {
-    setValue(generateTextFromDescription(initialDescription));
-    console.log("bbbbbbbb", initialDescription, generateTextFromDescription(initialDescription));
+    setValue(generateHTMLFromDescription(initialDescription));
   }, [initialDescription]);
-  console.log("aaaa", initialDescription);
+
   const handleChange = (newValue: string) => {
     setValue(newValue);
 
-    // Convert plain text back to description array
-    const updatedDescription = parseDescriptionFromText(newValue);
+    // Convert HTML to description array and update the parent
+    const updatedDescription = parseDescriptionFromHTML(newValue);
     updateExperience(index, "description", updatedDescription);
   };
 
   return (
-    <Contenteditable
-      value={value} // Pass plain text with \n for newlines
-      onChange={(updatedContent) => {
-        handleChange(updatedContent); // Handle updates
-      }}
-      as="p"
-      placeholder="Enter your work experience description"
-      style={{
-        whiteSpace: "pre-line", // Render \n as newlines in plain text
-        wordWrap: "break-word", // Ensure long words wrap correctly
-      }}
-    />
+    <div className="work-experience-editor">
+      <ReactQuill
+        className="textEdit rounded-md w-full bg-transparent border-gray-300 hover:border-gray-400 focus:border-emerald-500 focus:outline-none transition-all"
+        modules={{ toolbar: false }}
+        style={{ border: "none", paddingLeft: "0px" }}
+        theme="snow"
+        value={value}
+        onChange={handleChange}
+        placeholder="Enter Your Work Experience Description"
+      />
+    </div>
   );
 };
 

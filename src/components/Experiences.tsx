@@ -84,21 +84,17 @@ const Experiences: React.FC<{
     setExperiences(updatedExperiences);
   };
   return (
-    <div id="work">
-      <h2
-        contentEditable="true"
-        translate-data="Experience"
-        placeholder="Experience"
-        data-gramm="false"
-      ></h2>
+    <>
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="experiences">
           {(provided) => (
-            <div
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-              className="space-y-4"
-            >
+            <div {...provided.droppableProps} ref={provided.innerRef} id="work">
+              <h2
+                contentEditable="true"
+                translate-data="Experience"
+                placeholder="Experience"
+                data-gramm="false"
+              ></h2>
               {experiences.map((experience, index) => (
                 <Draggable
                   key={`experience-${index}`}
@@ -109,15 +105,17 @@ const Experiences: React.FC<{
                     <div
                       ref={provided.innerRef}
                       {...provided.draggableProps}
-                      className={`relative group border border-transparent rounded-md hover:border-gray-300 transition-all ${snapshot.isDragging ? "bg-gray-100 shadow-md" : ""
-                        }`}
+                      className="sortable-wrapper"
                     >
-                      <div className="sortable-wrapper">
                         <div className="with-border">
                           <Contenteditable
                             value={experience.company}
                             onChange={(updatedContent) => {
-                              updateEducation(index, "company", updatedContent);
+                              updateExperience(
+                                index,
+                                "company",
+                                updatedContent
+                              );
                             }}
                             as="h3"
                             placeholder="Employer"
@@ -127,7 +125,7 @@ const Experiences: React.FC<{
                             <Contenteditable
                               value={experience.position}
                               onChange={(updatedContent) => {
-                                updateEducation(
+                                updateExperience(
                                   index,
                                   "company",
                                   updatedContent
@@ -139,7 +137,7 @@ const Experiences: React.FC<{
                             <Contenteditable
                               value={experience.dateRange}
                               onChange={(updatedContent) => {
-                                updateEducation(
+                                updateExperience(
                                   index,
                                   "dateRange",
                                   updatedContent
@@ -164,14 +162,16 @@ const Experiences: React.FC<{
                             </span>
                             {experiences.length > 1 && (
                               <>
-                                <RemoveButton index={index} removeFunc={removeExperience} />
+                                <RemoveButton
+                                  index={index}
+                                  removeFunc={removeExperience}
+                                />
                                 <ReorderButton provided={provided} />
                               </>
                             )}
                             <AddButton addFunc={addExperience} />
                           </div>
                         </div>
-                      </div>
 
                       {experiences.length > 1 &&
                         experiences.length - 1 > index && (
@@ -190,10 +190,12 @@ const Experiences: React.FC<{
         </Droppable>
       </DragDropContext>
       {showModal && (
-        <Ai_Modal onClose={() => setShowModal(false)}
-          headerText={"Experience"} />
+        <Ai_Modal
+          onClose={() => setShowModal(false)}
+          headerText={"Experience"}
+        />
       )}
-    </div>
+    </>
   );
 };
 

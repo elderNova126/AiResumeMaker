@@ -65,52 +65,51 @@ const Hobbies: React.FC<{
   };
 
   return (
-    <div id="hobbies" className="list with-border">
-      <h2
-        contentEditable="true"
-        translate-data="Hobbies"
-        placeholder="Hobbies"
-        data-gramm="false"
-      ></h2>
-      <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable droppableId="hobbies">
-          {(provided) => (
-            <div
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-              style={{ display: "contents" }}
-            >
-              {hobbies.map((hobby, index) => (
-                <Draggable
-                  key={`hobby-${index}`}
-                  draggableId={`hobby-${index}`}
-                  index={index}
-                >
-                  {(provided, snapshot) => (
-                    <div
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      className={`relative group border border-transparent rounded-md hover:border-gray-300 transition-all ${
-                        snapshot.isDragging ? "bg-gray-100 shadow-md" : ""
-                      } ${
-                        hoveredIndex === index ? "bg-gray-100 shadow-md" : ""
-                      }`} // Apply hover effect styles
-                      onMouseEnter={() => setHoveredIndex(index)} // Set hovered index
-                      onMouseLeave={() => setHoveredIndex(null)} // Clear hovered index
-                    >
-                      <Contenteditable
-                        value={hobby.name}
-                        onChange={(updatedContent) => {
-                          updateHobby(index, "name", updatedContent);
-                        }}
-                        as="p"
-                        placeholder="Enter hobby"
-                        className=""
-                        translate-data="Enter hobby"
-                        data-gramm="false"
-                      />
-                      <div className="btn-edit">
-                        {hobbies.length > 1 && hoveredIndex === index && ( // Show buttons only for hovered item
+    <DragDropContext onDragEnd={onDragEnd}>
+      <Droppable droppableId="hobbies">
+        {(provided) => (
+          <div
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+            id="hobbies"
+            className="list with-border"
+          >
+            <h2
+              contentEditable="true"
+              translate-data="Hobbies"
+              placeholder="Hobbies"
+              data-gramm="false"
+            ></h2>
+            {hobbies.map((hobby, index) => (
+              <Draggable
+                key={`hobby-${index}`}
+                draggableId={`hobby-${index}`}
+                index={index}
+              >
+                {(provided, snapshot) => (
+                  <div
+                    ref={provided.innerRef}
+                    {...provided.draggableProps}
+                    className={`relative group border border-transparent rounded-md hover:border-gray-300 transition-all ${
+                      snapshot.isDragging ? "bg-gray-100 shadow-md" : ""
+                    } ${hoveredIndex === index ? "bg-gray-100 shadow-md" : ""}`} // Apply hover effect styles
+                    onMouseEnter={() => setHoveredIndex(index)} // Set hovered index
+                    onMouseLeave={() => setHoveredIndex(null)} // Clear hovered index
+                  >
+                    <Contenteditable
+                      value={hobby.name}
+                      onChange={(updatedContent) => {
+                        updateHobby(index, "name", updatedContent);
+                      }}
+                      as="p"
+                      placeholder="Enter hobby"
+                      className=""
+                      translate-data="Enter hobby"
+                      data-gramm="false"
+                    />
+                    <div className="btn-edit">
+                      {hobbies.length > 1 &&
+                        hoveredIndex === index && ( // Show buttons only for hovered item
                           <>
                             <RemoveButton
                               index={index}
@@ -119,18 +118,19 @@ const Hobbies: React.FC<{
                             <ReorderButton provided={provided} />
                           </>
                         )}
-                        {hoveredIndex === index && <AddButton addFunc={addHobby} />}
-                      </div>
+                      {hoveredIndex === index && (
+                        <AddButton addFunc={addHobby} />
+                      )}
                     </div>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
-    </div>
+                  </div>
+                )}
+              </Draggable>
+            ))}
+            {provided.placeholder}
+          </div>
+        )}
+      </Droppable>
+    </DragDropContext>
   );
 };
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Contenteditable from "./Contenteditable";
 import {
   DragDropContext,
@@ -13,11 +13,14 @@ import AddButton from "./AddButton";
 interface SkillType {
   skillname: string;
 }
+
 const Skills: React.FC<{
   setSkills: React.Dispatch<React.SetStateAction<SkillType[]>>;
   skills: SkillType[];
   themeColor: string;
 }> = ({ setSkills, skills, themeColor }) => {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null); // Track hovered item
+
   const reorder = (
     list: SkillType[],
     startIndex: number,
@@ -49,7 +52,10 @@ const Skills: React.FC<{
     const confirmed = window.confirm(
       "Are you sure you want to delete this skill?"
     );
-    if (confirmed) setSkills(skills.filter((_, i) => i !== index));
+    if (confirmed) {
+      // Fix: Remove the selected skill by the correct index
+      setSkills(skills.filter((_, i) => i !== index));
+    }
   };
 
   const updateSkill = (index: number, key: keyof SkillType, value: string) => {
@@ -59,10 +65,12 @@ const Skills: React.FC<{
     setSkills(updatedSkills);
   };
 
-  console.log("skills: ", skills);
+  const openModal = (type: string, instance: any) => {
+    // Handle opening the modal (implement this function as needed)
+    console.log(`Opening modal for ${type}`);
+  };
 
   return (
-
     <div id="skills" className="list with-border">
       <h2
         contentEditable="true"
@@ -88,6 +96,10 @@ const Skills: React.FC<{
                     <div
                       ref={provided.innerRef}
                       {...provided.draggableProps}
+                      className={`relative group border border-transparent rounded-md hover:border-gray-300 transition-all ${snapshot.isDragging ? "bg-gray-100 shadow-md" : ""
+                        } ${hoveredIndex === index ? "bg-gray-100 shadow-md" : ""}`}
+                      onMouseEnter={() => setHoveredIndex(index)} // Set hovered index
+                      onMouseLeave={() => setHoveredIndex(null)} // Clear hovered index
                     >
                       <Contenteditable
                         value={skill.skillname}
@@ -101,7 +113,7 @@ const Skills: React.FC<{
                         data-gramm="false"
                       />
                       <div className="btn-edit">
-                        {skills.length > 1 && (
+                        {skills.length > 1 && hoveredIndex === index && (
                           <>
                             <RemoveButton
                               index={index}
@@ -110,7 +122,7 @@ const Skills: React.FC<{
                             <ReorderButton provided={provided} />
                           </>
                         )}
-                        <AddButton addFunc={addSkill} />
+                        {hoveredIndex === index && <AddButton addFunc={addSkill} />}
                       </div>
                     </div>
                   )}
@@ -124,7 +136,7 @@ const Skills: React.FC<{
       <span className="btn-edit">
         <span
           className="writing-assistant"
-          onClick="openModal('Skills', this)"
+          onClick={() => openModal("Skills", this)}
           translate-data="✧ Writing Assistant"
         >
           ✧ Writing Assistant

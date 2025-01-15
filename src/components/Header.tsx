@@ -125,9 +125,9 @@ const Header: React.FC<HeaderProps> = ({
     { value: "split", label: "Split Layout" },
     { value: "classic", label: "Classic Layout" },
     { value: "hybrid", label: "ATS Layout" },
-    // { value: "test_split", label: "Preview Split" },
-    // { value: "test_classic", label: "Preview Classic" },
-    // { value: "test_ats", label: "Preview ATS" },
+    { value: "test_split", label: "Preview Split" },
+    { value: "test_classic", label: "Preview Classic" },
+    { value: "test_ats", label: "Preview ATS" },
     // { value: "test", label: "Test" },
   ];
 
@@ -177,7 +177,7 @@ const Header: React.FC<HeaderProps> = ({
 
   return (
     <>
-      <header className="w-full bg-white shadow-sm px-6 fixed top-[15px] z-50 scale-[1.82]">
+      <header className="w-full bg-white shadow-sm px-6 py-2 fixed top-[10px] z-50 scale-[1.82]">
         <div className="max-w-7xl mx-auto grid grid-cols-3 items-center">
           <div
             className="flex items-center space-x-2"
@@ -276,23 +276,18 @@ const Header: React.FC<HeaderProps> = ({
                   />
                 }
                 fileName="split_Resume.pdf"
+              >   <button
+                className={`flex items-center space-x-2 px-4 py-2 text-default-sm text-white rounded-md transition-all hover:opacity-90 ${downloadingLoading ? "opacity-50" : ""
+                  }`}
+                style={{ backgroundColor: currentColor, height: "20px", }}
+                disabled={downloadingLoading}
+
               >
-                <>
-
-                  <button
-                    className={`flex items-center space-x-2 px-4 py-2 text-default-sm text-white rounded-md transition-all hover:opacity-90 ${downloadingLoading ? "opacity-50" : ""
-                      }`}
-                    style={{ backgroundColor: currentColor, height: "20px", }}
-                    disabled={downloadingLoading}
-
-                  >
-                    <FileDown className="h-4 w-4" />
-                    <span>
-                      {downloadingLoading ? "Preparing..." : "Download"}
-                    </span>
-                  </button>
-
-                </>
+                  <FileDown className="h-4 w-4" />
+                  <span>
+                    {downloadingLoading ? "Preparing..." : "Download"}
+                  </span>
+                </button>
               </PDFDownloadLink>}
             {currentLayout === "classic" &&
               <PDFDownloadLink
@@ -389,7 +384,7 @@ const Header: React.FC<HeaderProps> = ({
 
       {isDropdownOpen && (
         <div
-          className="fixed inset-0 bg-black/50 mt-[72px] z-40"
+          className="fixed inset-0 bg-black/50 mt-[50px] z-40"
           onClick={() => setIsDropdownOpen(false)}
         />
       )}

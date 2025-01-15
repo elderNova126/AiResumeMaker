@@ -2497,12 +2497,12 @@ button[disabled],
 .btn-edit span {
   transition: 0.2s ease;
 }
-.btn-secondary {
+/* .btn-secondary {
   color: white;
   background: var(--main-color);
-}
-button,
-#modalDownload .btn-primary {
+} */
+
+.btn-secondary {
   line-height: 4rem;
   cursor: pointer;
   user-select: none;
@@ -2521,6 +2521,8 @@ button,
   gap: 0.6rem;
   background: transparent;
   white-space: nowrap;
+  color: white;
+  background: var(--main-color);
 }
 input,
 select,

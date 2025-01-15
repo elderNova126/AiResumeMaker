@@ -52,7 +52,17 @@ interface ContactItemProps {
 }
 
 const ContactItem: React.FC<ContactItemProps> = ({ path, color, text, fontF, fontS }) => (
-  <View style={{ fontSize: getFontSize1(fontS), fontFamily: getFontFamily(fontF), flexDirection: "row", alignItems: "center", marginHorizontal: 10, marginBottom: 15, borderBottomWidth: 1, borderBottomColor: "#E0E0E0", paddingBottom: 5, }}>
+  <View
+    style={{
+      fontSize: getFontSize1(fontS),
+      fontFamily: getFontFamily(fontF),
+      flexDirection: "row",
+      alignItems: "center",
+      marginBottom: 15,
+      paddingBottom: 5,
+      paddingRight: 10,
+    }}
+  >
     <PdfSvgIcon color={color} width={10} height={10} path={path} />
     <Text style={{ marginLeft: 5 }}>{text}</Text>
   </View>
@@ -115,6 +125,7 @@ interface PreviewResumeATSProps {
   educations: Education[];
   skills: { skillname: string }[];
   languages: { name: string }[];
+  hobbies: { name: string }[];
   avatar: string;
   visibleSections: string[];
   currentTypography: { font: string; size: string };
@@ -133,6 +144,7 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
   educations,
   skills,
   languages,
+  hobbies,
   visibleSections,
   currentTypography,
 }) => {
@@ -152,10 +164,10 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
     header: {
       flexDirection: "row-reverse", // Reverse the direction of the row
       alignItems: "center",
-      borderBottomWidth: 1,
-      borderBottomColor: "#ccc",
-      marginBottom: 10,
-      padding: 10,
+      // borderBottomWidth: 1,
+      // borderBottomColor: "#ccc",
+      // marginBottom: 10,
+      padding: 5,
     },
     profileImage: {
       width: 80,
@@ -226,7 +238,7 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
       marginBottom: 5,
     },
     experienceBlock: {
-      marginBottom: 20,
+      // marginBottom: 20,
       marginLeft: 20,
     },
     jobTitle: {
@@ -268,18 +280,23 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
       textAlign: "center",
     },
     skillGridContainer: {
-      flexDirection: "row",
-      flexWrap: "wrap",
+      display: "flex",
+      flexDirection: "row", // Display items in a row
+      flexWrap: "wrap", // Allow wrapping to the next line
+      gap: 12, // Add space between items
+      // marginTop: 10,
     },
     skill: {
-      fontFamily: getFontFamily(currentTypography.font) || "Nunito",
-      fontSize: getFontSize1(currentTypography.size),
-      padding: 5,
-      backgroundColor: "#e5e7eb",
-      borderRadius: 4,
-      marginRight: 5,
-      marginBottom: 5,
-      textAlign: "center",
+      width: "23%", // Ensures 3 items per row (100% / 3 = 33.3%)
+      fontSize: 10,
+      fontWeight: "bold",
+      color: "#374151",
+      backgroundColor: "#eff5f5",
+      borderRadius: 3,
+      paddingVertical: 5,
+      paddingHorizontal: 12,
+      textAlign: "center", // Centers text inside the skill
+      // marginBottom: 5, // Add space between rows
     },
     skillGridContainer1: {
       display: "flex",
@@ -336,7 +353,7 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
       backgroundColor: "#2563eb",
     },
     educationBlock: {
-      marginBottom: 15,
+      // marginBottom: 15,
       marginLeft: 20,
     },
 
@@ -432,7 +449,7 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
                   </Text>
                   <Text style={styles.text}>
                     <Text style={styles.date}>{experience.dateRange}</Text>
-                    <Text style={styles.text}> |  {experience.location} </Text>
+                    <Text style={styles.text}>  {experience.location} </Text>
                   </Text>
 
                   {experience.description.map((point, i) =>
@@ -470,38 +487,57 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
             ))}
           </View>
         ) : null}
-
-        {/* Skills Section */}
-        {skills.length > 0 && visibleSections.includes("skills") ? (
-          <View style={styles.section}>
-            <Text style={[styles.sectionTitle, { color: themeColor }]}>
-              Skills
-            </Text>
-            <View style={styles.skillGridContainer}>
-              {skills.map((skill, index) => (
-                <Text key={index} style={styles.skill}>
-                  {skill.skillname}
-                </Text>
-              ))}
+          {/* Skills Section */}
+          {skills.length > 0 && visibleSections.includes("skills") ? (
+            <View style={styles.section}>
+              <Text style={[styles.sectionTitle, { color: themeColor }]}>
+                Skills
+              </Text>
+              <View style={styles.skillGridContainer}>
+                {skills.map((skill, index) => (
+                  <Text key={index} style={styles.skill}>
+                    {skill.skillname}
+                  </Text>
+                ))}
+              </View>
             </View>
-          </View>
-        ) : null}
+          ) : null}
 
-        {/* Languages Section */}
-        {languages.length > 0 && visibleSections.includes("languages") ? (
-          <View style={styles.section}>
-            <Text style={[styles.sectionTitle, { color: themeColor }]}>
-              Languages
-            </Text>
-            <View style={styles.skillGridContainer}>
-              {languages.map((language, index) => (
-                <View key={index} style={styles.Lang}>
-                  <Text style={styles.LangName}>- {language.name}  {language.level}</Text>
-                </View>
-              ))}
+          {/* Languages Section */}
+          {languages.length > 0 && visibleSections.includes("languages") ? (
+            <View style={styles.section}>
+              <Text style={[styles.sectionTitle, { color: themeColor }]}>
+                Language
+              </Text>
+              <View style={styles.skillGridContainer}>
+                {languages.map((language, index) => (
+                  <Text key={index} style={styles.skill}>
+                    {language.name}
+                  </Text>
+                ))}
+              </View>
             </View>
-          </View>
-        ) : null}
+          ) : null}
+          {hobbies.length > 0 && visibleSections.includes("interests") ? (
+            <>
+              <Text
+                style={[
+                  styles.sectionTitle,
+                  { color: themeColor },
+                  skills.length > 0 ? { marginTop: 15 } : { marginTop: 0 },
+                ]}
+              >
+                Hobbies
+              </Text>
+              <View style={styles.skillGridContainer}>
+                {hobbies.map((hobby, index) => (
+                  <Text key={index} style={styles.skill}>
+                    {hobby.name}
+                  </Text>
+                ))}
+              </View>
+            </>
+          ) : null}
       </Page>
     </Document>
     // </PDFViewer>

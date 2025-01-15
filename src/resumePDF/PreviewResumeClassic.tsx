@@ -59,21 +59,57 @@ interface TimeProps {
 const Timeline: React.FC<TimeProps> = ({ themeColor }) => {
   const lightThemeColor = lightenColor(themeColor, 150);
   return (
-    <View style={{
-      marginTop: 3, position: "absolute", left: 0, top: 0, bottom: 0, display: "flex", flexDirection: "column",
-      alignItems: "center", justifyContent: "space-between",
-    }}>
-      <View style={{ marginTop: 8, position: "absolute", left: 2, top: 0, bottom: 0, width: 2, backgroundColor: lightThemeColor }} />
+    <View
+      style={{
+        marginTop: 3,
+        position: "absolute",
+        left: 0,
+        top: 0,
+        bottom: 0,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "space-between",
+      }}
+    >
+      <View
+        style={{
+          marginTop: 8,
+          position: "absolute",
+          left: 2,
+          top: 0,
+          bottom: 0,
+          width: 2,
+          backgroundColor: lightThemeColor,
+        }}
+      />
     </View>
   );
 };
 
 const TimeDot: React.FC<TimeProps> = ({ themeColor }) => (
-  <View style={{
-    marginTop: 3, position: "absolute", left: 0, top: 0, bottom: 0, display: "flex", flexDirection: "column",
-    alignItems: "center", justifyContent: "space-between",
-  }}>
-    <View style={{ width: 6, height: 6, borderRadius: "50%", marginBottom: 15, backgroundColor: themeColor }} />
+  <View
+    style={{
+      marginTop: 3,
+      position: "absolute",
+      left: 0,
+      top: 0,
+      bottom: 0,
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "space-between",
+    }}
+  >
+    <View
+      style={{
+        width: 6,
+        height: 6,
+        borderRadius: "50%",
+        marginBottom: 15,
+        backgroundColor: themeColor,
+      }}
+    />
   </View>
 );
 
@@ -82,11 +118,27 @@ interface ContactItemProps {
   text: string;
   color: string;
   fontF: string;
-  fontS: string
+  fontS: string;
 }
 
-const ContactItem: React.FC<ContactItemProps> = ({ path, color, text, fontF, fontS }) => (
-  <View style={{ fontSize: getFontSize1(fontS), fontFamily: getFontFamily(fontF), flexDirection: "row", alignItems: "center", marginHorizontal: 10, marginBottom: 15, borderBottomWidth: 1, borderBottomColor: "#E0E0E0", paddingBottom: 5, }}>
+const ContactItem: React.FC<ContactItemProps> = ({
+  path,
+  color,
+  text,
+  fontF,
+  fontS,
+}) => (
+  <View
+    style={{
+      fontSize: getFontSize1(fontS),
+      fontFamily: getFontFamily(fontF),
+      flexDirection: "row",
+      alignItems: "center",
+      marginBottom: 15,
+      paddingBottom: 5,
+      paddingRight: 10,
+    }}
+  >
     <PdfSvgIcon color={color} width={10} height={10} path={path} />
     <Text style={{ marginLeft: 5 }}>{text}</Text>
   </View>
@@ -118,6 +170,7 @@ interface PreviewResumeClassicProps {
   educations: Education[];
   skills: { skillname: string }[];
   languages: { name: string }[];
+  hobbies: { name: string }[];
   avatar: string;
   visibleSections: string[];
 }
@@ -136,6 +189,7 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
   educations,
   skills,
   languages,
+  hobbies,
   avatar,
   visibleSections,
   currentTypography,
@@ -162,9 +216,10 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
       padding: 10,
     },
     headerCenteredContainer: {
-      flex: 1,
-      justifyContent: "flex-start",
+      // flex: 1,
+      justifyContent: "center",
       alignItems: "flex-start",
+      marginBottom: 10,
     },
     profileImage: {
       width: 80,
@@ -177,11 +232,7 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
       flexDirection: "column",
       justifyContent: "center",
     },
-    profileImage: {
-      width: 80,
-      height: 80,
-      borderRadius: "50%",
-    },
+
     name: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
       fontSize: 30,
@@ -217,8 +268,8 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
     },
     contactRow: {
       flexDirection: "row",
-      flexWrap: "wrap",
-      justifyContent: "left",
+      // flexWrap: "wrap",
+      // justifyContent: "left",
       alignItems: "center",
     },
     contactItem: {
@@ -226,10 +277,10 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
       fontSize: getFontSize1(currentTypography.size),
       flexDirection: "row",
       alignItems: "center",
-      marginHorizontal: 10,
+      // marginHorizontal: 10,
       marginBottom: 15,
-      borderBottomWidth: 1,
-      borderBottomColor: "#E0E0E0",
+      // borderBottomWidth: 1,
+      // borderBottomColor: "#E0E0E0",
       paddingBottom: 5,
     },
     text: {
@@ -239,7 +290,7 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
       marginBottom: 5,
     },
     experienceBlock: {
-      marginBottom: 20,
+      // marginBottom: 20,
       marginLeft: 20,
     },
     companyName: {
@@ -248,13 +299,28 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
       fontWeight: "bold",
       // paddingBottom:20,
     },
+    jobDateBlock: {
+      display: "flex", // Enable flexbox
+      flexDirection: "row", // Arrange children horizontally
+      justifyContent: "space-between", // Push items to opposite ends
+      alignItems: "center", // Align items vertically in the center
+      width: "100%", // Full width of the container
+    },
     jobTitle: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
       fontSize: getFontSize1(currentTypography.size),
       // marginBottom: 5,
       marginVertical: 10,
+      width: "70%",
+      textAlign: "left",
     },
-
+    date: {
+      fontFamily: getFontFamily(currentTypography.font) || "Nunito",
+      fontSize: getFontSize1(currentTypography.size),
+      marginBottom: 5,
+      width: "30%",
+      textAlign: "right",
+    },
     companyDetails: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
       fontSize: getFontSize1(currentTypography.size),
@@ -292,31 +358,15 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
       textAlign: "center",
     },
     skillGridContainer: {
-      flexDirection: "row",
-      flexWrap: "wrap",
-    },
-    skill: {
-      fontFamily: getFontFamily(currentTypography.font) || "Nunito",
-      fontSize: getFontSize1(currentTypography.size),
-      padding: 5,
-      backgroundColor: "#e5e7eb",
-      borderRadius: 4,
-      marginRight: 5,
-      marginBottom: 5,
-      textAlign: "center",
-    },
-    skillGridContainer1: {
       display: "flex",
       flexDirection: "row", // Display items in a row
       flexWrap: "wrap", // Allow wrapping to the next line
       gap: 12, // Add space between items
-      marginTop: 10,
+      // marginTop: 10,
     },
-
-    skillItem: {
-      fontFamily: getFontFamily(currentTypography.font) || "Nunito",
-      width: "30%", // Ensures 3 items per row (100% / 3 = 33.3%)
-      fontSize: getFontSize1(currentTypography.size),
+    skill: {
+      width: "23%", // Ensures 3 items per row (100% / 3 = 33.3%)
+      fontSize: 10,
       fontWeight: "bold",
       color: "#374151",
       backgroundColor: "#eff5f5",
@@ -327,11 +377,6 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
       boxSizing: "border-box", // Ensures padding does not affect width
       // marginBottom: 5, // Add space between rows
       transition: "transform 0.2s ease-in-out", // Hover effect for interactivity (optional, if applicable in PDF context)
-    },
-    date: {
-      fontFamily: getFontFamily(currentTypography.font) || "Nunito",
-      fontSize: getFontSize1(currentTypography.size),
-      marginBottom: 5,
     },
     timelineDots: {
       marginTop: 3,
@@ -368,166 +413,195 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
 
   return (
     // <PDFViewer style={{ width: "100%", height: "100vh" }}>
-    <Document>
-      <Page size="A4" style={[styles.page]}>
-        <View style={styles.headerCenteredContainer}>
-          <Text style={[styles.name, { color: themeColor }]}>{name}</Text>
-          {visibleSections.includes("role") ? (
-            <Text style={styles.role}>{role}</Text>
-          ) : null}
-        </View>
+      <Document>
+        <Page size="A4" style={[styles.page]}>
+          <View style={styles.headerCenteredContainer}>
+            <Text style={[styles.name, { color: themeColor }]}>{name}</Text>
+            {visibleSections.includes("role") ? (
+              <Text style={styles.role}>{role}</Text>
+            ) : null}
+          </View>
+          {/* Summary Section */}
 
-        <View>
-          {email || phone || location || websiteLink || linkedinLink ? (
-            <View style={styles.contactRow}>
-              {email && visibleSections.includes("email") ? (
-                <ContactItem
-                  path={MailSvgPath}
-                  color={themeColor}
-                  text={email}
-                  fontF={currentTypography.font}
-                  fontS={currentTypography.size}
-                />
-              ) : null}
-              {phone && visibleSections.includes("phone") ? (
-                <ContactItem
-                  path={PhoneSvgPath}
-                  color={themeColor}
-                  text={phone}
-                  fontF={currentTypography.font}
-                  fontS={currentTypography.size}
-                />
-              ) : null}
-              {location && visibleSections.includes("location") ? (
-                <ContactItem
-                  path={LocationSvgPath}
-                  color={themeColor}
-                  text={location}
-                  fontF={currentTypography.font}
-                  fontS={currentTypography.size}
-                />
-              ) : null}
-              {websiteLink && visibleSections.includes("website") ? (
-                <ContactItem
-                  path={WebsiteSvgPath}
-                  color={themeColor}
-                  text={websiteLink}
-                  fontF={currentTypography.font}
-                  fontS={currentTypography.size}
-                />
-              ) : null}
-              {linkedinLink && visibleSections.includes("linkedin") ? (
-                <ContactItem
-                  path={LinkedSvgPath}
-                  color={themeColor}
-                  text={linkedinLink}
-                  fontF={currentTypography.font}
-                  fontS={currentTypography.size}
-                />
-              ) : null}
+          {summery && visibleSections.includes("about") && (
+            <View style={styles.section}>
+              <Text style={[styles.sectionTitle, { color: themeColor }]}>
+                About Me
+              </Text>
+              <Text style={styles.text}>{summery}</Text>
             </View>
-          ) : null}
-        </View>
-        {/* Summary Section */}
-
-        {summery && visibleSections.includes("about") && (
-          <View style={styles.section}>
-            <Text style={[styles.sectionTitle, { color: themeColor }]}>Profile</Text>
-            <Text style={styles.text}>{summery}</Text>
-          </View>
-        )}
-
-        {/* Experience Section */}
-        {experiences.length > 0 &&
-          visibleSections.includes("experience") ? (
-          <>
-            <Text style={[styles.sectionTitle, { color: themeColor }]}>
-              Experience
-            </Text>
-            {experiences.map((experience, index) => (
-              <View key={index}>
-                {index < experiences.length - 1 ? (
-                  <Timeline themeColor={themeColor} />
-                ) : null}
-                <TimeDot themeColor={themeColor} />
-                <View style={styles.experienceBlock}>
-                  <Text style={styles.companyName}>{experience.company}</Text>
-                  <Text style={styles.date}></Text>
-                  <View key={index} style={styles.LangItemContainer}>
-                    <Text style={styles.LangName}>{experience.position}</Text>
-                    <Text style={styles.LangLevel}>{experience.dateRange}</Text>
-                  </View>
-                  <Text style={styles.date}></Text>
-                  {experience.description.map((point, i) =>
-                    point !== "<br>" ? (
-                      <Text key={i} style={styles.bulletPoint}>
-                        • {point}
-                      </Text>
-                    ) : null
-                  )}
-                </View>
-              </View>
-            ))}
-          </>
-        ) : null}
-
-        {/* Education Section */}
-        {educations.length > 0 && visibleSections.includes("education") ? (
-          <View style={styles.section}>
-            <Text style={[styles.sectionTitle, { color: themeColor }]}>Education</Text>
-            {educations.map((edu, index) => (
-
-              <View key={index}>
-                {index < educations.length - 1 ? (
-                  <Timeline themeColor={themeColor} />
-                ) : null}
-                <TimeDot themeColor={themeColor} />
-                <View style={styles.educationBlock}>
-                  <Text style={styles.companyName}> {edu.school} </Text>
-                  <View key={index} style={styles.LangItemContainer}>
-                    <Text style={styles.jobTitle}>{edu.degree} </Text>
-                    <Text style={styles.date}>{edu.dateRange}</Text>
-                  </View>
-
-                </View>
-              </View>
-            ))}
-          </View>
-        ) : null}
-
-        {/* Skills Section */}
-        {skills.length > 0 && visibleSections.includes("skills") ? (
-          <View style={styles.section}>
-            <Text style={[styles.sectionTitle, { color: themeColor }]}>
-              Skills
-            </Text>
-            <View style={styles.skillGridContainer}>
-              {skills.map((skill, index) => (
-                <Text key={index} style={styles.skill}>
-                  {skill.skillname}
+          )}
+          <View>
+            {email || phone || location || websiteLink || linkedinLink ? (
+              <>
+                <Text style={{ ...styles.sectionTitle, color: themeColor }}>
+                  PERSONAL DETAILS
                 </Text>
-              ))}
-            </View>
+                <View style={styles.contactRow}>
+                  {email && visibleSections.includes("email") ? (
+                    <ContactItem
+                      path={MailSvgPath}
+                      color={themeColor}
+                      text={email}
+                      fontF={currentTypography.font}
+                      fontS={currentTypography.size}
+                    />
+                  ) : null}
+                  {phone && visibleSections.includes("phone") ? (
+                    <ContactItem
+                      path={PhoneSvgPath}
+                      color={themeColor}
+                      text={phone}
+                      fontF={currentTypography.font}
+                      fontS={currentTypography.size}
+                    />
+                  ) : null}
+                  {location && visibleSections.includes("location") ? (
+                    <ContactItem
+                      path={LocationSvgPath}
+                      color={themeColor}
+                      text={location}
+                      fontF={currentTypography.font}
+                      fontS={currentTypography.size}
+                    />
+                  ) : null}
+                  {websiteLink && visibleSections.includes("website") ? (
+                    <ContactItem
+                      path={WebsiteSvgPath}
+                      color={themeColor}
+                      text={websiteLink}
+                      fontF={currentTypography.font}
+                      fontS={currentTypography.size}
+                    />
+                  ) : null}
+                  {linkedinLink && visibleSections.includes("linkedin") ? (
+                    <ContactItem
+                      path={LinkedSvgPath}
+                      color={themeColor}
+                      text={linkedinLink}
+                      fontF={currentTypography.font}
+                      fontS={currentTypography.size}
+                    />
+                  ) : null}
+                </View>
+              </>
+            ) : null}
           </View>
-        ) : null}
 
-        {/* Languages Section */}
-        {languages.length > 0 && visibleSections.includes("languages") ? (
-          <View style={styles.section}>
-            <Text style={[styles.sectionTitle, { color: themeColor }]}>
-              Languages
-            </Text>
-            <View style={styles.skillGridContainer}>
-              {languages.map((language, index) => (
-                <View key={index} style={styles.Lang}>
-                  <Text style={styles.LangName}>- {language.name}  {language.level}</Text>
+          {/* Experience Section */}
+          {experiences.length > 0 && visibleSections.includes("experience") ? (
+            <>
+              <Text style={{ ...styles.sectionTitle, color: themeColor }}>
+                Experience
+              </Text>
+              {experiences.map((experience, index) => (
+                <View key={index}>
+                  {index < experiences.length - 1 ? (
+                    <Timeline themeColor={themeColor} />
+                  ) : null}
+                  <TimeDot themeColor={themeColor} />
+                  <View style={styles.experienceBlock}>
+                    <Text style={styles.companyName}>{experience.company}</Text>
+                    <View style={styles.jobDateBlock}>
+                      <Text style={styles.jobTitle}>{experience.position}</Text>
+                      <Text style={styles.date}>{experience.dateRange}</Text>
+                    </View>
+                    {experience.description.map((point, i) =>
+                      point !== "<br>" ? (
+                        <Text key={i} style={styles.bulletPoint}>
+                          • {point}
+                        </Text>
+                      ) : null
+                    )}
+                  </View>
+                </View>
+              ))}
+            </>
+          ) : null}
+
+          {/* Education Section */}
+          {educations.length > 0 && visibleSections.includes("education") ? (
+            <View style={styles.section}>
+              <Text
+                style={[
+                  styles.sectionTitle,
+                  { color: themeColor },
+                  { marginTop: 15 },
+                ]}
+              >
+                Education
+              </Text>
+              {educations.map((education, index) => (
+                <View key={index}>
+                  {index < educations.length - 1 ? (
+                    <Timeline themeColor={themeColor} />
+                  ) : null}
+                  <TimeDot themeColor={themeColor} />
+                  <View style={styles.educationBlock}>
+                    <Text style={styles.companyName}>{education.school}</Text>
+                    <View style={styles.jobDateBlock}>
+                      <Text style={styles.jobTitle}>{education.degree}</Text>
+                      <Text style={styles.date}>{education.dateRange}</Text>
+                    </View>
+                  </View>
                 </View>
               ))}
             </View>
-          </View>
-        ) : null}
-      </Page>
-    </Document>
+          ) : null}
+
+          {/* Skills Section */}
+          {skills.length > 0 && visibleSections.includes("skills") ? (
+            <View style={styles.section}>
+              <Text style={[styles.sectionTitle, { color: themeColor }]}>
+                Skills
+              </Text>
+              <View style={styles.skillGridContainer}>
+                {skills.map((skill, index) => (
+                  <Text key={index} style={styles.skill}>
+                    {skill.skillname}
+                  </Text>
+                ))}
+              </View>
+            </View>
+          ) : null}
+
+          {/* Languages Section */}
+          {languages.length > 0 && visibleSections.includes("languages") ? (
+            <View style={styles.section}>
+              <Text style={[styles.sectionTitle, { color: themeColor }]}>
+                Language
+              </Text>
+              <View style={styles.skillGridContainer}>
+                {languages.map((language, index) => (
+                  <Text key={index} style={styles.skill}>
+                    {language.name}
+                  </Text>
+                ))}
+              </View>
+            </View>
+          ) : null}
+          {hobbies.length > 0 && visibleSections.includes("interests") ? (
+            <>
+              <Text
+                style={[
+                  styles.sectionTitle,
+                  { color: themeColor },
+                  skills.length > 0 ? { marginTop: 15 } : { marginTop: 0 },
+                ]}
+              >
+                Hobbies
+              </Text>
+              <View style={styles.skillGridContainer}>
+                {hobbies.map((hobby, index) => (
+                  <Text key={index} style={styles.skill}>
+                    {hobby.name}
+                  </Text>
+                ))}
+              </View>
+            </>
+          ) : null}
+        </Page>
+      </Document>
     // </PDFViewer>
   );
 };

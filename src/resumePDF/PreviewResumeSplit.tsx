@@ -163,6 +163,7 @@ interface PreviewResumeSplitProps {
   skills: { skillname: string }[];
   languages: { name: string }[];
   avatar: string;
+  hobbies: { name: string }[];
   visibleSections: string[];
   currentTypography: { font: string; size: string };
 }
@@ -181,6 +182,7 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
   educations,
   skills,
   languages,
+  hobbies,
   avatar,
   visibleSections,
   currentTypography,
@@ -375,11 +377,23 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
       fontSize: getFontSize1(currentTypography.size),
       // marginBottom: 5,
       marginVertical: 10,
+      width: "70%",
+      textAlign: "left"
+    },
+    
+    jobDateBlock: {
+      display: "flex", // Enable flexbox
+      flexDirection: "row", // Arrange children horizontally
+      justifyContent: "space-between", // Push items to opposite ends
+      alignItems: "center", // Align items vertically in the center
+      width: "100%", // Full width of the container
     },
     date: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
       fontSize: getFontSize1(currentTypography.size),
       marginBottom: 5,
+      width: "30%",
+      textAlign: "right",
     },
     educationBlock: {
       // marginBottom: 5,
@@ -387,7 +401,7 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
     },
   });
   return (
-    <PDFViewer style={{ width: "100%", height: "100vh" }}>
+    // <PDFViewer style={{ width: "100%", height: "100vh" }}>
       <Document>
         <Page size="A4" style={styles.page}>
           <View style={styles.header}>
@@ -481,10 +495,12 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
                         <Text style={styles.companyName}>
                           {experience.company}
                         </Text>
+                        <View style={styles.jobDateBlock}>
                         <Text style={styles.jobTitle}>
                           {experience.position}
                         </Text>
                         <Text style={styles.date}>{experience.dateRange}</Text>
+                        </View>
                         {experience.description.map((point, i) =>
                           point !== "<br>" ? (
                             <Text key={i} style={styles.bulletPoint}>
@@ -514,8 +530,10 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
                         <Text style={styles.companyName}>
                           {education.school}
                         </Text>
+                        <View style={styles.jobDateBlock}>
                         <Text style={styles.jobTitle}>{education.degree}</Text>
                         <Text style={styles.date}>{education.dateRange}</Text>
+                        </View>
                       </View>
                     </View>
                   ))}
@@ -549,11 +567,25 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
                 </View>
               </>
               ) : null}
+              {hobbies.length > 0 && visibleSections.includes("interests") ? (
+                <>
+                <Text style={[styles.sectionTitle, { color: themeColor }, skills.length>0?{marginTop:15}:{marginTop:0}]}>
+                  Hobbies
+                </Text>
+                <View style={styles.skillGridContainer}>
+                  {hobbies.map((hobby, index) => (
+                    <Text key={index} style={styles.skillItem}>
+                      {hobby.name}
+                    </Text>
+                  ))}
+                </View>
+              </>
+              ) : null}              
             </View>
           </View>
         </Page>
       </Document>
-    </PDFViewer>
+    // </PDFViewer>
   );
 };
 

@@ -10,7 +10,7 @@ interface AboutMeProps {
 }
 
 const AboutMe: React.FC<AboutMeProps> = ({ setAbout, about, themeColor }) => {
-  const [showAiDialog, setShowAiDialog] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   return (
     <div id="summary" className="with-border">
       <h2
@@ -30,18 +30,19 @@ const AboutMe: React.FC<AboutMeProps> = ({ setAbout, about, themeColor }) => {
         />
       </span>
       <div className="btn-edit">
-        <span className="writing-assistant" onClick="openModal('Summary')">
+        <span className="writing-assistant" onClick={() => setShowModal(true)}>
           <span translate-data="✧ Writing Assistant">✧ Writing Assistant</span>
         </span>
       </div>
+      {showModal && (
+        <Ai_Modal
+          onClose={() => setShowModal(false)}
+          // onImport={handleImport}
+          headerText={'Summary'}
+        />
+      )}
     </div>
-    // {showAiDialog && (
-    //     <Ai_Modal
-    //       onClose={() => setShowAiDialog(false)}
-    //       // onImport={handleImport}
-    //       headerText={'About Me'}
-    //     />
-    //   )}
+
   );
 };
 

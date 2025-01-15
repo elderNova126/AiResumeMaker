@@ -26,7 +26,7 @@ const Experiences: React.FC<{
   themeColor: string;
   // isATS: boolean;
 }> = ({ setExperiences, experiences, themeColor }) => {
-  const [showAiDialog, setShowAiDialog] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const reorder = (
     list: ExperienceType[],
@@ -109,9 +109,8 @@ const Experiences: React.FC<{
                     <div
                       ref={provided.innerRef}
                       {...provided.draggableProps}
-                      className={`relative group border border-transparent rounded-md hover:border-gray-300 transition-all ${
-                        snapshot.isDragging ? "bg-gray-100 shadow-md" : ""
-                      }`}
+                      className={`relative group border border-transparent rounded-md hover:border-gray-300 transition-all ${snapshot.isDragging ? "bg-gray-100 shadow-md" : ""
+                        }`}
                     >
                       <div className="sortable-wrapper">
                         <div className="with-border">
@@ -158,15 +157,15 @@ const Experiences: React.FC<{
                           <div className="btn-edit">
                             <span
                               className="writing-assistant"
-                              onClick="openModal('Experience', this)"
+                              onClick={() => setShowModal(true)}
                               translate-data="✧ Writing Assistant"
                             >
                               ✧ Writing Assistant
                             </span>
                             {experiences.length > 1 && (
                               <>
-                              <RemoveButton index={index} removeFunc={removeExperience} />
-                              <ReorderButton provided={provided} />
+                                <RemoveButton index={index} removeFunc={removeExperience} />
+                                <ReorderButton provided={provided} />
                               </>
                             )}
                             <AddButton addFunc={addExperience} />
@@ -190,12 +189,9 @@ const Experiences: React.FC<{
           )}
         </Droppable>
       </DragDropContext>
-      {showAiDialog && (
-        <Ai_Modal
-          onClose={() => setShowAiDialog(false)}
-          // onImport={handleImport}
-          headerText={"Experience"}
-        />
+      {showModal && (
+        <Ai_Modal onClose={() => setShowModal(false)}
+          headerText={"Experience"} />
       )}
     </div>
   );

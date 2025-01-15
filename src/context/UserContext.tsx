@@ -16,7 +16,6 @@ interface Skill {
 }
 interface Language {
   name: string;
-  level: string;
 }
 interface Hobby {
   name: string;
@@ -70,7 +69,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
       company: "",
       dateRange: "",
       position: "",
-      description: [],
+      description: ["fff","ffffddd"],
     }
   ]);
   const [educations, setEducations] = useState<Education[]>([
@@ -81,7 +80,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   ]);
     const [skills, setSkills] = useState([{ skillname: "" }]);
-    const [languages, setLanguages] = useState([{ name: "", level:"" }]);
+    const [languages, setLanguages] = useState([{ name: "" }]);
     const [hobbies, setHobbies] = useState([{ name: "" }]);
   const [avatar, setAvatar] = useState(
     ""

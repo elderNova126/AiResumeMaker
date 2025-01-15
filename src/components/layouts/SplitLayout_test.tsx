@@ -16,6 +16,7 @@ import Educations from "../Educations";
 import Skills from "../Skills";
 import Languages from "../Languages"
 import Hobbies from "../Hobbies"
+import Picture from "../Picture";
 import { useUser } from "../../context/UserContext";
 
 interface SplitLayoutProps {
@@ -93,15 +94,7 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
     <div id="resume" data-text="Created for free at www.resumemaker.online">
       <div className="main-wrapper">
         {visibleSections.includes("picture") && (
-          <div id="picture">
-            <input
-              type="file"
-              id="imageUpload"
-              accept="image/*"
-              style={{ display: "none" }}
-            />
-            <label for="imageUpload" placeholder="Select your picture"></label>
-          </div>
+          <Picture />
         )}
         <div id="name-role">
           <Contenteditable

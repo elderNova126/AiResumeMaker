@@ -9,6 +9,7 @@ import {
 import RemoveButton from "./RemoveButton";
 import ReorderButton from "./ReorderButton";
 import AddButton from "./AddButton";
+import { display } from "html2canvas/dist/types/css/property-descriptors/display";
 
 interface LanguageType {
   name: string;
@@ -33,6 +34,7 @@ const Languages: React.FC<{
   };
 
   const onDragEnd = (result: DropResult) => {
+    debugger;
     if (!result.destination) {
       return;
     }
@@ -41,6 +43,7 @@ const Languages: React.FC<{
       result.source.index,
       result.destination.index
     );
+
     setLanguages(reorderedLanguages);
   };
 
@@ -58,7 +61,11 @@ const Languages: React.FC<{
     }
   };
 
-  const updateLanguage = (index: number, key: keyof LanguageType, value: string) => {
+  const updateLanguage = (
+    index: number,
+    key: keyof LanguageType,
+    value: string
+  ) => {
     const updatedLanguages = languages.map((language, i) =>
       i === index ? { ...language, [key]: value } : language
     );
@@ -66,52 +73,49 @@ const Languages: React.FC<{
   };
 
   return (
-    <div id="languages" className="list with-border">
-      <h2
-        contentEditable="true"
-        translate-data="Languages"
-        placeholder="Languages"
-        data-gramm="false"
-      ></h2>
-      <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable droppableId="languages">
-          {(provided) => (
-            <div
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-              style={{ display: "contents" }}
-            >
-              {languages.map((language, index) => (
-                <Draggable
-                  key={`language-${index}`}
-                  draggableId={`language-${index}`}
-                  index={index}
-                >
-                  {(provided, snapshot) => (
-                    <div
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      className={`relative group border border-transparent rounded-md hover:border-gray-300 transition-all ${
-                        snapshot.isDragging ? "bg-gray-100 shadow-md" : ""
-                      } ${
-                        hoveredIndex === index ? "bg-gray-100 shadow-md" : ""
-                      }`} // Apply hover effect styles
-                      onMouseEnter={() => setHoveredIndex(index)} // Set hovered index
-                      onMouseLeave={() => setHoveredIndex(null)} // Clear hovered index
-                    >
-                      <Contenteditable
-                        value={language.name}
-                        onChange={(updatedContent) => {
-                          updateLanguage(index, "name", updatedContent);
-                        }}
-                        as="p"
-                        placeholder="Enter language"
-                        className=""
-                        translate-data="Enter language"
-                        data-gramm="false"
-                      />
-                      <div className="btn-edit">
-                        {languages.length > 1 && hoveredIndex === index && ( // Show buttons only for hovered item
+    <DragDropContext onDragEnd={onDragEnd}>
+      <Droppable droppableId="languages">
+        {(provided) => (
+          <div
+            id="languages"
+            className="list with-border"
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+          >
+            <h2
+              contentEditable="true"
+              translate-data="Languages"
+              placeholder="Languages"
+              data-gramm="false"
+            ></h2>
+            {languages.map((language, index) => (
+              <Draggable
+                key={`language-${index}`} // Ensure unique key
+                draggableId={`language-${index}`} // Match unique ID
+                index={index}
+              >
+                {(provided) => (
+                  <div
+                    ref={provided.innerRef}
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps} // Ensure drag functionality
+                    onMouseEnter={() => setHoveredIndex(index)} // Set hovered index
+                    onMouseLeave={() => setHoveredIndex(null)} // Clear hovered index
+                  >
+                    <Contenteditable
+                      value={language.name}
+                      onChange={(updatedContent) => {
+                        updateLanguage(index, "name", updatedContent);
+                      }}
+                      as="p"
+                      placeholder="Enter language"
+                      className=""
+                      translate-data="Enter language"
+                      data-gramm="false"
+                    />
+                    <div className="btn-edit">
+                      {languages.length > 1 &&
+                        hoveredIndex === index && ( // Show buttons only for hovered item
                           <>
                             <RemoveButton
                               index={index}
@@ -120,18 +124,19 @@ const Languages: React.FC<{
                             <ReorderButton provided={provided} />
                           </>
                         )}
-                        {hoveredIndex === index && <AddButton addFunc={addLanguage} />}
-                      </div>
+                      {hoveredIndex === index && (
+                        <AddButton addFunc={addLanguage} />
+                      )}
                     </div>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
-    </div>
+                  </div>
+                )}
+              </Draggable>
+            ))}
+            {provided.placeholder}
+          </div>
+        )}
+      </Droppable>
+    </DragDropContext>
   );
 };
 

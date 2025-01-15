@@ -30,21 +30,23 @@ const WorkExperienceEditor: React.FC<WorkExperienceEditorProps> = ({
       : ""; // Empty string when no description
 
   // Parse plain text back into an array
-  const parseDescriptionFromText = (text: string) =>
-    text
-      .split(/\n+/) // Split by newlines
-      .map((line) => line.replace(/^•\s*/, "").trim()) // Remove leading bullets
-      .filter((line) => line !== ""); // Remove empty lines
-
+  const parseDescriptionFromText = (text: string) => {
+    // Split by the bullet symbol (•) followed by a space, then clean up
+    return text
+      .split("•") // Split by the bullet point
+      .filter((line) => line.trim() !== "") // Remove empty lines
+      .map((line) => line.trim()); // Trim each line
+  };
+  
   // State for the editable content
   const [value, setValue] = useState<string>(
     generateTextFromDescription(initialDescription)
   );
 
   // Update state when initialDescription changes
-  useEffect(() => {
-    setValue(generateTextFromDescription(initialDescription));
-  }, [initialDescription]);
+  // useEffect(() => {
+  //   setValue(generateTextFromDescription(initialDescription));
+  // }, [initialDescription]);
 
   const handleChange = (newValue: string) => {
     
@@ -52,6 +54,7 @@ const WorkExperienceEditor: React.FC<WorkExperienceEditorProps> = ({
 
     // Convert plain text back to description array
     const updatedDescription = parseDescriptionFromText(newValue);
+    console.log("updatedDescription: ", updatedDescription);
     updateExperience(index, "description", updatedDescription);
   };
   console.log("newvalue: ", value);

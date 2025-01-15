@@ -102,7 +102,7 @@ const Languages: React.FC<{
                     onMouseEnter={() => setHoveredIndex(index)} // Set hovered index
                     onMouseLeave={() => setHoveredIndex(null)} // Clear hovered index
                   >
-                    
+
                     <Contenteditable
                       value={language.name}
                       onChange={(updatedContent) => {

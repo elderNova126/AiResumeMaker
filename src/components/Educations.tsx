@@ -132,12 +132,12 @@ const Educations: React.FC<{
                       </div>
                     </div>
                     {educations.length > 1 &&
-                        educations.length - 1 > index && (
-                          <div
-                            className="timeline_linea"
-                            style={{ background: themeColor }}
-                          ></div>
-                        )}
+                      educations.length - 1 > index && (
+                        <div
+                          className="timeline_linea"
+                          style={{ background: themeColor }}
+                        ></div>
+                      )}
                   </div>
                 )}
               </Draggable>

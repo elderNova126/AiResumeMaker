@@ -106,7 +106,6 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
         translate-data="Personal Details"
         placeholder="Personal Details"
         data-gramm="false"
-        style={{ color: themeColor }}
       ></h2>
       <div id="details1" >
 

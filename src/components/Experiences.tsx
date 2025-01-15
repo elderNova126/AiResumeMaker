@@ -107,9 +107,23 @@ const Experiences: React.FC<{
                       {...provided.draggableProps}
                       className="sortable-wrapper"
                     >
-                        <div className="with-border">
+                      <div className="with-border">
+                        <Contenteditable
+                          value={experience.company}
+                          onChange={(updatedContent) => {
+                            updateExperience(
+                              index,
+                              "company",
+                              updatedContent
+                            );
+                          }}
+                          as="h3"
+                          placeholder="Employer"
+                        />
+
+                        <div>
                           <Contenteditable
-                            value={experience.company}
+                            value={experience.position}
                             onChange={(updatedContent) => {
                               updateExperience(
                                 index,
@@ -117,61 +131,47 @@ const Experiences: React.FC<{
                                 updatedContent
                               );
                             }}
-                            as="h3"
-                            placeholder="Employer"
+                            as="h4"
+                            placeholder="Position"
                           />
-
-                          <div>
-                            <Contenteditable
-                              value={experience.position}
-                              onChange={(updatedContent) => {
-                                updateExperience(
-                                  index,
-                                  "company",
-                                  updatedContent
-                                );
-                              }}
-                              as="h4"
-                              placeholder="Position"
-                            />
-                            <Contenteditable
-                              value={experience.dateRange}
-                              onChange={(updatedContent) => {
-                                updateExperience(
-                                  index,
-                                  "dateRange",
-                                  updatedContent
-                                );
-                              }}
-                              as="p"
-                              placeholder="From - Until"
-                            />
-                          </div>
-                          <WorkExperienceEditor
-                            initialDescription={experience.description}
-                            updateExperience={updateExperienceByDescription}
-                            index={index}
+                          <Contenteditable
+                            value={experience.dateRange}
+                            onChange={(updatedContent) => {
+                              updateExperience(
+                                index,
+                                "dateRange",
+                                updatedContent
+                              );
+                            }}
+                            as="p"
+                            placeholder="From - Until"
                           />
-                          <div className="btn-edit">
-                            <span
-                              className="writing-assistant"
-                              onClick={() => setShowModal(true)}
-                              translate-data="✧ Writing Assistant"
-                            >
-                              ✧ Writing Assistant
-                            </span>
-                            {experiences.length > 1 && (
-                              <>
-                                <RemoveButton
-                                  index={index}
-                                  removeFunc={removeExperience}
-                                />
-                                <ReorderButton provided={provided} />
-                              </>
-                            )}
-                            <AddButton addFunc={addExperience} />
-                          </div>
                         </div>
+                        <WorkExperienceEditor
+                          initialDescription={experience.description}
+                          updateExperience={updateExperienceByDescription}
+                          index={index}
+                        />
+                        <div className="btn-edit">
+                          <span
+                            className="writing-assistant"
+                            onClick={() => setShowModal(true)}
+                            translate-data="✧ Writing Assistant"
+                          >
+                            ✧ Writing Assistant
+                          </span>
+                          {experiences.length > 1 && (
+                            <>
+                              <RemoveButton
+                                index={index}
+                                removeFunc={removeExperience}
+                              />
+                              <ReorderButton provided={provided} />
+                            </>
+                          )}
+                          <AddButton addFunc={addExperience} />
+                        </div>
+                      </div>
 
                       {experiences.length > 1 &&
                         experiences.length - 1 > index && (

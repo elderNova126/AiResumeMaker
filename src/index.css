@@ -43,7 +43,7 @@ body {
 
 .timeline_linea {
   position: absolute;
-  height: 100%;
+  /* height: 100%; */
   width: 0.3rem;
   background: #000;
   left: 0.7rem;
@@ -1467,7 +1467,7 @@ span p {
   border-radius: 2.4rem;
   top: 1.2rem;
   left: 1.2rem;
-  z-index: 99;
+  z-index: 30;
   content: "";
   width: 1.2rem;
   height: 1.2rem;
@@ -1476,7 +1476,6 @@ span p {
   border-radius: 2.4rem;
   top: 1.2rem;
   left: 0.8rem;
-  z-index: 99;
 }
 #work .sortable-wrapper .with-border:after,
 #education .sortable-wrapper .with-border:after {

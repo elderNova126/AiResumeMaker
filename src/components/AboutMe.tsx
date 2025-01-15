@@ -17,7 +17,6 @@ const AboutMe: React.FC<AboutMeProps> = ({ setAbout, about, themeColor }) => {
         contentEditable="true"
         translate-data="About Me"
         placeholder="About Me"
-        style={{ color: themeColor }}
       ></h2>
       <span>
         <Contenteditable

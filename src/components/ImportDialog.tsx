@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { X, AlertCircle, FileUp } from 'lucide-react';
 import { parsePDFContent, mapToTemplate, initializePDFWorker } from '../utils/resumeParser';
-import { filterResumeItems } from './parseByAi';
+// import { filterResumeItems } from './parseByAi';
+import axios from "axios";
 interface ImportDialogProps {
   onClose: () => void;
   onImport: (data: string[]) => void;
@@ -26,6 +27,73 @@ const ImportDialog = ({ onClose, onImport }: ImportDialogProps) => {
     //   fileInputRef.current.click();
     // }
   }, []);
+
+  const handleExtractData = async (resumeText) => {
+    console.log("^^^^^^^^^^^");
+    if (!resumeText.trim()) {
+      setError("Please enter resume text.");
+      return;
+    }
+    const promptTxt = `
+      Parse the following resume and extract the following details:
+      - Name
+      - Role
+      - Location
+      - Email
+      - phone
+      - Website
+      - LinkedIn
+      - Other
+      - Profile
+      - Experience (including Company, DateRange, Position, Description as array)
+      - Skill as array
+      - Education (including School, DateRange, Degree)
+      - Language (including Name) as array
+      - Interest as array
+      Resume text:
+      ${resumeText}
+      Please give me data as JSON format according to above exact name.
+    `;
+
+    try {
+      const response = await axios.post(
+        "https://api.openai.com/v1/chat/completions",
+        {
+          model: "gpt-4o-mini", // Replace with the desired model
+          messages: [
+            {
+              role: "system",
+              content:
+                "You are an assistant that extracts key information from resumes.",
+            },
+            {
+              role: "user",
+              content: promptTxt,
+            },
+          ],
+          max_tokens: 1000,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer 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`, // Replace with your API key
+          },
+        }
+      );
+      console.log(response.data);
+      // debugger;
+      const parsedContent = response.data.choices[0].message.content.replace("```json", "").replace("```", "");
+      console.log(parsedContent);
+      return JSON.parse(parsedContent);
+    } catch (err) {
+      console.error("Error extracting data:", err);
+      setError("Failed to extract data. Please try again.");
+    } finally {
+    }
+  };
+
+
+
 
   const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -52,7 +120,7 @@ const ImportDialog = ({ onClose, onImport }: ImportDialogProps) => {
       console.log('Processing file:', file.name, 'Size:', file.size);
       const extractedData = await parsePDFContent(file);
       console.log('Extracted data:', extractedData);
-      const structuredData = await filterResumeItems(extractedData);
+      const structuredData = await handleExtractData(extractedData);
 
       // console.log('structuredData file:', structuredData);
       // const mappedData = await mapToTemplate(structuredData);

@@ -26,7 +26,6 @@ const WorkExperienceEditor: React.FC<WorkExperienceEditorProps> = ({
 }) => {
   // Generate HTML list from the description array
   const generateHTMLFromDescription = (description: string[]) => {
-    console.log("----------------------------------------------------------------", description);
     return (`<ul>${description.map((item) => `<li>${item}</li>`).join("")}</ul>`);
   }
 

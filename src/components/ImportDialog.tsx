@@ -3,6 +3,7 @@ import { X, AlertCircle, FileUp } from 'lucide-react';
 import { parsePDFContent, mapToTemplate, initializePDFWorker } from '../utils/resumeParser';
 // import { filterResumeItems } from './parseByAi';
 import axios from "axios";
+import { isArrayEqual } from 'pdfjs-dist/types/src/shared/util';
 interface ImportDialogProps {
   onClose: () => void;
   onImport: (data: string[]) => void;
@@ -29,7 +30,6 @@ const ImportDialog = ({ onClose, onImport }: ImportDialogProps) => {
   }, []);
 
   const handleExtractData = async (resumeText) => {
-    console.log("^^^^^^^^^^^");
     if (!resumeText.trim()) {
       setError("Please enter resume text.");
       return;
@@ -45,14 +45,15 @@ const ImportDialog = ({ onClose, onImport }: ImportDialogProps) => {
       - LinkedIn
       - Other
       - Profile
-      - Experience (including Company, DateRange, Position, Description as array)
-      - Skill as array
+      - Experience (including Company, DateRange, Position, Description)
+      - Skill
       - Education (including School, DateRange, Degree)
-      - Language (including Name) as array
-      - Interest as array
+      - Language (including Name)
+      - Interest
       Resume text:
       ${resumeText}
       Please give me data as JSON format according to above exact name.
+      Set as array with one string value when values of Description, Skill, Language, Interest are string.
     `;
 
     try {
@@ -80,10 +81,7 @@ const ImportDialog = ({ onClose, onImport }: ImportDialogProps) => {
           },
         }
       );
-      console.log(response.data);
-      // debugger;
-      const parsedContent = response.data.choices[0].message.content.replace("```json", "").replace("```", "");
-      console.log(parsedContent);
+      const parsedContent = await response.data.choices[0].message.content.replace("```json", "").replace("```", "");
       return JSON.parse(parsedContent);
     } catch (err) {
       console.error("Error extracting data:", err);
@@ -117,9 +115,9 @@ const ImportDialog = ({ onClose, onImport }: ImportDialogProps) => {
 
     try {
       console.log('Starting PDF processing...');
-      console.log('Processing file:', file.name, 'Size:', file.size);
+      // console.log('Processing file:', file.name, 'Size:', file.size);
       const extractedData = await parsePDFContent(file);
-      console.log('Extracted data:', extractedData);
+      // console.log('Extracted data:', extractedData);
       const structuredData = await handleExtractData(extractedData);
 
       // console.log('structuredData file:', structuredData);

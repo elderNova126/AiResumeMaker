@@ -87,7 +87,6 @@ const Header: React.FC<HeaderProps> = ({
     document.body.style.paddingTop = 'calc(6.4rem + 4.8rem)';
   }
   const handleImport = (data: string[]) => {
-    console.log("handleimport", data)
     setName(data.Name);
     setRole(data.Role);
     setLocation(data.Location);
@@ -123,7 +122,9 @@ const Header: React.FC<HeaderProps> = ({
       position: exp.Position,
       description: exp.Description,
     })):[{company:"", dateRange:"", position:"", description:[]}];
+    
     setExperiences(transformedExperiences);
+    
 
     const transformedEducation = data.Education.length>0?data.Education.map((item) => ({
       school: item.School,

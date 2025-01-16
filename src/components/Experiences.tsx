@@ -44,7 +44,7 @@ const Experiences: React.FC<{
   };
 
   const onDragEnd = (result: DropResult) => {
-    console.log("Drag Result:", result);
+    // console.log("Drag Result:", result);
     if (!result.destination) {
       return;
     }

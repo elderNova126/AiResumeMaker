@@ -64,7 +64,6 @@ const Educations: React.FC<{
     );
     setEducations(updatedExperiences);
   };
-  console.log("educations: ", educations);
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="educations">

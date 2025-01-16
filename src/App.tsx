@@ -14,14 +14,14 @@ RegisterFonts();
 
 function App() {
 
-  const [newSize, setNewSize] = useState(10);
+  const [newSize, setNewSize] = useState(8);
   const [preSize, setPreSize] = useState(newSize);
   const [page, setPage] = useState<string>("login");
   const [token, setToken] = useState<string | null>(null);
   const [layout, setLayout] = useState("split");
   const [themeColor, setThemeColor] = useState("#0891b2");
   const [typography, setTypography] = useState({
-    font: "nunito",
+    font: "Nunito",
     size: "medium",
   });
 
@@ -30,6 +30,7 @@ function App() {
       "--font-primary",
       getFontFamily(typography.font)
     );
+
     const tempnewSize = parseFloat(getFontSize(typography.size));
     if (tempnewSize == preSize) return;
     let appSize = 1;
@@ -50,6 +51,7 @@ function App() {
       const newFontSize = currentFontSize + appSize;
       // alert(currentFontSize);
       (el as HTMLElement).style.fontSize = `${newFontSize}px`;
+
     });
 
   }, [typography]);

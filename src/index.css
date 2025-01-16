@@ -18,12 +18,12 @@ textarea {
 }
 
 body {
-  font-family: "Nunito", sans-serif;
+  font-family: Nunito, sans-serif;
   font-size: 1rem;
 }
 
 .font-primary {
-  font-family: var(--font-primary, "Nunito");
+  font-family: var(--font-primary, Nunito);
   font-size: var(--font-size, 1rem);
 }
 .textEdit:hover {
@@ -85,12 +85,12 @@ body {
 }
 .ql-container.ql-snow {
   border: none;
-  font-family: inherit;
+  /* font-family: inherit; */
 }
 .ql-editor::before {
   color: #000000 !important; /* Placeholder color */
   font-size: 14px; /* Adjust font size */
-  font-family: inherit; /* Set font family */
+  /* font-family: inherit; Set font family */
   font-style: normal !important;
 }
 
@@ -104,7 +104,7 @@ body {
 .ql-editor li {
   padding-left: 1px !important; /* Remove padding on list items */
 
-  font-family: inherit !important;
+  /* font-family: inherit !important; */
   font-feature-settings: inherit !important;
   font-variation-settings: inherit !important;
   font-size: 100% !important;
@@ -123,8 +123,8 @@ body {
   margin-right: 15px;
 }
 .text-default-sm {
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  /* font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif; */
   font-size: 0.875rem;
   line-height: 1.25rem;
 }
@@ -275,7 +275,7 @@ html {
   padding: 0;
   margin: -45px;
   font-size: 55.5%;
-  font-family: nunito, sans-serif;
+  /* font-family: Nunito, sans-serif; */
   -webkit-text-size-adjust: none;
   touch-action: manipulation;
   overflow-x: hidden;
@@ -310,7 +310,7 @@ header {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
-  font-family: inherit;
+  /* font-family: inherit; */
 }
 *:focus {
   outline: none;
@@ -809,7 +809,7 @@ span.skill-item:hover {
   line-height: 1.2;
   height: 4rem;
   align-items: center;
-  font-family: nunito;
+  /* font-family: Nunito; */
 }
 #logo img {
   height: 3.5rem;
@@ -1171,7 +1171,7 @@ button svg {
 #resume h3,
 #resume h4,
 #resume p {
-  font-family: inherit;
+  /* font-family: inherit; */
   font-size: inherit;
 }
 .main-wrapper {
@@ -1517,9 +1517,6 @@ span p {
 .main-wrapper > div:nth-child(1) .list div {
   width: 100%;
   flex: unset;
-}
-.list p {
-  background: whitesmoke;
 }
 .list {
   display: flex;
@@ -2065,11 +2062,11 @@ span.o--Button--children {
 }
 #widget-Outseta_auth *,
 #widget-Outseta_profile * {
-  font-family: nunito !important;
+  /* font-family: Nunito !important; */
 }
 #widget-Outseta_auth .material-icons,
 #widget-Outseta_profile .material-icons {
-  font-family: "Material Icons" !important;
+  /* font-family: "Material Icons" !important; */
 }
 .o--Widget--widget h1 {
   font-size: 2rem !important;
@@ -2108,7 +2105,7 @@ span.o--Button--children {
 }
 .o--Widget--widget .o--Button--btn.o--Button--cornerShape-rounded {
   border-radius: 0.8rem !important;
-  font-family: "Inter", sans-serif;
+  /* font-family: "Inter", sans-serif; */
   line-height: 4rem;
   border: none;
   height: 4rem;
@@ -2122,7 +2119,7 @@ span.o--Button--children {
   font-size: 1.4rem !important;
 }
 .o--CloseLink--close.o--CloseLink--displayMode-light .material-icons {
-  font-family: "Material Icons" !important;
+  /* font-family: "Material Icons" !important; */
   font-weight: 400 !important;
   color: #6941c6;
   font-size: 1.5rem !important;
@@ -2300,7 +2297,7 @@ span.o--Button--children {
   padding: 1rem 1.2rem !important;
   line-height: 1.3 !important;
   max-width: 100% !important;
-  font-family: nunito;
+  /* font-family: Nunito; */
 }
 .o--Widget--widget .o--Button--btn.o--Button--buttonStyle-solid {
   background-color: var(--main-color) !important;
@@ -2533,12 +2530,12 @@ button[disabled],
   color: white;
   background: var(--main-color);
 }
-input,
+/* input,
 select,
 textarea,
 button {
-  font-family: "nunito", sans-serif;
-}
+  font-family: Nunito, sans-serif;
+} */
 .modal button.apply[disabled] {
   display: none;
 }

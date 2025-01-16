@@ -272,6 +272,7 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
               setEducations={setEducations}
               educations={educations}
               themeColor={themeColor}
+              isSplit={false}
             />
           )}
           {visibleSections.includes("skills") && (

@@ -14,13 +14,15 @@ interface EducationType {
   school: string;
   dateRange: string;
   degree: string;
+  isSplit: boolean;
 }
 
 const Educations: React.FC<{
   setEducations: React.Dispatch<React.SetStateAction<EducationType[]>>;
   educations: EducationType[];
   themeColor: string;
-}> = ({ setEducations, educations, themeColor }) => {
+  isSplit: boolean;
+}> = ({ setEducations, educations, themeColor, isSplit }) => {
   const reorder = (
     list: EducationType[],
     startIndex: number,
@@ -91,33 +93,73 @@ const Educations: React.FC<{
                     className="sortable-wrapper"
                   >
                     <div className="with-border">
-                      <Contenteditable
-                        value={education.school}
-                        onChange={(updatedContent) => {
-                          updateEducation(index, "school", updatedContent);
-                        }}
-                        as="h3"
-                        placeholder="School"
-                      />
-                      <div>
-                        <Contenteditable
-                          value={education.degree}
-                          onChange={(updatedContent) => {
-                            updateEducation(index, "degree", updatedContent);
-                          }}
-                          as="h4"
-                          placeholder="Degree"
-                        />
+                      {isSplit ? (
+                        <div style={{ display: "contents" }}>
+                          <div style={{ display: "flex" }}>
+                            <Contenteditable
+                              value={education.degree}
+                              onChange={(updatedContent) => {
+                                updateEducation(index, "degree", updatedContent);
+                              }}
+                              as="p"
+                              placeholder="Degree"
+                              style={{ color: themeColor, fontWeight: "bold" }}
+                            />
+                            <p style={{ fontSize: "large" }}>   |   </p>
+                            <Contenteditable
+                              value={education.school}
+                              onChange={(updatedContent) => {
+                                updateEducation(index, "school", updatedContent);
+                              }}
+                              as="p"
+                              placeholder="School"
+                              style={{ fontWeight: "bold" }}
+                            />
+                          </div>
+                          <div>
+                            <Contenteditable
+                              value={education.dateRange}
+                              onChange={(updatedContent) => {
+                                updateEducation(index, "dateRange", updatedContent);
+                              }}
+                              as="p"
+                              style={{ width: "fit-content" }}
+                              placeholder="From - Until"
+                            />
+                          </div>
+                        </div>
+                      ) : (
+                        <>
+                          <Contenteditable
+                            value={education.school}
+                            onChange={(updatedContent) => {
+                              updateEducation(index, "school", updatedContent);
+                            }}
+                            as="h3"
+                            placeholder="School"
+                          />
+                          <div>
+                            <Contenteditable
+                              value={education.degree}
+                              onChange={(updatedContent) => {
+                                updateEducation(index, "degree", updatedContent);
+                              }}
+                              as="h4"
+                              placeholder="Degree"
+                            />
 
-                        <Contenteditable
-                          value={education.dateRange}
-                          onChange={(updatedContent) => {
-                            updateEducation(index, "dateRange", updatedContent);
-                          }}
-                          as="p"
-                          placeholder="From - Until"
-                        />
-                      </div>
+                            <Contenteditable
+                              value={education.dateRange}
+                              onChange={(updatedContent) => {
+                                updateEducation(index, "dateRange", updatedContent);
+                              }}
+                              as="p"
+                              placeholder="From - Until"
+                            />
+                          </div>
+                        </>
+                      )}
+
                       <div className="btn-edit">
                         {educations.length > 1 && (
                           <>

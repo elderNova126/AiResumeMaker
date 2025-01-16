@@ -111,7 +111,7 @@ const Languages: React.FC<{
                       }}
                       as="p"
                       placeholder="Enter language"
-                      className=""
+                      className="eachSkill"
                       translate-data="Enter language"
                       data-gramm="false"
                     />

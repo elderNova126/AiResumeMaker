@@ -99,36 +99,37 @@ const Header: React.FC<HeaderProps> = ({
     setAbout(data.Profile);
 
 
-    const formattedSkills = data.Skill.map((item) => ({
+    const formattedSkills = data.Skill.length>0?data.Skill.map((item) => ({
       skillname: item,
-    }));
+    })):[{skillname:""}];
     setSkills(formattedSkills);
 
-    const transformedLng = data.Language.map((item) => ({
+    const transformedLng = data.Language.length>0?data.Language.map((item) => ({
       name: item.Name,
       level: item.Level,
-    }));
+    })): [{name:"", level:""}];
     setLanguages(transformedLng);
-    if (data.Interest) {
-      const transformedHob = data.Interest.map((item) => ({
+
+      const transformedHob = data.Interest.length>0?data.Interest.map((item) => ({
         name: item,
-      }));
+      })):[{name:""}];
+
       setHobbies(transformedHob);
     }
 
-    const transformedExperiences = data.Experience.map(exp => ({
+    const transformedExperiences = data.Experience.length>0?data.Experience.map(exp => ({
       company: exp.Company,
       dateRange: exp.DateRange,
       position: exp.Position,
       description: exp.Description,
-    }));
+    })):[{company:"", dateRange:"", position:"", description:[]}];
     setExperiences(transformedExperiences);
 
-    const transformedEducation = data.Education.map((item) => ({
+    const transformedEducation = data.Education.length>0?data.Education.map((item) => ({
       school: item.School,
       dateRange: item.DateRange,
       degree: item.Degree,
-    }));
+    })):[{school:"", dateRange:"", degree:""}];
     setEducations(transformedEducation);
   };
 
@@ -136,10 +137,10 @@ const Header: React.FC<HeaderProps> = ({
     { value: "split", label: "Split Layout" },
     { value: "classic", label: "Classic Layout" },
     { value: "hybrid", label: "ATS Layout" },
-    { value: "test_split", label: "Preview Split" },
-    { value: "test_classic", label: "Preview Classic" },
-    { value: "test_ats", label: "Preview ATS" },
-    { value: "test", label: "Test" },
+    // { value: "test_split", label: "Preview Split" },
+    // { value: "test_classic", label: "Preview Classic" },
+    // { value: "test_ats", label: "Preview ATS" },
+    // { value: "test", label: "Test" },
   ];
 
   const colorOptions = [
@@ -267,7 +268,7 @@ const Header: React.FC<HeaderProps> = ({
               print
             </button>
             {/* Use PDFDownloadLink for downloading */}
-            {/* {currentLayout === "split" &&
+            {currentLayout === "split" &&
               <PDFDownloadLink
                 document={
                   <ResumePDF
@@ -385,7 +386,7 @@ const Header: React.FC<HeaderProps> = ({
 
                 </>
 
-              </PDFDownloadLink>} */}
+              </PDFDownloadLink>}
           </div>
         </div>
 

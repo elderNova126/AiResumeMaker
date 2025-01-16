@@ -141,7 +141,7 @@ body {
 }
 
 .eachSkill::before {
-  content: "\2010";
+  content: "\2022\00A0";
 }
 
 .classicStyle {

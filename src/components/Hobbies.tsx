@@ -104,7 +104,7 @@ const Hobbies: React.FC<{
                       }}
                       as="p"
                       placeholder="Enter Activate"
-                      className=""
+                      className="eachSkill"
                       translate-data="Enter Activate"
                       data-gramm="false"
                     />

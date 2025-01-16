@@ -399,7 +399,7 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
     },
   });
   return (
-    <PDFViewer style={{ width: "100%", height: "100vh" }}>
+    // <PDFViewer style={{ width: "100%", height: "100vh" }}>
       <Document>
         <Page size="A4" style={styles.page}>
           <View style={styles.header}>
@@ -586,7 +586,7 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
           </View>
         </Page>
       </Document>
-    </PDFViewer>
+    // </PDFViewer>
   );
 };
 

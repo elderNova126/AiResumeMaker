@@ -115,7 +115,7 @@ const Header: React.FC<HeaderProps> = ({
       })):[{name:""}];
 
       setHobbies(transformedHob);
-    }
+    
 
     const transformedExperiences = data.Experience.length>0?data.Experience.map(exp => ({
       company: exp.Company,

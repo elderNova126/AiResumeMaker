@@ -404,7 +404,7 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
   });
 
   return (
-    <PDFViewer style={{ width: "100%", height: "100vh" }}>
+    // <PDFViewer style={{ width: "100%", height: "100vh" }}>
       <Document>
         <Page size="A4" style={[styles.page]}>
           <View style={styles.headerCenteredContainer}>
@@ -587,7 +587,7 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
           ) : null}
         </Page>
       </Document>
-    </PDFViewer>
+    // </PDFViewer>
   );
 };
 

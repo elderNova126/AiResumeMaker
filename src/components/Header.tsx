@@ -109,10 +109,11 @@ const Header: React.FC<HeaderProps> = ({
       level: item.Level,
     })): [{name:"", level:""}];
     setLanguages(transformedLng);
-    if (data.Interest) {
+
       const transformedHob = data.Interest.length>0?data.Interest.map((item) => ({
         name: item,
       })):[{name:""}];
+
       setHobbies(transformedHob);
     }
 

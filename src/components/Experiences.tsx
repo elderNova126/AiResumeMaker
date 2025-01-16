@@ -235,15 +235,14 @@ const Experiences: React.FC<{
                           )}
                           <AddButton addFunc={addExperience} />
                         </div>
+                        {experiences.length > 1 &&
+                          experiences.length - 1 > index && (
+                            <div
+                              className="timeline_linea"
+                              style={{ background: themeColor }}
+                            ></div>
+                          )}
                       </div>
-
-                      {experiences.length > 1 &&
-                        experiences.length - 1 > index && (
-                          <div
-                            className="timeline_linea"
-                            style={{ background: themeColor }}
-                          ></div>
-                        )}
                     </div>
                   )}
                 </Draggable>

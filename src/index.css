@@ -42,11 +42,11 @@ body {
 }
 
 .timeline_linea {
-  position: relative;
+  position: absolute;
   height: 100%;
   width: 0.3rem;
   background: #000;
-  left: 0.7rem;
+  left: 1.2rem;
   top: 2.5rem;
   opacity: 0.2;
 }

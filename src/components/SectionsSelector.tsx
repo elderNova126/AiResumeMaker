@@ -50,7 +50,7 @@ const SectionsSelector = ({ sections, visibleSections, onChange, themeColor = '#
                 className="w-full flex items-center px-1 py-0.5 text-[0.7rem]  hover:bg-gray-50 rounded gap-2"
                 onClick={() => toggleSection(section.id)}
               >
-                {getIcon(section.id)}
+                {/* {getIcon(section.id)} */}
                 <div
                   className={`w-6 h-3 rounded-full p-0.5 transition-colors mr-1.5 ${visibleSections.includes(section.id) ? '' : 'bg-gray-200'
                     }`}

@@ -16,19 +16,19 @@ interface SelectorButtonProps {
   customDropdown?: React.ReactNode;
 }
 
-const SelectorButton = ({ 
-  icon: Icon, 
-  label, 
-  value, 
-  options, 
-  onChange, 
+const SelectorButton = ({
+  icon: Icon,
+  label,
+  value,
+  options,
+  onChange,
   color,
   className = '',
   onDropdownToggle,
-  customDropdown 
+  customDropdown
 }: SelectorButtonProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [typographyValue, setTypographyValue] = useState({ font: 'nunito', size: 'medium' });
+  const [typographyValue, setTypographyValue] = useState({ font: 'Nunito', size: 'medium' });
   const buttonRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -55,7 +55,7 @@ const SelectorButton = ({
 
   return (
     <div className="relative" ref={buttonRef}>
-      <button 
+      <button
         className={`flex items-center space-x-2 py-2 text-default-sm hover:opacity-80 transition-colors ${className}`}
         onClick={handleToggle}
       >
@@ -63,7 +63,7 @@ const SelectorButton = ({
         <span className="text-sm">{label}</span>
         <ChevronDown className="h-4 w-4 opacity-60" />
       </button>
-      
+
       {isOpen && customDropdown ? (
         customDropdown
       ) : isOpen && label === 'Color' ? (

@@ -19,8 +19,8 @@ const Skills: React.FC<{
   setSkills: React.Dispatch<React.SetStateAction<SkillType[]>>;
   skills: SkillType[];
   themeColor: string;
-  isSplit:boolean;
-}> = ({ setSkills, skills, themeColor, isSplit=true }) => {
+  isSplit: boolean;
+}> = ({ setSkills, skills, themeColor, isSplit = true }) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null); // Track hovered item
   const [showModal, setShowModal] = useState(false);
   const reorder = (
@@ -82,7 +82,7 @@ const Skills: React.FC<{
               ref={provided.innerRef}
               id="skills"
               className="list with-border"
-              
+
             >
               <h2
                 contentEditable="true"
@@ -102,13 +102,14 @@ const Skills: React.FC<{
                       {...provided.draggableProps}
                       onMouseEnter={() => setHoveredIndex(index)} // Set hovered index
                       onMouseLeave={() => setHoveredIndex(null)} // Clear hovered index
-                      style={isSplit?{flex:"0 0 calc(33.33% - 0.666rem)"}:{flex:"0 0 calc(24.5% - 0.666rem)"}}
+                      style={isSplit ? { flex: "0 0 calc(33.33% - 0.666rem)" } : { flex: "0 0 calc(24.5% - 0.666rem)" }}
                     >
                       <Contenteditable
                         value={skill.skillname}
                         onChange={(updatedContent) => {
                           updateSkill(index, "skillname", updatedContent);
                         }}
+                        
                         as="p"
                         placeholder="Enter skill"
                         className=""

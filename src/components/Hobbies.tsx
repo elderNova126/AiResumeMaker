@@ -18,7 +18,7 @@ const Hobbies: React.FC<{
   hobbies: HobbyType[];
   themeColor: string;
   isSplit: boolean;
-}> = ({ setHobbies, hobbies, themeColor, isSplit=true}) => {
+}> = ({ setHobbies, hobbies, themeColor, isSplit = true }) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null); // Track hovered item
 
   const reorder = (
@@ -78,7 +78,7 @@ const Hobbies: React.FC<{
             <h2
               contentEditable="true"
               translate-data="Hobbies"
-              placeholder="Hobbies"
+              placeholder="Activities"
               data-gramm="false"
             ></h2>
             {hobbies.map((hobby, index) => (
@@ -95,7 +95,7 @@ const Hobbies: React.FC<{
                       } ${hoveredIndex === index ? "bg-gray-100 shadow-md" : ""}`} // Apply hover effect styles
                     onMouseEnter={() => setHoveredIndex(index)} // Set hovered index
                     onMouseLeave={() => setHoveredIndex(null)} // Clear hovered index
-                    style={isSplit?{flex:"0 0 calc(33.33% - 0.666rem)"}:{flex:"0 0 calc(24.5% - 0.666rem)"}}
+                    style={isSplit ? { flex: "0 0 calc(33.33% - 0.666rem)" } : { flex: "0 0 calc(24.5% - 0.666rem)" }}
                   >
                     <Contenteditable
                       value={hobby.name}

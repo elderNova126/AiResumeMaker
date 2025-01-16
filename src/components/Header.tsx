@@ -106,12 +106,13 @@ const Header: React.FC<HeaderProps> = ({
       level: item.Level,
     }));
     setLanguages(transformedLng);
-
-    const transformedHob = data.Hobbies.map((item) => ({
-      name: item.Name,
-    }));
-
-    setHobbies(transformedHob);
+    if(data.Hobbies){
+      const transformedHob = data.Hobbies.map((item) => ({
+        name: item.Name,
+      }));
+      setHobbies(transformedHob);
+    }
+    
 
     const transformedExperiences = data.Experiences.map(exp => ({
       company: exp.Company,
@@ -151,16 +152,19 @@ const Header: React.FC<HeaderProps> = ({
   ];
 
   const fontOptions = [
-    { value: "nunito", label: "Nunito" },
-    { value: "archivo-narrow", label: "Archivo Narrow" },
-    { value: "syne", label: "Syne" },
-    { value: "dm-serif-display", label: "DM Serif Display + DM Sans" },
-    { value: "poppins", label: "Poppins" },
-    { value: "rubik", label: "Rubik" },
-    { value: "fira-sans", label: "Fira Sans" },
-    { value: "josefin-sans", label: "Josefin Sans" },
+    { value: "Nunito", label: "Nunito" },
+    { value: "Sans-Serif", label: "Calibri" },
+    { value: "Arial", label: "Arial" },
+    { value: "Times New Roman", label: "Times New Roman" },
+    { value: "Helvetica", label: "Helvetica" },
+    { value: "Georgia", label: "Georgia" },
+    { value: "Garamond", label: "Garamond" },
+    { value: "Verdana", label: "Verdana" },
+    { value: "Tahoma", label: "Tahoma" },
+    { value: "Cambria", label: "Cambria" },
+    { value: "trebuchet MS", label: "Trebuchet MS" },
     { value: "roboto-mono", label: "Roboto Mono" },
-    { value: "fjalla-one", label: "Fjalla One + Inter" },
+    { value: "poppins", label: "Poppins" },
   ];
 
   const sectionOptions = [
@@ -192,7 +196,7 @@ const Header: React.FC<HeaderProps> = ({
             style={{ color: currentColor }}
           >
             <ScrollText className="h-6 w-6" />
-            <span className="text-xl font-semibold">ResumeMaker</span>
+            <span className="text-xl font-semibold">aiResumeMaker.Online</span>
           </div>
 
           <div

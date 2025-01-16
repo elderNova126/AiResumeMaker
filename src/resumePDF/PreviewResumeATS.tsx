@@ -488,57 +488,57 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
             ))}
           </View>
         ) : null}
-          {/* Skills Section */}
-          {skills.length > 0 && visibleSections.includes("skills") ? (
-            <View style={styles.section}>
-              <Text style={[styles.sectionTitle, { color: themeColor }]}>
-                Skills
-              </Text>
-              <View style={styles.skillGridContainer}>
-                {skills.map((skill, index) => (
-                  <Text key={index} style={styles.skill}>
-                    {skill.skillname}
-                  </Text>
-                ))}
-              </View>
+        {/* Skills Section */}
+        {skills.length > 0 && visibleSections.includes("skills") ? (
+          <View style={styles.section}>
+            <Text style={[styles.sectionTitle, { color: themeColor }]}>
+              Skills
+            </Text>
+            <View style={styles.skillGridContainer}>
+              {skills.map((skill, index) => (
+                <Text key={index} style={styles.skill}>
+                  {skill.skillname}
+                </Text>
+              ))}
             </View>
-          ) : null}
+          </View>
+        ) : null}
 
-          {/* Languages Section */}
-          {languages.length > 0 && visibleSections.includes("languages") ? (
-            <View style={styles.section}>
-              <Text style={[styles.sectionTitle, { color: themeColor }]}>
-                Language
-              </Text>
-              <View style={styles.skillGridContainer}>
-                {languages.map((language, index) => (
-                  <Text key={index} style={styles.skill}>
-                    {language.name}
-                  </Text>
-                ))}
-              </View>
+        {/* Languages Section */}
+        {languages.length > 0 && visibleSections.includes("languages") ? (
+          <View style={styles.section}>
+            <Text style={[styles.sectionTitle, { color: themeColor }]}>
+              Language
+            </Text>
+            <View style={styles.skillGridContainer}>
+              {languages.map((language, index) => (
+                <Text key={index} style={styles.skill}>
+                  {language.name}
+                </Text>
+              ))}
             </View>
-          ) : null}
-          {hobbies.length > 0 && visibleSections.includes("interests") ? (
-            <>
-              <Text
-                style={[
-                  styles.sectionTitle,
-                  { color: themeColor },
-                  languages.length > 0 ? { marginTop: 15 } : { marginTop: 0 },
-                ]}
-              >
-                Hobbies
-              </Text>
-              <View style={styles.skillGridContainer}>
-                {hobbies.map((hobby, index) => (
-                  <Text key={index} style={styles.skill}>
-                    {hobby.name}
-                  </Text>
-                ))}
-              </View>
-            </>
-          ) : null}
+          </View>
+        ) : null}
+        {hobbies.length > 0 && visibleSections.includes("interests") ? (
+          <>
+            <Text
+              style={[
+                styles.sectionTitle,
+                { color: themeColor },
+                languages.length > 0 ? { marginTop: 15 } : { marginTop: 0 },
+              ]}
+            >
+              Hobbies
+            </Text>
+            <View style={styles.skillGridContainer}>
+              {hobbies.map((hobby, index) => (
+                <Text key={index} style={styles.skill}>
+                  {hobby.name}
+                </Text>
+              ))}
+            </View>
+          </>
+        ) : null}
       </Page>
     </Document>
     // </PDFViewer>

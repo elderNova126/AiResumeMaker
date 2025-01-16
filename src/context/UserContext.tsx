@@ -1,15 +1,15 @@
 import React, { createContext, useState, useContext } from "react";
 
 interface Experience {
-    company: string;
+  company: string;
   dateRange: string;
   position: string;
   description: string[];
 }
 interface Education {
   school: string;
-dateRange: string;
-degree: string;
+  dateRange: string;
+  degree: string;
 }
 interface Skill {
   skillname: string;
@@ -40,15 +40,15 @@ interface UserContextProps {
   experiences: Experience[];
   setExperiences: React.Dispatch<React.SetStateAction<Experience[]>>;
   educations: Education[];
-  setEducations: React.Dispatch<React.SetStateAction<Education[]>>;  
+  setEducations: React.Dispatch<React.SetStateAction<Education[]>>;
   skills: Skill[];
-  setSkills: React.Dispatch<React.SetStateAction<Skill[]>>;  
+  setSkills: React.Dispatch<React.SetStateAction<Skill[]>>;
   languages: Language[];
-  setLanguages: React.Dispatch<React.SetStateAction<Language[]>>;  
+  setLanguages: React.Dispatch<React.SetStateAction<Language[]>>;
   avatar: string;
-  setAvatar: React.Dispatch<React.SetStateAction<string>>;  
+  setAvatar: React.Dispatch<React.SetStateAction<string>>;
   hobbies: Hobby[]
-  setHobbies: React.Dispatch<React.SetStateAction<Hobby[]>>;  
+  setHobbies: React.Dispatch<React.SetStateAction<Hobby[]>>;
 }
 
 const UserContext = createContext<UserContextProps | undefined>(undefined);
@@ -79,12 +79,12 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
       degree: "",
     }
   ]);
-    const [skills, setSkills] = useState([{ skillname: "" }]);
-    const [languages, setLanguages] = useState([{ name: "" }]);
-    const [hobbies, setHobbies] = useState([{ name: "" }]);
+  const [skills, setSkills] = useState([{ skillname: "• " }]);
+  const [languages, setLanguages] = useState([{ name: "" }]);
+  const [hobbies, setHobbies] = useState([{ name: "" }]);
   const [avatar, setAvatar] = useState(
     ""
-  );    
+  );
   return (
     <UserContext.Provider
       value={{

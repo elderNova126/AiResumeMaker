@@ -3,7 +3,7 @@ html {
   padding: 0;
   margin: 0;
   font-size: 55.5%;
-  font-family: nunito, sans-serif;
+  /* font-family: Nunito, sans-serif; */
   -webkit-text-size-adjust: none;
   touch-action: manipulation;
   overflow-x: hidden;
@@ -146,12 +146,12 @@ body {
   transform: none !important;
   transition: none !important;
 }
-input,
+/* input,
 select,
 textarea,
 button {
-  font-family: "nunito", sans-serif;
-}
+  font-family: Nunito, sans-serif;
+} */
 input[type="text"],
 select {
   height: 4rem;
@@ -429,7 +429,7 @@ body.black {
 .modal h3,
 .modal h1 {
   color: var(--main-color);
-  font-family: nunito;
+  /* font-family: Nunito; */
   text-transform: capitalize;
 }
 .modal > div {
@@ -518,7 +518,7 @@ body.black {
   width: 2.4rem !important;
   height: 2.4rem !important;
   font-size: 1.2rem;
-  font-family: inter;
+  /* font-family: inter; */
   font-weight: 600;
   background: var(--main-color);
   color: white;
@@ -970,7 +970,7 @@ span.skill-item:hover {
   line-height: 1.2;
   height: 4rem;
   align-items: center;
-  font-family: nunito;
+  /* font-family: Nunito; */
 }
 #logo img {
   height: 3.5rem;
@@ -1327,13 +1327,13 @@ button svg {
   font-weight: 500;
   left: 0;
 }
-#resume h1,
+/* #resume h1,
 #resume h2,
 #resume h3,
 #resume h4,
 #resume p {
-  font-family: "Nunito";
-}
+  font-family: Nunito;
+} */
 .main-wrapper {
   display: flex;
   flex-direction: row;
@@ -1656,9 +1656,7 @@ span p {
   width: 100%;
   flex: unset;
 }
-.list p {
-  background: whitesmoke;
-}
+
 .list {
   display: flex;
   flex-wrap: wrap;
@@ -2202,14 +2200,14 @@ span.o--Button--children {
   z-index: 99999 !important;
   padding: 2.4rem;
 }
-#widget-Outseta_auth *,
+/* #widget-Outseta_auth *,
 #widget-Outseta_profile * {
-  font-family: nunito !important;
+  font-family: Nunito !important;
 }
 #widget-Outseta_auth .material-icons,
 #widget-Outseta_profile .material-icons {
   font-family: "Material Icons" !important;
-}
+} */
 .o--Widget--widget h1 {
   font-size: 2rem !important;
   font-weight: 600 !important;
@@ -2247,7 +2245,7 @@ span.o--Button--children {
 }
 .o--Widget--widget .o--Button--btn.o--Button--cornerShape-rounded {
   border-radius: 0.8rem !important;
-  font-family: "Inter", sans-serif;
+  /* font-family: "Inter", sans-serif; */
   line-height: 4rem;
   border: none;
   height: 4rem;
@@ -2261,7 +2259,7 @@ span.o--Button--children {
   font-size: 1.4rem !important;
 }
 .o--CloseLink--close.o--CloseLink--displayMode-light .material-icons {
-  font-family: "Material Icons" !important;
+  /* font-family: "Material Icons" !important; */
   font-weight: 400 !important;
   color: #6941c6;
   font-size: 1.5rem !important;
@@ -2439,7 +2437,7 @@ span.o--Button--children {
   padding: 1rem 1.2rem !important;
   line-height: 1.3 !important;
   max-width: 100% !important;
-  font-family: nunito;
+  /* font-family: Nunito; */
 }
 .o--Widget--widget .o--Button--btn.o--Button--buttonStyle-solid {
   background-color: var(--main-color) !important;

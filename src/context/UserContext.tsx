@@ -35,6 +35,8 @@ interface UserContextProps {
   setWebsite: React.Dispatch<React.SetStateAction<string>>;
   linkedin: string;
   setLinkedin: React.Dispatch<React.SetStateAction<string>>;
+  other: string;
+  setOther: React.Dispatch<React.SetStateAction<string>>;
   about: string;
   setAbout: React.Dispatch<React.SetStateAction<string>>;
   experiences: Experience[];
@@ -63,6 +65,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   const [phone, setPhone] = useState("");
   const [website, setWebsite] = useState("");
   const [linkedin, setLinkedin] = useState("");
+  const [other, setOther] = useState("");
   const [about, setAbout] = useState("");
   const [experiences, setExperiences] = useState<Experience[]>([
     {
@@ -79,7 +82,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
       degree: "",
     }
   ]);
-  const [skills, setSkills] = useState([{ skillname: "• " }]);
+  const [skills, setSkills] = useState([{ skillname: "" }]);
   const [languages, setLanguages] = useState([{ name: "" }]);
   const [hobbies, setHobbies] = useState([{ name: "" }]);
   const [avatar, setAvatar] = useState(
@@ -102,6 +105,8 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
         setWebsite,
         linkedin,
         setLinkedin,
+        other,
+        setOther,
         about,
         setAbout,
         experiences,

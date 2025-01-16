@@ -112,7 +112,7 @@ const Skills: React.FC<{
                         
                         as="p"
                         placeholder="Enter skill"
-                        className=""
+                        className="eachSkill"
                         translate-data="Enter skill"
                         data-gramm="false"
                       />

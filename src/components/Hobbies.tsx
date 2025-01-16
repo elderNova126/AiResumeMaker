@@ -103,9 +103,9 @@ const Hobbies: React.FC<{
                         updateHobby(index, "name", updatedContent);
                       }}
                       as="p"
-                      placeholder="Enter hobby"
+                      placeholder="Enter Activate"
                       className=""
-                      translate-data="Enter hobby"
+                      translate-data="Enter Activate"
                       data-gramm="false"
                     />
                     <div className="btn-edit">

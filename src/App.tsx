@@ -30,29 +30,30 @@ function App() {
       "--font-primary",
       getFontFamily(typography.font)
     );
-
-    const tempnewSize = parseFloat(getFontSize(typography.size));
-    if (tempnewSize == preSize) return;
-    let appSize = 1;
-    if (tempnewSize > preSize) {
-      appSize = (tempnewSize - preSize);
-
-    } else {
-      appSize = (tempnewSize - preSize);
-    }
-    // alert(preSize + "---" + tempnewSize)
-    setNewSize(tempnewSize);
-    const element = document.getElementById("resume");
-    const elements = element.querySelectorAll('[contenteditable]');
-    // alert(parseFloat(getFontSize(typography.size)))
-    elements.forEach((el) => {
-      const computedStyle = window.getComputedStyle(el);
-      const currentFontSize = parseFloat(computedStyle.fontSize);
-      const newFontSize = currentFontSize + appSize;
-      // alert(currentFontSize);
-      (el as HTMLElement).style.fontSize = `${newFontSize}px`;
-
-    });
+    if(layout=="split" || layout=="classic" ||layout=="hybrid" ){
+      const tempnewSize = parseFloat(getFontSize(typography.size));
+      if (tempnewSize == preSize) return;
+      let appSize = 1;
+      if (tempnewSize > preSize) {
+        appSize = (tempnewSize - preSize);
+  
+      } else {
+        appSize = (tempnewSize - preSize);
+      }
+      // alert(preSize + "---" + tempnewSize)
+      setNewSize(tempnewSize);
+      const element = document.getElementById("resume");    
+      const elements = element.querySelectorAll('[contenteditable]');
+      // alert(parseFloat(getFontSize(typography.size)))
+      elements.forEach((el) => {
+        const computedStyle = window.getComputedStyle(el);
+        const currentFontSize = parseFloat(computedStyle.fontSize);
+        const newFontSize = currentFontSize + appSize;
+        // alert(currentFontSize);
+        (el as HTMLElement).style.fontSize = `${newFontSize}px`;
+  
+      });
+    }   
 
   }, [typography]);
 

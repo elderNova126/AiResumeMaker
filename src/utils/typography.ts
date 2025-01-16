@@ -5,19 +5,19 @@ export interface TypographyConfig {
 
 export const getFontFamily = (font: string): string => {
   const fonts: Record<string, string> = {
-    'Nunito': "'Nunito'",
-    'Calibri ': "'Calibri'",
+    'Nunito': "Nunito",
+    'Calibri ': "Calibri",
     'Arial': "'Arial'",    
-    'Times New Roman': "'Times New Roman'",
-    'Helvetica':"'Helvetica'",
-    'Georgia':"'Georgia'",
-    'Garamond':"'Garamond'",
-    'Verdana':"'Verdana'",
-    'Tahoma':"'Tahoma'",
-    'Cambria':"'Cambria'",
-    'trebuchet MS':"'Trebuchet MS'",
-    'roboto-mono': "'Roboto Mono'",
-    'poppins': "'Poppins'",
+    'Times New Roman': "Times New Roman",
+    'Helvetica':"Helvetica",
+    'Georgia':"Georgia",
+    'Garamond':"Garamond'",
+    'Verdana':"Verdana",
+    'Tahoma':"Tahoma",
+    'Cambria':"Cambria",
+    'trebuchet MS':"Trebuchet MS",
+    'roboto-mono': "Roboto Mono",
+    'poppins': "Poppins",
   };
   return fonts[font] || fonts['Nunito'];
 };
@@ -32,9 +32,9 @@ export const getFontSize = (size: string): string => {
 };
 export const getFontSize1 = (size: string): string => {
   const sizes: Record<string, string> = {
-    'small': '10',
-    'medium': '12',
-    'big': '14'
+    'small': '6',
+    'medium': '8',
+    'big': '10'
   };
   return sizes[size] || sizes['medium'];
 };

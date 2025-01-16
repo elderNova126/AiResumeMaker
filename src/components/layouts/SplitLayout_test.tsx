@@ -94,7 +94,7 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
   console.log("*****", hobbies);
 
   return (
-    <div id="resume">
+    <div id="resume" data-text="Created by aiResumeMaker.Online">
       <div className="main-wrapper">
         {visibleSections.includes("picture") && (
           <Picture image={avatar} setImage={setAvatar} />

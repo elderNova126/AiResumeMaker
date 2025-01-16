@@ -497,7 +497,7 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
             <View style={styles.skillGridContainer}>
               {skills.map((skill, index) => (
                 <Text key={index} style={styles.skill}>
-                  {skill.skillname}
+                  • {skill.skillname}
                 </Text>
               ))}
             </View>
@@ -513,7 +513,7 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
             <View style={styles.skillGridContainer}>
               {languages.map((language, index) => (
                 <Text key={index} style={styles.skill}>
-                  {language.name}
+                  • {language.name}
                 </Text>
               ))}
             </View>
@@ -533,7 +533,7 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
             <View style={styles.skillGridContainer}>
               {hobbies.map((hobby, index) => (
                 <Text key={index} style={styles.skill}>
-                  {hobby.name}
+                  • {hobby.name}
                 </Text>
               ))}
             </View>

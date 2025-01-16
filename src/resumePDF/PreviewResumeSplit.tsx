@@ -549,7 +549,7 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
                   <View style={styles.skillGridContainer}>
                     {skills.map((skill, index) => (
                       <Text key={index} style={styles.skillItem}>
-                        {skill.skillname}
+                        • {skill.skillname}
                       </Text>
                     ))}
                   </View>
@@ -563,7 +563,7 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
                   <View style={styles.skillGridContainer}>
                     {languages.map((language, index) => (
                       <Text key={index} style={styles.skillItem}>
-                        {language.name}
+                        • {language.name}
                       </Text>
                     ))}
                   </View>
@@ -577,7 +577,7 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
                   <View style={styles.skillGridContainer}>
                     {hobbies.map((hobby, index) => (
                       <Text key={index} style={styles.skillItem}>
-                        {hobby.name}
+                        • {hobby.name}
                       </Text>
                     ))}
                   </View>

@@ -91,7 +91,7 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
   };
 
   return (
-    <div id="resume" >
+    <div id="resume" data-text="Created by aiResumeMaker.Online">
       <div className="main-wrapper">
         <div id="name-role">
           <h1

@@ -17,6 +17,7 @@ import {
   WebsiteSvgPath,
   LinkedSvgPath,
 } from "../consts/SvgConst";
+import { color } from "html2canvas/dist/types/css/types/color";
 
 const lightenColor = (color: string, add: number) => {
   let r = 0,
@@ -50,7 +51,7 @@ interface TimeProps {
 }
 
 const Timeline: React.FC<TimeProps> = ({ themeColor }) => {
-  const lightThemeColor = lightenColor(themeColor, 150);
+  const lightThemeColor = lightenColor(themeColor, 100);
   return (
     <View
       style={{
@@ -222,14 +223,13 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
     },
     name: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
-      fontSize: 30,
+      fontSize: 24,
       fontWeight: "bold",
       // textAlign: "right",
       paddingLeft: 20,
     },
     role: {
-      fontFamily: getFontFamily(currentTypography.font) || "Nunito",
-      fontSize: 16,
+      fontSize: 10,
       paddingLeft: 20,
       // textAlign: "right",
       // marginTop: 5,
@@ -251,13 +251,10 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
     },
     sectionTitle: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
-      // fontSize: getFontSize1(currentTypography.size),
       fontWeight: "bold",
-      fontSize:12,
+      fontSize:10,
       marginBottom: 8,     
       textTransform: "uppercase",
-      // borderBottomWidth: 1,
-      // borderBottomColor: "#ccc",
       paddingBottom: 5,
     },
     contactItem: {
@@ -369,11 +366,13 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
     companyName: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
       fontSize: getFontSize1(currentTypography.size),
+      fontWeight:"bold",
       // paddingBottom:20,
     },
     jobTitle: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
       fontSize: getFontSize1(currentTypography.size),
+      fontWeight:"bold",
       // marginBottom: 5,
       marginVertical: 10,
       width: "60%",
@@ -498,7 +497,7 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
                           {experience.company}
                         </Text>
                         <View style={styles.jobDateBlock}>
-                          <Text style={styles.jobTitle}>
+                          <Text style={{...styles.jobTitle, color:themeColor}}>
                             {experience.position}
                           </Text>
                           <Text style={styles.date}>{experience.dateRange}</Text>
@@ -529,7 +528,7 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
                       ) : null}
                       <TimeDot themeColor={themeColor} />
                       <View style={styles.educationBlock}>
-                        <Text style={styles.companyName}>
+                        <Text style={{...styles.companyName, color:themeColor}}>
                           {education.school}
                         </Text>
                         <View style={styles.jobDateBlock}>

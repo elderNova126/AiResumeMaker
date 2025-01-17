@@ -83,6 +83,15 @@ body {
   -webkit-appearance: none;
   -moz-appearance: none;
 }
+.ql-container {
+  overflow-x: hidden; /* Hide horizontal scrollbar */
+}
+/* Optional: Limit the width of the editor */
+.editor-container {
+  overflow: hidden !important; /* Remove scrollbars */
+  height: auto; /* Ensure dynamic height */
+}
+
 .ql-container.ql-snow {
   border: none;
   /* font-family: inherit; */
@@ -95,12 +104,23 @@ body {
 }
 
 .ql-editor {
+  white-space: pre-wrap !important; /* Preserve line breaks and wrap text */
+  word-wrap: break-word !important; /* Break long words */
+  overflow-wrap: break-word !important; /* Ensure text wrapping works in modern browsers */
+  overflow: hidden !important; /* Remove scrollbars */
+  height: auto !important; /* Adjust height dynamically */
+  max-height: none !important; /* Allow full content to be visible */
+
   padding: 1px !important; /* Set padding-left to 0px */
   padding-top: 1px !important; /* Remove padding on list items */
   padding-bottom: 1px !important; /* Remove padding on list items */
   padding-right: 1px !important; /* Remove padding on list items */
   font-size: medium;
+  font-family: var(--font-primary);
 }
+/* .work-experience-editor > div {
+  white-space: unset !important;
+} */
 .ql-editor li {
   padding-left: 1px !important; /* Remove padding on list items */
 
@@ -114,6 +134,14 @@ body {
   color: inherit;
   margin: 0;
   padding: 0;
+
+  white-space: normal !important; /* Allow wrapping in <li> */
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+}
+
+.eachSkill::before {
+  content: "\2010";
 }
 
 .classicStyle {

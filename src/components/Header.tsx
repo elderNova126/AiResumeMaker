@@ -50,6 +50,8 @@ const Header: React.FC<HeaderProps> = ({
     setWebsite,
     linkedin,
     setLinkedin,
+    other,
+    setOther,
     about,
     setAbout,
     experiences,
@@ -93,28 +95,28 @@ const Header: React.FC<HeaderProps> = ({
     setPhone(data.Phone);
     setWebsite(data.Website);
     setLinkedin(data.Linkedin);
+    setOther(data.Other);
     setAbout(data.Profile);
 
 
-    const formattedSkills = data.Skills.map((item) => ({
+    const formattedSkills = data.Skill.map((item) => ({
       skillname: item,
     }));
     setSkills(formattedSkills);
 
-    const transformedLng = data.Languages.map((item) => ({
+    const transformedLng = data.Language.map((item) => ({
       name: item.Name,
       level: item.Level,
     }));
     setLanguages(transformedLng);
-    if(data.Hobbies){
-      const transformedHob = data.Hobbies.map((item) => ({
+    if (data.Interest) {
+      const transformedHob = data.Interest.map((item) => ({
         name: item.Name,
       }));
       setHobbies(transformedHob);
     }
-    
 
-    const transformedExperiences = data.Experiences.map(exp => ({
+    const transformedExperiences = data.Experience.map(exp => ({
       company: exp.Company,
       dateRange: exp.DateRange,
       position: exp.Position,
@@ -122,7 +124,7 @@ const Header: React.FC<HeaderProps> = ({
     }));
     setExperiences(transformedExperiences);
 
-    const transformedEducation = data.Educations.map((item) => ({
+    const transformedEducation = data.Education.map((item) => ({
       school: item.School,
       dateRange: item.DateRange,
       degree: item.Degree,
@@ -134,10 +136,10 @@ const Header: React.FC<HeaderProps> = ({
     { value: "split", label: "Split Layout" },
     { value: "classic", label: "Classic Layout" },
     { value: "hybrid", label: "ATS Layout" },
-    // { value: "test_split", label: "Preview Split" },
-    // { value: "test_classic", label: "Preview Classic" },
-    // { value: "test_ats", label: "Preview ATS" },
-    // { value: "test", label: "Test" },
+    { value: "test_split", label: "Preview Split" },
+    { value: "test_classic", label: "Preview Classic" },
+    { value: "test_ats", label: "Preview ATS" },
+    { value: "test", label: "Test" },
   ];
 
   const colorOptions = [
@@ -173,6 +175,7 @@ const Header: React.FC<HeaderProps> = ({
     { id: "email", label: "Email", group: "Personal Details" },
     { id: "website", label: "Website", group: "Personal Details" },
     { id: "linkedin", label: "LinkedIn", group: "Personal Details" },
+    { id: "other", label: "Other", group: "Personal Details" },
     { id: "picture", label: "Profile Picture", group: "Content Information" },
     { id: "about", label: "About Me", group: "Content Information" },
     { id: "role", label: "Current Role", group: "Content Information" },
@@ -186,7 +189,6 @@ const Header: React.FC<HeaderProps> = ({
     { id: "languages", label: "Language", group: "Content Information" },
     { id: "interests", label: "Hobbies", group: "Content Information" },
   ];
-
   return (
     <>
       <header className="w-full bg-white shadow-sm px-6 py-2 fixed top-[10px] z-50 scale-[1.82]">
@@ -265,7 +267,7 @@ const Header: React.FC<HeaderProps> = ({
               print
             </button>
             {/* Use PDFDownloadLink for downloading */}
-            {currentLayout === "split" &&
+            {/* {currentLayout === "split" &&
               <PDFDownloadLink
                 document={
                   <ResumePDF
@@ -275,6 +277,7 @@ const Header: React.FC<HeaderProps> = ({
                     location={location}
                     email={email}
                     phone={phone}
+                    other={other}
                     websiteLink={website}
                     linkedinLink={linkedin}
                     summery={about}
@@ -288,7 +291,7 @@ const Header: React.FC<HeaderProps> = ({
                     currentTypography={currentTypography}
                   />
                 }
-                fileName="split_Resume.pdf"
+                fileName={'split_Resume_' + name + '.pdf'}
               >   <button
                 className={`flex items-center space-x-2 px-4 py-2 text-default-sm text-white rounded-md transition-all hover:opacity-90 ${downloadingLoading ? "opacity-50" : ""
                   }`}
@@ -325,10 +328,9 @@ const Header: React.FC<HeaderProps> = ({
                     currentTypography={currentTypography}
                   />
                 }
-                fileName="Classic_Resume.pdf"
+                fileName={'Classic_Resume_' + name + '.pdf'}
               >
                 <>
-
                   <button
                     className={`flex items-center space-x-2 px-4 py-2 text-default-sm text-white rounded-md transition-all hover:opacity-90 ${downloadingLoading ? "opacity-50" : ""
                       }`}
@@ -340,9 +342,7 @@ const Header: React.FC<HeaderProps> = ({
                       {downloadingLoading ? "Preparing..." : "Download"}
                     </span>
                   </button>
-
                 </>
-
               </PDFDownloadLink>}
             {currentLayout === "hybrid" &&
               <PDFDownloadLink
@@ -367,7 +367,7 @@ const Header: React.FC<HeaderProps> = ({
                     currentTypography={currentTypography}
                   />
                 }
-                fileName="ATS_Resume.pdf"
+                fileName={'ATS_Resume' + name + '.pdf'}
               >
                 <>
 
@@ -385,7 +385,7 @@ const Header: React.FC<HeaderProps> = ({
 
                 </>
 
-              </PDFDownloadLink>}
+              </PDFDownloadLink>} */}
           </div>
         </div>
 

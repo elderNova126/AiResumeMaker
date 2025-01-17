@@ -1,5 +1,5 @@
 import React from 'react';
-import { Check, MapPin, Phone, Mail, Globe, Linkedin } from 'lucide-react';
+import { Check, MapPin, Phone, Mail, Globe, Linkedin, Nfc } from 'lucide-react';
 
 interface Section {
   id: string;
@@ -22,7 +22,8 @@ const SectionsSelector = ({ sections, visibleSections, onChange, themeColor = '#
       phone: <Phone className="w-4 h-4" style={{ color: themeColor }} />,
       email: <Mail className="w-4 h-4" style={{ color: themeColor }} />,
       website: <Globe className="w-4 h-4" style={{ color: themeColor }} />,
-      linkedin: <Linkedin className="w-4 h-4" style={{ color: themeColor }} />
+      linkedin: <Linkedin className="w-4 h-4" style={{ color: themeColor }} />,
+      other: <Nfc className="w-4 h-4" style={{ color: themeColor }} />
     };
     return icons[id];
   };
@@ -51,15 +52,13 @@ const SectionsSelector = ({ sections, visibleSections, onChange, themeColor = '#
               >
                 {getIcon(section.id)}
                 <div
-                  className={`w-6 h-3 rounded-full p-0.5 transition-colors mr-1.5 ${
-                    visibleSections.includes(section.id) ? '' : 'bg-gray-200'
-                  }`}
+                  className={`w-6 h-3 rounded-full p-0.5 transition-colors mr-1.5 ${visibleSections.includes(section.id) ? '' : 'bg-gray-200'
+                    }`}
                   style={{ backgroundColor: visibleSections.includes(section.id) ? themeColor : '' }}
                 >
                   <div
-                    className={`w-2 h-2 rounded-full bg-white transition-transform ${
-                      visibleSections.includes(section.id) ? 'translate-x-[0.6rem]' : 'translate-x-0'
-                    }`}
+                    className={`w-2 h-2 rounded-full bg-white transition-transform ${visibleSections.includes(section.id) ? 'translate-x-[0.6rem]' : 'translate-x-0'
+                      }`}
                   />
                 </div>
                 <span>{section.label}</span>
@@ -77,15 +76,13 @@ const SectionsSelector = ({ sections, visibleSections, onChange, themeColor = '#
                 onClick={() => toggleSection(section.id)}
               >
                 <div
-                  className={`w-6 h-3 rounded-full p-0.5 transition-colors mr-1.5 ${
-                    visibleSections.includes(section.id) ? '' : 'bg-gray-200'
-                  }`}
+                  className={`w-6 h-3 rounded-full p-0.5 transition-colors mr-1.5 ${visibleSections.includes(section.id) ? '' : 'bg-gray-200'
+                    }`}
                   style={{ backgroundColor: visibleSections.includes(section.id) ? themeColor : '' }}
                 >
                   <div
-                    className={`w-2 h-2 rounded-full bg-white transition-transform ${
-                      visibleSections.includes(section.id) ? 'translate-x-[0.6rem]' : 'translate-x-0'
-                    }`}
+                    className={`w-2 h-2 rounded-full bg-white transition-transform ${visibleSections.includes(section.id) ? 'translate-x-[0.6rem]' : 'translate-x-0'
+                      }`}
                   />
                 </div>
                 <span>{section.label}</span>

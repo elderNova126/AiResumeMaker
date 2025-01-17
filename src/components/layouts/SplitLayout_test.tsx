@@ -43,6 +43,8 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
     setWebsite,
     linkedin,
     setLinkedin,
+    other,
+    setOther,
     about,
     setAbout,
     experiences,
@@ -192,6 +194,18 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
                   }}
                   as="p"
                   placeholder="LinkedIn URL"
+                />
+              </div>
+            )}
+            {visibleSections.includes("other") && (
+              <div id="other" translate="no">
+                <Contenteditable
+                  value={other}
+                  onChange={(updatedContent) => {
+                    setOther(updatedContent);
+                  }}
+                  as="p"
+                  placeholder="Other"
                 />
               </div>
             )}

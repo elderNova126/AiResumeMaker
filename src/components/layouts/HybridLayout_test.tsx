@@ -8,7 +8,7 @@ import {
   WebsiteSvgPath,
   LocationSvgPath,
 } from "../../consts/SvgConst";
-import AutoResizeField from "../AutoResizeField";
+import Contenteditable from "../Contenteditable";
 import AboutMe from "../AboutMe";
 import Experiences from "../Experiences";
 import Educations from "../Educations";
@@ -41,6 +41,8 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
     setWebsite,
     linkedin,
     setLinkedin,
+    other,
+    setOther,
     about,
     setAbout,
     experiences,
@@ -113,63 +115,80 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
       <div id="details1" >
 
 
-        {visibleSections.includes("location") && (
+      {visibleSections.includes("location") && (
           <div id="location">
-            <p
-              contentEditable="true"
-              translate-data="Enter Location"
-              placeholder="Enter Location"
-              data-gramm="false"
-              spellcheck="false"
-              onInput={(e) => setLocation(e.currentTarget.textContent)}
-            >{location}</p>
+            {visibleSections.includes("linkedin") && (
+              <div id="linkedin" translate="no">
+                <Contenteditable
+                  value={location}
+                  onChange={(updatedContent) => {
+                    setLocation(updatedContent);
+                  }}
+                  as="p"
+                  placeholder="Enter Location"
+                />
+              </div>
+            )}
           </div>
         )}
         {visibleSections.includes("email") && (
           <div id="email">
-            <p
-              contentEditable="true"
-              translate-data="Enter your email"
+            <Contenteditable
+              value={email}
+              onChange={(updatedContent) => {
+                setEmail(updatedContent);
+              }}
+              as="p"
               placeholder="Enter your email"
-              data-gramm="false"
-              spellcheck="false"
-              onInput={(e) => setEmail(e.currentTarget.textContent)}
-            >{email}</p>
+            />
           </div>
         )}
         {visibleSections.includes("phone") && (
           <div id="phone">
-            <p
-              contentEditable="true"
-              translate-data="Enter your phone"
+            <Contenteditable
+              value={phone}
+              onChange={(updatedContent) => {
+                setPhone(updatedContent);
+              }}
+              as="p"
               placeholder="Enter your phone"
-              data-gramm="false"
-              onInput={(e) => setPhone(e.currentTarget.textContent)}
-            >{phone}</p>
+            />
           </div>
         )}
         {visibleSections.includes("website") && (
           <div id="website" translate="no">
-            <p
-              contentEditable="true"
-              translate-data="Website URL"
+            <Contenteditable
+              value={website}
+              onChange={(updatedContent) => {
+                setWebsite(updatedContent);
+              }}
+              as="p"
               placeholder="Website URL"
-              data-gramm="false"
-              spellcheck="false"
-              onInput={(e) => setWebsite(e.currentTarget.textContent)}
-            >{website}</p>
+            />
           </div>
         )}
         {visibleSections.includes("linkedin") && (
           <div id="linkedin" translate="no">
-            <p
-              contentEditable="true"
-              translate-data="LinkedIn URL"
+            <Contenteditable
+              value={linkedin}
+              onChange={(updatedContent) => {
+                setLinkedin(updatedContent);
+              }}
+              as="p"
               placeholder="LinkedIn URL"
-              data-gramm="false"
-              spellcheck="false"
-              onInput={(e) => setLinkedin(e.currentTarget.textContent)}
-            >{linkedin}</p>
+            />
+          </div>
+        )}
+        {visibleSections.includes("other") && (
+          <div id="other" translate="no">
+            <Contenteditable
+              value={other}
+              onChange={(updatedContent) => {
+                setOther(updatedContent);
+              }}
+              as="p"
+              placeholder="Other"
+            />
           </div>
         )}
 

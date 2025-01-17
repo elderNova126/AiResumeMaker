@@ -402,7 +402,7 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
       backgroundColor: "#2563eb",
     },
     educationBlock: {
-      marginBottom: 15,
+      // marginBottom: 15,
       marginLeft: 20,
     },
   });
@@ -476,26 +476,26 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
                     fontS={currentTypography.size}
                   />
                 ) : null}
-              {other && visibleSections.includes("other") ? (
-                <View
-                  style={{
-                    fontSize: getFontSize1(currentTypography.size),
-                    fontFamily: getFontFamily(currentTypography.font),
-                    flexDirection: "row",
-                    alignItems: "center",
-                    marginBottom: 15,
-                    paddingBottom: 5,
-                    paddingRight: 10,
-                  }}
-                >
-                  <PdfSvgCircleIcon
-                    color={themeColor}
-                    width={10}
-                    height={10}
-                  />
-                  <Text style={{ marginLeft: 5 }}>{other}</Text>
-                </View>
-              ) : null}
+                {other && visibleSections.includes("other") ? (
+                  <View
+                    style={{
+                      fontSize: getFontSize1(currentTypography.size),
+                      fontFamily: getFontFamily(currentTypography.font),
+                      flexDirection: "row",
+                      alignItems: "center",
+                      marginBottom: 15,
+                      paddingBottom: 5,
+                      paddingRight: 10,
+                    }}
+                  >
+                    <PdfSvgCircleIcon
+                      color={themeColor}
+                      width={10}
+                      height={10}
+                    />
+                    <Text style={{ marginLeft: 5 }}>{other}</Text>
+                  </View>
+                ) : null}
               </View>
             </>
           ) : null}
@@ -588,10 +588,12 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
             <Text
               style={[
                 styles.sectionTitle,
-                languages.length > 0 ? { marginTop: 15 } : { marginTop: 0 },
+                languages.length > 0 || skills.length > 0
+                  ? { marginTop: 10 }
+                  : { marginTop: 0 },
               ]}
             >
-              Hobbies
+              Activities
             </Text>
             <View style={styles.skillGridContainer}>
               {hobbies.map((hobby, index) => (

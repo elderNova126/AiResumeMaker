@@ -258,6 +258,7 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
       marginBottom: 8,
       textTransform: "uppercase",
       paddingBottom: 5,
+      marginTop: 15,
     },
     contactItem: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
@@ -283,7 +284,7 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
       fontFamily: "Times New Roman",
       fontWeight: "normal",
       fontSize: getFontSize1(currentTypography.size),
-      marginBottom: 20,
+      marginBottom: 10,
       lineHeight: 1.5,
     },
     LangGridContainer: {
@@ -590,10 +591,12 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
                 <Text
                   style={[
                     styles.sectionTitle,
-                    languages.length > 0 ? { marginTop: 15 } : { marginTop: 0 },
+                    languages.length > 0 || skills.length > 0
+                      ? { marginTop: 15 }
+                      : { marginTop: 0 },
                   ]}
                 >
-                  Hobbies
+                  Activities
                 </Text>
                 <View style={styles.skillGridContainer}>
                   {hobbies.map((hobby, index) => (

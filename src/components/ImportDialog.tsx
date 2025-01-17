@@ -52,8 +52,8 @@ const ImportDialog = ({ onClose, onImport }: ImportDialogProps) => {
       - Interest
       Resume text:
       ${resumeText}
+      Description of Experience, Skill, Language, Interest have to be array format.
       Please give me data as JSON format according to above exact name.
-      Set as array with one string value when values of Description, Skill, Language, Interest are string.
     `;
 
     try {

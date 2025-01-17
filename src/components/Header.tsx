@@ -99,18 +99,18 @@ const Header: React.FC<HeaderProps> = ({
 
 
     const formattedSkills = data.Skill.length>0?data.Skill.map((item) => ({
-      skillname: item,
+      skillname: typeof item==="string"?[item]:item,
     })):[{skillname:""}];
     setSkills(formattedSkills);
 
     const transformedLng = data.Language.length>0?data.Language.map((item) => ({
-      name: item.Name,
+      name: typeof item.name==="string"?[item.name]:item.name,
       level: item.Level,
     })): [{name:"", level:""}];
     setLanguages(transformedLng);
 
       const transformedHob = data.Interest.length>0?data.Interest.map((item) => ({
-        name: item,
+        name: typeof item==="string"?[item]:item,
       })):[{name:""}];
 
       setHobbies(transformedHob);
@@ -120,7 +120,7 @@ const Header: React.FC<HeaderProps> = ({
       company: exp.Company,
       dateRange: exp.DateRange,
       position: exp.Position,
-      description: exp.Description,
+      description: typeof exp.Description==="string"?[exp.Description]:exp.Description,
     })):[{company:"", dateRange:"", position:"", description:[]}];
     
     setExperiences(transformedExperiences);
@@ -189,7 +189,7 @@ const Header: React.FC<HeaderProps> = ({
     { id: "education", label: "Education", group: "Content Information" },
     { id: "skills", label: "Skills", group: "Content Information" },
     { id: "languages", label: "Language", group: "Content Information" },
-    { id: "interests", label: "Activate", group: "Content Information" },
+    { id: "interests", label: "Activities", group: "Content Information" },
   ];
   return (
     <>

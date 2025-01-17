@@ -193,7 +193,7 @@ const Header: React.FC<HeaderProps> = ({
   ];
   return (
     <>
-      <header className="w-full bg-white shadow-sm px-6 py-2 fixed top-[10px] z-50 scale-[1.82]">
+      <header className="w-full bg-white shadow-sm px-6 py-2 fixed top-[10px] z-50 scale-[1.82]" style={{fontFamily:"Nunito"}}>
         <div className="max-w-7xl mx-auto grid grid-cols-3 items-center">
           <div
             className="flex items-center space-x-2"
@@ -317,6 +317,7 @@ const Header: React.FC<HeaderProps> = ({
                     location={location}
                     email={email}
                     phone={phone}
+                    other={other}
                     websiteLink={website}
                     linkedinLink={linkedin}
                     summery={about}
@@ -356,6 +357,7 @@ const Header: React.FC<HeaderProps> = ({
                     location={location}
                     email={email}
                     phone={phone}
+                    other={other}
                     websiteLink={website}
                     linkedinLink={linkedin}
                     summery={about}

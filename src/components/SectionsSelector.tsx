@@ -39,16 +39,18 @@ const SectionsSelector = ({ sections, visibleSections, onChange, themeColor = '#
   const contentInfo = sections.filter(s => s.group === 'Content Information');
 
   return (
-    <div className="absolute top-full left-0 mt-1 bg-white rounded-md shadow-lg p-2 w-[360px] z-50">
+    <div className="absolute top-full left-0 mt-1 bg-white rounded-md shadow-lg p-2 w-[260px] z-50">
       <div className="flex space-x-3">
         <div className="flex-1">
           <h3 className="text-[0.7rem] font-medium text-gray-500 mb-1.5">Personal Details</h3>
           <div className="space-y-1">
             {personalDetails.map((section) => (
+
               <button
                 key={section.id}
                 className="w-full flex items-center px-1 py-0.5 text-[0.7rem]  hover:bg-gray-50 rounded gap-2"
                 onClick={() => toggleSection(section.id)}
+                style={section.label==="Other"?{paddingTop:"1rem", paddingBottom:"1rem"}:{}}
               >
                 {/* {getIcon(section.id)} */}
                 <div

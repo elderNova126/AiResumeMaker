@@ -16,6 +16,7 @@ import {
   LocationSvgPath,
   WebsiteSvgPath,
   LinkedSvgPath,
+  PdfSvgCircleIcon,
 } from "../consts/SvgConst";
 
 interface ContactItemProps {
@@ -184,6 +185,7 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
   websiteLink,
   linkedinLink,
   location,
+  other,
   summery,
   experiences,
   educations,
@@ -419,22 +421,18 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
 
         {summery && visibleSections.includes("about") && (
           <View style={styles.section}>
-            <Text style={[styles.sectionTitle]}>
-              About Me
-            </Text>
+            <Text style={[styles.sectionTitle]}>About Me</Text>
             <Text style={styles.text}>{summery}</Text>
           </View>
         )}
         <View>
           {email || phone || location || websiteLink || linkedinLink ? (
             <>
-              <Text style={{ ...styles.sectionTitle }}>
-                PERSONAL DETAILS
-              </Text>
+              <Text style={{ ...styles.sectionTitle }}>PERSONAL DETAILS</Text>
               <View style={styles.contactRow}>
                 {location && visibleSections.includes("location") ? (
                   <ContactItem
-                  path={LocationSvgPath}
+                    path={LocationSvgPath}
                     color={themeColor}
                     text={location}
                     fontF={currentTypography.font}
@@ -443,7 +441,7 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
                 ) : null}
                 {email && visibleSections.includes("email") ? (
                   <ContactItem
-                  path={MailSvgPath}
+                    path={MailSvgPath}
                     color={themeColor}
                     text={email}
                     fontF={currentTypography.font}
@@ -452,7 +450,7 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
                 ) : null}
                 {phone && visibleSections.includes("phone") ? (
                   <ContactItem
-                  path={PhoneSvgPath}
+                    path={PhoneSvgPath}
                     color={themeColor}
                     text={phone}
                     fontF={currentTypography.font}
@@ -478,6 +476,26 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
                     fontS={currentTypography.size}
                   />
                 ) : null}
+              {other && visibleSections.includes("other") ? (
+                <View
+                  style={{
+                    fontSize: getFontSize1(currentTypography.size),
+                    fontFamily: getFontFamily(currentTypography.font),
+                    flexDirection: "row",
+                    alignItems: "center",
+                    marginBottom: 15,
+                    paddingBottom: 5,
+                    paddingRight: 10,
+                  }}
+                >
+                  <PdfSvgCircleIcon
+                    color={themeColor}
+                    width={10}
+                    height={10}
+                  />
+                  <Text style={{ marginLeft: 5 }}>{other}</Text>
+                </View>
+              ) : null}
               </View>
             </>
           ) : null}
@@ -486,9 +504,7 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
         {/* Experience Section */}
         {experiences.length > 0 && visibleSections.includes("experience") ? (
           <>
-            <Text style={{ ...styles.sectionTitle }}>
-              Experience
-            </Text>
+            <Text style={{ ...styles.sectionTitle }}>Experience</Text>
             {experiences.map((experience, index) => (
               <View key={index}>
                 {index < experiences.length - 1 ? (
@@ -496,7 +512,9 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
                 ) : null}
                 <TimeDot themeColor={themeColor} />
                 <View style={styles.experienceBlock}>
-                  <Text style={{ ...styles.companyName, color: themeColor }}>{experience.company}</Text>
+                  <Text style={{ ...styles.companyName, color: themeColor }}>
+                    {experience.company}
+                  </Text>
                   <View style={styles.jobDateBlock}>
                     <Text style={styles.jobTitle}>{experience.position}</Text>
                     <Text style={styles.date}>{experience.dateRange}</Text>
@@ -517,12 +535,7 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
         {/* Education Section */}
         {educations.length > 0 && visibleSections.includes("education") ? (
           <View style={styles.section}>
-            <Text
-              style={[
-                styles.sectionTitle,
-                { marginTop: 15 },
-              ]}
-            >
+            <Text style={[styles.sectionTitle, { marginTop: 15 }]}>
               Education
             </Text>
             {educations.map((education, index) => (
@@ -546,9 +559,7 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
         {/* Skills Section */}
         {skills.length > 0 && visibleSections.includes("skills") ? (
           <View style={styles.section}>
-            <Text style={[styles.sectionTitle]}>
-              Skills
-            </Text>
+            <Text style={[styles.sectionTitle]}>Skills</Text>
             <View style={styles.skillGridContainer}>
               {skills.map((skill, index) => (
                 <Text key={index} style={styles.skill}>
@@ -562,9 +573,7 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
         {/* Languages Section */}
         {languages.length > 0 && visibleSections.includes("languages") ? (
           <View style={styles.section}>
-            <Text style={[styles.sectionTitle]}>
-              Language
-            </Text>
+            <Text style={[styles.sectionTitle]}>Language</Text>
             <View style={styles.skillGridContainer}>
               {languages.map((language, index) => (
                 <Text key={index} style={styles.skill}>

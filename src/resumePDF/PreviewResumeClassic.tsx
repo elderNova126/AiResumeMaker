@@ -597,6 +597,20 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
             </View>
           </View>
         ) : null}
+                {other.length > 0 && visibleSections.includes("other") ? (
+                  <View style={styles.section}>
+                    <Text
+                      style={[
+                        styles.sectionTitle,
+                      ]}
+                    >
+                      Other
+                    </Text>
+                    <Text style={[styles.skill, {width: "100%"}]}>
+                          {other}
+                        </Text>
+                  </View>
+                ) : null}
       </Page>
     </Document>
     // </PDFViewer>

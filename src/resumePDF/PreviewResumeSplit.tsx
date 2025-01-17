@@ -602,6 +602,20 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
                 </View>
               </>
             ) : null}
+                    {other.length > 0 && visibleSections.includes("other") ? (
+                      <View style={styles.sectionTitle}>
+                        <Text
+                          style={[
+                            styles.sectionTitle,
+                          ]}
+                        >
+                          Other
+                        </Text>
+                        <Text style={[styles.skillItem, {width: "100%"}]}>
+                              {other}
+                            </Text>
+                      </View>
+                    ) : null}
           </View>
         </View>
       </Page>

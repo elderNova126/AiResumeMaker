@@ -12,7 +12,7 @@ const TypographySelector = ({ value, options, color = '#10b981', onChange }: Typ
   const sizes = [
     { value: 'small', label: 'Small' },
     { value: 'medium', label: 'Medium' },
-    { value: 'big', label: 'Big' }
+    { value: 'big', label: 'Large' }
   ];
 
   const getButtonStyles = (isSelected: boolean) => {

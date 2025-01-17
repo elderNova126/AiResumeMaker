@@ -16,6 +16,7 @@ import Hobbies from "../Hobbies";
 import Educations from "../Educations";
 import Skills from "../Skills";
 import { useUser } from "../../context/UserContext";
+import Other from "../Others";
 
 interface SplitLayoutProps {
   themeColor: string;
@@ -91,7 +92,7 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
   };
 
   return (
-    <div id="resume" data-text="Created by aiResumeMaker.Online">
+    <div id="resume" data-text=" Created by: aiResumeMaker.Online">
       <div className="main-wrapper">
         <div id="name-role">
           <h1
@@ -102,7 +103,9 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
             data-gramm="false"
             spellcheck="false"
             onInput={(e) => setName(e.currentTarget.textContent)}
-          >{name}</h1>
+          >
+            {name}
+          </h1>
           {visibleSections.includes("role") && (
             <h2
               contentEditable="true"
@@ -110,17 +113,15 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
               placeholder="Your Role"
               id="role"
               data-gramm="false"
-            // onInput={(e) => setRole(e.currentTarget.textContent)}
-            >{role}</h2>
+              // onInput={(e) => setRole(e.currentTarget.textContent)}
+            >
+              {role}
+            </h2>
           )}
         </div>
       </div>
       {visibleSections.includes("about") && (
-        <AboutMe
-          setAbout={setAbout}
-          about={about}
-          themeColor={themeColor}
-        />
+        <AboutMe setAbout={setAbout} about={about} themeColor={themeColor} />
       )}
       <h2
         contentEditable="true"
@@ -128,7 +129,7 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
         placeholder="Personal Details"
         data-gramm="false"
       ></h2>
-      <div id="details1" >
+      <div id="details1">
         {visibleSections.includes("location") && (
           <div id="location">
             {visibleSections.includes("location") && (
@@ -157,30 +158,6 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
             )}
           </div>
         )}
-        {visibleSections.includes("email") && (
-          <div id="email">
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3 3H21C21.5523 3 22 3.44772 22 4V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V4C2 3.44772 2.44772 3 3 3ZM12.0606 11.6829L5.64722 6.2377L4.35278 7.7623L12.0731 14.3171L19.6544 7.75616L18.3456 6.24384L12.0606 11.6829Z"
-                fill="black"
-              ></path>
-            </svg>
-            <Contenteditable
-              value={email}
-              onChange={(updatedContent) => {
-                setEmail(updatedContent);
-              }}
-              as="p"
-              placeholder="Enter your email"
-            />
-          </div>
-        )}
         {visibleSections.includes("phone") && (
           <div id="phone">
             <svg
@@ -205,6 +182,31 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
             />
           </div>
         )}
+        {visibleSections.includes("email") && (
+          <div id="email">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3 3H21C21.5523 3 22 3.44772 22 4V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V4C2 3.44772 2.44772 3 3 3ZM12.0606 11.6829L5.64722 6.2377L4.35278 7.7623L12.0731 14.3171L19.6544 7.75616L18.3456 6.24384L12.0606 11.6829Z"
+                fill="black"
+              ></path>
+            </svg>
+            <Contenteditable
+              value={email}
+              onChange={(updatedContent) => {
+                setEmail(updatedContent);
+              }}
+              as="p"
+              placeholder="Enter your email"
+            />
+          </div>
+        )}
+
         {visibleSections.includes("website") && (
           <div id="website" translate="no">
             <svg
@@ -253,25 +255,22 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
             />
           </div>
         )}
-        {visibleSections.includes("other") && (
-          <div id="other" translate="no">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12.5" cy="12.5" r="7.5" fill="currentColor"></circle></svg>
-            <Contenteditable
-              value={other}
-              onChange={(updatedContent) => {
-                setOther(updatedContent);
-              }}
-              as="p"
-              placeholder="Other"
-            />
-          </div>
-        )}
       </div>
       {visibleSections.includes("experience") && (
-        <Experiences setExperiences={setExperiences} experiences={experiences} themeColor={themeColor} isSplit={false} />
+        <Experiences
+          setExperiences={setExperiences}
+          experiences={experiences}
+          themeColor={themeColor}
+          isSplit={false}
+        />
       )}
       {visibleSections.includes("education") && (
-        <Educations setEducations={setEducations} educations={educations} themeColor={themeColor} isSplit={false} />
+        <Educations
+          setEducations={setEducations}
+          educations={educations}
+          themeColor={themeColor}
+          isSplit={false}
+        />
       )}
       {visibleSections.includes("skills") && (
         <Skills
@@ -287,11 +286,18 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
           languages={languages}
           themeColor={themeColor}
           isSplit={false}
-
         />
       )}
       {visibleSections.includes("interests") && (
-        <Hobbies setHobbies={setHobbies} hobbies={hobbies} themeColor={themeColor} isSplit={false} />
+        <Hobbies
+          setHobbies={setHobbies}
+          hobbies={hobbies}
+          themeColor={themeColor}
+          isSplit={false}
+        />
+      )}
+      {visibleSections.includes("other") && (
+        <Other setOther={setOther} other={other} />
       )}
     </div>
   );

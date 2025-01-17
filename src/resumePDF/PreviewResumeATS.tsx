@@ -469,9 +469,7 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
         {/* Summary Section */}
         {summery && visibleSections.includes("about") && (
           <View style={styles.section}>
-            <Text style={[styles.sectionTitle]}>
-              About Me
-            </Text>
+            <Text style={[styles.sectionTitle]}>About Me</Text>
             <Text style={styles.text}>{summery}</Text>
           </View>
         )}
@@ -479,9 +477,7 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
         {/* Experience Section */}
         {experiences.length > 0 && visibleSections.includes("experience") ? (
           <View style={[styles.section]}>
-            <Text style={[styles.sectionTitle]}>
-              Experience
-            </Text>
+            <Text style={[styles.sectionTitle]}>Experience</Text>
             {experiences.map((experience, index) => (
               <View key={index}>
                 {index < experiences.length - 1 ? (
@@ -521,9 +517,7 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
         {/* Education Section */}
         {educations.length > 0 && visibleSections.includes("education") ? (
           <View style={styles.section}>
-            <Text style={[styles.sectionTitle]}>
-              Education
-            </Text>
+            <Text style={[styles.sectionTitle]}>Education</Text>
             {educations.map((edu, index) => (
               <View key={index}>
                 {index < educations.length - 1 ? (
@@ -555,9 +549,7 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
         {/* Skills Section */}
         {skills.length > 0 && visibleSections.includes("skills") ? (
           <View style={styles.section}>
-            <Text style={[styles.sectionTitle]}>
-              Skills
-            </Text>
+            <Text style={[styles.sectionTitle]}>Skills</Text>
             <View style={styles.skillGridContainer}>
               {skills.map((skill, index) => (
                 <Text key={index} style={styles.skill}>
@@ -571,9 +563,7 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
         {/* Languages Section */}
         {languages.length > 0 && visibleSections.includes("languages") ? (
           <View style={styles.section}>
-            <Text style={[styles.sectionTitle]}>
-              Language
-            </Text>
+            <Text style={[styles.sectionTitle]}>Language</Text>
             <View style={styles.skillGridContainer}>
               {languages.map((language, index) => (
                 <Text key={index} style={styles.skill}>
@@ -602,6 +592,20 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
                 </Text>
               ))}
             </View>
+          </View>
+        ) : null}
+        {other.length > 0 && visibleSections.includes("other") ? (
+          <View style={styles.section}>
+            <Text
+              style={[
+                styles.sectionTitle,
+              ]}
+            >
+              Other
+            </Text>
+            <Text style={[styles.skill, {width: "100%"}]}>
+                  {other}
+                </Text>
           </View>
         ) : null}
       </Page>

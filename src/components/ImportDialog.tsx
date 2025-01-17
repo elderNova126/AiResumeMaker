@@ -28,34 +28,68 @@ const ImportDialog = ({ onClose, onImport }: ImportDialogProps) => {
     //   fileInputRef.current.click();
     // }
   }, []);
-
-  const handleExtractData = async (resumeText) => {
+  const selectPrompt = (resumeText, props) => {
+    switch (props) {
+      case "experience":
+        return `
+        Parse the following resume and extract the following details:
+        - Experience (including Company, DateRange, Position, Description)
+        Resume text:
+        ${resumeText}
+        Experience and Description of Experience have to be array format.
+        Please give me data as JSON format according to above exact name.
+      `;
+      case "noExperience":
+        return `
+        Parse the following resume and extract the following details:
+        - Name
+        - Role
+        - Location
+        - Email
+        - phone
+        - Website
+        - LinkedIn
+        - Other
+        - Profile
+        - Skill
+        - Education (including School, DateRange, Degree)
+        - Language (including Name)
+        - Interest
+        Resume text:
+        ${resumeText}
+        Skill, Language, Interest have to be array format.
+        Please give me data as JSON format according to above exact name.
+      `;
+      default:
+        return `
+        Parse the following resume and extract the following details:
+        - Name
+        - Role
+        - Location
+        - Email
+        - phone
+        - Website
+        - LinkedIn
+        - Other
+        - Profile
+        - Experience (including Company, DateRange, Position, Description)
+        - Skill
+        - Education (including School, DateRange, Degree)
+        - Language (including Name)
+        - Interest
+        Resume text:
+        ${resumeText}
+        Description of Experience, Skill, Language, Interest have to be array format.
+        Please give me data as JSON format according to above exact name.
+      `;
+    }
+    };
+  const handleExtractData = async (resumeText, props) => {
     if (!resumeText.trim()) {
       setError("Please enter resume text.");
       return;
     }
-    const promptTxt = `
-      Parse the following resume and extract the following details:
-      - Name
-      - Role
-      - Location
-      - Email
-      - phone
-      - Website
-      - LinkedIn
-      - Other
-      - Profile
-      - Experience (including Company, DateRange, Position, Description)
-      - Skill
-      - Education (including School, DateRange, Degree)
-      - Language (including Name)
-      - Interest
-      Resume text:
-      ${resumeText}
-      Description of Experience, Skill, Language, Interest have to be array format.
-      Please give me data as JSON format according to above exact name.
-    `;
-
+    const promptTxt = selectPrompt(resumeText, props)
     try {
       const response = await axios.post(
         "https://api.openai.com/v1/chat/completions",
@@ -118,10 +152,19 @@ const ImportDialog = ({ onClose, onImport }: ImportDialogProps) => {
       // console.log('Processing file:', file.name, 'Size:', file.size);
       const extractedData = await parsePDFContent(file);
       // console.log('Extracted data:', extractedData);
-      const structuredData = await handleExtractData(extractedData);
+      let structuredData;
+
+      if (extractedData.length > 3000) {
+        structuredData = await handleExtractData(extractedData, "noExperience");
+        const experienceVal = await handleExtractData(extractedData, "experience");
+        structuredData.Experience = Array.isArray(experienceVal)? experienceVal: Object.values(experienceVal)[0]
+      } else {
+        structuredData = await handleExtractData(extractedData, "all");
+      }
 
       // console.log('structuredData file:', structuredData);
       // const mappedData = await mapToTemplate(structuredData);
+      debugger;
 
       onImport(structuredData);
       onClose();

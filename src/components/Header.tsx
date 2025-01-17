@@ -98,25 +98,25 @@ const Header: React.FC<HeaderProps> = ({
     setAbout(data.Profile);
 
 
-    const formattedSkills = data.Skill.length>0?data.Skill.map((item) => ({
+    const formattedSkills = Array.isArray(data.Skill) && data.Skill.length>0?data.Skill.map((item) => ({
       skillname: typeof item==="string"?[item]:item,
     })):[{skillname:""}];
     setSkills(formattedSkills);
 
-    const transformedLng = data.Language.length>0?data.Language.map((item) => ({
+    const transformedLng = Array.isArray(data.Language) && data.Language.length>0?data.Language.map((item) => ({
       name: typeof item.name==="string"?[item.name]:item.name,
       level: item.Level,
     })): [{name:"", level:""}];
     setLanguages(transformedLng);
 
-      const transformedHob = data.Interest.length>0?data.Interest.map((item) => ({
+      const transformedHob = Array.isArray(data.Interest) && data.Interest.length>0?data.Interest.map((item) => ({
         name: typeof item==="string"?[item]:item,
       })):[{name:""}];
 
       setHobbies(transformedHob);
     
 
-    const transformedExperiences = data.Experience.length>0?data.Experience.map(exp => ({
+    const transformedExperiences = Array.isArray(data.Experience) && data.Experience.length>0?data.Experience.map(exp => ({
       company: exp.Company,
       dateRange: exp.DateRange,
       position: exp.Position,
@@ -126,7 +126,7 @@ const Header: React.FC<HeaderProps> = ({
     setExperiences(transformedExperiences);
     
 
-    const transformedEducation = data.Education.length>0?data.Education.map((item) => ({
+    const transformedEducation = Array.isArray(data.Education) && data.Education.length>0?data.Education.map((item) => ({
       school: item.School,
       dateRange: item.DateRange,
       degree: item.Degree,
@@ -177,7 +177,6 @@ const Header: React.FC<HeaderProps> = ({
     { id: "email", label: "Email", group: "Personal Details" },
     { id: "website", label: "Website", group: "Personal Details" },
     { id: "linkedin", label: "LinkedIn", group: "Personal Details" },
-    { id: "other", label: "Other", group: "Personal Details" },
     { id: "picture", label: "Profile Picture", group: "Content Information" },
     { id: "about", label: "About Me", group: "Content Information" },
     { id: "role", label: "Current Role", group: "Content Information" },
@@ -190,6 +189,7 @@ const Header: React.FC<HeaderProps> = ({
     { id: "skills", label: "Skills", group: "Content Information" },
     { id: "languages", label: "Language", group: "Content Information" },
     { id: "interests", label: "Activities", group: "Content Information" },
+    { id: "other", label: "Other", group: "Content Information" },
   ];
   return (
     <>

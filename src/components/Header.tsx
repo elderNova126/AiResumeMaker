@@ -111,7 +111,7 @@ const Header: React.FC<HeaderProps> = ({
     setLanguages(transformedLng);
     if (data.Interest) {
       const transformedHob = data.Interest.map((item) => ({
-        name: item.Name,
+        name: item,
       }));
       setHobbies(transformedHob);
     }

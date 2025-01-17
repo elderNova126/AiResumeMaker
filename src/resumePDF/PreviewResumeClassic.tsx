@@ -166,6 +166,7 @@ interface PreviewResumeClassicProps {
   websiteLink: string;
   linkedinLink: string;
   location: string;
+  other:string;
   summery: string;
   experiences: Experience[];
   educations: Education[];
@@ -215,8 +216,6 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
       justifyContent: "space-between",
       borderBottomWidth: 1,
       borderBottomColor: "#ccc",
-      marginBottom: 2,
-      padding: 10,
     },
     headerCenteredContainer: {
       // flex: 1,
@@ -255,7 +254,7 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
       marginTop: 5,
     },
     section: {
-      marginBottom: 20,
+      marginBottom: 15,
     },
     sectionTitle: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
@@ -369,7 +368,6 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
       fontSize: getFontSize1(currentTypography.size),
       borderRadius: 3,
       paddingHorizontal: 12,
-      textAlign: "center", // Centers text inside the skill
       boxSizing: "border-box", // Ensures padding does not affect width
       // marginBottom: 5, // Add space between rows
       transition: "transform 0.2s ease-in-out", // Hover effect for interactivity (optional, if applicable in PDF context)
@@ -503,7 +501,7 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
 
         {/* Experience Section */}
         {experiences.length > 0 && visibleSections.includes("experience") ? (
-          <>
+          <View style={styles.section}>
             <Text style={{ ...styles.sectionTitle }}>Experience</Text>
             {experiences.map((experience, index) => (
               <View key={index}>
@@ -529,13 +527,13 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
                 </View>
               </View>
             ))}
-          </>
+          </View>
         ) : null}
 
         {/* Education Section */}
         {educations.length > 0 && visibleSections.includes("education") ? (
           <View style={styles.section}>
-            <Text style={[styles.sectionTitle, { marginTop: 15 }]}>
+            <Text style={[styles.sectionTitle]}>
               Education
             </Text>
             {educations.map((education, index) => (
@@ -584,14 +582,9 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
           </View>
         ) : null}
         {hobbies.length > 0 && visibleSections.includes("interests") ? (
-          <>
+          <View style={styles.section}>
             <Text
-              style={[
-                styles.sectionTitle,
-                languages.length > 0 || skills.length > 0
-                  ? { marginTop: 10 }
-                  : { marginTop: 0 },
-              ]}
+              style={[styles.sectionTitle]}
             >
               Activities
             </Text>
@@ -602,7 +595,7 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
                 </Text>
               ))}
             </View>
-          </>
+          </View>
         ) : null}
       </Page>
     </Document>

@@ -205,9 +205,6 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
     header: {
       flexDirection: "row-reverse", // Reverse the direction of the row
       alignItems: "center",
-      // borderBottomWidth: 1,
-      // borderBottomColor: "#ccc",
-      // marginBottom: 10,
       padding: 5,
     },
     profileImage: {
@@ -239,7 +236,7 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
       marginTop: 5,
     },
     section: {
-      marginBottom: 20,
+      marginBottom: 15,
     },
     sectionTitle: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
@@ -329,7 +326,6 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
       color: "#374151",
       borderRadius: 3,
       paddingHorizontal: 12,
-      textAlign: "center", // Centers text inside the skill
       // marginBottom: 5, // Add space between rows
     },
     skillGridContainer1: {

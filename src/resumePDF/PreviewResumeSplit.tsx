@@ -208,9 +208,6 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
       flexDirection: "row",
       alignItems: "center",
       justifyContent: "space-between",
-      // borderBottomWidth: 1,
-      // borderBottomColor: "#ccc",
-      marginBottom: 2,
       padding: 10,
     },
     headerCenteredContainer: {
@@ -571,9 +568,7 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
               <>
                 <Text
                   style={[
-                    styles.sectionTitle,
-                    skills.length > 0 ? { marginTop: 15 } : { marginTop: 0 },
-                  ]}
+                    styles.sectionTitle]}
                 >
                   Language
                 </Text>
@@ -611,7 +606,7 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
         </View>
       </Page>
     </Document>
-    // </PDFViewer>
+  //  </PDFViewer>
   );
 };
 

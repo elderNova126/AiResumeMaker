@@ -65,7 +65,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderBottomWidth: 1,
     borderBottomColor: "#ccc",
-    marginBottom: 10,
     padding: 10,
   },
   profileImage: {

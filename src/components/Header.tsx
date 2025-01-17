@@ -189,7 +189,7 @@ const Header: React.FC<HeaderProps> = ({
     { id: "education", label: "Education", group: "Content Information" },
     { id: "skills", label: "Skills", group: "Content Information" },
     { id: "languages", label: "Language", group: "Content Information" },
-    { id: "interests", label: "Hobbies", group: "Content Information" },
+    { id: "interests", label: "Activate", group: "Content Information" },
   ];
   return (
     <>

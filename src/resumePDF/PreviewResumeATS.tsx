@@ -51,7 +51,7 @@ interface ContactItemProps {
   fontS: string
 }
 
-const ContactItem: React.FC<ContactItemProps> = ({ color, text, fontF, fontS }) => (
+const ContactItem: React.FC<ContactItemProps> = ({ path,color, text, fontF, fontS }) => (
   <View
     style={{
       fontSize: getFontSize1(fontS),
@@ -63,6 +63,7 @@ const ContactItem: React.FC<ContactItemProps> = ({ color, text, fontF, fontS }) 
       paddingRight: 10,
     }}
   >
+    <PdfSvgIcon color={color} width={10} height={10} path={path} />
     <Text style={{ marginLeft: 5 }}>{text}</Text>
   </View>
 );
@@ -369,6 +370,7 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
               <View style={styles.contactRow}>
                 {location && visibleSections.includes("location") ? (
                   <ContactItem
+                  path={LocationSvgPath}
                     color={themeColor}
                     text={location}
                     fontF={currentTypography.font}
@@ -377,6 +379,7 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
                 ) : null}
                 {email && visibleSections.includes("email") ? (
                   <ContactItem
+                  path={MailSvgPath}
                     color={themeColor}
                     text={email}
                     fontF={currentTypography.font}
@@ -385,6 +388,7 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
                 ) : null}
                 {phone && visibleSections.includes("phone") ? (
                   <ContactItem
+                  path={PhoneSvgPath}
                     color={themeColor}
                     text={phone}
                     fontF={currentTypography.font}
@@ -393,6 +397,7 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
                 ) : null}
                 {websiteLink && visibleSections.includes("website") ? (
                   <ContactItem
+                  path={WebsiteSvgPath}
                     color={themeColor}
                     text={websiteLink}
                     fontF={currentTypography.font}
@@ -401,6 +406,7 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
                 ) : null}
                 {linkedinLink && visibleSections.includes("linkedin") ? (
                   <ContactItem
+                  path={LinkedSvgPath}
                     color={themeColor}
                     text={linkedinLink}
                     fontF={currentTypography.font}

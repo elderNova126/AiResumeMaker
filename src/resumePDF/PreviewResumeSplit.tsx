@@ -115,6 +115,7 @@ interface ContactItemProps {
 }
 
 const ContactItem: React.FC<ContactItemProps> = ({
+  path,
   color,
   text,
   fontF,
@@ -131,6 +132,7 @@ const ContactItem: React.FC<ContactItemProps> = ({
       paddingBottom: 5,
     }}
   >
+    <PdfSvgIcon color={color} width={10} height={10} path={path} />
     <Text style={{ marginLeft: 5 }}>{text}</Text>
   </View>
 );
@@ -429,6 +431,7 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
                   <Text style={{ ...styles.sectionTitle}} >PERSONAL DETAILS</Text>
                   {location && visibleSections.includes("location") ? (
                     <ContactItem
+                    path={LocationSvgPath}
                       color={themeColor}
                       text={location}
                       fontF={currentTypography.font}
@@ -437,6 +440,7 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
                   ) : null}
                   {email && visibleSections.includes("email") ? (
                     <ContactItem
+                    path={MailSvgPath}
                       color={themeColor}
                       text={email}
                       fontF={currentTypography.font}
@@ -445,6 +449,7 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
                   ) : null}
                   {phone && visibleSections.includes("phone") ? (
                     <ContactItem
+                    path={PhoneSvgPath}
                       color={themeColor}
                       text={phone}
                       fontF={currentTypography.font}
@@ -453,6 +458,7 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
                   ) : null}
                   {websiteLink && visibleSections.includes("website") ? (
                     <ContactItem
+                    path={WebsiteSvgPath}
                       color={themeColor}
                       text={websiteLink}
                       fontF={currentTypography.font}
@@ -461,6 +467,7 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
                   ) : null}
                   {linkedinLink && visibleSections.includes("linkedin") ? (
                     <ContactItem
+                      path={LinkedSvgPath}
                       color={themeColor}
                       text={linkedinLink}
                       fontF={currentTypography.font}

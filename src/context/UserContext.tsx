@@ -4,6 +4,7 @@ interface Experience {
   company: string;
   dateRange: string;
   position: string;
+  location:string;
   description: string[];
 }
 interface Education {
@@ -72,6 +73,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
       company: "",
       dateRange: "",
       position: "",
+      location:"",
       description: [],
     }
   ]);

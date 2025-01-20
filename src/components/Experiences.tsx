@@ -20,6 +20,7 @@ interface ExperienceType {
   company: string;
   dateRange: string;
   position: string;
+  location: string;
   description: string[];
   isSplit: boolean;
 }
@@ -59,7 +60,7 @@ const Experiences: React.FC<{
   const addExperience = () => {
     setExperiences([
       ...experiences,
-      { company: "", dateRange: "", position: "", description: [] },
+      { company: "", dateRange: "", position: "",location:"", description: [] },
     ]);
   };
 
@@ -128,7 +129,7 @@ const Experiences: React.FC<{
                                 as="p"
                                 style={{ color: themeColor, fontWeight: "bold" }}
                                 placeholder="Position"
-                              /><p style={{ fontSize: "large" }}>   |   </p>
+                              /> <span style={{ fontSize: "large",display:"flex",alignItems:"center" }}>&nbsp;|&nbsp;</span>
                               <Contenteditable
                                 value={experience.company}
                                 onChange={(updatedContent) => {
@@ -155,16 +156,16 @@ const Experiences: React.FC<{
                                 }}
                                 as="p"
                                 placeholder="From - Until"
-                              /><p style={{ fontSize: "large" }}>   -   </p>
+                              /><span style={{ fontSize: "large",display:"flex",alignItems:"center"  }}>&nbsp;-&nbsp;</span>
                               <Contenteditable
-                                // value={experience.dateRange}
-                                // onChange={(updatedContent) => {
-                                //   updateExperience(
-                                //     index,
-                                //     "dateRange",
-                                //     updatedContent
-                                //   );
-                                // }}
+                                value={experience.location}
+                                onChange={(updatedContent) => {
+                                  updateExperience(
+                                    index,
+                                    "location",
+                                    updatedContent
+                                  );
+                                }}
                                 as="p"
                                 placeholder="Location"
                               />

@@ -14,11 +14,14 @@ import ImportDialog from "./ImportDialog";
 import SelectorButton from "./SelectorButton";
 import SectionsSelector from "./SectionsSelector";
 import { PDFDownloadLink } from "@react-pdf/renderer";
+
 // import ResumePDF from "../resumePDF/ResumeSplitPDF";
 // import ResumeClassicPDF from "../resumePDF/ResumeClassicPDF";
 // import ResumeATSPDF from "../resumePDF/ResumeATSPDF";
 import { useUser } from "../context/UserContext";
-
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 import ResumeATSPDF from "../resumePDF/PreviewResumeATS";
 import ResumeClassicPDF from "../resumePDF/PreviewResumeClassic";
 import ResumePDF from "../resumePDF/PreviewResumeSplit";
@@ -90,6 +93,10 @@ const Header: React.FC<HeaderProps> = ({
     if (header) {
       header.classList.add("print:hidden");
     }
+    const template = document.querySelector("#resume-template"); // or document.getElementById('header');
+    if (template) {
+      template.classList.remove("print:hidden");
+    }
     if (currentLayout == "split") title = "split_Resume_" + name + ".pdf";
     else if (currentLayout == "classic")
       title = "Classic_Resume_" + name + ".pdf";
@@ -99,43 +106,89 @@ const Header: React.FC<HeaderProps> = ({
     if (header) {
       header.classList.remove("print:hidden");
     }
+    if (template) {
+      template.classList.add("print:hidden");
+    }
     document.body.style.paddingTop = "calc(6.4rem + 4.8rem)";
     document.title = "aiResumeMaker.Online";
+
+    toast.success("Please share it on Facebook or Twitter.", {
+      style: {
+        fontSize: "18px",
+        padding: "20px",
+        width: "150%",
+        textAlign: "center",
+      },
+    });
+    // reg_google();
+  };
+
+  
+
+  const reg_google = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/log-download", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          user: name || "Anonymous",
+          action: "Resume Download",
+        }),
+      });
+  
+      const result = await response.json();
+      if (result.success) {
+        console.log("Download logged successfully!");
+      } else {
+        console.error("Error logging download:", result.message);
+      }
+    } catch (error) {
+      console.error("Request failed:", error);
+    }
+  };
+  const confirmID = (sectionId: string) => {
+    const newSections = visibleSections.includes(sectionId)
+      ? visibleSections.filter(id => id !== sectionId)
+      : [...visibleSections, sectionId];
+    setVisibleSections(newSections);
   };
   const handleImport = (data: string[]) => {
     setName(data.Name);
-    setRole(data.Role);
-    setLocation(data.Location);
-    setEmail(data.Email);
-    setPhone(data.Phone);
-    setWebsite(data.Website);
-    setLinkedin(data.Linkedin);
-    setOther(data.Other);
-    setAbout(data.Profile);
-    
+    if (data.Role != "") setRole(data.Role); else { confirmID("role"); setRole(""); }
+
+    if (data.Location != "") setLocation(data.Location); else { confirmID("location"); setLocation(""); }
+    if (data.Email != "") setEmail(data.Email); else { confirmID("email"); setEmail(""); }
+    if (data.Phone != "") setPhone(data.Phone); else { confirmID("phone"); setPhone(""); }
+    if (data.Website != "") setWebsite(data.Website); else { confirmID("website"); setWebsite(""); }
+    if (data.Linkedin != "") setLinkedin(data.Linkedin); else { confirmID("linkedin"); setLinkedin(""); }
+    if (data.Other != "") setOther(data.Other); else { confirmID("other"); setOther(""); }
+    if (data.Profile != "") setAbout(data.Profile); else { confirmID("about"); setAbout(""); }
+
 
     const formattedSkills =
       Array.isArray(data.Skill) && data.Skill.length > 0
         ? data.Skill.map((item) => ({
-            skillname: typeof item === "string" ? [item] : item,
-          }))
+          skillname: typeof item === "string" ? [item] : item,
+        }))
         : [{ skillname: "" }];
     setSkills(formattedSkills);
 
     const transformedLng =
       Array.isArray(data.Language) && data.Language.length > 0
         ? data.Language.map((item) => ({
-            name: typeof item.name === "string" ? [item.name] : item.name,
-            level: item.Level,
-          }))
+          name: typeof item.Name === "string" ? [item.Name] : item.Name,
+          level: item.Level,
+        }))
         : [{ name: "", level: "" }];
     setLanguages(transformedLng);
 
     const transformedHob =
       Array.isArray(data.Interest) && data.Interest.length > 0
         ? data.Interest.map((item) => ({
-            name: typeof item === "string" ? [item] : item,
-          }))
+          name: typeof item === "string" ? [item] : item,
+        }))
         : [{ name: "" }];
 
     setHobbies(transformedHob);
@@ -143,25 +196,26 @@ const Header: React.FC<HeaderProps> = ({
     const transformedExperiences =
       Array.isArray(data.Experience) && data.Experience.length > 0
         ? data.Experience.map((exp) => ({
-            company: exp.Company,
-            dateRange: exp.DateRange,
-            position: exp.Position,
-            description:
-              typeof exp.Description === "string"
-                ? [exp.Description]
-                : exp.Description,
-          }))
-        : [{ company: "", dateRange: "", position: "", description: [] }];
+          company: exp.Company,
+          dateRange: exp.DateRange,
+          position: exp.Position,
+          location: exp.Location,
+          description:
+            typeof exp.Description === "string"
+              ? [exp.Description]
+              : exp.Description,
+        }))
+        : [{ company: "", dateRange: "", position: "", location: "", description: [] }];
 
     setExperiences(transformedExperiences);
 
     const transformedEducation =
       Array.isArray(data.Education) && data.Education.length > 0
         ? data.Education.map((item) => ({
-            school: item.School,
-            dateRange: item.DateRange,
-            degree: item.Degree,
-          }))
+          school: item.School,
+          dateRange: item.DateRange,
+          degree: item.Degree,
+        }))
         : [{ school: "", dateRange: "", degree: "" }];
     setEducations(transformedEducation);
   };
@@ -299,20 +353,19 @@ const Header: React.FC<HeaderProps> = ({
             >
               <FileUp className="h-4 w-4" />
               <span>Import</span>
-            </button> 
-            {/* <button
+            </button>
+            <button
               onClick={printPdf}
-              className={`flex items-center space-x-2 px-4 py-2 text-default-sm text-white rounded-md transition-all hover:opacity-90 ${
-                downloadingLoading ? "opacity-50" : ""
-              }`}
+              className={`flex items-center space-x-2 px-4 py-2 text-default-sm text-white rounded-md transition-all hover:opacity-90 ${downloadingLoading ? "opacity-50" : ""
+                }`}
               style={{ backgroundColor: currentColor, height: "20px" }}
               disabled={downloadingLoading}
             >
               <FileDown className="h-4 w-4" />
               <span>{downloadingLoading ? "Preparing..." : "Download"}</span>
             </button>
-           
-            {/* Use PDFDownloadLink for downloading */}
+
+            {/* Use PDFDownloadLink for downloading
             {currentLayout === "split" && (
               <PDFDownloadLink
                 document={
@@ -437,7 +490,7 @@ const Header: React.FC<HeaderProps> = ({
                   </button>
                 </>
               </PDFDownloadLink>
-            )}
+            )} */}
           </div>
         </div>
       </header>

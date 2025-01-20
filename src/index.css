@@ -2578,3 +2578,7 @@ button {
 .modal .columns div {
   flex-grow: 1;
 }
+
+.main-wrapper > div {
+  gap: 2rem;
+}

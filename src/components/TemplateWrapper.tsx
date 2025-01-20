@@ -8,7 +8,7 @@ interface TemplateWrapperProps {
 
 const TemplateWrapper = ({ children, themeColor, id }: TemplateWrapperProps) => {
   return (
-    <div id="resume-template">
+    <div id="resume-template" className="print:hidden">
       {children}
     </div>
   );

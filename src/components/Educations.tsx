@@ -104,7 +104,7 @@ const Educations: React.FC<{
                               placeholder="Degree"
                               style={{ color: themeColor, fontWeight: "bold" }}
                             />
-                            <p style={{ fontSize: "large" }}>   |   </p>
+                            <span style={{ fontSize: "large",display:"flex",alignItems:"center" }}>|</span>
                             <Contenteditable
                               value={education.school}
                               onChange={(updatedContent) => {

@@ -25,24 +25,24 @@ const ImportDialog = ({ onClose, onImport }: ImportDialogProps) => {
       setError("PDF parser initialization failed. Please try again.");
     });
   }, []);
-  useEffect(() => {    
+  useEffect(() => {
   }, []);
 
   const mergeJSON = async (json1, json2) => {
     const mergedResult = {};
-  
+
     // Merge primitive properties (Name, Role, Location, etc.)
     for (const key in json1) {
       mergedResult[key] = json1[key] || json2[key]; // If json1 has value, use it, otherwise use json2
     }
-  
+
     for (const key in json2) {
       // Add missing keys from json2 (if not already added by json1)
       if (!(key in mergedResult)) {
         mergedResult[key] = json2[key];
       }
     }
-  
+
     // Merge arrays (Skill and Experience)
     if (Array.isArray(json1.Skill) && Array.isArray(json2.Skill)) {
       mergedResult["Skill"] = [...new Set([...json1.Skill, ...json2.Skill])]; // Merge and remove duplicates
@@ -51,13 +51,13 @@ const ImportDialog = ({ onClose, onImport }: ImportDialogProps) => {
       mergedResult["Education"] = [...new Set([...json1.Education, ...json2.Education])]; // Merge and remove duplicates
     }
     if (Array.isArray(json1.Experience) && Array.isArray(json2.Experience)) {
-      mergedResult["Experience"] = [...json1.Experience, ...json2.Experience]; // Merge Experience arrays
+      mergedResult["Experience"] = [...new Set([...json1.Experience, ...json2.Experience])]; // Merge Experience arrays
     }
     if (Array.isArray(json1.Language) && Array.isArray(json2.Language)) {
-      mergedResult["Language"] = [...json1.Language, ...json2.Language]; // Merge Experience arrays
+      mergedResult["Language"] = [...json1.Language, ...json2.Language]; // Merge Language arrays
     }
     if (Array.isArray(json1.Interest) && Array.isArray(json2.Interest)) {
-      mergedResult["Interest"] = [...json1.Interest, ...json2.Interest]; // Merge Experience arrays
+      mergedResult["Interest"] = [...json1.Interest, ...json2.Interest]; // Merge Interest arrays
     }
 
     return mergedResult;
@@ -82,21 +82,21 @@ const ImportDialog = ({ onClose, onImport }: ImportDialogProps) => {
       return;
     }
     const chunks = await splitTextIntoChunks(resumeText);
-    let jsonData={};
+    let jsonData = {};
 
     for (let i = 0; i < chunks.length; i++) {
       try {
-        const promptTxt=`
+        const promptTxt = `
         Parse the following resume and extract the following details:
         - Name
         - Role
         - Location
         - Email
-        - phone
+        - Phone
         - Website
-        - LinkedIn        
+        - Linkedin        
         - Profile
-        - Experience (including Company, DateRange, Position, Description)
+        - Experience (including Company, DateRange, Position, location, Description)
         - Skill
         - Education (including School, DateRange, Degree)
         - Language (including Name)
@@ -105,6 +105,7 @@ const ImportDialog = ({ onClose, onImport }: ImportDialogProps) => {
         Resume text:
         ${chunks[i]}
         Description of Experience, Skill, Language, Interest have to be array format.
+        and Name, Role, Location, Email, Phone, Website, Linkedin, Profile, Other have to be string format.
         Please give me data as JSON format according to above exact name.`;
 
         const response = await axios.post(
@@ -112,17 +113,18 @@ const ImportDialog = ({ onClose, onImport }: ImportDialogProps) => {
           {
             model: "gpt-4o-mini", // Replace with the desired model
             messages: [
-              {role: "system", content: "You are an assistant that extracts key information from resumes.",},
-              {role: "user", content: promptTxt,},], max_tokens: 3000,
+              { role: "system", content: "You are an assistant that extracts key information from resumes.", },
+              { role: "user", content: promptTxt, },], max_tokens: 3000,
           },
           {
-            headers: {"Content-Type": "application/json",
+            headers: {
+              "Content-Type": "application/json",
               Authorization: `Bearer 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`, // Replace with your API key
             },
           }
         );
         const parsedContent = await response.data.choices[0].message.content.replace("```json", "").replace("```", "");
-        jsonData=await mergeJSON(jsonData, JSON.parse(parsedContent));
+        jsonData = await mergeJSON(jsonData, JSON.parse(parsedContent));
         // console.log(i,"-------------send data------------",chunks[i]);
         // console.log(i,"-------------receive data------------",JSON.parse(parsedContent));
         // console.log(i,"-------------json data------------",jsonData);
@@ -134,7 +136,7 @@ const ImportDialog = ({ onClose, onImport }: ImportDialogProps) => {
       }
     }
     // console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",jsonData);
-    debugger;
+    // debugger;
     return jsonData;
   };
 
@@ -165,9 +167,9 @@ const ImportDialog = ({ onClose, onImport }: ImportDialogProps) => {
       // console.log('Processing file:', file.name, 'Size:', file.size);
       const extractedData = await parsePDFContent(file);
       // console.log("Extracted data:", extractedData);
-      let structuredData;    
+      let structuredData;
       structuredData = await handleExtractData(extractedData);
-      console.log("structuredData file:", structuredData);
+      // console.log("structuredData file:", structuredData);
       // const mappedData = await mapToTemplate(structuredData);
 
       onImport(structuredData);
@@ -204,11 +206,10 @@ const ImportDialog = ({ onClose, onImport }: ImportDialogProps) => {
         )}
 
         <div
-          className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${
-            isProcessing
-              ? "border-emerald-300 bg-emerald-50"
-              : "border-gray-300"
-          }`}
+          className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${isProcessing
+            ? "border-emerald-300 bg-emerald-50"
+            : "border-gray-300"
+            }`}
         >
           <input
             type="file"

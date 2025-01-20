@@ -80,6 +80,7 @@ const Skills: React.FC<{
             <div {...provided.droppableProps} ref={provided.innerRef}
               id="skills"
               className="list with-border"
+              style={{gap:"0.4rem"}}
             >
               <h2
                 contentEditable="true"

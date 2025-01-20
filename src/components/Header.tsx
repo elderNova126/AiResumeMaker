@@ -1,5 +1,14 @@
 import React, { useState } from "react";
-import { FileDown, FileUp, ScrollText, Layout, Palette, Type, Layers, Phone, } from "lucide-react";
+import {
+  FileDown,
+  FileUp,
+  ScrollText,
+  Layout,
+  Palette,
+  Type,
+  Layers,
+  Phone,
+} from "lucide-react";
 // import { generatePDF } from '../utils/pdfGenerator';
 import ImportDialog from "./ImportDialog";
 import SelectorButton from "./SelectorButton";
@@ -75,17 +84,24 @@ const Header: React.FC<HeaderProps> = ({
     setIsDropdownOpen(isOpen);
   };
   const printPdf = () => {
-    document.body.style.paddingTop = '0px';
-    const header = document.querySelector('header'); // or document.getElementById('header');
+    let title = "";
+    document.body.style.paddingTop = "0px";
+    const header = document.querySelector("header"); // or document.getElementById('header');
     if (header) {
-      header.classList.add('print:hidden');
+      header.classList.add("print:hidden");
     }
+    if (currentLayout == "split") title = "split_Resume_" + name + ".pdf";
+    else if (currentLayout == "classic")
+      title = "Classic_Resume_" + name + ".pdf";
+    else if (currentLayout == "hybrid") title = "ATS_Resume_" + name + ".pdf";
+    document.title = title;
     window.print();
     if (header) {
-      header.classList.remove('print:hidden');
+      header.classList.remove("print:hidden");
     }
-    document.body.style.paddingTop = 'calc(6.4rem + 4.8rem)';
-  }
+    document.body.style.paddingTop = "calc(6.4rem + 4.8rem)";
+    document.title = "aiResumeMaker.Online";
+  };
   const handleImport = (data: string[]) => {
     setName(data.Name);
     setRole(data.Role);
@@ -96,41 +112,57 @@ const Header: React.FC<HeaderProps> = ({
     setLinkedin(data.Linkedin);
     setOther(data.Other);
     setAbout(data.Profile);
+    
 
-
-    const formattedSkills = Array.isArray(data.Skill) && data.Skill.length>0?data.Skill.map((item) => ({
-      skillname: typeof item==="string"?[item]:item,
-    })):[{skillname:""}];
+    const formattedSkills =
+      Array.isArray(data.Skill) && data.Skill.length > 0
+        ? data.Skill.map((item) => ({
+            skillname: typeof item === "string" ? [item] : item,
+          }))
+        : [{ skillname: "" }];
     setSkills(formattedSkills);
 
-    const transformedLng = Array.isArray(data.Language) && data.Language.length>0?data.Language.map((item) => ({
-      name: typeof item.name==="string"?[item.name]:item.name,
-      level: item.Level,
-    })): [{name:"", level:""}];
+    const transformedLng =
+      Array.isArray(data.Language) && data.Language.length > 0
+        ? data.Language.map((item) => ({
+            name: typeof item.name === "string" ? [item.name] : item.name,
+            level: item.Level,
+          }))
+        : [{ name: "", level: "" }];
     setLanguages(transformedLng);
 
-      const transformedHob = Array.isArray(data.Interest) && data.Interest.length>0?data.Interest.map((item) => ({
-        name: typeof item==="string"?[item]:item,
-      })):[{name:""}];
+    const transformedHob =
+      Array.isArray(data.Interest) && data.Interest.length > 0
+        ? data.Interest.map((item) => ({
+            name: typeof item === "string" ? [item] : item,
+          }))
+        : [{ name: "" }];
 
-      setHobbies(transformedHob);
-    
+    setHobbies(transformedHob);
 
-    const transformedExperiences = Array.isArray(data.Experience) && data.Experience.length>0?data.Experience.map(exp => ({
-      company: exp.Company,
-      dateRange: exp.DateRange,
-      position: exp.Position,
-      description: typeof exp.Description==="string"?[exp.Description]:exp.Description,
-    })):[{company:"", dateRange:"", position:"", description:[]}];
-    
+    const transformedExperiences =
+      Array.isArray(data.Experience) && data.Experience.length > 0
+        ? data.Experience.map((exp) => ({
+            company: exp.Company,
+            dateRange: exp.DateRange,
+            position: exp.Position,
+            description:
+              typeof exp.Description === "string"
+                ? [exp.Description]
+                : exp.Description,
+          }))
+        : [{ company: "", dateRange: "", position: "", description: [] }];
+
     setExperiences(transformedExperiences);
-    
 
-    const transformedEducation = Array.isArray(data.Education) && data.Education.length>0?data.Education.map((item) => ({
-      school: item.School,
-      dateRange: item.DateRange,
-      degree: item.Degree,
-    })):[{school:"", dateRange:"", degree:""}];
+    const transformedEducation =
+      Array.isArray(data.Education) && data.Education.length > 0
+        ? data.Education.map((item) => ({
+            school: item.School,
+            dateRange: item.DateRange,
+            degree: item.Degree,
+          }))
+        : [{ school: "", dateRange: "", degree: "" }];
     setEducations(transformedEducation);
   };
 
@@ -193,7 +225,10 @@ const Header: React.FC<HeaderProps> = ({
   ];
   return (
     <>
-      <header className="w-full bg-white shadow-sm px-6 py-2 fixed top-[10px] z-50 scale-[1.82]" style={{fontFamily:"Nunito"}}>
+      <header
+        className="w-full bg-white shadow-sm px-6 py-2 fixed top-[10px] z-50 scale-[1.82]"
+        style={{ fontFamily: "Nunito" }}
+      >
         <div className="max-w-7xl mx-auto grid grid-cols-3 items-center">
           <div
             className="flex items-center space-x-2"
@@ -264,12 +299,21 @@ const Header: React.FC<HeaderProps> = ({
             >
               <FileUp className="h-4 w-4" />
               <span>Import</span>
+            </button> 
+            {/* <button
+              onClick={printPdf}
+              className={`flex items-center space-x-2 px-4 py-2 text-default-sm text-white rounded-md transition-all hover:opacity-90 ${
+                downloadingLoading ? "opacity-50" : ""
+              }`}
+              style={{ backgroundColor: currentColor, height: "20px" }}
+              disabled={downloadingLoading}
+            >
+              <FileDown className="h-4 w-4" />
+              <span>{downloadingLoading ? "Preparing..." : "Download"}</span>
             </button>
-            <button onClick={printPdf} style={{ display: "none" }}>
-              print
-            </button>
+           
             {/* Use PDFDownloadLink for downloading */}
-            {currentLayout === "split" &&
+            {currentLayout === "split" && (
               <PDFDownloadLink
                 document={
                   <ResumePDF
@@ -293,21 +337,24 @@ const Header: React.FC<HeaderProps> = ({
                     currentTypography={currentTypography}
                   />
                 }
-                fileName={'split_Resume_' + name + '.pdf'}
-              >   <button
-                className={`flex items-center space-x-2 px-4 py-2 text-default-sm text-white rounded-md transition-all hover:opacity-90 ${downloadingLoading ? "opacity-50" : ""
-                  }`}
-                style={{ backgroundColor: currentColor, height: "20px", }}
-                disabled={downloadingLoading}
-
+                fileName={"split_Resume_" + name + ".pdf"}
               >
+                {" "}
+                <button
+                  className={`flex items-center space-x-2 px-4 py-2 text-default-sm text-white rounded-md transition-all hover:opacity-90 ${
+                    downloadingLoading ? "opacity-50" : ""
+                  }`}
+                  style={{ backgroundColor: currentColor, height: "20px" }}
+                  disabled={downloadingLoading}
+                >
                   <FileDown className="h-4 w-4" />
                   <span>
                     {downloadingLoading ? "Preparing..." : "Download"}
                   </span>
                 </button>
-              </PDFDownloadLink>}
-            {currentLayout === "classic" &&
+              </PDFDownloadLink>
+            )}
+            {currentLayout === "classic" && (
               <PDFDownloadLink
                 document={
                   <ResumeClassicPDF
@@ -331,13 +378,14 @@ const Header: React.FC<HeaderProps> = ({
                     currentTypography={currentTypography}
                   />
                 }
-                fileName={'Classic_Resume_' + name + '.pdf'}
+                fileName={"Classic_Resume_" + name + ".pdf"}
               >
                 <>
                   <button
-                    className={`flex items-center space-x-2 px-4 py-2 text-default-sm text-white rounded-md transition-all hover:opacity-90 ${downloadingLoading ? "opacity-50" : ""
-                      }`}
-                    style={{ backgroundColor: currentColor, height: "20px", }}
+                    className={`flex items-center space-x-2 px-4 py-2 text-default-sm text-white rounded-md transition-all hover:opacity-90 ${
+                      downloadingLoading ? "opacity-50" : ""
+                    }`}
+                    style={{ backgroundColor: currentColor, height: "20px" }}
                     disabled={downloadingLoading}
                   >
                     <FileDown className="h-4 w-4" />
@@ -346,8 +394,9 @@ const Header: React.FC<HeaderProps> = ({
                     </span>
                   </button>
                 </>
-              </PDFDownloadLink>}
-            {currentLayout === "hybrid" &&
+              </PDFDownloadLink>
+            )}
+            {currentLayout === "hybrid" && (
               <PDFDownloadLink
                 document={
                   <ResumeATSPDF
@@ -371,14 +420,14 @@ const Header: React.FC<HeaderProps> = ({
                     currentTypography={currentTypography}
                   />
                 }
-                fileName={'ATS_Resume' + name + '.pdf'}
+                fileName={"ATS_Resume" + name + ".pdf"}
               >
                 <>
-
                   <button
-                    className={`flex items-center space-x-2 px-4 py-2 text-default-sm text-white rounded-md transition-all hover:opacity-90 ${downloadingLoading ? "opacity-50" : ""
-                      }`}
-                    style={{ backgroundColor: currentColor, height: "20px", }}
+                    className={`flex items-center space-x-2 px-4 py-2 text-default-sm text-white rounded-md transition-all hover:opacity-90 ${
+                      downloadingLoading ? "opacity-50" : ""
+                    }`}
+                    style={{ backgroundColor: currentColor, height: "20px" }}
                     disabled={downloadingLoading}
                   >
                     <FileDown className="h-4 w-4" />
@@ -386,14 +435,11 @@ const Header: React.FC<HeaderProps> = ({
                       {downloadingLoading ? "Preparing..." : "Download"}
                     </span>
                   </button>
-
                 </>
-
-              </PDFDownloadLink>}
+              </PDFDownloadLink>
+            )}
           </div>
         </div>
-
-
       </header>
       {showImportDialog && (
         <ImportDialog

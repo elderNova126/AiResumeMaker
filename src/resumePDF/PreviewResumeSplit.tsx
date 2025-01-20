@@ -157,6 +157,7 @@ interface PreviewResumeSplitProps {
   websiteLink: string;
   linkedinLink: string;
   location: string;
+  other:string;
   summery: string;
   experiences: Experience[];
   educations: Education[];
@@ -259,7 +260,7 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
     },
     contactItem: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
-      fontSize: getFontSize1(currentTypography.size),
+      fontSize: getFontSize1(currentTypography.size) || 8,
       flexDirection: "row",
       alignItems: "center",
       marginBottom: 15,
@@ -272,15 +273,15 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
     },
     bulletPoint: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
-      fontSize: getFontSize1(currentTypography.size),
+      fontSize: getFontSize1(currentTypography.size) || 8,
       marginLeft: 10,
       marginBottom: 5,
       lineHeight: 1.5,
     },
     summary: {
-      fontFamily: "Times New Roman",
+      fontFamily: getFontFamily(currentTypography.font) || "Nunito",
       fontWeight: "normal",
-      fontSize: getFontSize1(currentTypography.size),
+      fontSize: getFontSize1(currentTypography.size) || 8,
       marginBottom: 10,
       lineHeight: 1.5,
     },
@@ -293,14 +294,14 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
 
     LangName: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
-      fontSize: getFontSize1(currentTypography.size),
+      fontSize: getFontSize1(currentTypography.size) || 8,
       textTransform: "capitalize",
       flex: 1, // Ensures the name takes the available space
     },
 
     LangLevel: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
-      fontSize: getFontSize1(currentTypography.size),
+      fontSize: getFontSize1(currentTypography.size) || 8,
       textAlign: "right", // Align level to the right for better contrast
       flexShrink: 0, // Prevents level text from shrinking in narrow spaces
     },
@@ -316,7 +317,7 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
     skillItem: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
       width: "30%", // Ensures 3 items per row (100% / 3 = 33.3%)
-      fontSize: getFontSize1(currentTypography.size),
+      fontSize: getFontSize1(currentTypography.size) || 8,
       fontWeight: "bold",
       color: "#374151",
       borderRadius: 3,
@@ -365,13 +366,13 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
     },
     companyName: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
-      fontSize: getFontSize1(currentTypography.size),
+      fontSize: getFontSize1(currentTypography.size) || 8,
       fontWeight: "bold",
       // paddingBottom:20,
     },
     jobTitle: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
-      fontSize: getFontSize1(currentTypography.size),
+      fontSize: getFontSize1(currentTypography.size) || 8,
       fontWeight: "bold",
       // marginBottom: 5,
       marginVertical: 10,
@@ -388,7 +389,7 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
     },
     date: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
-      fontSize: getFontSize1(currentTypography.size),
+      fontSize: getFontSize1(currentTypography.size) || 8,
       marginBottom: 5,
       width: "40%",
       textAlign: "right",
@@ -398,8 +399,9 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
       marginLeft: 20,
     },
   });
+
   return (
-    // <PDFViewer style={{ width: "100%", height: "100vh" }}>
+    //<PDFViewer style={{ width: "100%", height: "100vh" }}>
     <Document>
       <Page size="A4" style={styles.page}>
         <View style={styles.header}>
@@ -470,32 +472,12 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
                     fontS={currentTypography.size}
                   />
                 ) : null}
-                {other && visibleSections.includes("other") ? (
-                  <View
-                    style={{
-                      fontSize: getFontSize1(currentTypography.size),
-                      fontFamily: getFontFamily(currentTypography.font),
-                      flexDirection: "row",
-                      alignItems: "center",
-                      marginBottom: 15,
-                      paddingBottom: 5,
-                      paddingRight: 10,
-                    }}
-                  >
-                    <PdfSvgCircleIcon
-                      color={themeColor}
-                      width={10}
-                      height={10}
-                    />
-                    <Text style={{ marginLeft: 5 }}>{other}</Text>
-                  </View>
-                ) : null}
               </>
             ) : null}
           </View>
 
           <View style={styles.rightColumn}>
-            {experiences.length > 0 &&
+            {Array.isArray(experiences) && experiences.length > 0 &&
             visibleSections.includes("experience") ? (
               <>
                 <Text style={{ ...styles.sectionTitle }}>Experience</Text>
@@ -528,7 +510,7 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
               </>
             ) : null}
 
-            {educations.length > 0 && visibleSections.includes("education") ? (
+            {Array.isArray(educations) && educations.length > 0 && visibleSections.includes("education") ? (
               <>
                 <Text style={{ ...styles.sectionTitle }}>Education</Text>
                 {educations.map((education, index) => (
@@ -552,7 +534,7 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
                 ))}
               </>
             ) : null}
-            {skills.length > 0 && visibleSections.includes("skills") ? (
+            {Array.isArray(skills) && skills.length > 0 && visibleSections.includes("skills") ? (
               <>
                 <Text style={[styles.sectionTitle]}>Skills</Text>
                 <View style={styles.skillGridContainer}>
@@ -564,14 +546,9 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
                 </View>
               </>
             ) : null}
-            {languages.length > 0 && visibleSections.includes("languages") ? (
+            {Array.isArray(languages) && languages.length > 0 && visibleSections.includes("languages") ? (
               <>
-                <Text
-                  style={[
-                    styles.sectionTitle]}
-                >
-                  Language
-                </Text>
+                <Text style={[styles.sectionTitle]}>Language</Text>
                 <View style={styles.skillGridContainer}>
                   {languages.map((language, index) => (
                     <Text key={index} style={styles.skillItem}>
@@ -581,7 +558,7 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
                 </View>
               </>
             ) : null}
-            {hobbies.length > 0 && visibleSections.includes("interests") ? (
+            {Array.isArray(hobbies) && hobbies.length > 0 && visibleSections.includes("interests") ? (
               <>
                 <Text
                   style={[
@@ -602,25 +579,19 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
                 </View>
               </>
             ) : null}
-                    {other.length > 0 && visibleSections.includes("other") ? (
-                      <View style={styles.sectionTitle}>
-                        <Text
-                          style={[
-                            styles.sectionTitle,
-                          ]}
-                        >
-                          Other
-                        </Text>
-                        <Text style={[styles.skillItem, {width: "100%"}]}>
-                              {other}
-                            </Text>
-                      </View>
-                    ) : null}
+            {other && visibleSections.includes("other") ? (
+              <View style={styles.sectionTitle}>
+                <Text style={[styles.sectionTitle]}>Other</Text>
+                <Text style={[styles.skillItem, { width: "100%" }]}>
+                  {other}
+                </Text>
+              </View>
+            ) : null}
           </View>
         </View>
       </Page>
     </Document>
-  //  </PDFViewer>
+    //</PDFViewer>
   );
 };
 

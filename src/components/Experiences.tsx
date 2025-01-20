@@ -108,7 +108,8 @@ const Experiences: React.FC<{
                   {(provided, snapshot) => (
                     <div
                       ref={provided.innerRef}
-                      {...provided.draggableProps}
+                      {...provided.draggableProps}                      
+                      {...provided.dragHandleProps}
                       className="sortable-wrapper"
                     >
                       <div className="with-border">

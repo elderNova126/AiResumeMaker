@@ -166,7 +166,7 @@ interface PreviewResumeClassicProps {
   websiteLink: string;
   linkedinLink: string;
   location: string;
-  other:string;
+  other: string;
   summery: string;
   experiences: Experience[];
   educations: Education[];
@@ -249,7 +249,7 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
     },
     contact: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
-      fontSize: getFontSize1(currentTypography.size),
+      fontSize: getFontSize1(currentTypography.size) || 8,
       color: "#666",
       marginTop: 5,
     },
@@ -272,7 +272,7 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
     },
     contactItem: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
-      fontSize: getFontSize1(currentTypography.size),
+      fontSize: getFontSize1(currentTypography.size) || 8,
       flexDirection: "row",
       alignItems: "center",
       // marginHorizontal: 10,
@@ -283,7 +283,7 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
     },
     text: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
-      fontSize: getFontSize1(currentTypography.size),
+      fontSize: getFontSize1(currentTypography.size) || 8,
       color: "#000",
       marginBottom: 5,
     },
@@ -293,7 +293,7 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
     },
     companyName: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
-      fontSize: getFontSize1(currentTypography.size),
+      fontSize: getFontSize1(currentTypography.size) || 8,
       fontWeight: "bold",
       // paddingBottom:20,
     },
@@ -306,7 +306,7 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
     },
     jobTitle: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
-      fontSize: getFontSize1(currentTypography.size),
+      fontSize: getFontSize1(currentTypography.size) || 8,
       fontWeight: "bold",
       marginVertical: 10,
       width: "70%",
@@ -314,27 +314,27 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
     },
     date: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
-      fontSize: getFontSize1(currentTypography.size),
+      fontSize: getFontSize1(currentTypography.size) || 8,
       marginBottom: 5,
       width: "30%",
       textAlign: "right",
     },
     companyDetails: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
-      fontSize: getFontSize1(currentTypography.size),
+      fontSize: getFontSize1(currentTypography.size) || 8,
       color: "#666",
       marginBottom: 5,
     },
     bulletPoint: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
-      fontSize: getFontSize1(currentTypography.size),
+      fontSize: getFontSize1(currentTypography.size) || 8,
       marginLeft: 10,
       marginBottom: 5,
       lineHeight: 1.5,
     },
     LangName: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
-      fontSize: getFontSize1(currentTypography.size),
+      fontSize: getFontSize1(currentTypography.size) || 8,
       fontWeight: "bold",
       textTransform: "capitalize",
       flex: 1, // Ensures the name takes the available space
@@ -342,14 +342,14 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
 
     LangLevel: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
-      fontSize: getFontSize1(currentTypography.size),
+      fontSize: getFontSize1(currentTypography.size) || 8,
       fontWeight: "normal",
       textAlign: "right", // Align level to the right for better contrast
       flexShrink: 0, // Prevents level text from shrinking in narrow spaces
     },
     Lang: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
-      fontSize: getFontSize1(currentTypography.size),
+      fontSize: getFontSize1(currentTypography.size) || 8,
       padding: 5,
       marginRight: 5,
       marginBottom: 5,
@@ -365,7 +365,7 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
     skill: {
       width: "23%", // Ensures 3 items per row (100% / 3 = 33.3%)
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
-      fontSize: getFontSize1(currentTypography.size),
+      fontSize: getFontSize1(currentTypography.size) || 8,
       borderRadius: 3,
       paddingHorizontal: 12,
       boxSizing: "border-box", // Ensures padding does not affect width
@@ -406,7 +406,7 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
   });
 
   return (
-    // <PDFViewer style={{ width: "100%", height: "100vh" }}>
+    //<PDFViewer style={{ width: "100%", height: "100vh" }}>
     <Document>
       <Page size="A4" style={[styles.page]}>
         <View style={styles.headerCenteredContainer}>
@@ -474,33 +474,13 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
                     fontS={currentTypography.size}
                   />
                 ) : null}
-                {other && visibleSections.includes("other") ? (
-                  <View
-                    style={{
-                      fontSize: getFontSize1(currentTypography.size),
-                      fontFamily: getFontFamily(currentTypography.font),
-                      flexDirection: "row",
-                      alignItems: "center",
-                      marginBottom: 15,
-                      paddingBottom: 5,
-                      paddingRight: 10,
-                    }}
-                  >
-                    <PdfSvgCircleIcon
-                      color={themeColor}
-                      width={10}
-                      height={10}
-                    />
-                    <Text style={{ marginLeft: 5 }}>{other}</Text>
-                  </View>
-                ) : null}
               </View>
             </>
           ) : null}
         </View>
 
         {/* Experience Section */}
-        {experiences.length > 0 && visibleSections.includes("experience") ? (
+        {Array.isArray(experiences) && experiences.length > 0 && visibleSections.includes("experience") ? (
           <View style={styles.section}>
             <Text style={{ ...styles.sectionTitle }}>Experience</Text>
             {experiences.map((experience, index) => (
@@ -531,11 +511,9 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
         ) : null}
 
         {/* Education Section */}
-        {educations.length > 0 && visibleSections.includes("education") ? (
+        {Array.isArray(educations) && educations.length > 0 && visibleSections.includes("education") ? (
           <View style={styles.section}>
-            <Text style={[styles.sectionTitle]}>
-              Education
-            </Text>
+            <Text style={[styles.sectionTitle]}>Education</Text>
             {educations.map((education, index) => (
               <View key={index}>
                 {index < educations.length - 1 ? (
@@ -555,7 +533,7 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
         ) : null}
 
         {/* Skills Section */}
-        {skills.length > 0 && visibleSections.includes("skills") ? (
+        {Array.isArray(skills) && skills.length > 0 && visibleSections.includes("skills") ? (
           <View style={styles.section}>
             <Text style={[styles.sectionTitle]}>Skills</Text>
             <View style={styles.skillGridContainer}>
@@ -569,7 +547,7 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
         ) : null}
 
         {/* Languages Section */}
-        {languages.length > 0 && visibleSections.includes("languages") ? (
+        {Array.isArray(languages) && languages.length > 0 && visibleSections.includes("languages") ? (
           <View style={styles.section}>
             <Text style={[styles.sectionTitle]}>Language</Text>
             <View style={styles.skillGridContainer}>
@@ -581,13 +559,9 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
             </View>
           </View>
         ) : null}
-        {hobbies.length > 0 && visibleSections.includes("interests") ? (
+        {Array.isArray(hobbies) && hobbies.length > 0 && visibleSections.includes("interests") ? (
           <View style={styles.section}>
-            <Text
-              style={[styles.sectionTitle]}
-            >
-              Activities
-            </Text>
+            <Text style={[styles.sectionTitle]}>Activities</Text>
             <View style={styles.skillGridContainer}>
               {hobbies.map((hobby, index) => (
                 <Text key={index} style={styles.skill}>
@@ -597,23 +571,15 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
             </View>
           </View>
         ) : null}
-                {other.length > 0 && visibleSections.includes("other") ? (
-                  <View style={styles.section}>
-                    <Text
-                      style={[
-                        styles.sectionTitle,
-                      ]}
-                    >
-                      Other
-                    </Text>
-                    <Text style={[styles.skill, {width: "100%"}]}>
-                          {other}
-                        </Text>
-                  </View>
-                ) : null}
+        {other && visibleSections.includes("other") ? (
+          <View style={styles.section}>
+            <Text style={[styles.sectionTitle]}>Other</Text>
+            <Text style={[styles.skill, { width: "100%" }]}>{other}</Text>
+          </View>
+        ) : null}
       </Page>
     </Document>
-    // </PDFViewer>
+    //</PDFViewer>
   );
 };
 

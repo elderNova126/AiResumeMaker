@@ -77,12 +77,9 @@ const Skills: React.FC<{
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="skills">
           {(provided) => (
-            <div
-              {...provided.droppableProps}
-              ref={provided.innerRef}
+            <div {...provided.droppableProps} ref={provided.innerRef}
               id="skills"
               className="list with-border"
-
             >
               <h2
                 contentEditable="true"
@@ -100,6 +97,7 @@ const Skills: React.FC<{
                     <div
                       ref={provided.innerRef}
                       {...provided.draggableProps}
+                      {...provided.dragHandleProps}
                       onMouseEnter={() => setHoveredIndex(index)} // Set hovered index
                       onMouseLeave={() => setHoveredIndex(null)} // Clear hovered index
                       style={isSplit ? { flex: "0 0 calc(33.33% - 0.666rem)" } : { flex: "0 0 calc(24.5% - 0.666rem)" }}

@@ -126,14 +126,14 @@ const ContactItem: React.FC<ContactItemProps> = ({
       fontSize: getFontSize1(fontS),
       fontFamily: getFontFamily(fontF),
       flexDirection: "row",
-      alignItems: "center",
+
       // marginHorizontal: 10,
       marginBottom: 10,
       paddingBottom: 5,
     }}
   >
     <PdfSvgIcon color={color} width={10} height={10} path={path} />
-    <Text style={{ marginLeft: 5 }}>{text}</Text>
+    <Text style={{ marginLeft: 5, }}>{text}</Text>
   </View>
 );
 
@@ -157,7 +157,7 @@ interface PreviewResumeSplitProps {
   websiteLink: string;
   linkedinLink: string;
   location: string;
-  other:string;
+  other: string;
   summery: string;
   experiences: Experience[];
   educations: Education[];
@@ -240,13 +240,13 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
       flex: 1,
     },
     leftColumn: {
-      width: "25%",
+      width: "30%",
       // backgroundColor: "#f3f4f6",
       padding: 8,
       paddingBottom: 40,
     },
     rightColumn: {
-      width: "75%",
+      width: "70%",
       padding: 8,
       paddingBottom: 40,
     },
@@ -257,7 +257,7 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
       marginBottom: 5,
       textTransform: "uppercase",
       paddingBottom: 5,
-      marginTop: 15,
+      marginTop: 10,
     },
     contactItem: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
@@ -311,7 +311,7 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
       display: "flex",
       flexDirection: "row", // Display items in a row
       flexWrap: "wrap", // Allow wrapping to the next line
-      gap: 12, // Add space between items
+      gap: 8, // Add space between items
       // marginTop: 10,
     },
 
@@ -319,8 +319,7 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
       width: "30%", // Ensures 3 items per row (100% / 3 = 33.3%)
       fontSize: getFontSize1(currentTypography.size) || 8,
-      fontWeight: "bold",
-      color: "#374151",
+      // fontWeight: "bold",
       borderRadius: 3,
       // paddingVertical: 5,
       // paddingHorizontal: 12,
@@ -421,7 +420,7 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
         <View style={styles.mainContent}>
           <View style={styles.leftColumn}>
             {summery && visibleSections.includes("about") ? (
-              <View>
+              <View >
                 <Text style={{ ...styles.sectionTitle }}>About Me</Text>
                 <Text style={styles.summary}>{summery}</Text>
               </View>
@@ -429,58 +428,60 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
             {email || phone || location || websiteLink || linkedinLink ? (
               <>
                 <Text style={{ ...styles.sectionTitle }}>PERSONAL DETAILS</Text>
-                {location && visibleSections.includes("location") ? (
-                  <ContactItem
-                    path={LocationSvgPath}
-                    color={themeColor}
-                    text={location}
-                    fontF={currentTypography.font}
-                    fontS={currentTypography.size}
-                  />
-                ) : null}
-                {email && visibleSections.includes("email") ? (
-                  <ContactItem
-                    path={MailSvgPath}
-                    color={themeColor}
-                    text={email}
-                    fontF={currentTypography.font}
-                    fontS={currentTypography.size}
-                  />
-                ) : null}
-                {phone && visibleSections.includes("phone") ? (
-                  <ContactItem
-                    path={PhoneSvgPath}
-                    color={themeColor}
-                    text={phone}
-                    fontF={currentTypography.font}
-                    fontS={currentTypography.size}
-                  />
-                ) : null}
-                {websiteLink && visibleSections.includes("website") ? (
-                  <ContactItem
-                    path={WebsiteSvgPath}
-                    color={themeColor}
-                    text={websiteLink}
-                    fontF={currentTypography.font}
-                    fontS={currentTypography.size}
-                  />
-                ) : null}
-                {linkedinLink && visibleSections.includes("linkedin") ? (
-                  <ContactItem
-                    path={LinkedSvgPath}
-                    color={themeColor}
-                    text={linkedinLink}
-                    fontF={currentTypography.font}
-                    fontS={currentTypography.size}
-                  />
-                ) : null}
+                <View style={{ width: "100%" }}>
+                  {location && visibleSections.includes("location") ? (
+                    <ContactItem
+                      path={LocationSvgPath}
+                      color={themeColor}
+                      text={location}
+                      fontF={currentTypography.font}
+                      fontS={currentTypography.size}
+                    />
+                  ) : null}
+                  {email && visibleSections.includes("email") ? (
+                    <ContactItem
+                      path={MailSvgPath}
+                      color={themeColor}
+                      text={email}
+                      fontF={currentTypography.font}
+                      fontS={currentTypography.size}
+                    />
+                  ) : null}
+                  {phone && visibleSections.includes("phone") ? (
+                    <ContactItem
+                      path={PhoneSvgPath}
+                      color={themeColor}
+                      text={phone}
+                      fontF={currentTypography.font}
+                      fontS={currentTypography.size}
+                    />
+                  ) : null}
+                  {websiteLink && visibleSections.includes("website") ? (
+                    <ContactItem
+                      path={WebsiteSvgPath}
+                      color={themeColor}
+                      text={websiteLink}
+                      fontF={currentTypography.font}
+                      fontS={currentTypography.size}
+                    />
+                  ) : null}
+                  {linkedinLink && visibleSections.includes("linkedin") ? (
+                    <ContactItem
+                      path={LinkedSvgPath}
+                      color={themeColor}
+                      text={linkedinLink}
+                      fontF={currentTypography.font}
+                      fontS={currentTypography.size}
+                    />
+                  ) : null}
+                </View>
               </>
             ) : null}
           </View>
 
           <View style={styles.rightColumn}>
             {Array.isArray(experiences) && experiences.length > 0 &&
-            visibleSections.includes("experience") ? (
+              visibleSections.includes("experience") ? (
               <>
                 <Text style={{ ...styles.sectionTitle }}>Experience</Text>
                 {experiences.map((experience, index) => (
@@ -490,7 +491,7 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
                     ) : null}
                     <TimeDot themeColor={themeColor} />
                     <View style={styles.experienceBlock}>
-                      <Text style={{...styles.companyName, color: themeColor}}>
+                      <Text style={{ ...styles.companyName, color: themeColor }}>
                         {experience.company}
                       </Text>
                       <View style={styles.jobDateBlock}>

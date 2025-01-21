@@ -1,3 +1,4 @@
+import { overflowWrap } from "html2canvas/dist/types/css/property-descriptors/overflow-wrap";
 import { useEffect, useRef, ReactNode } from "react";
 
 interface ContenteditableProps {
@@ -29,6 +30,7 @@ const Contenteditable: React.FC<ContenteditableProps> = (props) => {
           onChange(event.target.textContent || "");
         }
       }}
+      style={{overflowWrap: "anywhere"}}
     >
       {children}
     </ElementType>

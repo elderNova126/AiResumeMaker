@@ -64,8 +64,6 @@ Explain how others can contribute to your project:
 
 ## License
 
-Specify your project license. For example:
-
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---

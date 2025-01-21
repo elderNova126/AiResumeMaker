@@ -74,7 +74,6 @@ const ModalDownload: React.FC<ModalDownloadProps> = ({
   const [downloadingLoading, setDownloadingLoading] = useState(false);
 
   async function updateGoogleSheet(position: number): Promise<any> {
-    console.log("&&&&&&&&&&&&&&&&&&&&&&&&");
     try {
       // Send the POST request to the server
       const response = await fetch('http://localhost:5000/api/doc', {

@@ -229,6 +229,7 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
       paddingLeft: 20,
     },
     role: {
+      fontFamily: getFontFamily(currentTypography.font) || "Nunito",
       fontSize: 10,
       paddingLeft: 20,
       // textAlign: "right",
@@ -253,7 +254,7 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
       fontWeight: "bold",
       fontSize: 10,
-      marginBottom: 8,
+      marginBottom: 5,
       textTransform: "uppercase",
       paddingBottom: 5,
       marginTop: 15,
@@ -374,6 +375,7 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
       fontSize: getFontSize1(currentTypography.size) || 8,
       fontWeight: "bold",
+      textTransform: "uppercase",
       // marginBottom: 5,
       marginVertical: 10,
       width: "60%",
@@ -488,11 +490,11 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
                     ) : null}
                     <TimeDot themeColor={themeColor} />
                     <View style={styles.experienceBlock}>
-                      <Text style={styles.companyName}>
+                      <Text style={{...styles.companyName, color: themeColor}}>
                         {experience.company}
                       </Text>
                       <View style={styles.jobDateBlock}>
-                        <Text style={{ ...styles.jobTitle, color: themeColor }}>
+                        <Text style={{ ...styles.jobTitle }}>
                           {experience.position}
                         </Text>
                         <Text style={styles.date}>{experience.dateRange}</Text>

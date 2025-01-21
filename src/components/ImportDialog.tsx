@@ -105,6 +105,7 @@ const ImportDialog = ({ onClose, onImport }: ImportDialogProps) => {
         Resume text:
         ${chunks[i]}
         Description of Experience, Skill, Language, Interest have to be array format.
+        Description of Experience have to be array format devided by enter key.
         and Name, Role, Location, Email, Phone, Website, Linkedin, Profile, Other have to be string format.
         Please give me data as JSON format according to above exact name.`;
 
@@ -125,9 +126,9 @@ const ImportDialog = ({ onClose, onImport }: ImportDialogProps) => {
         );
         const parsedContent = await response.data.choices[0].message.content.replace("```json", "").replace("```", "");
         jsonData = await mergeJSON(jsonData, JSON.parse(parsedContent));
-        // console.log(i,"-------------send data------------",chunks[i]);
-        // console.log(i,"-------------receive data------------",JSON.parse(parsedContent));
-        // console.log(i,"-------------json data------------",jsonData);
+        console.log(i,"-------------send data------------",chunks[i]);
+        console.log(i,"-------------receive data------------",JSON.parse(parsedContent));
+        console.log(i,"-------------json data------------",jsonData);
         // return JSON.parse(parsedContent);
       } catch (err) {
         console.error("Error extracting data:", err);

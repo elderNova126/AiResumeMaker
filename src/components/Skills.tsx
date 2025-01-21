@@ -10,7 +10,7 @@ import RemoveButton from "./RemoveButton";
 import ReorderButton from "./ReorderButton";
 import AddButton from "./AddButton";
 import Ai_Modal from "./Ai_Modal";
-import type {SkillType} from '../types/resume'
+import type { SkillType } from '../types/resume'
 
 const Skills: React.FC<{
   setSkills: React.Dispatch<React.SetStateAction<SkillType[]>>;
@@ -77,7 +77,7 @@ const Skills: React.FC<{
             <div {...provided.droppableProps} ref={provided.innerRef}
               id="skills"
               className="list with-border"
-              style={{gap:"0.4rem"}}
+              style={{ gap: "0.4rem" }}
             >
               <h2
                 contentEditable="true"
@@ -105,7 +105,7 @@ const Skills: React.FC<{
                         onChange={(updatedContent) => {
                           updateSkill(index, "skillname", updatedContent);
                         }}
-                        
+
                         as="p"
                         placeholder="Enter skill"
                         className="eachSkill"
@@ -131,19 +131,21 @@ const Skills: React.FC<{
                 </Draggable>
               ))}
               {provided.placeholder}
+              <div className="btn-edit">
+                <span
+                  className="writing-assistant"
+                  onClick={() => setShowModal(true)}
+                  translate-data="✧ Writing Assistant"
+                >
+                  ✧ Writing Assistant
+                </span>
+              </div>
             </div>
+
           )}
         </Droppable>
       </DragDropContext>
-      <span className="btn-edit">
-        <span
-          className="writing-assistant"
-          onClick={() => setShowModal(true)}
-          translate-data="✧ Writing Assistant"
-        >
-          ✧ Writing Assistant
-        </span>
-      </span>
+
 
       {showModal && (
         <Ai_Modal onClose={() => setShowModal(false)} headerText={"Skill"} />

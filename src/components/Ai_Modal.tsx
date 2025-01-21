@@ -12,12 +12,14 @@ const Ai_Modal = ({ onClose, headerText }: Ai_ModalProps) => {
   const [experience, setExperience] = useState(false);
   const [role, setRole] = useState("");
   const [instruction, setInstruction] = useState("");
+
+  const makeContentByAi = (cate) => {
+    alert("coming soon");
+  };
   return (
     <div id="modalSkills" className="modal" style={{ display: "flex" }}>
       <div>
-        <div className="close">
-          <button onClick={onClose} className="text-gray-500 hover: transition-colors"><X className="h-5 w-5" /> </button>
-        </div>
+        <div className="close" onClick={onClose}></div>
         <div className="cute-robot-v1">
           <div className="circle-bg">
             <div className="robot-ear left"></div>
@@ -50,8 +52,7 @@ const Ai_Modal = ({ onClose, headerText }: Ai_ModalProps) => {
               </div>
               <div>
                 <label translate-data="Experience Level">Experience Level</label>
-                <select>
-                  ㅤㅤㅤㅤㅤㅤ
+                <select>          
                   <option
                     value="Little/No experience"
                     selected
@@ -73,8 +74,7 @@ const Ai_Modal = ({ onClose, headerText }: Ai_ModalProps) => {
             </div>
             <div>
               <label translate-data="Instructions (optional)"
-              >Instructions (optional)</label
-              >
+              >Instructions (optional)</label>
               <textarea
                 id="customInstructionsSummary"
                 translate-data="Enter any specific details you want to include (e.g., key skills, personal traits, industry focus)"
@@ -91,7 +91,7 @@ const Ai_Modal = ({ onClose, headerText }: Ai_ModalProps) => {
               rows="7"
               style={{ display: "none" }}
             ></textarea>
-            <button className="generate btn-secondary">
+            <button className="generate btn-secondary"  onClick={() => makeContentByAi(0)}>
               <svg
                 width="24"
                 height="24"
@@ -135,7 +135,7 @@ const Ai_Modal = ({ onClose, headerText }: Ai_ModalProps) => {
                 placeholder="Enter your role for skill suggestions"
               />
             </div>
-            <button className="generate btn-secondary">
+            <button className="generate btn-secondary" onClick={() => makeContentByAi(0)}>
               <span></span>
               <svg
                 width="24"
@@ -152,7 +152,7 @@ const Ai_Modal = ({ onClose, headerText }: Ai_ModalProps) => {
                   stroke-linejoin="round"
                 ></path>
               </svg>
-              <span translate-data="Generate Skills">Generate Skills</span>
+              <span translate-data="Generate Skills">Generate {headerText}</span>
             </button>
           </>
         )}

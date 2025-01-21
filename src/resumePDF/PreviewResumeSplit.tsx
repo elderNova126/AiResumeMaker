@@ -202,14 +202,13 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
     page: {
       flexDirection: "column",
       backgroundColor: "#FFFFFF",
-      paddingVertical: 30,
-      paddingHorizontal: 10,
+      paddingVertical: 20,
+      paddingHorizontal: 20,
     },
     header: {
       flexDirection: "row",
       alignItems: "center",
       justifyContent: "space-between",
-      padding: 10,
     },
     headerCenteredContainer: {
       flex: 1,
@@ -231,7 +230,9 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
     role: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
       fontSize: 10,
+      fontWeight: "bold",
       paddingLeft: 20,
+      textTransform: "uppercase",
       // textAlign: "right",
       // marginTop: 5,
     },
@@ -243,12 +244,12 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
       width: "30%",
       // backgroundColor: "#f3f4f6",
       padding: 8,
-      paddingBottom: 40,
+      paddingBottom: 20,
     },
     rightColumn: {
       width: "70%",
       padding: 8,
-      paddingBottom: 40,
+      paddingBottom: 20,
     },
     sectionTitle: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
@@ -285,6 +286,7 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
       fontSize: getFontSize1(currentTypography.size) || 8,
       marginBottom: 10,
       lineHeight: 1.5,
+      textOverflow:""
     },
     LangGridContainer: {
       flexDirection: "column",
@@ -319,12 +321,8 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
       width: "30%", // Ensures 3 items per row (100% / 3 = 33.3%)
       fontSize: getFontSize1(currentTypography.size) || 8,
-      // fontWeight: "bold",
       borderRadius: 3,
-      // paddingVertical: 5,
-      // paddingHorizontal: 12,
       boxSizing: "border-box", // Ensures padding does not affect width
-      // marginBottom: 5, // Add space between rows
       transition: "transform 0.2s ease-in-out", // Hover effect for interactivity (optional, if applicable in PDF context)
     },
 
@@ -583,9 +581,9 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
               </>
             ) : null}
             {other && visibleSections.includes("other") ? (
-              <View style={styles.sectionTitle}>
+              <View>
                 <Text style={[styles.sectionTitle]}>Other</Text>
-                <Text style={[styles.skillItem, { width: "100%" }]}>
+                <Text style={[styles.skillItem]}>
                   {other}
                 </Text>
               </View>

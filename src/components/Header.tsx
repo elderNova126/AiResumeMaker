@@ -13,7 +13,6 @@ import {
 import ImportDialog from "./ImportDialog";
 import SelectorButton from "./SelectorButton";
 import SectionsSelector from "./SectionsSelector";
-import { PDFDownloadLink } from "@react-pdf/renderer";
 
 // import ResumePDF from "../resumePDF/ResumeSplitPDF";
 // import ResumeClassicPDF from "../resumePDF/ResumeClassicPDF";
@@ -21,10 +20,8 @@ import { PDFDownloadLink } from "@react-pdf/renderer";
 import { useUser } from "../context/UserContext";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ModalDownload from "./ModalDownload";
 import axios from "axios";
-import ResumeATSPDF from "../resumePDF/PreviewResumeATS";
-import ResumeClassicPDF from "../resumePDF/PreviewResumeClassic";
-import ResumePDF from "../resumePDF/PreviewResumeSplit";
 
 interface HeaderProps {
   onLayoutChange: (layout: string) => void;
@@ -80,6 +77,7 @@ const Header: React.FC<HeaderProps> = ({
     setAvatar,
   } = useUser();
   const [showImportDialog, setShowImportDialog] = useState(false);
+  const [showDownloadModal, setShowDownloadModal] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [downloadingLoading, setDownloadingLoading] = useState(false);
 
@@ -123,8 +121,6 @@ const Header: React.FC<HeaderProps> = ({
     // reg_google();
   };
 
-  
-
   const reg_google = async () => {
     try {
       const response = await fetch("http://localhost:5000/log-download", {
@@ -137,7 +133,7 @@ const Header: React.FC<HeaderProps> = ({
           action: "Resume Download",
         }),
       });
-  
+
       const result = await response.json();
       if (result.success) {
         console.log("Download logged successfully!");
@@ -150,45 +146,76 @@ const Header: React.FC<HeaderProps> = ({
   };
   const confirmID = (sectionId: string) => {
     const newSections = visibleSections.includes(sectionId)
-      ? visibleSections.filter(id => id !== sectionId)
+      ? visibleSections.filter((id) => id !== sectionId)
       : [...visibleSections, sectionId];
     setVisibleSections(newSections);
   };
   const handleImport = (data: string[]) => {
     setName(data.Name);
-    if (data.Role != "") setRole(data.Role); else { confirmID("role"); setRole(""); }
+    if (data.Role != "") setRole(data.Role);
+    else {
+      confirmID("role");
+      setRole("");
+    }
 
-    if (data.Location != "") setLocation(data.Location); else { confirmID("location"); setLocation(""); }
-    if (data.Email != "") setEmail(data.Email); else { confirmID("email"); setEmail(""); }
-    if (data.Phone != "") setPhone(data.Phone); else { confirmID("phone"); setPhone(""); }
-    if (data.Website != "") setWebsite(data.Website); else { confirmID("website"); setWebsite(""); }
-    if (data.Linkedin != "") setLinkedin(data.Linkedin); else { confirmID("linkedin"); setLinkedin(""); }
-    if (data.Other != "") setOther(data.Other); else { confirmID("other"); setOther(""); }
-    if (data.Profile != "") setAbout(data.Profile); else { confirmID("about"); setAbout(""); }
-
+    if (data.Location != "") setLocation(data.Location);
+    else {
+      confirmID("location");
+      setLocation("");
+    }
+    if (data.Email != "") setEmail(data.Email);
+    else {
+      confirmID("email");
+      setEmail("");
+    }
+    if (data.Phone != "") setPhone(data.Phone);
+    else {
+      confirmID("phone");
+      setPhone("");
+    }
+    if (data.Website != "") setWebsite(data.Website);
+    else {
+      confirmID("website");
+      setWebsite("");
+    }
+    if (data.Linkedin != "") setLinkedin(data.Linkedin);
+    else {
+      confirmID("linkedin");
+      setLinkedin("");
+    }
+    if (data.Other != "") setOther(data.Other);
+    else {
+      confirmID("other");
+      setOther("");
+    }
+    if (data.Profile != "") setAbout(data.Profile);
+    else {
+      confirmID("about");
+      setAbout("");
+    }
 
     const formattedSkills =
       Array.isArray(data.Skill) && data.Skill.length > 0
         ? data.Skill.map((item) => ({
-          skillname: typeof item === "string" ? [item] : item,
-        }))
+            skillname: typeof item === "string" ? [item] : item,
+          }))
         : [{ skillname: "" }];
     setSkills(formattedSkills);
 
     const transformedLng =
       Array.isArray(data.Language) && data.Language.length > 0
         ? data.Language.map((item) => ({
-          name: typeof item.Name === "string" ? [item.Name] : item.Name,
-          level: item.Level,
-        }))
+            name: typeof item.Name === "string" ? [item.Name] : item.Name,
+            level: item.Level,
+          }))
         : [{ name: "", level: "" }];
     setLanguages(transformedLng);
 
     const transformedHob =
       Array.isArray(data.Interest) && data.Interest.length > 0
         ? data.Interest.map((item) => ({
-          name: typeof item === "string" ? [item] : item,
-        }))
+            name: typeof item === "string" ? [item] : item,
+          }))
         : [{ name: "" }];
 
     setHobbies(transformedHob);
@@ -196,26 +223,34 @@ const Header: React.FC<HeaderProps> = ({
     const transformedExperiences =
       Array.isArray(data.Experience) && data.Experience.length > 0
         ? data.Experience.map((exp) => ({
-          company: exp.Company,
-          dateRange: exp.DateRange,
-          position: exp.Position,
-          location: exp.Location,
-          description:
-            typeof exp.Description === "string"
-              ? [exp.Description]
-              : exp.Description,
-        }))
-        : [{ company: "", dateRange: "", position: "", location: "", description: [] }];
+            company: exp.Company,
+            dateRange: exp.DateRange,
+            position: exp.Position,
+            location: exp.Location,
+            description:
+              typeof exp.Description === "string"
+                ? [exp.Description]
+                : exp.Description,
+          }))
+        : [
+            {
+              company: "",
+              dateRange: "",
+              position: "",
+              location: "",
+              description: [],
+            },
+          ];
 
     setExperiences(transformedExperiences);
 
     const transformedEducation =
       Array.isArray(data.Education) && data.Education.length > 0
         ? data.Education.map((item) => ({
-          school: item.School,
-          dateRange: item.DateRange,
-          degree: item.Degree,
-        }))
+            school: item.School,
+            dateRange: item.DateRange,
+            degree: item.Degree,
+          }))
         : [{ school: "", dateRange: "", degree: "" }];
     setEducations(transformedEducation);
   };
@@ -355,9 +390,10 @@ const Header: React.FC<HeaderProps> = ({
               <span>Import</span>
             </button>
             <button
-              onClick={printPdf}
-              className={`flex items-center space-x-2 px-4 py-2 text-default-sm text-white rounded-md transition-all hover:opacity-90 ${downloadingLoading ? "opacity-50" : ""
-                }`}
+              onClick={() => setShowDownloadModal(true)}
+              className={`flex items-center space-x-2 px-4 py-2 text-default-sm text-white rounded-md transition-all hover:opacity-90 ${
+                downloadingLoading ? "opacity-50" : ""
+              }`}
               style={{ backgroundColor: currentColor, height: "20px" }}
               disabled={downloadingLoading}
             >
@@ -365,132 +401,7 @@ const Header: React.FC<HeaderProps> = ({
               <span>{downloadingLoading ? "Preparing..." : "Download"}</span>
             </button>
 
-            {/* Use PDFDownloadLink for downloading
-            {currentLayout === "split" && (
-              <PDFDownloadLink
-                document={
-                  <ResumePDF
-                    themeColor={currentColor}
-                    name={name}
-                    role={role}
-                    location={location}
-                    email={email}
-                    phone={phone}
-                    other={other}
-                    websiteLink={website}
-                    linkedinLink={linkedin}
-                    summery={about}
-                    experiences={experiences}
-                    educations={educations}
-                    skills={skills}
-                    languages={languages}
-                    hobbies={hobbies}
-                    avatar={avatar}
-                    visibleSections={visibleSections}
-                    currentTypography={currentTypography}
-                  />
-                }
-                fileName={"split_Resume_" + name + ".pdf"}
-              >
-                {" "}
-                <button
-                  className={`flex items-center space-x-2 px-4 py-2 text-default-sm text-white rounded-md transition-all hover:opacity-90 ${
-                    downloadingLoading ? "opacity-50" : ""
-                  }`}
-                  style={{ backgroundColor: currentColor, height: "20px" }}
-                  disabled={downloadingLoading}
-                >
-                  <FileDown className="h-4 w-4" />
-                  <span>
-                    {downloadingLoading ? "Preparing..." : "Download"}
-                  </span>
-                </button>
-              </PDFDownloadLink>
-            )}
-            {currentLayout === "classic" && (
-              <PDFDownloadLink
-                document={
-                  <ResumeClassicPDF
-                    themeColor={currentColor}
-                    name={name}
-                    role={role}
-                    location={location}
-                    email={email}
-                    phone={phone}
-                    other={other}
-                    websiteLink={website}
-                    linkedinLink={linkedin}
-                    summery={about}
-                    experiences={experiences}
-                    educations={educations}
-                    skills={skills}
-                    languages={languages}
-                    hobbies={hobbies}
-                    avatar={avatar}
-                    visibleSections={visibleSections}
-                    currentTypography={currentTypography}
-                  />
-                }
-                fileName={"Classic_Resume_" + name + ".pdf"}
-              >
-                <>
-                  <button
-                    className={`flex items-center space-x-2 px-4 py-2 text-default-sm text-white rounded-md transition-all hover:opacity-90 ${
-                      downloadingLoading ? "opacity-50" : ""
-                    }`}
-                    style={{ backgroundColor: currentColor, height: "20px" }}
-                    disabled={downloadingLoading}
-                  >
-                    <FileDown className="h-4 w-4" />
-                    <span>
-                      {downloadingLoading ? "Preparing..." : "Download"}
-                    </span>
-                  </button>
-                </>
-              </PDFDownloadLink>
-            )}
-            {currentLayout === "hybrid" && (
-              <PDFDownloadLink
-                document={
-                  <ResumeATSPDF
-                    themeColor={currentColor}
-                    name={name}
-                    role={role}
-                    location={location}
-                    email={email}
-                    phone={phone}
-                    other={other}
-                    websiteLink={website}
-                    linkedinLink={linkedin}
-                    summery={about}
-                    experiences={experiences}
-                    educations={educations}
-                    skills={skills}
-                    languages={languages}
-                    hobbies={hobbies}
-                    avatar={avatar}
-                    visibleSections={visibleSections}
-                    currentTypography={currentTypography}
-                  />
-                }
-                fileName={"ATS_Resume" + name + ".pdf"}
-              >
-                <>
-                  <button
-                    className={`flex items-center space-x-2 px-4 py-2 text-default-sm text-white rounded-md transition-all hover:opacity-90 ${
-                      downloadingLoading ? "opacity-50" : ""
-                    }`}
-                    style={{ backgroundColor: currentColor, height: "20px" }}
-                    disabled={downloadingLoading}
-                  >
-                    <FileDown className="h-4 w-4" />
-                    <span>
-                      {downloadingLoading ? "Preparing..." : "Download"}
-                    </span>
-                  </button>
-                </>
-              </PDFDownloadLink>
-            )} */}
+            {/* Use PDFDownloadLink for downloading */}
           </div>
         </div>
       </header>
@@ -504,6 +415,30 @@ const Header: React.FC<HeaderProps> = ({
         <div
           className="fixed inset-0 bg-black/50 mt-[50px] z-40"
           onClick={() => setIsDropdownOpen(false)}
+        />
+      )}
+      {showDownloadModal && (
+        <ModalDownload
+          setShowDownloadModal={setShowDownloadModal}
+          currentLayout={currentLayout}
+          themeColor={currentColor}
+          name={name}
+          role={role}
+          location={location}
+          email={email}
+          phone={phone}
+          other={other}
+          websiteLink={website}
+          linkedinLink={linkedin}
+          summery={about}
+          experiences={experiences}
+          educations={educations}
+          skills={skills}
+          languages={languages}
+          hobbies={hobbies}
+          avatar={avatar}
+          visibleSections={visibleSections}
+          currentTypography={currentTypography}
         />
       )}
     </>

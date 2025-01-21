@@ -8,6 +8,7 @@ import PreviewResumeATS from "../resumePDF/PreviewResumeATS";
 import ResumeExtractor from "../resumePDF/ResumeAnlayzer"
 import TemplateWrapper from "./TemplateWrapper";
 import { useUser } from "../context/UserContext";
+import Test from "./layouts/Test";
 
 interface ResumeEditorProps {
   layout: string;
@@ -132,7 +133,7 @@ const ResumeEditor = ({
           />
         );
       case "test":
-        return (<ResumeExtractor />);
+        return (<Test />);
       default:
         return (
           <SplitLayout

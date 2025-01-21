@@ -19,6 +19,7 @@ import Hobbies from "../Hobbies";
 import Other from "../Others";
 import Picture from "../Picture";
 import { useUser } from "../../context/UserContext";
+import ModalDownload from "../ModalDownload";
 
 interface SplitLayoutProps {
   themeColor: string;
@@ -306,6 +307,7 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
           )}
         </div>
       </div>
+      
     </div>
   );
 };

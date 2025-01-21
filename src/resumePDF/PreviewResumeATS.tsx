@@ -249,6 +249,7 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
       textTransform: "uppercase",
       paddingBottom: 5,
     },
+    
     contactRow: {
       flexDirection: "row",
       flexWrap: "wrap",
@@ -324,12 +325,14 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
     },
     skill: {
       width: "23%", // Ensures 3 items per row (100% / 3 = 33.3%)
-      color: "#374151",
-      borderRadius: 3,
-      paddingHorizontal: 12,
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
       fontSize: getFontSize1(currentTypography.size) || 8,
+      borderRadius: 3,
+      paddingHorizontal: 12,
+
+      boxSizing: "border-box", // Ensures padding does not affect width
       // marginBottom: 5, // Add space between rows
+      transition: "transform 0.2s ease-in-out", // Hover effect for interactivity (optional, if applicable in PDF context)
     },
     skillGridContainer1: {
       display: "flex",

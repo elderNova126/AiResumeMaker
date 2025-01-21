@@ -617,6 +617,14 @@ span.skill-item:hover {
   color: grey;
   align-items: flex-start;
   text-align: left;
+  display: flex;
+  padding: 0;
+  margin: 0;
+  color: #101828;
+  font-size: 1.4rem;
+  font-weight: 400;
+  flex-direction: row;
+  gap: 0.6rem;
 }
 .freeDownload,
 .proPlan {
@@ -629,9 +637,9 @@ span.skill-item:hover {
 }
 .freeDownload {
   border-right: 1px solid #80808029;
-  border-radius: 1.6rem 0 0 1.6rem;
+  border-radius: 1.6rem 1.6rem 1.6rem 1.6rem;
   background: whitesmoke;
-  flex-basis: 40%;
+  /* flex-basis: 40%; */
 }
 .freeDownload #freeDownloadBtn svg:nth-child(2) {
   display: none;
@@ -2434,7 +2442,7 @@ span.o--Button--children {
   top: 0;
   background: rgba(0, 0, 0, 0.75);
   z-index: 9999999;
-  display: none;
+  /* display: none; */
   align-items: center;
   justify-content: center;
   padding: 2.4rem;
@@ -2460,6 +2468,13 @@ span.o--Button--children {
   height: 4.8rem;
   z-index: 99999;
   cursor: pointer !important;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal .close::before {
+  content: "\00d7";  /* Close symbol (×) */
   font-size: 2rem;
 }
 .modal p {

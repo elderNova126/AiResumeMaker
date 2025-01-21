@@ -135,7 +135,7 @@ const ContactItem: React.FC<ContactItemProps> = ({
       fontFamily: getFontFamily(fontF),
       flexDirection: "row",
       alignItems: "center",
-      marginBottom: 15,
+      marginBottom: 5,
       paddingBottom: 5,
       paddingRight: 10,
     }}
@@ -243,6 +243,7 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
       color: "#000",
     },
     role: {
+      fontFamily: getFontFamily(currentTypography.font) || "Nunito",
       fontSize: 10,
       textAlign: "right",
       marginTop: 5,
@@ -254,21 +255,21 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
       marginTop: 5,
     },
     section: {
-      marginBottom: 15,
+      marginBottom: 10,
     },
     sectionTitle: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
       fontWeight: "bold",
       fontSize: 10,
-      marginBottom: 8,
+      marginBottom: 5,
       textTransform: "uppercase",
       paddingBottom: 5,
     },
     contactRow: {
       flexDirection: "row",
-      // flexWrap: "wrap",
-      // justifyContent: "left",
-      alignItems: "center",
+      flexWrap: "wrap",
+      justifyContent: "flex-start",
+      // alignItems: "center",
     },
     contactItem: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
@@ -309,6 +310,7 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
       fontSize: getFontSize1(currentTypography.size) || 8,
       fontWeight: "bold",
       marginVertical: 10,
+      textTransform: "uppercase",
       width: "70%",
       textAlign: "left",
     },
@@ -423,9 +425,9 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
             <Text style={styles.text}>{summery}</Text>
           </View>
         )}
-        <View>
+        
           {email || phone || location || websiteLink || linkedinLink ? (
-            <>
+            <View style={styles.section}>
               <Text style={{ ...styles.sectionTitle }}>PERSONAL DETAILS</Text>
               <View style={styles.contactRow}>
                 {location && visibleSections.includes("location") ? (
@@ -475,9 +477,9 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
                   />
                 ) : null}
               </View>
-            </>
+              </View>
           ) : null}
-        </View>
+        
 
         {/* Experience Section */}
         {Array.isArray(experiences) && experiences.length > 0 && visibleSections.includes("experience") ? (

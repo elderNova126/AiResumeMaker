@@ -101,7 +101,7 @@ const ContactItem: React.FC<ContactItemProps> = ({
       fontFamily: getFontFamily(fontF) || "Nunito",
       flexDirection: "row",
       alignItems: "center",
-      marginBottom: 15,
+      marginBottom: 5,
       paddingBottom: 5,
       paddingRight: 10,
     }}
@@ -142,6 +142,7 @@ interface Experience {
   company: string;
   dateRange: string;
   position: string;
+  location: string;
   description: string[];
 }
 interface Education {
@@ -226,6 +227,7 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
       color: themeColor,
     },
     role: {
+      fontFamily: getFontFamily(currentTypography.font) || "Nunito",
       fontSize: 10,
       marginTop: 5,
     },
@@ -237,22 +239,22 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
       marginTop: 5,
     },
     section: {
-      marginBottom: 15,
+      marginBottom: 10,
     },
     sectionTitle: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
       fontWeight: "bold",
       fontSize: 10,
-      marginBottom: 8,
+      marginBottom: 5,
       textTransform: "uppercase",
       paddingBottom: 5,
     },
     contactRow: {
       flexDirection: "row",
       flexWrap: "wrap",
-      justifyContent: "left",
-      alignItems: "center",
-      marginVertical: 10,
+      justifyContent: "flex-start",
+      // alignItems: "center",
+      // marginVertical: 10,
     },
     contactItem: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
@@ -325,6 +327,8 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
       color: "#374151",
       borderRadius: 3,
       paddingHorizontal: 12,
+      fontFamily: getFontFamily(currentTypography.font) || "Nunito",
+      fontSize: getFontSize1(currentTypography.size) || 8,
       // marginBottom: 5, // Add space between rows
     },
     skillGridContainer1: {
@@ -387,17 +391,18 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
 
   return (
     // <PDFViewer style={{ width: "100%", height: "100vh" }}>
-      <Document>
-        <Page size="A4" style={styles.page}>
-          {/* Header */}
-          <View style={styles.header}>
-            <View style={styles.nameRoleContainer}>
-              <Text style={[styles.name, { color: themeColor }]}>{name}</Text>
-              <Text style={styles.role}>{role}</Text>
-            </View>
+    <Document>
+      <Page size="A4" style={styles.page}>
+        {/* Header */}
+        <View style={styles.header}>
+          <View style={styles.nameRoleContainer}>
+            <Text style={[styles.name, { color: themeColor }]}>{name}</Text>
           </View>
-          <View>
-            {email || phone || location || websiteLink || linkedinLink ? (
+        </View>
+        <View>
+          {email || phone || location || websiteLink || linkedinLink ? (
+            <View style={styles.section}>
+              <Text style={{ ...styles.sectionTitle }}>PERSONAL DETAILS</Text>
               <View style={styles.contactRow}>
                 {location && visibleSections.includes("location") ? (
                   <ContactItem
@@ -445,154 +450,151 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
                   />
                 ) : null}
               </View>
-            ) : null}
-          </View>
-          {/* Summary Section */}
-          {summery && visibleSections.includes("about") && (
-            <View style={styles.section}>
-              <Text style={[styles.sectionTitle]}>About Me</Text>
-              <Text style={styles.text}>{summery}</Text>
             </View>
-          )}
+          ) : null}
+        </View>
+        {/* Summary Section */}
+        {summery && visibleSections.includes("about") && (
+          <View style={styles.section}>
+            <Text style={[styles.sectionTitle]}>About Me</Text>
+            <Text style={styles.text}>{summery}</Text>
+          </View>
+        )}
 
-          {/* Experience Section */}
-          {Array.isArray(experiences) &&
+        {/* Experience Section */}
+        {Array.isArray(experiences) &&
           experiences.length > 0 &&
           visibleSections.includes("experience") ? (
-            <View style={[styles.section]}>
-              <Text style={[styles.sectionTitle]}>Experience</Text>
-              {experiences.map((experience, index) => (
-                <View key={index}>
-                  {index < experiences.length - 1 ? (
-                    <Timeline themeColor={themeColor} />
-                  ) : null}
-                  <TimeDot themeColor={themeColor} />
-                  <View style={styles.experienceBlock}>
-                    <Text style={styles.text}>
-                      <Text style={{ ...styles.jobTitle, color: themeColor }}>
-                        {experience.position}{" "}
-                      </Text>
-                      <Text
-                        style={{ ...styles.companyDetails, fontWeight: "bold" }}
-                      >
-                        {" "}
-                        | {experience.company}
-                      </Text>
+          <View style={[styles.section]}>
+            <Text style={[styles.sectionTitle]}>Experience</Text>
+            {experiences.map((experience, index) => (
+              <View key={index}>
+                {index < experiences.length - 1 ? (
+                  <Timeline themeColor={themeColor} />
+                ) : null}
+                <TimeDot themeColor={themeColor} />
+                <View style={styles.experienceBlock}>
+                  <Text style={styles.text}>
+                    <Text style={{ ...styles.jobTitle, color: themeColor }}>
+                      {experience.position}{" "}
                     </Text>
-                    <Text style={styles.text}>
-                      <Text style={styles.date}>{experience.dateRange}</Text>
-                      <Text style={styles.text}> {experience.location} </Text>
+                    <Text
+                      style={{ ...styles.companyDetails, fontWeight: "bold" }}
+                    >
+                      {" "} |{" "}  {experience.company}
                     </Text>
+                  </Text>
+                  <Text style={styles.text}>
+                    <Text style={styles.date}>{experience.dateRange}</Text>
+                    <Text style={styles.text}> {" "}-{" "} {experience.location} </Text>
+                  </Text>
 
-                    {experience.description.map((point, i) =>
-                      point !== "<br>" ? (
-                        <Text key={i} style={styles.bulletPoint}>
-                          • {point}
-                        </Text>
-                      ) : null
-                    )}
-                  </View>
+                  {experience.description.map((point, i) =>
+                    point !== "<br>" ? (
+                      <Text key={i} style={styles.bulletPoint}>
+                        • {point}
+                      </Text>
+                    ) : null
+                  )}
                 </View>
-              ))}
-            </View>
-          ) : null}
+              </View>
+            ))}
+          </View>
+        ) : null}
 
-          {/* Education Section */}
-          {Array.isArray(educations) &&
+        {/* Education Section */}
+        {Array.isArray(educations) &&
           educations.length > 0 &&
           visibleSections.includes("education") ? (
-            <View style={styles.section}>
-              <Text style={[styles.sectionTitle]}>Education</Text>
-              {educations.map((edu, index) => (
-                <View key={index}>
-                  {index < educations.length - 1 ? (
-                    <Timeline themeColor={themeColor} />
-                  ) : null}
-                  <TimeDot themeColor={themeColor} />
-                  <View style={styles.educationBlock}>
-                    <Text style={styles.text}>
-                      <Text
-                        style={{
-                          ...styles.jobTitle,
-                          color: themeColor,
-                          fontWeight: "bold",
-                        }}
-                      >
-                        {edu.degree}{" "}
-                      </Text>
-                      <Text style={{ ...styles.text, fontWeight: "bold" }}>
-                        {" "}
-                        - {edu.school}{" "}
-                      </Text>
+          <View style={styles.section}>
+            <Text style={[styles.sectionTitle]}>Education</Text>
+            {educations.map((edu, index) => (
+              <View key={index}>
+                {index < educations.length - 1 ? (
+                  <Timeline themeColor={themeColor} />
+                ) : null}
+                <TimeDot themeColor={themeColor} />
+                <View style={styles.educationBlock}>
+                  <Text style={styles.text}>
+                    <Text
+                      style={{
+                        ...styles.jobTitle,
+                        color: themeColor,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      {edu.degree}{" "}
                     </Text>
-                    <Text style={styles.text}>{edu.dateRange}</Text>
-                  </View>
+                    <Text style={{ ...styles.text, fontWeight: "bold" }}>
+                      {" "}
+                      - {edu.school}{" "}
+                    </Text>
+                  </Text>
+                  <Text style={styles.text}>{edu.dateRange}</Text>
                 </View>
-              ))}
-            </View>
-          ) : null}
-          {/* Skills Section */}
-          {Array.isArray(skills) &&
+              </View>
+            ))}
+          </View>
+        ) : null}
+        {/* Skills Section */}
+        {Array.isArray(skills) &&
           skills.length > 0 &&
           visibleSections.includes("skills") ? (
-            <View style={styles.section}>
-              <Text style={[styles.sectionTitle]}>Skills</Text>
-              <View style={styles.skillGridContainer}>
-                {skills.map((skill, index) => (
-                  <Text key={index} style={styles.skill}>
-                    • {skill.skillname}
-                  </Text>
-                ))}
-              </View>
+          <View style={styles.section}>
+            <Text style={[styles.sectionTitle]}>Skills</Text>
+            <View style={styles.skillGridContainer}>
+              {skills.map((skill, index) => (
+                <Text key={index} style={styles.skill}>
+                  • {skill.skillname}
+                </Text>
+              ))}
             </View>
-          ) : null}
+          </View>
+        ) : null}
 
-          {/* Languages Section */}
-          {Array.isArray(languages) &&
+        {/* Languages Section */}
+        {Array.isArray(languages) &&
           languages.length > 0 &&
           visibleSections.includes("languages") ? (
-            <View style={styles.section}>
-              <Text style={[styles.sectionTitle]}>Language</Text>
-              <View style={styles.skillGridContainer}>
-                {languages.map((language, index) => (
-                  <Text key={index} style={styles.skill}>
-                    • {language.name}
-                  </Text>
-                ))}
-              </View>
+          <View style={styles.section}>
+            <Text style={[styles.sectionTitle]}>Language</Text>
+            <View style={styles.skillGridContainer}>
+              {languages.map((language, index) => (
+                <Text key={index} style={styles.skill}>
+                  • {language.name}
+                </Text>
+              ))}
             </View>
-          ) : null}
-          {Array.isArray(hobbies) &&
+          </View>
+        ) : null}
+        {Array.isArray(hobbies) &&
           hobbies.length > 0 &&
           visibleSections.includes("interests") ? (
-            <View style={styles.section}>
-              <Text
-                style={[
-                  styles.sectionTitle,
-                  // languages.length > 0 || skills.length > 0
-                  //   ? { marginTop: 15 }
-                  //   : { marginTop: 0 },
-                ]}
-              >
-                Activities
-              </Text>
-              <View style={styles.skillGridContainer}>
-                {hobbies.map((hobby, index) => (
-                  <Text key={index} style={styles.skill}>
-                    • {hobby.name}
-                  </Text>
-                ))}
-              </View>
+          <View style={styles.section}>
+            <Text
+              style={[
+                styles.sectionTitle,
+              ]}
+            >
+              Activities
+            </Text>
+            <View style={styles.skillGridContainer}>
+              {hobbies.map((hobby, index) => (
+                <Text key={index} style={styles.skill}>
+                  • {hobby.name}
+                </Text>
+              ))}
             </View>
-          ) : null}
-          {other && visibleSections.includes("other") ? (
-            <View style={styles.section}>
-              <Text style={[styles.sectionTitle]}>Other</Text>
-              <Text style={[styles.skill, { width: "100%" }]}>{other}</Text>
-            </View>
-          ) : null}
-        </Page>
-      </Document>
+          </View>
+        ) : null}
+        {other && visibleSections.includes("other") ? (
+          <View style={styles.section}>
+            <Text style={[styles.sectionTitle]}>Other</Text>
+            <Text style={[styles.skill, { width: "100%" }]}>{other}</Text>
+          </View>
+        ) : null}
+      </Page>
+    </Document>
     //</PDFViewer>
   );
 };

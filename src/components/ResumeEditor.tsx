@@ -1,11 +1,9 @@
-// import SplitLayout from "./layouts/SplitLayout";
-import SplitLayout from "./layouts/SplitLayout_test";
-import ClassicLayout from "./layouts/ClassicLayout_test";
-import HybridLayout from "./layouts/HybridLayout_test";
+import SplitLayout from "../pages/layouts/SplitLayout";
+import ClassicLayout from "../pages/layouts/ClassicLayout";
+import HybridLayout from "../pages/layouts/HybridLayout";
 import PreviewResumeSplit from "../resumePDF/PreviewResumeSplit";
 import PreviewResumeClassic from "../resumePDF/PreviewResumeClassic";
 import PreviewResumeATS from "../resumePDF/PreviewResumeATS";
-import ResumeExtractor from "../resumePDF/ResumeAnlayzer"
 import TemplateWrapper from "./TemplateWrapper";
 import { useUser } from "../context/UserContext";
 
@@ -131,8 +129,6 @@ const ResumeEditor = ({
             visibleSections={visibleSections}
           />
         );
-      case "test":
-        return (<Test />);
       default:
         return (
           <SplitLayout

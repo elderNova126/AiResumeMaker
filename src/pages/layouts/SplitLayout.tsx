@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Contenteditable from "../Contenteditable";
+import Contenteditable from "../../components/Contenteditable";
 import { FileUp } from "lucide-react";
 import {
   SvgIcon,
@@ -9,17 +9,17 @@ import {
   WebsiteSvgPath,
   LocationSvgPath,
 } from "../../consts/SvgConst";
-import AutoResizeField from "../AutoResizeField";
-import AboutMe from "../AboutMe";
-import Experiences from "../Experiences";
-import Educations from "../Educations";
-import Skills from "../Skills";
-import Languages from "../Languages";
-import Hobbies from "../Hobbies";
-import Other from "../Others";
-import Picture from "../Picture";
+import AutoResizeField from "../../components/AutoResizeField";
+import AboutMe from "../../components/AboutMe";
+import Experiences from "../../components/Experiences";
+import Educations from "../../components/Educations";
+import Skills from "../../components/Skills";
+import Languages from "../../components/Languages";
+import Hobbies from "../../components/Hobbies";
+import Other from "../../components/Others";
+import Picture from "../../components/Picture";
 import { useUser } from "../../context/UserContext";
-import ModalDownload from "../ModalDownload";
+import ModalDownload from "../../components/ModalDownload";
 
 interface SplitLayoutProps {
   themeColor: string;
@@ -117,7 +117,7 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
                 setRole(updatedContent);
               }}
               as="h2"
-              placeholder="Your Name"
+              placeholder="Your Role"
             />
           )}
         </div>
@@ -129,6 +129,7 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
               setAbout={setAbout}
               about={about}
               themeColor={themeColor}
+              summaryPlaceholder="About Me"
             />
           )}
           <div id="details">
@@ -267,6 +268,7 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
               setExperiences={setExperiences}
               experiences={experiences}
               themeColor={themeColor}
+              experiencePlaceholder="Experience"
               isSplit={false}
             />
           )}

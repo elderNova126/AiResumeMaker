@@ -8,15 +8,15 @@ import {
   WebsiteSvgPath,
   LocationSvgPath,
 } from "../../consts/SvgConst";
-import Contenteditable from "../Contenteditable";
-import AboutMe from "../AboutMe";
-import Experiences from "../Experiences";
-import Educations from "../Educations";
-import Languages from "../Languages";
-import Hobbies from "../Hobbies";
-import Skills from "../Skills";
+import Contenteditable from "../../components/Contenteditable";
+import AboutMe from "../../components/AboutMe";
+import Experiences from "../../components/Experiences";
+import Educations from "../../components/Educations";
+import Languages from "../../components/Languages";
+import Hobbies from "../../components/Hobbies";
+import Skills from "../../components/Skills";
 import { useUser } from "../../context/UserContext";
-import Other from "../Others";
+import Other from "../../components/Others";
 
 interface SplitLayoutProps {
   themeColor: string;
@@ -109,12 +109,12 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
         </div>
       </div>
 
-      <h2
+      {/* <h2
         contentEditable="true"
         translate-data="Personal Details"
         placeholder="Personal Details"
         data-gramm="false"
-      ></h2>
+      ></h2> */}
       <div id="details1">
         {visibleSections.includes("location") && (
           <div id="location">
@@ -241,7 +241,7 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
         )}
       </div>
       {visibleSections.includes("about") && (
-        <AboutMe setAbout={setAbout} about={about} themeColor={themeColor} />
+        <AboutMe setAbout={setAbout} about={about} themeColor={themeColor} summaryPlaceholder="PROFESSIONAL SUMMARY"/>
       )}
 
       {visibleSections.includes("experience") && (
@@ -249,6 +249,7 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
           setExperiences={setExperiences}
           experiences={experiences}
           themeColor={themeColor}
+          experiencePlaceholder="Professional Experience"
           isSplit={true}
         />
       )}

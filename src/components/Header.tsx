@@ -13,15 +13,11 @@ import {
 import ImportDialog from "./ImportDialog";
 import SelectorButton from "./SelectorButton";
 import SectionsSelector from "./SectionsSelector";
-
-// import ResumePDF from "../resumePDF/ResumeSplitPDF";
-// import ResumeClassicPDF from "../resumePDF/ResumeClassicPDF";
-// import ResumeATSPDF from "../resumePDF/ResumeATSPDF";
 import { useUser } from "../context/UserContext";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ModalDownload from "./ModalDownload";
-import axios from "axios";
+import type { DataType } from "../types/resume";
 
 interface HeaderProps {
   onLayoutChange: (layout: string) => void;
@@ -118,81 +114,36 @@ const Header: React.FC<HeaderProps> = ({
         textAlign: "center",
       },
     });
-    // reg_google();
   };
 
-  const reg_google = async () => {
-    try {
-      const response = await fetch("http://localhost:5000/log-download", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          user: name || "Anonymous",
-          action: "Resume Download",
-        }),
-      });
-
-      const result = await response.json();
-      if (result.success) {
-        console.log("Download logged successfully!");
-      } else {
-        console.error("Error logging download:", result.message);
-      }
-    } catch (error) {
-      console.error("Request failed:", error);
-    }
-  };
   const confirmID = (sectionId: string) => {
     const newSections = visibleSections.includes(sectionId)
       ? visibleSections.filter((id) => id !== sectionId)
       : [...visibleSections, sectionId];
     setVisibleSections(newSections);
   };
-  const handleImport = (data: string[]) => {
-    setName(data.Name);
-    if (data.Role != "") setRole(data.Role);
-    else {
-      confirmID("role");
-      setRole("");
-    }
-
-    if (data.Location != "") setLocation(data.Location);
-    else {
-      confirmID("location");
-      setLocation("");
-    }
-    if (data.Email != "") setEmail(data.Email);
-    else {
-      confirmID("email");
-      setEmail("");
-    }
-    if (data.Phone != "") setPhone(data.Phone);
-    else {
-      confirmID("phone");
-      setPhone("");
-    }
-    if (data.Website != "") setWebsite(data.Website);
-    else {
-      confirmID("website");
-      setWebsite("");
-    }
-    if (data.Linkedin != "") setLinkedin(data.Linkedin);
-    else {
-      confirmID("linkedin");
-      setLinkedin("");
-    }
-    if (data.Other != "") setOther(data.Other);
-    else {
-      confirmID("other");
-      setOther("");
-    }
-    if (data.Profile != "") setAbout(data.Profile);
-    else {
-      confirmID("about");
-      setAbout("");
-    }
+  const handleImport = (data: DataType) => {
+    setName(data.Name || "");
+    const setFieldWithConfirmation = (
+      fieldValue: string | undefined,
+      fieldName: string,
+      setFunction: (value: string) => void
+    ) => {
+      if (fieldValue && fieldValue.trim() !== "") {
+        setFunction(fieldValue);
+      } else {
+        confirmID(fieldName);
+        setFunction("");
+      }
+    };
+    setFieldWithConfirmation(data.Role, "role", setRole);
+    setFieldWithConfirmation(data.Location, "location", setLocation);
+    setFieldWithConfirmation(data.Email, "email", setEmail);
+    setFieldWithConfirmation(data.Phone, "phone", setPhone);
+    setFieldWithConfirmation(data.Website, "website", setWebsite);
+    setFieldWithConfirmation(data.Linkedin, "linkedin", setLinkedin);
+    setFieldWithConfirmation(data.Other, "other", setOther);
+    setFieldWithConfirmation(data.Profile, "about", setAbout);
 
     const formattedSkills =
       Array.isArray(data.Skill) && data.Skill.length > 0
@@ -262,7 +213,6 @@ const Header: React.FC<HeaderProps> = ({
     // { value: "test_split", label: "Preview Split" },
     // { value: "test_classic", label: "Preview Classic" },
     // { value: "test_ats", label: "Preview ATS" },
-    // { value: "test", label: "Test" },
   ];
 
   const colorOptions = [
@@ -324,7 +274,10 @@ const Header: React.FC<HeaderProps> = ({
             style={{ color: currentColor }}
           >
             <ScrollText className="h-6 w-6" />
-            <span className="text-xl font-semibold">aiResumeMaker.Online</span>
+
+            <span className="text-xl font-semibold">
+              <span className="text-orange-600">ai</span>ResumeMaker.Online
+            </span>
           </div>
 
           <div

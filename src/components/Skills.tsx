@@ -10,10 +10,7 @@ import RemoveButton from "./RemoveButton";
 import ReorderButton from "./ReorderButton";
 import AddButton from "./AddButton";
 import Ai_Modal from "./Ai_Modal";
-
-interface SkillType {
-  skillname: string;
-}
+import type {SkillType} from '../types/resume'
 
 const Skills: React.FC<{
   setSkills: React.Dispatch<React.SetStateAction<SkillType[]>>;

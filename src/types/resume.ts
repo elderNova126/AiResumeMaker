@@ -15,3 +15,46 @@ export interface ResumeData {
   skills?: string;
   languages?: string;
 }
+
+export interface ExperienceType {
+  company?: string;
+  dateRange?: string;
+  position?: string;
+  location?: string;
+  description?: string[];
+}
+
+export interface EducationType {
+  school: string;
+  dateRange: string;
+  degree: string;
+}
+
+export interface HobbyType {
+  name: string;
+}
+
+export interface LanguageType {
+  name: string;
+}
+
+export interface SkillType {
+  skillname: string;
+}
+
+export interface DataType {
+  Name?: string;
+  Role?: string;
+  Location?: string;
+  Email?: string;
+  Phone?: string;
+  Website?: string;
+  Linkedin?: string;
+  Other?: string;
+  Profile?: string;
+  Skill?: SkillType[];
+  Language?: LanguageType[];
+  Interest?: HobbyType[];
+  Experience?: ExperienceType[];
+  Education?: EducationType[];
+}

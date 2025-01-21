@@ -8,15 +8,15 @@ import {
   WebsiteSvgPath,
   LocationSvgPath,
 } from "../../consts/SvgConst";
-import Contenteditable from "../Contenteditable";
-import AboutMe from "../AboutMe";
-import Experiences from "../Experiences";
-import Languages from "../Languages";
-import Hobbies from "../Hobbies";
-import Educations from "../Educations";
-import Skills from "../Skills";
+import Contenteditable from "../../components/Contenteditable";
+import AboutMe from "../../components/AboutMe";
+import Experiences from "../../components/Experiences";
+import Languages from "../../components/Languages";
+import Hobbies from "../../components/Hobbies";
+import Educations from "../../components/Educations";
+import Skills from "../../components/Skills";
 import { useUser } from "../../context/UserContext";
-import Other from "../Others";
+import Other from "../../components/Others";
 
 interface SplitLayoutProps {
   themeColor: string;
@@ -121,7 +121,7 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
         </div>
       </div>
       {visibleSections.includes("about") && (
-        <AboutMe setAbout={setAbout} about={about} themeColor={themeColor} />
+        <AboutMe setAbout={setAbout} about={about} themeColor={themeColor} summaryPlaceholder="About Me"/>
       )}
       <h2
         contentEditable="true"
@@ -261,6 +261,7 @@ const SplitLayout: React.FC<SplitLayoutProps> = ({
           setExperiences={setExperiences}
           experiences={experiences}
           themeColor={themeColor}
+          experiencePlaceholder="Experience"
           isSplit={false}
         />
       )}

@@ -405,7 +405,7 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
         <View>
           {email || phone || location || websiteLink || linkedinLink ? (
             <View style={styles.section}>
-              <Text style={{ ...styles.sectionTitle }}>PERSONAL DETAILS</Text>
+              {/* <Text style={{ ...styles.sectionTitle }}>PERSONAL DETAILS</Text> */}
               <View style={styles.contactRow}>
                 {location && visibleSections.includes("location") ? (
                   <ContactItem
@@ -459,7 +459,7 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
         {/* Summary Section */}
         {summery && visibleSections.includes("about") && (
           <View style={styles.section}>
-            <Text style={[styles.sectionTitle]}>About Me</Text>
+            <Text style={[styles.sectionTitle]}>PROFESSIONAL SUMMARY</Text>
             <Text style={styles.text}>{summery}</Text>
           </View>
         )}
@@ -469,7 +469,7 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
           experiences.length > 0 &&
           visibleSections.includes("experience") ? (
           <View style={[styles.section]}>
-            <Text style={[styles.sectionTitle]}>Experience</Text>
+            <Text style={[styles.sectionTitle]}>PROFESSIONAL EXPERIENCE</Text>
             {experiences.map((experience, index) => (
               <View key={index}>
                 {index < experiences.length - 1 ? (
@@ -510,7 +510,7 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
           educations.length > 0 &&
           visibleSections.includes("education") ? (
           <View style={styles.section}>
-            <Text style={[styles.sectionTitle]}>Education</Text>
+            <Text style={[styles.sectionTitle]}>EDUCATON</Text>
             {educations.map((edu, index) => (
               <View key={index}>
                 {index < educations.length - 1 ? (

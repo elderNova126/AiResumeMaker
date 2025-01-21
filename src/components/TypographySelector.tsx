@@ -1,5 +1,3 @@
-import React from 'react';
-import { Check } from 'lucide-react';
 
 interface TypographySelectorProps {
   value: { font: string; size: string };

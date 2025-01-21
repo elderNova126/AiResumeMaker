@@ -12,25 +12,17 @@ import AddButton from "./AddButton";
 import WorkExperienceEditor from "./WorkExperienceEditor";
 import Ai_Modal from "./../components/Ai_Modal";
 import Contenteditable from "./Contenteditable";
-import { color } from "html2canvas/dist/types/css/types/color";
-import { fontStyle } from "html2canvas/dist/types/css/property-descriptors/font-style";
-import { fontWeight } from "html2canvas/dist/types/css/property-descriptors/font-weight";
+import type { ExperienceType } from '../types/resume';
 
-interface ExperienceType {
-  company: string;
-  dateRange: string;
-  position: string;
-  location: string;
-  description: string[];
-  isSplit: boolean;
-}
+
 
 const Experiences: React.FC<{
   setExperiences: React.Dispatch<React.SetStateAction<ExperienceType[]>>;
   experiences: ExperienceType[];
   themeColor: string;
+  experiencePlaceholder:string
   isSplit: boolean;
-}> = ({ setExperiences, experiences, themeColor, isSplit }) => {
+}> = ({ setExperiences, experiences, themeColor, experiencePlaceholder, isSplit }) => {
   const [showModal, setShowModal] = useState(false);
 
   const reorder = (
@@ -96,8 +88,8 @@ const Experiences: React.FC<{
             <div {...provided.droppableProps} ref={provided.innerRef} id="work">
               <h2
                 contentEditable="true"
-                translate-data="Experience"
-                placeholder="Experience"
+                translate-data={experiencePlaceholder}
+                placeholder={experiencePlaceholder}
                 data-gramm="false"
               ></h2>
               {experiences.map((experience, index) => (

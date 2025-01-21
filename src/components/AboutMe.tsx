@@ -7,16 +7,17 @@ interface AboutMeProps {
   setAbout: React.Dispatch<React.SetStateAction<string>>; // Expecting a string to be passed in
   about: string;
   themeColor: string;
+  summaryPlaceholder: string;
 }
 
-const AboutMe: React.FC<AboutMeProps> = ({ setAbout, about, themeColor }) => {
+const AboutMe: React.FC<AboutMeProps> = ({ setAbout, about, themeColor, summaryPlaceholder }) => {
   const [showModal, setShowModal] = useState(false);
   return (
     <div id="summary" className="with-border">
       <h2
         contentEditable="true"
-        translate-data="About Me"
-        placeholder="About Me"
+        translate-data={summaryPlaceholder}
+        placeholder={summaryPlaceholder}
       ></h2>
       <span>
         <Contenteditable

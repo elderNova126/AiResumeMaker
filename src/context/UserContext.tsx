@@ -1,26 +1,7 @@
 import React, { createContext, useState, useContext } from "react";
+import type { ExperienceType, EducationType, SkillType, LanguageType, HobbyType } from '../types/resume';
 
-interface Experience {
-  company: string;
-  dateRange: string;
-  position: string;
-  location:string;
-  description: string[];
-}
-interface Education {
-  school: string;
-  dateRange: string;
-  degree: string;
-}
-interface Skill {
-  skillname: string;
-}
-interface Language {
-  name: string;
-}
-interface Hobby {
-  name: string;
-}
+
 interface UserContextProps {
   name: string;
   setName: React.Dispatch<React.SetStateAction<string>>;
@@ -40,18 +21,18 @@ interface UserContextProps {
   setOther: React.Dispatch<React.SetStateAction<string>>;
   about: string;
   setAbout: React.Dispatch<React.SetStateAction<string>>;
-  experiences: Experience[];
-  setExperiences: React.Dispatch<React.SetStateAction<Experience[]>>;
-  educations: Education[];
-  setEducations: React.Dispatch<React.SetStateAction<Education[]>>;
-  skills: Skill[];
-  setSkills: React.Dispatch<React.SetStateAction<Skill[]>>;
-  languages: Language[];
-  setLanguages: React.Dispatch<React.SetStateAction<Language[]>>;
+  experiences: ExperienceType[];
+  setExperiences: React.Dispatch<React.SetStateAction<ExperienceType[]>>;
+  educations: EducationType[];
+  setEducations: React.Dispatch<React.SetStateAction<EducationType[]>>;
+  skills: SkillType[];
+  setSkills: React.Dispatch<React.SetStateAction<SkillType[]>>;
+  languages: LanguageType[];
+  setLanguages: React.Dispatch<React.SetStateAction<LanguageType[]>>;
   avatar: string;
   setAvatar: React.Dispatch<React.SetStateAction<string>>;
-  hobbies: Hobby[]
-  setHobbies: React.Dispatch<React.SetStateAction<Hobby[]>>;
+  hobbies: HobbyType[]
+  setHobbies: React.Dispatch<React.SetStateAction<HobbyType[]>>;
 }
 
 const UserContext = createContext<UserContextProps | undefined>(undefined);
@@ -68,7 +49,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   const [linkedin, setLinkedin] = useState("");
   const [other, setOther] = useState("");
   const [about, setAbout] = useState("");
-  const [experiences, setExperiences] = useState<Experience[]>([
+  const [experiences, setExperiences] = useState<ExperienceType[]>([
     {
       company: "",
       dateRange: "",
@@ -77,7 +58,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
       description: [],
     }
   ]);
-  const [educations, setEducations] = useState<Education[]>([
+  const [educations, setEducations] = useState<EducationType[]>([
     {
       school: "",
       dateRange: "",

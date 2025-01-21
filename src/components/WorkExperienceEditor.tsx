@@ -1,13 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-
-interface ExperienceType {
-  company: string;
-  dateRange: string;
-  position: string;
-  description: string[];
-}
+import type { ExperienceType } from '../types/resume';
 
 interface WorkExperienceEditorProps {
   initialDescription: string[];

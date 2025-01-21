@@ -9,10 +9,9 @@ import {
 import RemoveButton from "./RemoveButton";
 import ReorderButton from "./ReorderButton";
 import AddButton from "./AddButton";
+import type {HobbyType} from '../types/resume'
 
-interface HobbyType {
-  name: string;
-}
+
 const Hobbies: React.FC<{
   setHobbies: React.Dispatch<React.SetStateAction<HobbyType[]>>;
   hobbies: HobbyType[];

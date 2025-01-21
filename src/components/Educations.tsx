@@ -9,13 +9,8 @@ import {
 import RemoveButton from "./RemoveButton";
 import ReorderButton from "./ReorderButton";
 import AddButton from "./AddButton";
+import type {EducationType} from '../types/resume'
 
-interface EducationType {
-  school: string;
-  dateRange: string;
-  degree: string;
-  isSplit: boolean;
-}
 
 const Educations: React.FC<{
   setEducations: React.Dispatch<React.SetStateAction<EducationType[]>>;

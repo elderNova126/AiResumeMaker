@@ -9,10 +9,8 @@ import {
 import RemoveButton from "./RemoveButton";
 import ReorderButton from "./ReorderButton";
 import AddButton from "./AddButton";
+import type {LanguageType} from '../types/resume'
 
-interface LanguageType {
-  name: string;
-}
 
 const Languages: React.FC<{
   setLanguages: React.Dispatch<React.SetStateAction<LanguageType[]>>;

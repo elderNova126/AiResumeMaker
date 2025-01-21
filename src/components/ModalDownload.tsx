@@ -26,7 +26,7 @@ interface Hobby {
   name: string;
 }
 interface ModalDownloadProps {
-  setShowDownloadModal: () => boolean;
+  setShowDownloadModal: (prop: boolean) => void;
   currentLayout: string;
   themeColor: string;
   name: string;
@@ -76,30 +76,32 @@ const ModalDownload: React.FC<ModalDownloadProps> = ({
   async function updateGoogleSheet(position: number): Promise<any> {
     try {
       // Send the POST request to the server
-      const response = await fetch('http://localhost:5000/api/doc', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json', // Set header for JSON payload
-        },
-        body: JSON.stringify({ cellPosition: position }), // Send position as a number
-      });
-  
+      const response = await fetch(
+        "https://resumebackend-production-38f5.up.railway.app/api/doc",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json", // Set header for JSON payload
+          },
+          body: JSON.stringify({ cellPosition: position }), // Send position as a number
+        }
+      );
+
       // Check if the response status is OK (200-299)
       if (!response.ok) {
         throw new Error(`Server responded with status: ${response.status}`);
       }
-  
+
       // Parse the response
       const data = await response.text();
-      console.log('Response:', data);
+      console.log("Response:", data);
       return data;
     } catch (error) {
       // Log and rethrow errors
-      console.error('Error updating Google Sheet:', error);
+      console.error("Error updating Google Sheet:", error);
       throw error;
     }
   }
-
 
   return (
     <div id="modalDownload" className="modal" style={{ display: "flex" }}>
@@ -235,7 +237,10 @@ const ModalDownload: React.FC<ModalDownloadProps> = ({
                         id="freeDownloadBtn"
                         data-complete="Download"
                         disabled={downloadingLoading}
-                        onClick={() => updateGoogleSheet(0)}
+                        onClick={() => {
+                        //   setShowDownloadModal(false);
+                          updateGoogleSheet(0);
+                        }}
                       >
                         <svg
                           width="24"
@@ -283,6 +288,7 @@ const ModalDownload: React.FC<ModalDownloadProps> = ({
                         />
                       }
                       fileName={"Classic_Resume_" + name + ".pdf"}
+                      
                       //   style={{width:"inherit"}}
                     >
                       <>
@@ -291,7 +297,10 @@ const ModalDownload: React.FC<ModalDownloadProps> = ({
                           id="freeDownloadBtn"
                           data-complete="Download"
                           disabled={downloadingLoading}
-                          onClick={() => updateGoogleSheet(0)}
+                          onClick={() => {
+                            // setShowDownloadModal(false);
+                            updateGoogleSheet(0);
+                          }}
                         >
                           <svg
                             width="24"
@@ -347,7 +356,10 @@ const ModalDownload: React.FC<ModalDownloadProps> = ({
                           id="freeDownloadBtn"
                           data-complete="Download"
                           disabled={downloadingLoading}
-                          onClick={() => updateGoogleSheet(0)}
+                          onClick={() => {
+                            // setShowDownloadModal(false);
+                            updateGoogleSheet(0);
+                          }}
                         >
                           <svg
                             width="24"
@@ -405,8 +417,9 @@ const ModalDownload: React.FC<ModalDownloadProps> = ({
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="Share on LinkedIn"
-                    onClick={() => {setShareToDownload(false)
-                        updateGoogleSheet(1)
+                    onClick={() => {
+                      setShareToDownload(false);
+                      updateGoogleSheet(1);
                     }}
                   >
                     <svg
@@ -428,8 +441,9 @@ const ModalDownload: React.FC<ModalDownloadProps> = ({
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="Share on LinkedIn"
-                    onClick={() => {setShareToDownload(false)
-                        updateGoogleSheet(2)
+                    onClick={() => {
+                      setShareToDownload(false);
+                      updateGoogleSheet(2);
                     }}
                   >
                     <svg
@@ -449,7 +463,6 @@ const ModalDownload: React.FC<ModalDownloadProps> = ({
               )}
             </div>
           </div>
- 
         </div>
       </div>
     </div>

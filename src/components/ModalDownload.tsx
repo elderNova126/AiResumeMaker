@@ -237,9 +237,15 @@ const ModalDownload: React.FC<ModalDownloadProps> = ({
                         id="freeDownloadBtn"
                         data-complete="Download"
                         disabled={downloadingLoading}
-                        onClick={() => {
-                        //   setShowDownloadModal(false);
-                          updateGoogleSheet(0);
+                        onClick={() => {     
+                          (async () => {
+                            try {
+                              const result = await updateGoogleSheet(0);
+                              setShowDownloadModal(false);
+                            } catch (error) {
+                              console.error("Error in function call:", error);
+                            }
+                          })();  
                         }}
                       >
                         <svg
@@ -298,8 +304,14 @@ const ModalDownload: React.FC<ModalDownloadProps> = ({
                           data-complete="Download"
                           disabled={downloadingLoading}
                           onClick={() => {
-                            // setShowDownloadModal(false);
-                            updateGoogleSheet(0);
+                            (async () => {
+                              try {
+                                const result = await updateGoogleSheet(0);
+                                setShowDownloadModal(false);
+                              } catch (error) {
+                                console.error("Error in function call:", error);
+                              }
+                            })();  
                           }}
                         >
                           <svg
@@ -357,8 +369,14 @@ const ModalDownload: React.FC<ModalDownloadProps> = ({
                           data-complete="Download"
                           disabled={downloadingLoading}
                           onClick={() => {
-                            // setShowDownloadModal(false);
-                            updateGoogleSheet(0);
+                            (async () => {
+                              try {
+                                const result = await updateGoogleSheet(0);
+                                setShowDownloadModal(false);
+                              } catch (error) {
+                                console.error("Error in function call:", error);
+                              }
+                            })();  
                           }}
                         >
                           <svg

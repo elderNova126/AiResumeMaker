@@ -118,8 +118,8 @@ const Experiences: React.FC<{
                                     updatedContent
                                   );
                                 }}
-                                as="p"
-                                style={{ color: themeColor, fontWeight: "bold" }}
+                                as="h3"
+                                style={{  fontWeight: "bold" }}
                                 placeholder="Position"
                               /> <span style={{ fontSize: "large",display:"flex",alignItems:"center" }}>&nbsp;|&nbsp;</span>
                               <Contenteditable
@@ -131,9 +131,9 @@ const Experiences: React.FC<{
                                     updatedContent
                                   );
                                 }}
-                                as="p"
-                                style={{ fontWeight: "bold" }}
+                                as="p"                                
                                 placeholder="Company"
+                                style={{ fontWeight: "bold" }}
                               />
                             </div>
                             <div style={{ display: "flex" }}>

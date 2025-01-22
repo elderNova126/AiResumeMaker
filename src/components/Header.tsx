@@ -116,24 +116,35 @@ const Header: React.FC<HeaderProps> = ({
     });
   };
 
-  const confirmID = (sectionId: string) => {
-    const newSections = visibleSections.includes(sectionId)
-      ? visibleSections.filter((id) => id !== sectionId)
-      : [...visibleSections, sectionId];
-    setVisibleSections(newSections);
+  const confirmID = (sectionId: string[]) => {
+    let newSections = [...visibleSections];
+
+    sectionId.forEach((item) => {
+      newSections = newSections.includes(item)
+        ? newSections.filter((id) => id !== item)
+        : [...newSections, item];
+    });
+
+    setVisibleSections(newSections); // Update state
   };
   const handleImport = (data: DataType) => {
+    let ConfID: string[] = [];
     setName(data.Name || "");
-    const setFieldWithConfirmation = (
+    const setFieldWithConfirmation = async (
       fieldValue: string | undefined,
       fieldName: string,
       setFunction: (value: string) => void
     ) => {
-      if (fieldValue && fieldValue.trim() !== "") {
+      if (typeof fieldValue === "string" && fieldValue && fieldValue.trim() !== "") {
         setFunction(fieldValue);
       } else {
-        confirmID(fieldName);
-        setFunction("");
+        if (Array.isArray(fieldValue)) {
+          setFunction(fieldValue.join(" "));
+        } else {
+          ConfID.push(fieldName);
+          setFunction("");
+        }
+
       }
     };
     setFieldWithConfirmation(data.Role, "role", setRole);
@@ -145,28 +156,30 @@ const Header: React.FC<HeaderProps> = ({
     setFieldWithConfirmation(data.Other, "other", setOther);
     setFieldWithConfirmation(data.Profile, "about", setAbout);
 
+    confirmID(ConfID);
+
     const formattedSkills =
       Array.isArray(data.Skill) && data.Skill.length > 0
         ? data.Skill.map((item) => ({
-            skillname: typeof item === "string" ? [item] : item,
-          }))
+          skillname: typeof item === "string" ? [item] : item,
+        }))
         : [{ skillname: "" }];
     setSkills(formattedSkills);
 
     const transformedLng =
       Array.isArray(data.Language) && data.Language.length > 0
         ? data.Language.map((item) => ({
-            name: typeof item.Name === "string" ? [item.Name] : item.Name,
-            level: item.Level,
-          }))
+          name: typeof item.Name === "string" ? [item.Name] : item.Name,
+          level: item.Level,
+        }))
         : [{ name: "", level: "" }];
     setLanguages(transformedLng);
 
     const transformedHob =
       Array.isArray(data.Interest) && data.Interest.length > 0
         ? data.Interest.map((item) => ({
-            name: typeof item === "string" ? [item] : item,
-          }))
+          name: typeof item === "string" ? [item] : item,
+        }))
         : [{ name: "" }];
 
     setHobbies(transformedHob);
@@ -174,34 +187,34 @@ const Header: React.FC<HeaderProps> = ({
     const transformedExperiences =
       Array.isArray(data.Experience) && data.Experience.length > 0
         ? data.Experience.map((exp) => ({
-            company: exp.Company,
-            dateRange: exp.DateRange,
-            position: exp.Position,
-            location: exp.Location,
-            description:
-              typeof exp.Description === "string"
-                ? [exp.Description]
-                : exp.Description,
-          }))
+          company: exp.Company,
+          dateRange: exp.DateRange,
+          position: exp.Position,
+          location: exp.Location,
+          description:
+            typeof exp.Description === "string"
+              ? [exp.Description]
+              : exp.Description,
+        }))
         : [
-            {
-              company: "",
-              dateRange: "",
-              position: "",
-              location: "",
-              description: [],
-            },
-          ];
+          {
+            company: "",
+            dateRange: "",
+            position: "",
+            location: "",
+            description: [],
+          },
+        ];
 
     setExperiences(transformedExperiences);
 
     const transformedEducation =
       Array.isArray(data.Education) && data.Education.length > 0
         ? data.Education.map((item) => ({
-            school: item.School,
-            dateRange: item.DateRange,
-            degree: item.Degree,
-          }))
+          school: item.School,
+          dateRange: item.DateRange,
+          degree: item.Degree,
+        }))
         : [{ school: "", dateRange: "", degree: "" }];
     setEducations(transformedEducation);
   };
@@ -344,9 +357,8 @@ const Header: React.FC<HeaderProps> = ({
             </button>
             <button
               onClick={() => setShowDownloadModal(true)}
-              className={`flex items-center space-x-2 px-4 py-2 text-default-sm text-white rounded-md transition-all hover:opacity-90 ${
-                downloadingLoading ? "opacity-50" : ""
-              }`}
+              className={`flex items-center space-x-2 px-4 py-2 text-default-sm text-white rounded-md transition-all hover:opacity-90 ${downloadingLoading ? "opacity-50" : ""
+                }`}
               style={{ backgroundColor: currentColor, height: "20px" }}
               disabled={downloadingLoading}
             >

@@ -209,11 +209,11 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
       alignItems: "center",
       padding: 5,
     },
-    profileImage: {
-      width: 80,
-      height: 80,
-      borderRadius: "50%",
-      marginLeft: 15, // Add margin to the left to create space between avatar and text
+    headerCenteredContainer: {
+      // flex: 1,
+      justifyContent: "center",
+      alignItems: "flex-start",
+      marginBottom: 10,
     },
     nameRoleContainer: {
       flex: 1, // Ensures the container takes up the remaining space
@@ -249,7 +249,7 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
       textTransform: "uppercase",
       paddingBottom: 5,
     },
-    
+
     contactRow: {
       flexDirection: "row",
       flexWrap: "wrap",
@@ -397,10 +397,11 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
     <Document>
       <Page size="A4" style={styles.page}>
         {/* Header */}
-        <View style={styles.header}>
-          <View style={styles.nameRoleContainer}>
-            <Text style={[styles.name, { color: themeColor }]}>{name}</Text>
-          </View>
+        <View style={styles.headerCenteredContainer}>
+          <Text style={[styles.name, { color: themeColor }]}>{name}</Text>
+          {visibleSections.includes("role") ? (
+            <Text style={styles.role}>{role}</Text>
+          ) : null}
         </View>
         <View>
           {email || phone || location || websiteLink || linkedinLink ? (

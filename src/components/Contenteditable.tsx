@@ -24,13 +24,14 @@ const Contenteditable: React.FC<ContenteditableProps> = (props) => {
     <ElementType
       contentEditable="true"
       ref={contentEditableRef}
-      {...rest}
+      
       onInput={(event) => {
         if (contentEditableRef.current) {
           onChange(event.target.textContent || "");
         }
       }}
-      style={{overflowWrap: "anywhere"}}
+      style={{overflowWrap: "anywhere",}}
+      {...rest}
     >
       {children}
     </ElementType>

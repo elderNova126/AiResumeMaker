@@ -211,11 +211,9 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
       padding: 20,
     },
     header: {
-      flexDirection: "row",
-      alignItems: "flex-start",
-      justifyContent: "space-between",
-      borderBottomWidth: 1,
-      borderBottomColor: "#ccc",
+      flexDirection: "row-reverse", // Reverse the direction of the row
+      alignItems: "center",
+      padding: 5,
     },
     headerCenteredContainer: {
       // flex: 1,
@@ -245,6 +243,7 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
     role: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
       fontSize: 10,
+      textTransform: "uppercase",
       textAlign: "right",
       marginTop: 5,
     },

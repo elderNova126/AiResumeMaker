@@ -95,7 +95,7 @@ const Educations: React.FC<{
                               onChange={(updatedContent) => {
                                 updateEducation(index, "degree", updatedContent);
                               }}
-                              as="p"
+                              as="h3"
                               placeholder="Degree"
                               style={{ color: themeColor, fontWeight: "bold" }}
                             />

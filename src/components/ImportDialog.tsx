@@ -120,6 +120,7 @@ const ImportDialog = ({ onClose, onImport }: ImportDialogProps) => {
           {
             headers: {
               "Content-Type": "application/json",
+              Authorization: `Bearer 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`, // Replace with your API key
             },
           }
         );

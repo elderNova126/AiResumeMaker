@@ -208,7 +208,8 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
   const styles = StyleSheet.create({
     page: {
       backgroundColor: "#FFFFFF",
-      padding: 20,
+      paddingVertical: 30,
+      paddingHorizontal: 30,
     },
     header: {
       flexDirection: "row-reverse", // Reverse the direction of the row
@@ -424,61 +425,61 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
             <Text style={styles.text}>{summery}</Text>
           </View>
         )}
-        
-          {email || phone || location || websiteLink || linkedinLink ? (
-            <View style={styles.section}>
-              <Text style={{ ...styles.sectionTitle }}>PERSONAL DETAILS</Text>
-              <View style={styles.contactRow}>
-                {location && visibleSections.includes("location") ? (
-                  <ContactItem
-                    path={LocationSvgPath}
-                    color={themeColor}
-                    text={location}
-                    fontF={currentTypography.font}
-                    fontS={currentTypography.size}
-                  />
-                ) : null}
-                {email && visibleSections.includes("email") ? (
-                  <ContactItem
-                    path={MailSvgPath}
-                    color={themeColor}
-                    text={email}
-                    fontF={currentTypography.font}
-                    fontS={currentTypography.size}
-                  />
-                ) : null}
-                {phone && visibleSections.includes("phone") ? (
-                  <ContactItem
-                    path={PhoneSvgPath}
-                    color={themeColor}
-                    text={phone}
-                    fontF={currentTypography.font}
-                    fontS={currentTypography.size}
-                  />
-                ) : null}
 
-                {websiteLink && visibleSections.includes("website") ? (
-                  <ContactItem
-                    path={WebsiteSvgPath}
-                    color={themeColor}
-                    text={websiteLink}
-                    fontF={currentTypography.font}
-                    fontS={currentTypography.size}
-                  />
-                ) : null}
-                {linkedinLink && visibleSections.includes("linkedin") ? (
-                  <ContactItem
-                    path={LinkedSvgPath}
-                    color={themeColor}
-                    text={linkedinLink}
-                    fontF={currentTypography.font}
-                    fontS={currentTypography.size}
-                  />
-                ) : null}
-              </View>
-              </View>
-          ) : null}
-        
+        {email || phone || location || websiteLink || linkedinLink ? (
+          <View style={styles.section}>
+            <Text style={{ ...styles.sectionTitle }}>PERSONAL DETAILS</Text>
+            <View style={styles.contactRow}>
+              {location && visibleSections.includes("location") ? (
+                <ContactItem
+                  path={LocationSvgPath}
+                  color={themeColor}
+                  text={location}
+                  fontF={currentTypography.font}
+                  fontS={currentTypography.size}
+                />
+              ) : null}
+              {email && visibleSections.includes("email") ? (
+                <ContactItem
+                  path={MailSvgPath}
+                  color={themeColor}
+                  text={email}
+                  fontF={currentTypography.font}
+                  fontS={currentTypography.size}
+                />
+              ) : null}
+              {phone && visibleSections.includes("phone") ? (
+                <ContactItem
+                  path={PhoneSvgPath}
+                  color={themeColor}
+                  text={phone}
+                  fontF={currentTypography.font}
+                  fontS={currentTypography.size}
+                />
+              ) : null}
+
+              {websiteLink && visibleSections.includes("website") ? (
+                <ContactItem
+                  path={WebsiteSvgPath}
+                  color={themeColor}
+                  text={websiteLink}
+                  fontF={currentTypography.font}
+                  fontS={currentTypography.size}
+                />
+              ) : null}
+              {linkedinLink && visibleSections.includes("linkedin") ? (
+                <ContactItem
+                  path={LinkedSvgPath}
+                  color={themeColor}
+                  text={linkedinLink}
+                  fontF={currentTypography.font}
+                  fontS={currentTypography.size}
+                />
+              ) : null}
+            </View>
+          </View>
+        ) : null}
+
 
         {/* Experience Section */}
         {Array.isArray(experiences) && experiences.length > 0 && visibleSections.includes("experience") ? (
@@ -578,6 +579,10 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
             <Text style={[styles.skill, { width: "100%" }]}>{other}</Text>
           </View>
         ) : null}
+
+        <View style={{ paddingVertical: 30, }}>
+          <Text style={{ textAlign: "center", fontSize: 8, fontFamily: 'Nunito' }}>Created by: aiResumeMaker.Online</Text>
+        </View>
       </Page>
     </Document>
     //</PDFViewer>

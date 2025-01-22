@@ -202,7 +202,8 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
   const styles = StyleSheet.create({
     page: {
       backgroundColor: "#FFFFFF",
-      padding: 20,
+      paddingVertical: 30,
+      paddingHorizontal: 30,
     },
     header: {
       flexDirection: "row-reverse", // Reverse the direction of the row
@@ -399,9 +400,6 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
         {/* Header */}
         <View style={styles.headerCenteredContainer}>
           <Text style={[styles.name, { color: themeColor }]}>{name}</Text>
-          {visibleSections.includes("role") ? (
-            <Text style={styles.role}>{role}</Text>
-          ) : null}
         </View>
         <View>
           {email || phone || location || websiteLink || linkedinLink ? (
@@ -597,6 +595,10 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
             <Text style={[styles.skill, { width: "100%" }]}>{other}</Text>
           </View>
         ) : null}
+
+          <View style={{paddingVertical: 30,}}>
+            <Text style={{textAlign:"center",fontSize:8,fontFamily:'Nunito'}}>Created by: aiResumeMaker.Online</Text>            
+          </View>
       </Page>
     </Document>
     //</PDFViewer>

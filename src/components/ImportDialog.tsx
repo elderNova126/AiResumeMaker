@@ -120,7 +120,6 @@ const ImportDialog = ({ onClose, onImport }: ImportDialogProps) => {
           {
             headers: {
               "Content-Type": "application/json",
-              // Authorization: `Bearer sk-`, // Replace with your API key
             },
           }
         );

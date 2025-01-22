@@ -202,8 +202,8 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
     page: {
       flexDirection: "column",
       backgroundColor: "#FFFFFF",
-      paddingVertical: 20,
-      paddingHorizontal: 20,
+      paddingVertical: 30,
+      paddingHorizontal: 30,
     },
     header: {
       flexDirection: "row",
@@ -244,12 +244,10 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
       width: "30%",
       // backgroundColor: "#f3f4f6",
       padding: 8,
-      paddingBottom: 20,
     },
     rightColumn: {
       width: "70%",
       padding: 8,
-      paddingBottom: 20,
     },
     sectionTitle: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
@@ -286,7 +284,7 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
       fontSize: getFontSize1(currentTypography.size) || 8,
       marginBottom: 10,
       lineHeight: 1.5,
-      textOverflow:""
+      textOverflow: ""
     },
     LangGridContainer: {
       flexDirection: "column",
@@ -325,7 +323,13 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
       boxSizing: "border-box", // Ensures padding does not affect width
       transition: "transform 0.2s ease-in-out", // Hover effect for interactivity (optional, if applicable in PDF context)
     },
-
+    otherText: {
+      fontFamily: getFontFamily(currentTypography.font) || "Nunito",
+      fontSize: getFontSize1(currentTypography.size) || 8,
+      borderRadius: 3,
+      boxSizing: "border-box", // Ensures padding does not affect width
+      transition: "transform 0.2s ease-in-out", // Hover effect for interactivity (optional, if applicable in PDF context)
+    },
     timelineContainer: {
       position: "relative",
       paddingLeft: 30,
@@ -583,12 +587,16 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
             {other && visibleSections.includes("other") ? (
               <View>
                 <Text style={[styles.sectionTitle]}>Other</Text>
-                <Text style={[styles.skillItem]}>
+                <Text style={[styles.otherText]}>
                   {other}
                 </Text>
               </View>
             ) : null}
+
           </View>
+        </View>
+        <View style={{ paddingVertical: 30, }}>
+          <Text style={{ textAlign: "center", fontSize: 8, fontFamily: 'Nunito' }}>Created by: aiResumeMaker.Online</Text>
         </View>
       </Page>
     </Document>

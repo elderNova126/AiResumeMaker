@@ -137,9 +137,15 @@ const Header: React.FC<HeaderProps> = ({
     ) => {
       if (typeof fieldValue === "string" && fieldValue && fieldValue.trim() !== "") {
         setFunction(fieldValue);
+        if(!visibleSections.includes(fieldName)){
+          ConfID.push(fieldName);
+        }
       } else {
         if (Array.isArray(fieldValue)) {
           setFunction(fieldValue.join(" "));
+          if(!visibleSections.includes(fieldName)){
+            ConfID.push(fieldName);
+          }
         } else {
           ConfID.push(fieldName);
           setFunction("");

@@ -120,15 +120,15 @@ const ImportDialog = ({ onClose, onImport }: ImportDialogProps) => {
           {
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer sk-`, // Replace with your API key
+              // Authorization: `Bearer sk-`, // Replace with your API key
             },
           }
         );
         const parsedContent = await response.data.choices[0].message.content.replace("```json", "").replace("```", "");
         jsonData = await mergeJSON(jsonData, JSON.parse(parsedContent));
-        console.log(i,"-------------send data------------",chunks[i]);
-        console.log(i,"-------------receive data------------",JSON.parse(parsedContent));
-        console.log(i,"-------------json data------------",jsonData);
+        console.log(i, "-------------send data------------", chunks[i]);
+        console.log(i, "-------------receive data------------", JSON.parse(parsedContent));
+        console.log(i, "-------------json data------------", jsonData);
         // return JSON.parse(parsedContent);
       } catch (err) {
         console.error("Error extracting data:", err);

@@ -120,7 +120,7 @@ const ImportDialog = ({ onClose, onImport }: ImportDialogProps) => {
           {
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer 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`, // Replace with your API key
+              Authorization: `Bearer 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`, // Replace with your API key
             },
           }
         );

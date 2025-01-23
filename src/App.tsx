@@ -84,8 +84,8 @@ function App() {
     "education",
     "skills",
     "languages",
-    "interests",
-    "other",
+    // "interests",
+    // "other",
   ]);
 
   const chosePage = () => {

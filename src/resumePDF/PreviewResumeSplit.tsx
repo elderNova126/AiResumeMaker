@@ -215,6 +215,14 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
       justifyContent: "center",
       alignItems: "flex-start",
     },
+    footer: {
+      position: 'absolute',
+      bottom: 5, // Fixed at the bottom of the page
+      left: 0,
+      right: 0,
+      textAlign: 'center',
+      fontSize: 8,
+    },
     profileImage: {
       width: 120,
       height: 120,
@@ -595,8 +603,8 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
 
           </View>
         </View>
-        <View style={{ paddingVertical: 30, }}>
-          <Text style={{ textAlign: "center", fontSize: 8, fontFamily: 'Nunito' }}>Created by: aiResumeMaker.Online</Text>
+        <View>
+          <Text style={{...styles.footer, fontFamily: 'Nunito' }}>Created by: aiResumeMaker.Online</Text>
         </View>
       </Page>
     </Document>

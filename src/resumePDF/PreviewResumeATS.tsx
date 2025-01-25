@@ -201,9 +201,14 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
 
   const styles = StyleSheet.create({
     page: {
+      flexDirection: "column",
       backgroundColor: "#FFFFFF",
-      paddingVertical: 30,
-      paddingHorizontal: 30,
+      paddingVertical: 35,
+      paddingHorizontal: 35,
+    },
+    mainContent: {
+      flexDirection: "column",
+      flex: 1,
     },
     header: {
       flexDirection: "row-reverse", // Reverse the direction of the row
@@ -215,6 +220,14 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
       justifyContent: "center",
       alignItems: "flex-start",
       marginBottom: 10,
+    },
+    footer: {
+      position: 'absolute',
+      bottom: 5, // Fixed at the bottom of the page
+      left: 0,
+      right: 0,
+      textAlign: 'center',
+      fontSize: 8,
     },
     nameRoleContainer: {
       flex: 1, // Ensures the container takes up the remaining space
@@ -239,6 +252,7 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
       color: "#666",
       marginTop: 5,
     },
+
     section: {
       marginBottom: 10,
     },
@@ -250,7 +264,6 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
       textTransform: "uppercase",
       paddingBottom: 5,
     },
-
     contactRow: {
       flexDirection: "row",
       flexWrap: "wrap",
@@ -279,6 +292,14 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
       // marginBottom: 20,
       marginLeft: 20,
     },
+    jobDateBlock: {
+      display: "flex", // Enable flexbox
+      flexDirection: "row", // Arrange children horizontally
+      // justifyContent: "space-between", // Push items to opposite ends
+      alignItems: "center", // Align items vertically in the center
+      width: "100%", // Full width of the container
+      marginBottom:5,
+    },
     jobTitle: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
       fontSize: getFontSize1(currentTypography.size) || 8,
@@ -287,7 +308,6 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
     companyDetails: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
       fontSize: getFontSize1(currentTypography.size) || 8,
-      marginBottom: 5,
     },
     bulletPoint: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
@@ -321,7 +341,7 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
       display: "flex",
       flexDirection: "row", // Display items in a row
       flexWrap: "wrap", // Allow wrapping to the next line
-      gap: 12, // Add space between items
+      gap: 4, // Add space between items
       // marginTop: 10,
     },
     skill: {
@@ -330,17 +350,9 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
       fontSize: getFontSize1(currentTypography.size) || 8,
       borderRadius: 3,
       paddingHorizontal: 12,
-
       boxSizing: "border-box", // Ensures padding does not affect width
       // marginBottom: 5, // Add space between rows
       transition: "transform 0.2s ease-in-out", // Hover effect for interactivity (optional, if applicable in PDF context)
-    },
-    skillGridContainer1: {
-      display: "flex",
-      flexDirection: "row", // Display items in a row
-      flexWrap: "wrap", // Allow wrapping to the next line
-      gap: 12, // Add space between items
-      marginTop: 10,
     },
 
     skillItem: {
@@ -401,7 +413,7 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
         <View style={styles.headerCenteredContainer}>
           <Text style={[styles.name, { color: themeColor }]}>{name}</Text>
         </View>
-        <View>
+        <View style={styles.mainContent}>
           {email || phone || location || websiteLink || linkedinLink ? (
             <View style={styles.section}>
               {/* <Text style={{ ...styles.sectionTitle }}>PERSONAL DETAILS</Text> */}
@@ -454,151 +466,143 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
               </View>
             </View>
           ) : null}
-        </View>
-        {/* Summary Section */}
-        {summery && visibleSections.includes("about") && (
-          <View style={styles.section}>
-            <Text style={[styles.sectionTitle]}>PROFESSIONAL SUMMARY</Text>
-            <Text style={styles.text}>{summery}</Text>
-          </View>
-        )}
 
-        {/* Experience Section */}
-        {Array.isArray(experiences) &&
-          experiences.length > 0 &&
-          visibleSections.includes("experience") ? (
-          <View style={[styles.section]}>
-            <Text style={[styles.sectionTitle]}>PROFESSIONAL EXPERIENCE</Text>
-            {experiences.map((experience, index) => (
-              <View key={index}>
-                {index < experiences.length - 1 ? (
-                  <Timeline themeColor={themeColor} />
-                ) : null}
-                <TimeDot themeColor={themeColor} />
-                <View style={styles.experienceBlock}>
-                  <Text style={styles.text}>
-                    <Text style={{ ...styles.jobTitle, color: themeColor }}>
-                      {experience.position}{" "}
-                    </Text>
-                    <Text
-                      style={{ ...styles.companyDetails, fontWeight: "bold" }}
-                    >
-                      {" "} |{" "}  {experience.company}
-                    </Text>
-                  </Text>
-                  <Text style={styles.text}>
-                    <Text style={styles.date}>{experience.dateRange}</Text>
-                    <Text style={styles.text}> {" "}-{" "} {experience.location} </Text>
-                  </Text>
+          {/* Summary Section */}
+          {summery && visibleSections.includes("about") && (
+            <View style={styles.section}>
+              <Text style={[styles.sectionTitle]}>PROFESSIONAL SUMMARY</Text>
+              <Text style={styles.text}>{summery}</Text>
+            </View>
+          )}
 
-                  {experience.description.map((point, i) =>
-                    point !== "<br>" ? (
-                      <Text key={i} style={styles.bulletPoint}>
-                        • {point}
+          {/* Experience Section */}
+          {Array.isArray(experiences) &&
+            experiences.length > 0 &&
+            visibleSections.includes("experience") ? (
+            <View style={[styles.section]}>
+              <Text style={[styles.sectionTitle]}>PROFESSIONAL EXPERIENCE</Text>
+              {experiences.map((experience, index) => (
+                <View key={index}>
+                  {index < experiences.length - 1 ? (
+                    <Timeline themeColor={themeColor} />
+                  ) : null}
+                  <TimeDot themeColor={themeColor} />
+                  <View style={styles.experienceBlock}>
+                    <Text style={styles.text}>
+                      <Text style={{ ...styles.jobTitle, color: themeColor }}>
+                        {experience.position}{" "}
                       </Text>
-                    ) : null
-                  )}
-                </View>
-              </View>
-            ))}
-          </View>
-        ) : null}
+                      <Text
+                        style={{ ...styles.companyDetails, fontWeight: "bold" }}
+                      >
+                        {" "} |{" "}  {experience.company}
+                      </Text>
+                    </Text>
+                    <Text style={styles.text}>
+                      <Text style={styles.date}>{experience.dateRange}</Text>
+                      <Text style={styles.text}> {" "}-{" "} {experience.location} </Text>
+                    </Text>
 
-        {/* Education Section */}
-        {Array.isArray(educations) &&
-          educations.length > 0 &&
-          visibleSections.includes("education") ? (
-          <View style={styles.section}>
-            <Text style={[styles.sectionTitle]}>EDUCATON</Text>
-            {educations.map((edu, index) => (
-              <View key={index}>
-                {index < educations.length - 1 ? (
-                  <Timeline themeColor={themeColor} />
-                ) : null}
-                <TimeDot themeColor={themeColor} />
-                <View style={styles.educationBlock}>
-                  <Text style={styles.text}>
-                    <Text
-                      style={{
-                        ...styles.jobTitle,
-                        color: themeColor,
-                        fontWeight: "bold",
-                      }}
-                    >
-                      {edu.degree}{" "}
-                    </Text>
-                    <Text style={{ ...styles.text, fontWeight: "bold" }}>
-                      {" "}
-                      - {edu.school}{" "}
-                    </Text>
+                    {experience.description.map((point, i) =>
+                      point !== "<br>" ? (
+                        <Text key={i} style={styles.bulletPoint}>
+                          • {point}
+                        </Text>
+                      ) : null
+                    )}
+                  </View>
+                </View>
+              ))}
+            </View>
+          ) : null}
+
+          {/* Education Section */}
+          {Array.isArray(educations) &&
+            educations.length > 0 &&
+            visibleSections.includes("education") ? (
+            <View style={styles.section}>
+              <Text style={[styles.sectionTitle]}>EDUCATON</Text>
+              {educations.map((edu, index) => (
+                <View key={index}>
+                  {index < educations.length - 1 ? (
+                    <Timeline themeColor={themeColor} />
+                  ) : null}
+                  <TimeDot themeColor={themeColor} />
+                  <View style={styles.educationBlock}>
+                    <View style={styles.jobDateBlock}>
+                      <Text style={{ ...styles.jobTitle, color: themeColor, fontWeight: "bold", }}>
+                        {edu.degree}
+                      </Text>
+                      <Text style={{ ...styles.companyDetails, fontWeight: "bold" }}> {" "}-{" "} {edu.school}
+                      </Text>
+                    </View>
+                    <Text style={styles.text}>{edu.dateRange}</Text>
+                  </View>
+                </View>
+              ))}
+            </View>
+          ) : null}
+          {/* Skills Section */}
+          {Array.isArray(skills) &&
+            skills.length > 0 &&
+            visibleSections.includes("skills") ? (
+            <View style={styles.section}>
+              <Text style={[styles.sectionTitle]}>Skills</Text>
+              <View style={styles.skillGridContainer}>
+                {skills.map((skill, index) => (
+                  <Text key={index} style={styles.skill}>
+                    • {skill.skillname}
                   </Text>
-                  <Text style={styles.text}>{edu.dateRange}</Text>
-                </View>
+                ))}
               </View>
-            ))}
-          </View>
-        ) : null}
-        {/* Skills Section */}
-        {Array.isArray(skills) &&
-          skills.length > 0 &&
-          visibleSections.includes("skills") ? (
-          <View style={styles.section}>
-            <Text style={[styles.sectionTitle]}>Skills</Text>
-            <View style={styles.skillGridContainer}>
-              {skills.map((skill, index) => (
-                <Text key={index} style={styles.skill}>
-                  • {skill.skillname}
-                </Text>
-              ))}
             </View>
-          </View>
-        ) : null}
+          ) : null}
 
-        {/* Languages Section */}
-        {Array.isArray(languages) &&
-          languages.length > 0 &&
-          visibleSections.includes("languages") ? (
-          <View style={styles.section}>
-            <Text style={[styles.sectionTitle]}>Language</Text>
-            <View style={styles.skillGridContainer}>
-              {languages.map((language, index) => (
-                <Text key={index} style={styles.skill}>
-                  • {language.name}
-                </Text>
-              ))}
+          {/* Languages Section */}
+          {Array.isArray(languages) &&
+            languages.length > 0 &&
+            visibleSections.includes("languages") ? (
+            <View style={styles.section}>
+              <Text style={[styles.sectionTitle]}>Language</Text>
+              <View style={styles.skillGridContainer}>
+                {languages.map((language, index) => (
+                  <Text key={index} style={styles.skill}>
+                    • {language.name}
+                  </Text>
+                ))}
+              </View>
             </View>
-          </View>
-        ) : null}
-        {Array.isArray(hobbies) &&
-          hobbies.length > 0 &&
-          visibleSections.includes("interests") ? (
-          <View style={styles.section}>
-            <Text
-              style={[
-                styles.sectionTitle,
-              ]}
-            >
-              Activities
-            </Text>
-            <View style={styles.skillGridContainer}>
-              {hobbies.map((hobby, index) => (
-                <Text key={index} style={styles.skill}>
-                  • {hobby.name}
-                </Text>
-              ))}
+          ) : null}
+          {Array.isArray(hobbies) &&
+            hobbies.length > 0 &&
+            visibleSections.includes("interests") ? (
+            <View style={styles.section}>
+              <Text
+                style={[
+                  styles.sectionTitle,
+                ]}
+              >
+                Activities
+              </Text>
+              <View style={styles.skillGridContainer}>
+                {hobbies.map((hobby, index) => (
+                  <Text key={index} style={styles.skill}>
+                    • {hobby.name}
+                  </Text>
+                ))}
+              </View>
             </View>
-          </View>
-        ) : null}
-        {other && visibleSections.includes("other") ? (
-          <View style={styles.section}>
-            <Text style={[styles.sectionTitle]}>Other</Text>
-            <Text style={[styles.skill, { width: "100%" }]}>{other}</Text>
-          </View>
-        ) : null}
-
-          <View style={{paddingVertical: 30,}}>
-            <Text style={{textAlign:"center",fontSize:8,fontFamily:'Nunito'}}>Created by: aiResumeMaker.Online</Text>            
-          </View>
+          ) : null}
+          {other && visibleSections.includes("other") ? (
+            <View style={styles.section}>
+              <Text style={[styles.sectionTitle]}>Other</Text>
+              <Text style={[styles.skill, { width: "100%" }]}>{other}</Text>
+            </View>
+          ) : null}
+        </View>
+        <View>
+          <Text style={{ ...styles.footer, fontFamily: 'Nunito' }}>Created by: aiResumeMaker.Online</Text>
+        </View>
       </Page>
     </Document>
     //</PDFViewer>

@@ -18,7 +18,8 @@ import {
   LinkedSvgPath,
   PdfSvgCircleIcon,
 } from "../consts/SvgConst";
-
+import RegisterFonts from "../consts/FontRegister";
+RegisterFonts();
 interface ContactItemProps {
   path: string;
   text: string;
@@ -233,7 +234,7 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
       left: 0,
       right: 0,
       textAlign: 'center',
-      fontSize: 8,
+      fontSize: (parseInt(getFontSize1(currentTypography.size))-2).toString(),
     },
     profileImage: {
       width: 80,
@@ -249,14 +250,14 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
 
     name: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
-      fontSize: 24,
+      fontSize: (parseInt(getFontSize1(currentTypography.size))+14).toString(),
       fontWeight: "bold",
       textAlign: "right",
       color: "#000",
     },
     role: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
-      fontSize: 10,
+      fontSize: (parseInt(getFontSize1(currentTypography.size))+1).toString(),
       textTransform: "uppercase",
       textAlign: "right",
       marginTop: 5,
@@ -273,7 +274,7 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
     sectionTitle: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
       fontWeight: "bold",
-      fontSize: 10,
+      fontSize: getFontSize1(currentTypography.size),
       marginBottom: 5,
       textTransform: "uppercase",
       paddingBottom: 5,
@@ -320,7 +321,7 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
     },
     jobTitle: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
-      fontSize: getFontSize1(currentTypography.size) || 8,
+      fontSize: (parseInt(getFontSize1(currentTypography.size))-1).toString() || 8,
       fontWeight: "bold",
       marginVertical: 10,
       textTransform: "uppercase",
@@ -374,7 +375,7 @@ const PreviewResumeClassic: React.FC<PreviewResumeClassicProps> = ({
       display: "flex",
       flexDirection: "row", // Display items in a row
       flexWrap: "wrap", // Allow wrapping to the next line
-      gap: 4, // Add space between items
+      gap: 2, // Add space between items
       // marginTop: 10,
     },
     skill: {

@@ -18,7 +18,8 @@ import {
   LinkedSvgPath,
   PdfSvgCircleIcon,
 } from "../consts/SvgConst";
-
+import RegisterFonts from "../consts/FontRegister";
+RegisterFonts();
 const lightenColor = (color: string, add: number) => {
   let r = 0,
     g = 0,
@@ -221,7 +222,7 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
       left: 0,
       right: 0,
       textAlign: 'center',
-      fontSize: 8,
+      fontSize: (parseInt(getFontSize1(currentTypography.size))-2).toString(),
     },
     profileImage: {
       width: 120,
@@ -230,14 +231,14 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
     },
     name: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
-      fontSize: 24,
+      fontSize: (parseInt(getFontSize1(currentTypography.size))+14).toString(),
       fontWeight: "bold",
       // textAlign: "right",
       paddingLeft: 20,
     },
     role: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
-      fontSize: 10,
+      fontSize: (parseInt(getFontSize1(currentTypography.size))+1).toString(),
       fontWeight: "bold",
       paddingLeft: 20,
       textTransform: "uppercase",
@@ -260,7 +261,7 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
     sectionTitle: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
       fontWeight: "bold",
-      fontSize: 10,
+      fontSize: getFontSize1(currentTypography.size),
       marginBottom: 5,
       textTransform: "uppercase",
       paddingBottom: 5,
@@ -319,7 +320,7 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
       display: "flex",
       flexDirection: "row", // Display items in a row
       flexWrap: "wrap", // Allow wrapping to the next line
-      gap: 8, // Add space between items
+      gap: 2, // Add space between items
       // marginTop: 10,
     },
 
@@ -382,7 +383,7 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
     },
     jobTitle: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
-      fontSize: getFontSize1(currentTypography.size) || 8,
+      fontSize: (parseInt(getFontSize1(currentTypography.size))-1).toString() || 8,
       fontWeight: "bold",
       textTransform: "uppercase",
       // marginBottom: 5,

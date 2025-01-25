@@ -18,7 +18,8 @@ import {
   LinkedSvgPath,
   PdfSvgCircleIcon,
 } from "../consts/SvgConst";
-
+import RegisterFonts from "../consts/FontRegister";
+RegisterFonts();
 interface TimeProps {
   themeColor: string;
 }
@@ -227,7 +228,7 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
       left: 0,
       right: 0,
       textAlign: 'center',
-      fontSize: 8,
+      fontSize: (parseInt(getFontSize1(currentTypography.size))-2).toString(),
     },
     nameRoleContainer: {
       flex: 1, // Ensures the container takes up the remaining space
@@ -236,13 +237,13 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
     },
     name: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
-      fontSize: 24,
+      fontSize: (parseInt(getFontSize1(currentTypography.size))+14).toString(),
       fontWeight: "bold",
       color: themeColor,
     },
     role: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
-      fontSize: 10,
+      fontSize: (parseInt(getFontSize1(currentTypography.size))+1).toString(),
       marginTop: 5,
     },
 
@@ -259,7 +260,7 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
     sectionTitle: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
       fontWeight: "bold",
-      fontSize: 10,
+      fontSize: getFontSize1(currentTypography.size),
       marginBottom: 5,
       textTransform: "uppercase",
       paddingBottom: 5,
@@ -302,7 +303,7 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
     },
     jobTitle: {
       fontFamily: getFontFamily(currentTypography.font) || "Nunito",
-      fontSize: getFontSize1(currentTypography.size) || 8,
+      fontSize: (parseInt(getFontSize1(currentTypography.size))-1).toString() || 8,
       fontWeight: "bold",
     },
     companyDetails: {
@@ -341,7 +342,7 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
       display: "flex",
       flexDirection: "row", // Display items in a row
       flexWrap: "wrap", // Allow wrapping to the next line
-      gap: 4, // Add space between items
+      gap: 2, // Add space between items
       // marginTop: 10,
     },
     skill: {

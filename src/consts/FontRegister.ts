@@ -5,19 +5,18 @@ import Nunito_bold from './Nunito_Bold.ttf';
 import times_new_roman from './times_new_roman.ttf';
 import times_new_roman_bold from './times_new_roman_bold.ttf';
 import calibri from './calibri-regular.ttf';
-import calibri_bold from './calibri-regular.ttf';
+import calibri_bold from './calibri-bold.ttf';
 import Arial from './ARIAL.ttf';
-// import Arial_bold from './ARIALBD.ttf';
+import Arial_bold from './ARIALBD.ttf';
 import Helvetica from './Helvetica.ttf';
 import Helvetica_bold from './Helvetica-Bold.ttf';
 import Georgia from './georgia.ttf';
 import Georgia_bold from './georgiab.ttf';
 import Garamond from './garamond_[allfont.ru].ttf';
-import Garamond_bold from './garamond_[allfont.ru].ttf';
 import Verdana from './verdana.ttf';
 import Verdana_bold from './verdana-bold.ttf';
 import Tahoma from './tahoma.ttf';
-// import Tahoma_bold from './Tahoma-bold.ttf';
+import Tahoma_bold from './Tahoma-bold.ttf';
 import Cambria from './calibri-regular.ttf';
 import Cambria_bold from './calibri-regular.ttf';
 import trebuchet from './trebuc.ttf';
@@ -28,46 +27,28 @@ import Poppins from './Poppins-Regular.ttf';
 import Poppins_bold from './Poppins-Bold.ttf';
 
 const RegisterFonts = () => {
-    Font.register({family: "Nunito",src: Nunito,fontWeight: 'normal',});
-    Font.register({family: "Nunito",src: Nunito_bold,fontWeight: 'bold',});
+  const fonts = [
+    { family: 'Nunito', normal: Nunito, bold: Nunito_bold },
+    { family: 'Times New Roman', normal: times_new_roman, bold: times_new_roman_bold },
+    { family: 'Calibri', normal: calibri, bold: calibri_bold },
+    { family: 'Arial', normal: Arial, bold: Arial_bold },
+    { family: 'Helvetica', normal: Helvetica, bold: Helvetica_bold },
+    { family: 'Georgia', normal: Georgia, bold: Georgia_bold },
+    { family: 'Garamond', normal: Garamond, bold: Garamond }, // No separate bold provided
+    { family: 'Verdana', normal: Verdana, bold: Verdana_bold },
+    { family: 'Cambria', normal: Cambria, bold: Cambria_bold },
+    { family: 'Tahoma', normal: Tahoma, }, //bold: Tahoma_bold 
+    { family: 'Trebuchet', normal: trebuchet, bold: trebuchet_bold },
+    { family: 'Roboto Mono', normal: RobotoMono, bold: RobotoMono_bold },
+    { family: 'Poppins', normal: Poppins, bold: Poppins_bold },
+  ];
 
-    Font.register({family: "calibri",src: calibri,fontWeight: 'normal',});
-    Font.register({family: "calibri",src: calibri_bold,fontWeight: 'bold',});
-
-    // Font.register({family: "Arial",src: Arial, fontWeight: 'normal',});
-    // Font.register({family: "Arial",src: Arial_bold, fontWeight: 'bold',});
-
-    Font.register({family: "Helvetica",src: Helvetica,fontWeight: 'normal',});
-    Font.register({family: "Helvetica",src: Helvetica_bold,fontWeight: 'bold',});
-
-    Font.register({family: "Georgia",src: Georgia,fontWeight: 'normal',});
-    Font.register({family: "Georgia",src: Georgia_bold,fontWeight: 'bold',});
-
-    Font.register({family: "Garamond",src: Garamond,fontWeight: 'normal',});
-    Font.register({family: "Garamond",src: Garamond_bold,fontWeight: 'bold',});
-
-    Font.register({family: "Verdana",src: Verdana,fontWeight: 'normal',});
-    Font.register({family: "Verdana",src: Verdana_bold,fontWeight: 'bold',});
-
-    Font.register({family: "Tahoma",src: Tahoma, fontWeight: 'normal',});
-    // Font.register({family: "Tahoma",src: Tahoma_bold, fontWeight: 'bold',});
-
-    Font.register({family: "Cambria",src: Cambria,fontWeight: 'normal',});
-    Font.register({family: "Cambria",src: Cambria_bold,fontWeight: 'bold',});
-
-    Font.register({family: "trebuchet",src: trebuchet,fontWeight: 'normal',});
-    Font.register({family: "trebuchet",src: trebuchet_bold,fontWeight: 'bold',});    
-
-    Font.register({family: "Times New Roman",src: times_new_roman,fontWeight: 'normal',});
-    Font.register({family: "Times New Roman",src: times_new_roman_bold,fontWeight: 'bold',});
-
-    Font.register({family: "Roboto Mono",src: RobotoMono,});
-    Font.register({family: "Roboto Mono",src: RobotoMono_bold,fontWeight: 'bold',});
-
-    Font.register({family: "Poppins", src: Poppins, });
-    Font.register({family: "Poppins",src: Poppins_bold,fontWeight: 'bold',});
+  fonts.forEach(({ family, normal, bold }) => {
+    Font.register({ family, src: normal, fontWeight: 'normal' });
+    if (bold) {
+      Font.register({ family, src: bold, fontWeight: 'bold' });
+    }
+  });
 };
 
 export default RegisterFonts;
-
-

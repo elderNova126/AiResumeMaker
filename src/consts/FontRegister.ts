@@ -7,7 +7,7 @@ import times_new_roman_bold from './times_new_roman_bold.ttf';
 import calibri from './calibri-regular.ttf';
 import calibri_bold from './calibri-regular.ttf';
 import Arial from './ARIAL.ttf';
-import Arial_bold from './ARIALBD.ttf';
+// import Arial_bold from './ARIALBD.ttf';
 import Helvetica from './Helvetica.ttf';
 import Helvetica_bold from './Helvetica-Bold.ttf';
 import Georgia from './georgia.ttf';
@@ -17,7 +17,7 @@ import Garamond_bold from './garamond_[allfont.ru].ttf';
 import Verdana from './verdana.ttf';
 import Verdana_bold from './verdana-bold.ttf';
 import Tahoma from './tahoma.ttf';
-import Tahoma_bold from './Tahoma-bold.ttf';
+// import Tahoma_bold from './Tahoma-bold.ttf';
 import Cambria from './calibri-regular.ttf';
 import Cambria_bold from './calibri-regular.ttf';
 import trebuchet from './trebuc.ttf';
@@ -34,8 +34,8 @@ const RegisterFonts = () => {
     Font.register({family: "calibri",src: calibri,fontWeight: 'normal',});
     Font.register({family: "calibri",src: calibri_bold,fontWeight: 'bold',});
 
-    Font.register({family: "Arial",src: Arial,fontWeight: 'normal',});
-    Font.register({family: "Arial",src: Arial_bold,fontWeight: 'bold',});
+    // Font.register({family: "Arial",src: Arial, fontWeight: 'normal',});
+    // Font.register({family: "Arial",src: Arial_bold, fontWeight: 'bold',});
 
     Font.register({family: "Helvetica",src: Helvetica,fontWeight: 'normal',});
     Font.register({family: "Helvetica",src: Helvetica_bold,fontWeight: 'bold',});
@@ -49,8 +49,8 @@ const RegisterFonts = () => {
     Font.register({family: "Verdana",src: Verdana,fontWeight: 'normal',});
     Font.register({family: "Verdana",src: Verdana_bold,fontWeight: 'bold',});
 
-    Font.register({family: "Tahoma",src: Tahoma,fontWeight: 'normal',});
-    Font.register({family: "Tahoma",src: Tahoma_bold,fontWeight: 'bold',});
+    Font.register({family: "Tahoma",src: Tahoma, fontWeight: 'normal',});
+    // Font.register({family: "Tahoma",src: Tahoma_bold, fontWeight: 'bold',});
 
     Font.register({family: "Cambria",src: Cambria,fontWeight: 'normal',});
     Font.register({family: "Cambria",src: Cambria_bold,fontWeight: 'bold',});

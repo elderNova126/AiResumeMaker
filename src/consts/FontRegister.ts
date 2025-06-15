@@ -1,30 +1,31 @@
 import { Font } from '@react-pdf/renderer';
 
-import Nunito from './Nunito.ttf';
-import Nunito_bold from './Nunito_Bold.ttf';
-import times_new_roman from './times_new_roman.ttf';
-import times_new_roman_bold from './times_new_roman_bold.ttf';
-import calibri from './calibri-regular.ttf';
-import calibri_bold from './calibri-bold.ttf';
-import Arial from './ARIAL.ttf';
-import Arial_bold from './ARIALBD.ttf';
-import Helvetica from './Helvetica.ttf';
-import Helvetica_bold from './Helvetica-Bold.ttf';
-import Georgia from './georgia.ttf';
-import Georgia_bold from './georgiab.ttf';
-import Garamond from './garamond_[allfont.ru].ttf';
-import Verdana from './verdana.ttf';
-import Verdana_bold from './verdana-bold.ttf';
-import Tahoma from './tahoma.ttf';
-import Tahoma_bold from './Tahoma-bold.ttf';
-import Cambria from './calibri-regular.ttf';
-import Cambria_bold from './calibri-regular.ttf';
-import trebuchet from './trebuc.ttf';
-import trebuchet_bold from './trebuc.ttf';
-import RobotoMono from './RobotoMono-Regular.ttf';
-import RobotoMono_bold from './RobotoMono-Bold.ttf';
-import Poppins from './Poppins-Regular.ttf';
-import Poppins_bold from './Poppins-Bold.ttf';
+const Nunito = new URL('./Nunito.ttf', import.meta.url).href;
+const Nunito_bold = new URL('./Nunito_Bold.ttf', import.meta.url).href;
+const times_new_roman = new URL('./times_new_roman.ttf', import.meta.url).href;
+const times_new_roman_bold = new URL('./times_new_roman_bold.ttf', import.meta.url).href;
+const calibri = new URL('./calibri-regular.ttf', import.meta.url).href;
+const calibri_bold = new URL('./calibri-bold.ttf', import.meta.url).href;
+const Arial = new URL('./ARIAL.ttf', import.meta.url).href;
+const Arial_bold = new URL('./ARIALBD.ttf', import.meta.url).href;
+const Helvetica = new URL('./Helvetica.ttf', import.meta.url).href;
+const Helvetica_bold = new URL('./Helvetica-Bold.ttf', import.meta.url).href;
+const Georgia = new URL('./georgia.ttf', import.meta.url).href;
+const Georgia_bold = new URL('./georgiab.ttf', import.meta.url).href;
+const Garamond = new URL('./garamond_[allfont.ru].ttf', import.meta.url).href;
+const Verdana = new URL('./verdana.ttf', import.meta.url).href;
+const Verdana_bold = new URL('./verdana-bold.ttf', import.meta.url).href;
+const Tahoma = new URL('./tahoma.ttf', import.meta.url).href;
+const Tahoma_bold = new URL('./Tahoma-bold.ttf', import.meta.url).href;
+const Cambria = new URL('./calibri-regular.ttf', import.meta.url).href; // Using Calibri as Cambria is not available
+const Cambria_bold = new URL('./calibri-regular.ttf', import.meta.url).href; // Using Calibri as Cambria is not available
+const trebuchet = new URL('./trebuc.ttf', import.meta.url).href;
+const trebuchet_bold = new URL('./trebuc.ttf', import.meta.url).href; // No separate bold provided, using the same
+const RobotoMono = new URL('./RobotoMono-Regular.ttf', import.meta.url).href;
+const RobotoMono_bold = new URL('./RobotoMono-Bold.ttf', import.meta.url).href; // Assuming a separate bold is available
+const Poppins = new URL('./Poppins-Regular.ttf', import.meta.url).href;
+const Poppins_bold = new URL('./Poppins-Bold.ttf', import.meta.url).href; // Assuming a separate bold is available
+
 
 const RegisterFonts = () => {
   const fonts = [

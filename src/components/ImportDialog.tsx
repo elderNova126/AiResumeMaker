@@ -120,7 +120,7 @@ const ImportDialog = ({ onClose, onImport }: ImportDialogProps) => {
           {
             headers: {
               "Content-Type": "application/json",
-              Authorization: openai_key,
+              Authorization: `Bearer ${openai_key}`,
             },
           }
         );
@@ -169,6 +169,7 @@ const ImportDialog = ({ onClose, onImport }: ImportDialogProps) => {
       const extractedData = await parsePDFContent(file);
       // console.log("Extracted data:", extractedData);
       let structuredData;
+      console.log("openai_key========", openai_key);
       structuredData = await handleExtractData(extractedData);
       // console.log("structuredData file:", structuredData);
       // const mappedData = await mapToTemplate(structuredData);

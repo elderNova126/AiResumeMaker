@@ -601,9 +601,9 @@ const PreviewResumeATS: React.FC<PreviewResumeATSProps> = ({
             </View>
           ) : null}
         </View>
-        <View>
+        {/* <View>
           <Text style={{ ...styles.footer, fontFamily: 'Nunito' }}>Created by: aiResumeMaker.Online</Text>
-        </View>
+        </View> */}
       </Page>
     </Document>
     //</PDFViewer>

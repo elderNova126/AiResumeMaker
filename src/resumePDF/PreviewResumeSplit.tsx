@@ -604,9 +604,9 @@ const PreviewResumeSplit: React.FC<PreviewResumeSplitProps> = ({
 
           </View>
         </View>
-        <View>
+        {/* <View>
           <Text style={{...styles.footer, fontFamily: 'Nunito' }}>Created by: aiResumeMaker.Online</Text>
-        </View>
+        </View> */}
       </Page>
     </Document>
     //</PDFViewer>
